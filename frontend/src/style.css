@@ -1,0 +1,59 @@
+body {
+    margin: 0;
+    font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+    background-image: url(assets/images/golift.png), url(assets/images/vintage-background.png);
+    background-color: #fffeee;
+    color: #0084f6;
+    transition: background-image 0.6s;
+    background-position: 5px bottom, top; /* Center the image */
+    background-repeat: no-repeat, repeat; 
+    background-size: 100px, cover; /* Resize the background image to cover the entire container */
+    height: 100vh;
+    text-align: center;
+}
+
+body.dark-mode {
+    background-image: url(assets/images/golift.png), url(assets/images/dark-background.png);
+    background-color: #1d3040;
+    color: #fffeee;
+}
+
+@font-face {
+    font-family: "Nunito";
+    font-style: normal;
+    font-weight: 400;
+    src: local(""),
+    url("assets/fonts/nunito-v16-latin-regular.woff2") format("woff2");
+}
+
+body .navbar {
+  background-image: linear-gradient(to right, #334858 , #8596a0);
+}
+
+body.dark-mode .navbar {
+    --bs-nav-link-color: #152028;
+    --bs-navbar-color: #b3bec6;
+  background-image: linear-gradient(to left, #13171a , #334858);
+}
+
+body.dark-mode .navbar-brand {
+  color: #13171a;
+}
+
+body.dark-mode table {
+  color: #e1e6eb;
+}
+
+#app .nav-tabs {
+    border-color: #334858;
+    border-width: 2px;
+    --bs-nav-tabs-border-width: 2px;
+    --bs-nav-tabs-border-radius: 0.775rem;
+    --bs-nav-tabs-border-color: #334858;
+    --bs-nav-tabs-link-hover-border-color: #334858 #334858 #334858;
+    --bs-nav-tabs-link-active-color: #495057;
+    --bs-nav-tabs-link-active-bg: #dee2e6;
+    --bs-nav-tabs-link-active-border-color: #495057 #495057 #495057;
+  }

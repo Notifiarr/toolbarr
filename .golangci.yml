@@ -1,0 +1,34 @@
+issues:
+  exclude-rules:
+    # Exclude funlen for testing files.
+    - linters:
+        - nonamedreturns
+        - wsl
+        - cyclop
+        - nolintlint
+      path: 'cmd/'
+linters:
+  enable-all: true
+  disable:
+  # deprecated
+    - maligned
+    - scopelint
+    - interfacer
+    - golint
+    - exhaustivestruct
+    - nosnakecase
+    - structcheck
+    - deadcode
+    - varcheck
+    - ifshort
+    # unused
+    - exhaustruct
+    - exhaustive
+    - containedctx
+    - nlreturn
+    - contextcheck
+    # # unneeded (broken because of generics)
+    - rowserrcheck
+    - wastedassign
+run:
+  timeout: 5m

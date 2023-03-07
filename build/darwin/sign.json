@@ -1,0 +1,5 @@
+{
+    "source": ["build/bin/Toolbarr.app"],
+    "bundle_id": "com.notifiarr.toolbarr",
+    "sign": { "application_identity" : "1AE9653F18114B23927AF7FA6624EF74F95A4544" }
+}
