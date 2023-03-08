@@ -36,30 +36,31 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y libgtk-3-0 libwebkit2gtk-4.0-dev
-          wails build --platform linux/amd64 -webview2 embed -o toolbarr.amd64.linux
+          wails build -trimpath -platform linux/amd64 -webview2 embed -o toolbarr.amd64.linux
       - name: Build Linux ARM
         if: runner.os == 'Linux'
         uses: pguyot/arm-runner-action@v2
         with:
           base_image: https://raspi.debian.net/tested/20230102_raspi_4_bullseye.img.xz
           bind_mount_repository: true
-          image_additional_mb: 700
+          image_additional_mb: 900
           commands: |
+            echo "update_initramfs=no" >> /etc/initramfs-tools/update-initramfs.con
             apt update
             apt install -y libgtk-3-0 libwebkit2gtk-4.0-dev gcc wget
             wget https://go.dev/dl/go1.20.2.linux-arm64.tar.gz
             tar -C /usr/local -xzf go1.20.2.linux-arm64.tar.gz
             PATH=$PATH:/usr/local/go/bin
             go install github.com/wailsapp/wails/v2/cmd/wails@latest
-            wails build --platform linux/arm64 -webview2 embed -o toolbarr.arm64.linux
+            wails build -s -m -trimpath -platform linux/arm64 -webview2 embed -o toolbarr.arm64.linux
       - name: Build Windows
         if: runner.os == 'Windows'
         run: |
-          wails build --platform windows/amd64 -webview2 embed -o Toolbarr.amd64.exe
-          wails build --platform windows/arm64 -webview2 embed -o Toolbarr.arm64.exe
+          wails build -m -trimpath -platform windows/amd64 -webview2 embed -o Toolbarr.amd64.exe
+          wails build -m -trimpath -platform windows/arm64 -webview2 embed -o Toolbarr.arm64.exe
       - name: Build macOS
         if: runner.os == 'macOS'
-        run: wails build --platform darwin/universal
+        run: wails build -m -trimpath --platform darwin/universal -webview2 embed
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
