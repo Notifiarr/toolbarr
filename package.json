@@ -1,9 +1,0 @@
-{
-  "dependencies": {
-    "@fortawesome/free-brands-svg-icons": "^6.3.0",
-    "@fortawesome/free-solid-svg-icons": "^6.3.0",
-    "svelte-fa": "^3.0.3",
-    "svelte-toasts": "^1.1.2",
-    "sveltestrap": "^5.10.0"
-  }
-}
