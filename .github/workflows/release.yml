@@ -46,7 +46,7 @@ jobs:
           image_additional_mb: 300
           commands: |
             apt update
-            apt install -y libgtk-3-0 libwebkit2gtk-4.0-dev gcc-aarch64-linux-gnu wget
+            apt install -y libgtk-3-0 libwebkit2gtk-4.0-dev gcc wget
             wget https://go.dev/dl/go1.20.2.linux-arm64.tar.gz
             tar -C /usr/local -xzf go1.20.2.linux-arm64.tar.gz
             PATH=$PATH:/usr/local/go/bin
