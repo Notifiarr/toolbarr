@@ -11,7 +11,6 @@ on:
     - main
     - unstable
     - development
-    - dn2_1st # temporary
 jobs:
   package:
     strategy:
@@ -90,7 +89,7 @@ jobs:
 
   deploy-unstable-unstable:
     # description: "Uploads pre-built binaries to unstable.golift.io."
-    if: startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/dn2_1st'
+    if: startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/unstable'
     strategy:
       matrix:
         files: [toolbarr-windows-latest, toolbarr-macos-latest, toolbarr-ubuntu-latest]
