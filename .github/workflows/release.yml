@@ -16,7 +16,8 @@ jobs:
   package:
     strategy:
       matrix:
-        platform: [windows-latest, macos-latest]
+        platform: [windows-latest, macos-latest, ubuntu-latest]
+        architecture: [arm64, amd64]
     runs-on: ${{ matrix.platform }}
     steps:
       - uses: actions/checkout@v3
@@ -28,11 +29,25 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '19'
-      - name: Build App
+      - name: Installs Wails
+        run: go install github.com/wailsapp/wails/v2/cmd/wails@latest
+      - name: Build Linux
+        if: runner.os == 'Linux'
         run: |
-          go install github.com/wailsapp/wails/v2/cmd/wails@latest
-          wails build
-      - name: upload artifacts macOS
+          sudo apt update
+          sudo apt install -y libgtk-3-0 libwebkit2gtk-4.0-dev gcc-aarch64-linux-gnu
+          wails build --platform linux/amd64 toolbarr.amd64.linux
+          wails build --platform linux/arm64 toolbarr.arm64.linux
+        shell: bash
+      - name: Build Windows
+        if: runner.os == 'Windows'
+        run: |
+          wails build --platform windows/amd64 -o Toolbarr.amd64.exe
+          wails build --platform windows/arm64 -o Toolbarr.arm64.exe
+      - name: Build macOS
+        if: runner.os == 'macOS'
+        run: wails build --platform darwin/universal
+      - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
           name: toolbarr-${{ matrix.platform }}
