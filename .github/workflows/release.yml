@@ -36,10 +36,15 @@ jobs:
         run: |
           wails build -m -trimpath -platform windows/amd64 -webview2 embed -o Toolbarr.amd64.exe
           wails build -m -trimpath -platform windows/arm64 -webview2 embed -o Toolbarr.arm64.exe
+          choco install archive
+          archive create -o build/bin/Toolbarr.amd64.zip -C build/bin Toolbarr.amd64.exe
+          archive create -o build/bin/Toolbarr.arm64.zip -C build/bin Toolbarr.arm64.exe
 
       - name: Build macOS
         if: runner.os == 'macOS'
-        run: wails build -m -trimpath --platform darwin/universal -webview2 embed
+        run: |
+          wails build -m -trimpath --platform darwin/universal -webview2 embed
+          bash build/darwin/makedmg.sh
 
       - name: Build Linux AMD64
         if: runner.os == 'Linux'
@@ -47,9 +52,11 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y libgtk-3-0 libwebkit2gtk-4.0-dev
+          go mod vendor
           wails build -trimpath -platform linux/amd64 -webview2 embed -o toolbarr.amd64.linux
+          gzip -9 build/bin/toolbarr.arm64.linux
 
-      # This one sucked to figure out, and it's slow. 
+      # This one sucked to figure out, and it's slow, but it works!
       - name: Build Linux ARM
         if: runner.os == 'Linux'
         uses: pguyot/arm-runner-action@v2
@@ -64,11 +71,37 @@ jobs:
             wget https://go.dev/dl/go1.20.2.linux-arm64.tar.gz
             tar -C /usr/local -xzf go1.20.2.linux-arm64.tar.gz
             PATH=$PATH:/usr/local/go/bin
-            go run github.com/wailsapp/wails/v2/cmd/wails@latest \
-              build -s -m -trimpath -platform linux/arm64 -webview2 embed -o toolbarr.arm64.linux
+            GOFLAGS="-trimpath -mod=readonly" GOARCH=arm64 \
+              go build . -o build/bin/toolbarr.arm64.linux
+            gzip -9 build/bin/toolbarr.arm64.linux
+          # go run github.com/wailsapp/wails/v2/cmd/wails@latest \
+          #  build -s -m -trimpath -platform linux/arm64 -webview2 embed -o toolbarr.arm64.linux
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
           name: toolbarr-${{ matrix.platform }}
           path: build/bin/*
+
+  deploy-unstable-unstable:
+    # description: "Uploads pre-built binaries to unstable.golift.io."
+    if: startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/unstable'
+    strategy:
+      matrix:
+        files: [toolbarr-windows-latest, toolbarr-macos-latest, toolbarr-ubuntu-latest]
+    needs:
+      - package
+    name: Deploy Unstable
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Download files: ${{ matrix.files }}"
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ matrix.files }}
+      - name: Upload files to unstable.golift.io
+        run: >-
+          for file in *.{zip,dmg,gz}; do
+            [ -f "$file" ] || continue;
+            echo "Uploading: ${file}";
+            curl -sSH "X-API-KEY: ${{ secrets.UNSTABLE_UPLOAD_KEY }}" "https://unstable.golift.io/upload.php?folder=toolbarr" -F "file=@${file}";
+          done
