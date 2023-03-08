@@ -44,6 +44,7 @@ jobs:
         if: runner.os == 'macOS'
         run: |
           wails build -m -trimpath --platform darwin/universal -webview2 embed
+          brew install mitchellh/gon/gon
           bash build/darwin/makedmg.sh
 
       - name: Build Linux AMD64
