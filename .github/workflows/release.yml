@@ -77,7 +77,7 @@ jobs:
             tar -C /usr/local -xzf go1.20.2.linux-arm64.tar.gz
             PATH=$PATH:/usr/local/go/bin
             GOFLAGS="-trimpath -mod=readonly" GOARCH=arm64 \
-              go build . -o build/bin/toolbarr.arm64.linux
+              go build -o build/bin/toolbarr.arm64.linux .
             gzip -9 build/bin/toolbarr.arm64.linux
           # go run github.com/wailsapp/wails/v2/cmd/wails@latest \
           #  build -s -m -trimpath -platform linux/arm64 -webview2 embed -o toolbarr.arm64.linux
