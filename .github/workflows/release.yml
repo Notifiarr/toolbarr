@@ -37,6 +37,7 @@ jobs:
           wails build -m -trimpath -platform windows/amd64 -webview2 embed -o Toolbarr.amd64.exe
           wails build -m -trimpath -platform windows/arm64 -webview2 embed -o Toolbarr.arm64.exe
           choco install archive
+          refreshenv
           archive create -o build/bin/Toolbarr.amd64.zip -C build/bin Toolbarr.amd64.exe
           archive create -o build/bin/Toolbarr.arm64.zip -C build/bin Toolbarr.arm64.exe
 
