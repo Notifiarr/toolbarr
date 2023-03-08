@@ -1,4 +1,17 @@
-name: "Toolbarr Builder"
+name: build-and-release
+on:
+  push:
+    branches:
+      - unstable
+      - main
+    tags:
+      - v*
+  pull_request:
+    branches:
+    - main
+    - unstable
+    - development
+    - dn2_1st # temporary
 jobs:
   package:
     strategy:
