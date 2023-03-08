@@ -37,8 +37,8 @@ jobs:
           wails build -m -trimpath -platform windows/amd64 -webview2 embed -o Toolbarr.amd64.exe
           wails build -s -m -trimpath -platform windows/arm64 -webbuild/binview2 embed -o Toolbarr.arm64.exe
           cd build/bin
-          7zip a Toolbarr.amd64.zip Toolbarr.amd64.exe
-          7zip a Toolbarr.arm64.zip Toolbarr.arm64.exe
+          7z a Toolbarr.amd64.zip Toolbarr.amd64.exe
+          7z a Toolbarr.arm64.zip Toolbarr.arm64.exe
 
       - name: Build macOS
         if: runner.os == 'macOS'
