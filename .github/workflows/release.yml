@@ -43,6 +43,7 @@ jobs:
         with:
           base_image: https://raspi.debian.net/tested/20230102_raspi_4_bullseye.img.xz
           bind_mount_repository: true
+          image_additional_mb: 300
           commands: |
             apt update
             apt install -y libgtk-3-0 libwebkit2gtk-4.0-dev gcc-aarch64-linux-gnu wget
