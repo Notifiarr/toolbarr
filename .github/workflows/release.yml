@@ -30,14 +30,23 @@ jobs:
           node-version: '19'
       - name: Installs Wails
         run: go install github.com/wailsapp/wails/v2/cmd/wails@latest
-      - name: Build Linux
+      - name: Build Linux AMD64
         if: runner.os == 'Linux'
+        shell: bash
         run: |
           sudo apt update
-          sudo apt install -y libgtk-3-0 libwebkit2gtk-4.0-dev gcc-aarch64-linux-gnu
-          wails build --platform linux/amd64 toolbarr.amd64.linux
-          wails build --platform linux/arm64 toolbarr.arm64.linux
-        shell: bash
+          sudo apt install -y libgtk-3-0 libwebkit2gtk-4.0-dev
+          wails build --platform linux/amd64 -o toolbarr.amd64.linux
+      - name: Build Linux ARM
+        if: runner.os == 'Linux'
+        uses: pguyot/arm-runner-action@v2
+        with:
+          base_image: raspi_4_bullseye:20230102
+          bind_mount_repository: true
+          commands: |
+            sudo apt update
+            sudo apt install -y libgtk-3-0 libwebkit2gtk-4.0-dev gcc-aarch64-linux-gnu
+            wails build --platform linux/arm64 toolbarr.arm64.linux
       - name: Build Windows
         if: runner.os == 'Windows'
         run: |
