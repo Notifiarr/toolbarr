@@ -44,12 +44,12 @@ jobs:
           base_image: https://raspi.debian.net/tested/20230102_raspi_4_bullseye.img.xz
           bind_mount_repository: true
           commands: |
+            apt update
+            apt install -y libgtk-3-0 libwebkit2gtk-4.0-dev gcc-aarch64-linux-gnu wget
             wget https://go.dev/dl/go1.20.2.linux-arm64.tar.gz
             tar -C /usr/local -xzf go1.20.2.linux-arm64.tar.gz
             PATH=$PATH:/usr/local/go/bin
             go install github.com/wailsapp/wails/v2/cmd/wails@latest
-            apt update
-            apt install -y libgtk-3-0 libwebkit2gtk-4.0-dev gcc-aarch64-linux-gnu
             wails build --platform linux/arm64 -webview2 embed -o toolbarr.arm64.linux
       - name: Build Windows
         if: runner.os == 'Windows'
