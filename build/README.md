@@ -1,19 +1,18 @@
 # Build Directory
 
-The build directory is used to house all the build files and assets for your application. 
+The build directory is used to house all the build files and assets for this application. 
 
 The structure is:
 
-* bin - Output directory
-* darwin - macOS specific files
-* windows - Windows specific files
+* bin - Output directory (not committed)
+* darwin - macOS specific build files
+* windows - Windows specific build files
 
 ## Mac
 
 The `darwin` directory holds files specific to Mac builds.
-These may be customised and used as part of the build. To return these files to the default state, simply delete them
-and
-build with `wails build`.
+These may be customised and used as part of the build. 
+To return these files to the default state, simply delete them and build with `wails build`.
 
 The directory contains the following files:
 
@@ -26,9 +25,7 @@ The `windows` directory contains the manifest and rc files used when building wi
 These may be customised for your application. To return these files to the default state, simply delete them and
 build with `wails build`.
 
-- `icon.ico` - The icon used for the application. This is used when building using `wails build`. If you wish to
-  use a different icon, simply replace this file with your own. If it is missing, a new `icon.ico` file
-  will be created using the `appicon.png` file in the build directory.
+- `icon.ico` - The icon used for the application. This is used when building using `wails build`.
 - `installer/*` - The files used to create the Windows installer. These are used when building using `wails build`.
 - `info.json` - Application details used for Windows builds. The data here will be used by the Windows installer,
   as well as the application itself (right click the exe -> properties -> details)

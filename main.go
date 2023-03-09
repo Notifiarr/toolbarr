@@ -46,7 +46,7 @@ func main() {
 		Title:              "Toolbarr",
 		Width:              1024,
 		Height:             720,
-		MinWidth:           776,
+		MinWidth:           480,
 		MinHeight:          600,
 		MaxWidth:           1500,
 		MaxHeight:          1200,

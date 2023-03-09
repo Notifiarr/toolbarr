@@ -1,6 +1,8 @@
 build/bin
 node_modules
 frontend/dist
-/toolbarr
+/toolbarr*
 .DS*
-/Toolbarr
+/Toolbarr*
+/*.new
+?

@@ -116,3 +116,10 @@
   <Starr {app} dark={conf.Dark} />
   {/if}
 </main>
+
+<style>
+  main {
+    /* Set main height to 100% minus nav bar height. */
+    height: calc(100% - 75px);
+  }
+</style>
