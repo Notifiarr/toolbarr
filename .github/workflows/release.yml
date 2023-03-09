@@ -42,20 +42,12 @@ jobs:
           BRANCH="$(git rev-parse --abbrev-ref HEAD || echo unknown)"
           jq ".info.productVersion = \"${VERSION}\"" wails.json > wails.json.new
           mv wails.json.new wails.json
-          VERSION_LDFLAGS="-X \"golift.io/version.Branch=${BRANCH} \(${COMMIT}\)\" \
-            -X \"golift.io/version.BuildDate=${DATE}\" \
-            -X \"golift.io/version.BuildUser=$(whoami || echo "unknown")\" \
-            -X \"golift.io/version.Revision=${ITERATION}\" \
-            -X \"golift.io/version.Version=${VERSION}\""
+          VERSION_LDFLAGS="-X \"golift.io/version.Branch=${BRANCH} ${COMMIT}\" \
+          -X \"golift.io/version.BuildDate=$(date -u +%Y-%m-%dT%H:%M:00Z)\" \
+          -X \"golift.io/version.BuildUser=$(whoami || echo "unknown")\" \
+          -X \"golift.io/version.Revision=${ITERATION}\" \
+          -X \"golift.io/version.Version=${VERSION}\""
           echo "VERSION_LDFLAGS=${VERSION_LDFLAGS}" >> $GITHUB_ENV
-
-      - name: Build Windows
-        if: runner.os == 'Linux'
-        run: |
-          wails build -m -trimpath -ldflags="${{ env.VERSION_LDFLAGS }}" -platform windows/amd64 -webview2 embed -o Toolbarr.amd64.exe
-          wails build -s -m -trimpath -ldflags="${{ env.VERSION_LDFLAGS }}" -platform windows/arm64 -webview2 embed -o Toolbarr.arm64.exe
-          zip -9D build/bin/Toolbarr.amd64.zip build/bin/Toolbarr.amd64.exe
-          zip -9D build/bin/Toolbarr.arm64.zip build/bin/Toolbarr.arm64.exe
 
       - name: Build macOS
         if: runner.os == 'macOS'
@@ -98,6 +90,13 @@ jobs:
             gzip -9 build/bin/toolbarr.arm64.linux
           # go run github.com/wailsapp/wails/v2/cmd/wails@latest \
           #  build -s -m -trimpath -platform linux/arm64 -webview2 embed -o toolbarr.arm64.linux
+      - name: Build Windows
+        if: runner.os == 'Linux'
+        run: |
+          wails build -s -m -trimpath -ldflags="${{ env.VERSION_LDFLAGS }}" -platform windows/amd64 -webview2 embed -o Toolbarr.amd64.exe
+          wails build -s -m -trimpath -ldflags="${{ env.VERSION_LDFLAGS }}" -platform windows/arm64 -webview2 embed -o Toolbarr.arm64.exe
+          zip -9D build/bin/Toolbarr.amd64.zip build/bin/Toolbarr.amd64.exe
+          zip -9D build/bin/Toolbarr.arm64.zip build/bin/Toolbarr.arm64.exe
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
