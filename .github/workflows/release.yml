@@ -108,8 +108,8 @@ jobs:
             --iteration ${{ env.REVISION }}
             --license MIT
             --url https://github.com/notifiarr/toolbarr
-            --maintainer "Go Lift <code@golift.io>"
             --vendor "Notifiarr <notifiarr.com>"
+            --maintainer "Go Lift <code@golift.io>"
             --description "The starr of the show."
         run: |
           echo "${GPG_SIGNING_KEY}" | gpg --import -
