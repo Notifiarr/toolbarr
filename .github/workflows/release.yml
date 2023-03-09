@@ -68,7 +68,8 @@ jobs:
 
       # This one sucked to figure out, and it's slow, but it works!
       - name: Build Linux ARM
-        if: runner.os == 'Linux' && (startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/unstable')
+        if: runner.os == 'Linux' 
+        # && (startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/unstable')
         uses: pguyot/arm-runner-action@v2
         with:
           base_image: https://cdimage.ubuntu.com/releases/22.10/release/ubuntu-22.10-preinstalled-desktop-arm64+raspi.img.xz
@@ -116,17 +117,17 @@ jobs:
           mkdir -p pkg/deb/{amd64,arm64}/usr/bin pkg/rpm/{x86_64,aarch64}/usr/bin
           cp build/bin/toolbarr.amd64 pkg/rpm/x86_64/usr/bin/toolbarr
           cp build/bin/toolbarr.amd64 pkg/deb/amd64/usr/bin/toolbarr
-          #cp build/bin/toolbarr.arm64 pkg/rpm/aarch64/usr/bin/toolbarr
-          #cp build/bin/toolbarr.arm64 pkg/deb/arm64/usr/bin/toolbarr
+          cp build/bin/toolbarr.arm64 pkg/rpm/aarch64/usr/bin/toolbarr
+          cp build/bin/toolbarr.arm64 pkg/deb/arm64/usr/bin/toolbarr
           RPMVERSION=$(echo ${{ env.VERSION }} | tr -- - _)
           eval fpm -s dir -t rpm ${PACKAGE_ARGS} -a x86_64 -v ${RPMVERSION} -C pkg/rpm/x86_64
           eval fpm -s dir -t deb ${PACKAGE_ARGS} -a amd64 -v ${{ env.VERSION }} -C pkg/deb/amd64
-          #fpm -s dir -t rpm ${PACKAGE_ARGS} -a aarch64 -v ${RPMVERSION} -C pkg/rpm/aarch64
-          #fpm -s dir -t deb ${PACKAGE_ARGS} -a arm64 -v ${{ env.VERSION }} -C pkg/deb/arm64
-          rpmsign --key-id="${KEYID}" --resign toolbarr-$(RPMVERSION)-${REVISION}.x86_64.rpm
+          fpm -s dir -t rpm ${PACKAGE_ARGS} -a aarch64 -v ${RPMVERSION} -C pkg/rpm/aarch64
+          fpm -s dir -t deb ${PACKAGE_ARGS} -a arm64 -v ${{ env.VERSION }} -C pkg/deb/arm64
+          rpmsign --key-id="${KEYID}" --resign toolbarr-${RPMVERSION}-${REVISION}.x86_64.rpm
           debsigs --default-key="${KEYID}" --sign=origin toolbarr_${{ env.VERSION }}-${REVISION}_amd64.deb
-          #rpmsign --key-id="${KEYID}" --resign toolbarr-$(RPMVERSION)-${REVISION}.aarch64.rpm
-          #debsigs --default-key="${KEYID}" --sign=origin toolbarr_${{ env.VERSION }}-${REVISION}_arm64.deb
+          rpmsign --key-id="${KEYID}" --resign toolbarr-${RPMVERSION}-${REVISION}.aarch64.rpm
+          debsigs --default-key="${KEYID}" --sign=origin toolbarr_${{ env.VERSION }}-${REVISION}_arm64.deb
           mv *.deb *.rpm build/bin
           gzip -9 build/bin/toolbarr.*64
 
