@@ -5,7 +5,7 @@ go 1.20
 require (
 	github.com/gorilla/schema v1.2.0
 	github.com/mitchellh/go-homedir v1.1.0
-	github.com/wailsapp/wails/v2 v2.3.2-0.20230306202753-614c0235a530
+	github.com/wailsapp/wails/v2 v2.4.0
 	golift.io/rotatorr v0.0.0-20230110212846-590e84fecf74
 	golift.io/version v0.0.2
 )
