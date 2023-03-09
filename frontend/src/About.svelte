@@ -72,7 +72,7 @@
     <h3>App Info</h3>
     <Card  color={dark ? 'dark' : 'light'} body>
       <Table {dark} class="table">
-        <tr><td>Version</td><td>{version.Version}-{version.Revision} ({version.GoVersion})</td></tr>
+        <tr><td>Version</td><td>v{version.Version}-{version.Revision} ({version.GoVersion})</td></tr>
         <tr><td>Branch</td><td>{version.Branch}</td></tr>
         <tr><td>Built</td><td>{version.BuildDate} by {version.BuildUser}</td></tr>
         <tr>

@@ -60,8 +60,6 @@ github.com/valyala/fasttemplate v1.2.1 h1:TVEnxayobAdVkhQfrfes2IzOB6o+z4roRkPF52
 github.com/valyala/fasttemplate v1.2.1/go.mod h1:KHLXt3tVN2HBp8eijSv/kGJopbvo7S+qRAEEKiv+SiQ=
 github.com/wailsapp/mimetype v1.4.1 h1:pQN9ycO7uo4vsUUuPeHEYoUkLVkaRntMnHJxVwYhwHs=
 github.com/wailsapp/mimetype v1.4.1/go.mod h1:9aV5k31bBOv5z6u+QP8TltzvNGJPmNJD4XlAL3U+j3o=
-github.com/wailsapp/wails/v2 v2.3.2-0.20230306202753-614c0235a530 h1:SC4y9EOin+Q+VNEpJdKaPCHPJnzXiv6fMpBlT0axpbo=
-github.com/wailsapp/wails/v2 v2.3.2-0.20230306202753-614c0235a530/go.mod h1:vZcnqeAmmvKHLr+Vk2hXqcuKJpOZ1sgNV6pWMKQRDck=
 github.com/wailsapp/wails/v2 v2.4.0 h1:w0uXfFUlldzDGTQJ6fprvJUWEikDP3rgst47Hfe6v8A=
 github.com/wailsapp/wails/v2 v2.4.0/go.mod h1:jbOZbcr/zm79PxXxAjP8UoVlDd9wLW3uDs+isIthDfs=
 github.com/yuin/goldmark v1.3.5/go.mod h1:mwnBkeHKe2W/ZEtQ+71ViKU8L12m81fl3OWwC1Zlc8k=
