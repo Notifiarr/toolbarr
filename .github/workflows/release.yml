@@ -19,6 +19,9 @@ jobs:
     runs-on: ${{ matrix.platform }}
     steps:
       - uses: actions/checkout@v3
+        with:
+          # we need the whole thing so we can count commits.
+          fetch-depth: '0'
       - name: Install Go
         uses: actions/setup-go@v3
         with:
@@ -36,10 +39,10 @@ jobs:
           [ "$VERSION" != "" ] || VERSION=0.0.0
           ITERATION=$(git rev-list --count --all || echo 0)
           COMMIT="$(git rev-parse --short HEAD || echo 0)"
-          GIT_BRANCH="$(git rev-parse --abbrev-ref HEAD || echo unknown)"
+          BRANCH="$(git rev-parse --abbrev-ref HEAD || echo unknown)"
           jq ".info.productVersion = \"${VERSION}\"" wails.json > wails.json.new
           mv wails.json.new wails.json
-          VERSION_LDFLAGS="-X \"golift.io/version.Branch=${BRANCH} (${COMMIT})\" \
+          VERSION_LDFLAGS="-X \"golift.io/version.Branch=${BRANCH} \(${COMMIT}\)\" \
             -X \"golift.io/version.BuildDate=${DATE}\" \
             -X \"golift.io/version.BuildUser=$(whoami || echo "unknown")\" \
             -X \"golift.io/version.Revision=${ITERATION}\" \
