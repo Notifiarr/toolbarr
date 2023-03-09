@@ -111,7 +111,7 @@ jobs:
             --maintainer "Go Lift <code@golift.io>"
             --vendor "Notifiarr <notifiarr.com>"
             --description "The starr of the show."
-        run:
+        run: |
           echo "${GPG_SIGNING_KEY}" | gpg --import -
           mkdir -p pkg/{rpm,deb}/{amd64,arm64}/usr/bin
           cp build/bin/toolbarr.amd64 pkg/rpm/x86_64/usr/bin/toolbarr
