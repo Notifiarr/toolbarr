@@ -1,0 +1,7 @@
+{
+    "notarize": [{
+      "path": "build/bin/Toolbarr.dmg",
+      "bundle_id": "com.notifiarr.toolbarr",
+      "staple": true
+    }]
+}

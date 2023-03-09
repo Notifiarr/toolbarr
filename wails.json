@@ -1,0 +1,20 @@
+{
+  "$schema": "https://wails.io/schemas/config.v2.json",
+  "name": "Toolbarr",
+  "outputfilename": "Toolbarr",
+  "frontend:install": "npm install",
+  "frontend:build": "npm run build",
+  "frontend:dev:watcher": "npm run dev",
+  "frontend:dev:serverUrl": "auto",
+  "author": {
+    "name": "Go Lift",
+    "email": "code@golift.io"
+  },
+  "info": {
+    "companyName": "Notifiarr",
+    "productName": "Toolbarr",
+    "productVersion": "0.0.0",
+    "copyright": "Copyright 2023 Notifiarr (https://notifiarr.com)",
+    "comments": "The starr of the show."
+  }
+}

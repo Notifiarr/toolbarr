@@ -1,0 +1,123 @@
+name: build-and-release
+on:
+  push:
+    branches:
+      - unstable
+      - main
+    tags:
+      - v*
+jobs:
+  package:
+    strategy:
+      matrix:
+        platform: [macos-latest, ubuntu-latest]
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          # we need the whole thing so we can count commits.
+          fetch-depth: '0'
+      - name: Install Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: '1.20'
+      - name: setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '19'
+      - name: Installs Wails
+        run: go install github.com/wailsapp/wails/v2/cmd/wails@latest
+
+      - name: Inject Version Info
+        run: |
+          VERSION=$(git describe --abbrev=0 --tags $(git rev-list --tags --max-count=1) | tr -d v)
+          [ "$VERSION" != "" ] || VERSION=0.0.0
+          ITERATION=$(git rev-list --count --all || echo 0)
+          COMMIT="$(git rev-parse --short HEAD || echo 0)"
+          BRANCH="$(git rev-parse --abbrev-ref HEAD || echo unknown)"
+          jq ".info.productVersion = \"${VERSION}\"" wails.json > wails.json.new
+          mv wails.json.new wails.json
+          VERSION_LDFLAGS="-X \"golift.io/version.Branch=${BRANCH} ${COMMIT}\" \
+          -X \"golift.io/version.BuildDate=$(date -u +%Y-%m-%dT%H:%M:00Z)\" \
+          -X \"golift.io/version.BuildUser=$(whoami || echo "unknown")\" \
+          -X \"golift.io/version.Revision=${ITERATION}\" \
+          -X \"golift.io/version.Version=${VERSION}\""
+          echo "VERSION_LDFLAGS=${VERSION_LDFLAGS}" >> $GITHUB_ENV
+
+      - name: Build macOS
+        if: runner.os == 'macOS'
+        env:
+          APPLE_SIGNING_KEY: ${{ secrets.APPLE_SIGNING_KEY }}
+          AC_USERNAME: ${{ secrets.AC_USERNAME }}
+          AC_PASSWORD: ${{ secrets.AC_PASSWORD }}
+        run: |
+          wails build -m -trimpath --platform darwin/universal -webview2 embed -ldflags='${{ env.VERSION_LDFLAGS }}'
+          brew install mitchellh/gon/gon
+          build/darwin/makedmg.sh
+
+      - name: Build Linux AMD64
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          sudo apt update
+          sudo apt install -y libgtk-3-0 libwebkit2gtk-4.0-dev
+          go mod vendor
+          wails build -trimpath -platform linux/amd64 -webview2 embed -o toolbarr.amd64.linux -ldflags='${{ env.VERSION_LDFLAGS }}'
+          gzip -9 build/bin/toolbarr.amd64.linux
+
+      # This one sucked to figure out, and it's slow, but it works!
+      - name: Build Linux ARM
+        if: runner.os == 'Linux'
+        uses: pguyot/arm-runner-action@v2
+        with:
+          base_image: https://cdimage.ubuntu.com/releases/22.10/release/ubuntu-22.10-preinstalled-desktop-arm64+raspi.img.xz
+          bind_mount_repository: true
+          image_additional_mb: 900
+          commands: |
+            echo "update_initramfs=no" >> /etc/initramfs-tools/update-initramfs.conf
+            apt update
+            apt install -y libgtk-3-0 libwebkit2gtk-4.0-dev gcc wget
+            wget https://go.dev/dl/go1.20.2.linux-arm64.tar.gz
+            tar -C /usr/local -xzf go1.20.2.linux-arm64.tar.gz
+            PATH=$PATH:/usr/local/go/bin
+            GOFLAGS="-trimpath -mod=readonly" GOARCH=arm64 \
+              go build -o build/bin/toolbarr.arm64.linux -ldflags='${{ env.VERSION_LDFLAGS }}' .
+            gzip -9 build/bin/toolbarr.arm64.linux
+          # go run github.com/wailsapp/wails/v2/cmd/wails@latest \
+          #  build -s -m -trimpath -platform linux/arm64 -webview2 embed -o toolbarr.arm64.linux
+      - name: Build Windows
+        if: runner.os == 'Linux'
+        run: |
+          wails build -s -m -trimpath -platform windows/amd64 -webview2 embed -o Toolbarr.amd64.exe -ldflags='${{ env.VERSION_LDFLAGS }}'
+          wails build -s -m -trimpath -platform windows/arm64 -webview2 embed -o Toolbarr.arm64.exe -ldflags='${{ env.VERSION_LDFLAGS }}'
+          zip -9D build/bin/Toolbarr.amd64.zip build/bin/Toolbarr.amd64.exe
+          zip -9D build/bin/Toolbarr.arm64.zip build/bin/Toolbarr.arm64.exe
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: toolbarr-${{ matrix.platform }}
+          path: build/bin/*
+
+  deploy-unstable-unstable:
+    # description: "Uploads pre-built binaries to unstable.golift.io."
+    if: startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/unstable'
+    strategy:
+      matrix:
+        files: [toolbarr-macos-latest, toolbarr-ubuntu-latest]
+    needs:
+      - package
+    name: Deploy Unstable
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Download files: ${{ matrix.files }}"
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ matrix.files }}
+      - name: Upload files to unstable.golift.io
+        run: >-
+          for file in *.{zip,dmg,gz}; do
+            [ -f "$file" ] || continue;
+            echo "Uploading: ${file}";
+            curl -sSH "X-API-KEY: ${{ secrets.UNSTABLE_UPLOAD_KEY }}" "https://unstable.golift.io/upload.php?folder=toolbarr" -F "file=@${file}";
+          done
