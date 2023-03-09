@@ -1,8 +1,29 @@
 <script>
-    import Fa from "svelte-fa"
-    import {faGithub, faDiscord} from "@fortawesome/free-brands-svg-icons"
-    import {BrowserOpenURL} from "../wailsjs/runtime"
-    import {Container, Row, Table, Col} from "sveltestrap"
+  export let dark
+  import Fa from "svelte-fa"
+  import {faGithub, faDiscord} from "@fortawesome/free-brands-svg-icons"
+  import {BrowserOpenURL} from "../wailsjs/runtime"
+  import {Version} from "../wailsjs/go/app/App"
+  import {Container, Row, Table, Col, Card, Tooltip} from   "sveltestrap"
+	import { tweened } from 'svelte/motion';
+  
+  let version
+  let timer
+  Version().then(result => {
+    version = result
+    timer = tweened(version.Running)
+  })
+
+  setInterval(() => {
+    if ($timer > 0) $timer++;
+  }, 1000);
+
+  $: days = Math.floor($timer / 86400);
+  $: hours = Math.floor(($timer - (days * 86400)) / 3600);
+  $: minutes = Math.floor(($timer - (days * 86400) - (hours * 3600)) / 60);
+  $: seconds = Math.floor(($timer - (days * 86400) - (hours * 3600) - (minutes * 60)))
+  $: uptime = (days > 0 ? days + 'd ' : '') + (hours > 0 ? hours + 'h ' : '') + 
+        (minutes > 0 ? minutes + 'm ' : '') + (seconds > 0 ? seconds + 's ' : '')
 </script>
 
 <Container>
@@ -11,8 +32,9 @@
     <p>
       Toolbarr fixes problems with Starr apps. It comes with a five starr rating from <a href="#top" on:click={() => (BrowserOpenURL("https://toys-arr.us"))}>Toys Arr Us</a>!
     </p>
-    <Col>
-      <Table class="table">
+    <Col md="6">
+      <h3>Development</h3>
+      <Table {dark} class="table">
         <tr>
           <td style="width:180px;"><a href="#top" on:click={() => (BrowserOpenURL("https://github.com/Notifiarr/toolbarr"))}><Fa icon={faGithub} /> Toolbarr GitHub</a></td> 
           <td>Take a visit to the sausage factory.</td>
@@ -25,8 +47,9 @@
           <td><a href="#top" on:click={() => (BrowserOpenURL("https://golift.io/discord"))}><Fa fw icon={faDiscord} /> Go Lift Discord</a></td>
           <td>Where the codes get cooked.</td>
         </tr>
-    </Table>
-  </Col>
+      </Table>
+    </Col>
+    <Col md="6">
     <h3>Attribution</h3>
     <p>
       <li>
@@ -42,6 +65,24 @@
         using <a href="#top" on:click={() => (BrowserOpenURL("https://wails.io"))}>Wails</a>.
       </li>
     </p>
+  </Col>
   </Row>
+  {#if version}
+  <Col md="6">
+    <h3>App Info</h3>
+    <Card  color={dark ? 'dark' : 'light'} body>
+      <Table {dark} class="table">
+        <tr><td>Version</td><td>{version.Version}-{version.Revision} ({version.GoVersion})</td></tr>
+        <tr><td>Branch</td><td>{version.Branch}</td></tr>
+        <tr><td>Built</td><td>{version.BuildDate} by {version.BuildUser}</td></tr>
+        <tr>
+          <td>Running</td>
+          <Tooltip target="runningTime" placement="bottom">Running Since:<br>{version.Started}</Tooltip>
+          <td id="runningTime">{uptime}</td>
+          </tr>
+      </Table>
+    </Card>
+  </Col>
+  {/if}
 </Container>
 

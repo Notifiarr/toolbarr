@@ -3,10 +3,12 @@ package app
 import (
 	"fmt"
 	"runtime"
+	"time"
 
 	"github.com/Notifiarr/toolbarr/pkg/config"
 	"github.com/gorilla/schema"
 	wailsRuntime "github.com/wailsapp/wails/v2/pkg/runtime"
+	"golift.io/version"
 )
 
 //nolint:gochecknoglobals // this is supposed to be global.
@@ -54,4 +56,28 @@ func (a *App) PickFolder(id string) (string, error) {
 	}
 
 	return dir, nil
+}
+
+type Version struct {
+	Version   string
+	Revision  string
+	Branch    string
+	BuildUser string
+	BuildDate string
+	GoVersion string
+	Started   string
+	Running   int
+}
+
+func (a *App) Version() Version {
+	return Version{
+		Version:   version.Version,
+		Revision:  version.Revision,
+		Branch:    version.Branch,
+		BuildUser: version.BuildUser,
+		BuildDate: version.BuildDate,
+		GoVersion: runtime.Version(),
+		Started:   version.Started.Round(time.Second).String(),
+		Running:   int(time.Since(version.Started).Seconds()),
+	}
 }

@@ -105,7 +105,7 @@
   {#if app == "Toolbarr" }
   <Landing />
   {:else if app == "About"}
-  <About />
+  <About dark={conf.Dark} />
   {:else if app == "Toolbox" }
   <Toolbox />
   {:else if app == "Links" }
