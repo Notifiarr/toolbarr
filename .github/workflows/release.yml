@@ -42,6 +42,8 @@ jobs:
           -X \"golift.io/version.Revision=${REVISION}\" \
           -X \"golift.io/version.Version=${VERSION}\""
           echo "VERSION_LDFLAGS=${VERSION_LDFLAGS}" >> $GITHUB_ENV
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
+          echo "REVISION=${REVISION}" >> $GITHUB_ENV
 
       - name: Build macOS
         if: runner.os == 'macOS' && (startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/unstable')
@@ -59,10 +61,10 @@ jobs:
         shell: bash
         run: |
           sudo apt update
-          sudo apt install -y libgtk-3-0 libwebkit2gtk-4.0-dev
+          sudo apt install -y libgtk-3-0 libwebkit2gtk-4.0-dev nsis osslsigncode rpm fakeroot zip debsigs gnupg jq
+          gem install --no-document fpm
           go mod vendor
           wails build -trimpath -platform linux/amd64 -webview2 embed -o toolbarr.amd64 -ldflags='${{ env.VERSION_LDFLAGS }}'
-          gzip -9 build/bin/toolbarr.amd64
 
       # This one sucked to figure out, and it's slow, but it works!
       - name: Build Linux ARM
@@ -81,14 +83,50 @@ jobs:
             PATH=$PATH:/usr/local/go/bin
             GOFLAGS="-trimpath -mod=readonly" GOARCH=arm64 \
               go build -o build/bin/toolbarr.arm64 -ldflags='${{ env.VERSION_LDFLAGS }}' .
-            gzip -9 build/bin/toolbarr.arm64
+
       - name: Build Windows
-        if: runner.os == 'Linux'
+        if: runner.os == 'Windows'
+        env:
+          EXE_SIGNING_KEY: ${{ secrets.EXE_SIGNING_KEY }}
+          EXE_SIGNING_KEY_PASSWORD: ${{ secrets.EXE_SIGNING_KEY_PASSWORD }}
         run: |
-          wails build -s -m -trimpath -platform windows/amd64 -webview2 embed -o Toolbarr.amd64.exe -ldflags='${{ env.VERSION_LDFLAGS }}'
-          wails build -s -m -trimpath -platform windows/arm64 -webview2 embed -o Toolbarr.arm64.exe -ldflags='${{ env.VERSION_LDFLAGS }}'
-          zip -9D build/bin/Toolbarr.amd64.zip build/bin/Toolbarr.amd64.exe
-          zip -9D build/bin/Toolbarr.arm64.zip build/bin/Toolbarr.arm64.exe
+          wails build -s -m -trimpath -platform windows/amd64 -nsis -webview2 embed -o Toolbarr.amd64.exe -ldflags='${{ env.VERSION_LDFLAGS }}'
+          wails build -s -m -trimpath -platform windows/arm64 -nsis -webview2 embed -o Toolbarr.arm64.exe -ldflags='${{ env.VERSION_LDFLAGS }}'
+          build/windows/signexe.sh
+          for FILE in build/bin/*.exe; do zip -9D "${FILE%.*}.zip" "${FILE}"; done
+
+      - name: Package Linux Binaries
+        if: runner.os == 'Linux'
+        # && (startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/unstable')
+        env:
+          KEYID: B93DD66EF98E54E2EAE025BA0166AD34ABC5A57C
+          GPG_SIGNING_KEY: ${{ secrets.GPG_SIGNING_KEY }}
+          PACKAGE_ARGS: >-
+            --name toolbarr
+            --deb-no-default-config-files
+            --rpm-os linux
+            --iteration ${{ env.REVISION }}
+            --license MIT
+            --url https://github.com/notifiarr/toolbarr
+            --maintainer "Go Lift <code@golift.io>"
+            --vendor "Notifiarr <notifiarr.com>"
+            --description "The starr of the show."
+        run:
+          echo "${GPG_SIGNING_KEY}" | gpg --import -
+          mkdir -p pkg/{rpm,deb}/{amd64,arm64}/usr/bin
+          cp build/bin/toolbarr.amd64 pkg/rpm/x86_64/usr/bin/toolbarr
+          cp build/bin/toolbarr.amd64 pkg/deb/amd64/usr/bin/toolbarr
+          cp build/bin/toolbarr.arm64 pkg/rpm/aarch64/usr/bin/toolbarr
+          cp build/bin/toolbarr.arm64 pkg/deb/arm64/usr/bin/toolbarr
+          RPMVERSION=$(echo ${{ env.VERSION }} | tr -- - _)
+          fpm -s dir -t rpm ${PACKAGE_ARGS} -a x86_64 -v ${RPMVERSION} -C pkg/rpm/x86_64
+	        fpm -s dir -t deb ${PACKAGE_ARGS} -a amd64 -v ${{ env.VERSION }} -C pkg/deb/amd64
+          fpm -s dir -t rpm ${PACKAGE_ARGS} -a aarch64 -v ${RPMVERSION} -C pkg/rpm/aarch64
+	        fpm -s dir -t deb ${PACKAGE_ARGS} -a arm64 -v ${{ env.VERSION }} -C pkg/deb/arm64
+          rpmsign --key-id="${KEYID}" --resign toolbarr-$(RPMVERSION)-${REVISION}.x86_64.rpm
+          debsigs --default-key="${KEYID}" --sign=origin toolbarr_${{ env.VERSION }}-${REVISION}_amd64.deb
+          gzip -9 build/bin/toolbarr.amd64
+          gzip -9 build/bin/toolbarr.arm64
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3

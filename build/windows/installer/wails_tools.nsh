@@ -5,19 +5,19 @@
 !include "FileFunc.nsh"
 
 !ifndef INFO_PROJECTNAME
-    !define INFO_PROJECTNAME "{{.Name}}"
+    !define INFO_PROJECTNAME "Toolbarr"
 !endif
 !ifndef INFO_COMPANYNAME
-    !define INFO_COMPANYNAME "{{.Info.CompanyName}}"
+    !define INFO_COMPANYNAME "Notifiarr"
 !endif
 !ifndef INFO_PRODUCTNAME
-    !define INFO_PRODUCTNAME "{{.Info.ProductName}}"
+    !define INFO_PRODUCTNAME "Toolbarr"
 !endif
 !ifndef INFO_PRODUCTVERSION
-    !define INFO_PRODUCTVERSION "{{.Info.ProductVersion}}"
+    !define INFO_PRODUCTVERSION "0.0.0"
 !endif
 !ifndef INFO_COPYRIGHT
-    !define INFO_COPYRIGHT "{{.Info.Copyright}}"
+    !define INFO_COPYRIGHT "Copyright 2023 Notifiarr (https://notifiarr.com)"
 !endif
 !ifndef PRODUCT_EXECUTABLE
     !define PRODUCT_EXECUTABLE "${INFO_PROJECTNAME}.exe"
@@ -132,6 +132,14 @@ RequestExecutionLevel "${REQUEST_EXECUTION_LEVEL}"
 
     SetRegView 64
     DeleteRegKey HKLM "${UNINST_KEY}"
+!macroend
+
+!macro wails.setShellContext
+    ${If} ${REQUEST_EXECUTION_LEVEL} == "admin"
+        SetShellVarContext all
+    ${else}
+        SetShellVarContext current
+    ${EndIf}
 !macroend
 
 # Install webview2 by launching the bootstrapper
