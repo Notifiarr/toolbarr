@@ -10,7 +10,7 @@ jobs:
   package:
     strategy:
       matrix:
-        platform: [macos-latest, ubuntu-latest]
+        platform: [ubuntu-latest]
     runs-on: ${{ matrix.platform }}
     steps:
       - uses: actions/checkout@v3
@@ -62,7 +62,7 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y libgtk-3-0 libwebkit2gtk-4.0-dev nsis osslsigncode rpm fakeroot zip debsigs gnupg jq
-          gem install --no-document fpm
+          sudo gem install --no-document fpm
           go mod vendor
           wails build -trimpath -platform linux/amd64 -webview2 embed -o toolbarr.amd64 -ldflags='${{ env.VERSION_LDFLAGS }}'
 
