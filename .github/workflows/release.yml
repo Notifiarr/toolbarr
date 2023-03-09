@@ -120,9 +120,9 @@ jobs:
           cp build/bin/toolbarr.arm64 pkg/deb/arm64/usr/bin/toolbarr
           RPMVERSION=$(echo ${{ env.VERSION }} | tr -- - _)
           fpm -s dir -t rpm ${PACKAGE_ARGS} -a x86_64 -v ${RPMVERSION} -C pkg/rpm/x86_64
-	        fpm -s dir -t deb ${PACKAGE_ARGS} -a amd64 -v ${{ env.VERSION }} -C pkg/deb/amd64
+          fpm -s dir -t deb ${PACKAGE_ARGS} -a amd64 -v ${{ env.VERSION }} -C pkg/deb/amd64
           fpm -s dir -t rpm ${PACKAGE_ARGS} -a aarch64 -v ${RPMVERSION} -C pkg/rpm/aarch64
-	        fpm -s dir -t deb ${PACKAGE_ARGS} -a arm64 -v ${{ env.VERSION }} -C pkg/deb/arm64
+          fpm -s dir -t deb ${PACKAGE_ARGS} -a arm64 -v ${{ env.VERSION }} -C pkg/deb/arm64
           rpmsign --key-id="${KEYID}" --resign toolbarr-$(RPMVERSION)-${REVISION}.x86_64.rpm
           debsigs --default-key="${KEYID}" --sign=origin toolbarr_${{ env.VERSION }}-${REVISION}_amd64.deb
           gzip -9 build/bin/toolbarr.amd64
