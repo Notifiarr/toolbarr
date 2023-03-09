@@ -32,15 +32,14 @@ jobs:
         run: |
           VERSION=$(git describe --abbrev=0 --tags $(git rev-list --tags --max-count=1) | tr -d v)
           [ "$VERSION" != "" ] || VERSION=0.0.0
-          ITERATION=$(git rev-list --count --all || echo 0)
-          COMMIT="$(git rev-parse --short HEAD || echo 0)"
-          BRANCH="$(git rev-parse --abbrev-ref HEAD || echo unknown)"
+          REVISION=$(git rev-list --count --all || echo 0)
+          COMMIT=$(echo "${{github.sha}}" | head -c 7)
           jq ".info.productVersion = \"${VERSION}\"" wails.json > wails.json.new
           mv wails.json.new wails.json
-          VERSION_LDFLAGS="-X \"golift.io/version.Branch=${BRANCH} ${COMMIT}\" \
+          VERSION_LDFLAGS="-X \"golift.io/version.Branch=${{github.ref_name}} \(${COMMIT}\)\" \
           -X \"golift.io/version.BuildDate=$(date -u +%Y-%m-%dT%H:%M:00Z)\" \
           -X \"golift.io/version.BuildUser=$(whoami || echo "unknown")\" \
-          -X \"golift.io/version.Revision=${ITERATION}\" \
+          -X \"golift.io/version.Revision=${REVISION}\" \
           -X \"golift.io/version.Version=${VERSION}\""
           echo "VERSION_LDFLAGS=${VERSION_LDFLAGS}" >> $GITHUB_ENV
 
