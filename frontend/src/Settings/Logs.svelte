@@ -1,5 +1,4 @@
 <script>
-  export let dark
   import {
     Button,
     Input,
@@ -17,7 +16,7 @@
       title: "",
       description: (type=="error"?"Error: ":"") +msg,
       duration: 7000, // 0 or negative to avoid auto-remove
-      theme: dark ? "dark" : "light",
+      theme: conf.Dark ? "dark" : "light",
       type: type,
       onClick: () => {toast.remove()},
       showProgress: true,
@@ -29,38 +28,39 @@
   let conf = {}
   let isWindows = false
 
-  function init() {
-    GetConfig().then((result) => (conf = result))
-    IsWindows().then((result) => (isWindows = result))
-  }
-  init()
+  GetConfig().then((result) => (conf = result))
+  IsWindows().then((result) => (isWindows = result))
 
-  function saveInput(event) {
-    if (event.target.value == "") {
-      return
-    }
-
-    conf[event.target.id] = event.target.value
-    SaveConfigItem(event.target.name, event.target.value, true).then((msg) => {
+  function saveValue(name, id, val) {
+    if (val == "") { return }
+    SaveConfigItem(name, val, true).then((msg) => {
       showToast("success", msg)
-      validProps[event.target.name] = true
-      setInterval(() => {validProps[event.target.name]=false}, 5000)
+      validProps[id] = true
+      setInterval(() => {validProps[id]=false}, 5000)
     }, (error) => {
       showToast("error", error)
-      invalidProps[event.target.name] = false
+      invalidProps[id] = false
     })
   }
-  
+
+  function saveInput(event) {
+    saveValue(event.target.name, event.target.id, event.target.value)
+  }
+
+  // This func opens a 'pick a folder' dialog and populates the Log File Path with the selected value.
   function getLogFolder(event) {
     event.preventDefault()
-    PickFolder("Log File Path").then(path => (conf.Path = path != "" ? path : conf.Path), e => showToast("error", e))
+    PickFolder("Log File Path").then(path => (
+      saveValue('LogConfig.Path', 'Path', path),
+      conf.Path = path
+    ), e => showToast("error", e))
   }
 </script>
 
-<InputGroup >
-  <Tooltip target="LogFilePath" placement="top">Must be a directory</Tooltip>
+<InputGroup>
+  <Tooltip target="Path" placement="top">Must be a directory</Tooltip>
   <InputGroupText>Log File Path</InputGroupText>
-  <Input readonly bind:valid={validProps.LogFilePath} bind:invalid={invalidProps.LogFilePath} on:change={saveInput} bind:value={conf.Path} placeholder="click browse to locate a log folder ->" id="Path" name="LogConfig.Path" />
+  <Input bind:valid={validProps.Path} bind:invalid={invalidProps.Path} bind:value={conf.Path} id="Path" name="LogConfig.Path" />
   <Button color="success" on:click={getLogFolder}>
     <Fa icon="{faFolderOpen}" />
     <span class="d-none d-md-inline-block">Browse</span>
@@ -68,8 +68,8 @@
 </InputGroup>
 <InputGroup>
   <InputGroupText>Log Level</InputGroupText>
-  <Input bind:valid={validProps.LogLevel} bind:invalid={invalidProps.LogFileMode} on:change={saveInput} type="select" name="LogConfig.Level" id="Level">
-    <option value="-1" selected={conf.Level < 0}>Logging Disabled</option>
+  <Input bind:valid={validProps.Level} bind:invalid={invalidProps.Level} on:change={saveInput} type="select" name="LogConfig.Level" id="Level">
+    <!-- option value="-1" selected={conf.Level < 0}>Logging Disabled</option -->
     <option value="0" selected={conf.Level == 0}>Normal Logging</option>
     <option value="1" selected={conf.Level == 1}>Debug Logging</option>
     <option value="2" selected={conf.Level == 2}>Trace Logging</option>
@@ -78,7 +78,7 @@
 {#if !isWindows}
 <InputGroup>
   <InputGroupText>Log File Mode</InputGroupText>
-  <Input bind:valid={validProps.LogFileMode} bind:invalid={invalidProps.LogFileMode} on:change={saveInput} type="select" name="LogConfig.Mode" id="Mode">
+  <Input bind:valid={validProps.Mode} bind:invalid={invalidProps.Mode} on:change={saveInput} type="select" name="LogConfig.Mode" id="Mode">
     <option value="-1">Default (UMask)</option>
     <option value="0600" selected={conf.Mode=="0600"}>0600 (rw-------)</option>
     <option value="0640" selected={conf.Mode=="0640"}>0640 (rw-r-----)</option>
@@ -89,13 +89,22 @@
 </InputGroup>
 {/if}
 <InputGroup>
-  <Tooltip target="LogFileSize" placement="top">Size in megabytes</Tooltip>
+  <Tooltip target="Size" placement="top">Rotate files when they reach this size</Tooltip>
   <InputGroupText>Log File Size</InputGroupText>
-  <Input bind:valid={validProps.LogFileSize} bind:invalid={invalidProps.LogFileSize} on:change={saveInput} value={conf.Size} type="number" name="LogConfig.Size" id="Size" min="1" max="100" />
+  <Input bind:valid={validProps.Size} bind:invalid={invalidProps.Size} on:change={saveInput} type="select" name="LogConfig.Size" id="Size">
+    {#each Array(20) as _, i}
+      <option value={i+1} selected={conf.Size==i+1}>{i+1} Megabyte{i==0?'':'s'}</option>
+    {/each}
+  </Input>
 </InputGroup>
 <InputGroup>
-  <Tooltip target="LogFiles" placement="top">How many files to keep when rotating</Tooltip>
+  <Tooltip target="Files" placement="top">How many files to keep when rotating</Tooltip>
   <InputGroupText>Log Files</InputGroupText>
-  <Input bind:valid={validProps.LogFiles} bind:invalid={invalidProps.LogFiles} on:change={saveInput} value={conf.Files} type="number" name="LogConfig.Files" id="Files" min="1" max="100" />
+  <Input valid={validProps.Files} bind:invalid={invalidProps.Files} on:change={saveInput} type="select" name="LogConfig.Files" id="Files">
+    <option value="0" selected={conf.Size==0}>Disable Rotation</option>
+    {#each Array(50) as _, i}
+      <option value={i+1} selected={conf.Size==i+1}>{i+1} File{i==0?'':'s'}</option>
+    {/each}
+  </Input>
 </InputGroup>
 

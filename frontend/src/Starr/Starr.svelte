@@ -1,6 +1,5 @@
 <script lang="ts">
   export let app
-  export let dark
   import {Container, Nav, NavLink, Row} from "sveltestrap"
   import Instances from "./Instances.svelte"
   import Database from "./Database.svelte"
@@ -17,7 +16,7 @@
   <br />
   <Container>
     <Row>
-      {#if activeTab == "Instances"}<Instances {app} {dark} />{/if}
+      {#if activeTab == "Instances"}<Instances {app} />{/if}
       {#if activeTab == "Database"}<Database {app} />{/if}
       {#if activeTab == "Source"}<Source {app} />{/if}
     </Row>

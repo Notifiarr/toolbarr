@@ -39,7 +39,15 @@ func (a *App) SaveConfigItem(name string, value string, reload bool) (string, er
 		a.config.Update(config)
 	}
 
-	return fmt.Sprintf("Config Item '%s' saved! Value: %s", name, value), err
+	msg := fmt.Sprintf("Config Item '%s' saved! Value: %s", name, value)
+	a.config.Print(msg)
+
+	if err != nil {
+		a.config.Print("Error writing config: " + err.Error())
+		return msg, fmt.Errorf("writing config: %w", err)
+	}
+
+	return msg, nil
 }
 
 // PickFolder opens the folder selector.

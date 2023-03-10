@@ -1,5 +1,4 @@
 <script>
-  export let dark
   import Fa from "svelte-fa"
   import {faGithub, faDiscord} from "@fortawesome/free-brands-svg-icons"
   import {BrowserOpenURL} from "../wailsjs/runtime"
@@ -7,6 +6,7 @@
   import {Container, Row, Table, Col, Card, Tooltip} from   "sveltestrap"
   import { tweened } from 'svelte/motion';
   import BGLogo from "./BackgroundLogo.svelte"
+  import {dark} from './Settings/store.js';
 
   let version
   let timer
@@ -36,7 +36,7 @@
       </p>
       <Col md="6">
         <h3>Development</h3>
-        <Table {dark} class="table">
+        <Table dark={$dark} class="table">
           <tr>
             <td style="width:180px;"><a href="#top" on:click={() => (BrowserOpenURL("https://github.com/Notifiarr/toolbarr"))}><Fa icon={faGithub} /> Toolbarr GitHub</a></td> 
             <td>Visit the sausage factory.</td>
@@ -72,8 +72,8 @@
     {#if version}
     <Col md="6">
       <h3>App Info</h3>
-      <Card  color={dark ? 'dark' : 'light'} body>
-        <Table {dark} class="table">
+      <Card  color={$dark ? 'dark' : 'light'} body>
+        <Table dark={$dark} class="table">
           <tr><td>Version</td><td>v{version.Version}-{version.Revision} ({version.GoVersion})</td></tr>
           <tr><td>Branch</td><td>{version.Branch}</td></tr>
           <tr><td>Created</td><td>{version.BuildDate} by {version.BuildUser}</td></tr>

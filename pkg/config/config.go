@@ -24,9 +24,14 @@ type Input struct {
 // Config is the data read and written to/from the config file.
 type Config struct {
 	*logs.LogConfig
+	Advanced
 	*logs.Logger
 	File string
 	Dark bool
+}
+
+type Advanced struct {
+	DevMode bool
 }
 
 // New returns a config with defaults.

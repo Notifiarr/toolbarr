@@ -1,5 +1,4 @@
 <script>
-  export let dark
   import { 
     Container,
     Form,
@@ -41,7 +40,7 @@
         </Nav>
         <br />
         {#if activeTab == "Advanced"}<Advanced />{/if}
-        {#if activeTab == "Logs"}<Logs {dark} />{/if}
+        {#if activeTab == "Logs"}<Logs />{/if}
       </Form>
     </Row>
   </Container>

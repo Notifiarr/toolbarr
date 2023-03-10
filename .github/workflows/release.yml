@@ -93,7 +93,7 @@ jobs:
           wails build -s -m -trimpath -platform windows/amd64 -nsis -webview2 embed -o Toolbarr.amd64.exe -ldflags='${{ env.VERSION_LDFLAGS }}'
           wails build -s -m -trimpath -platform windows/arm64 -nsis -webview2 embed -o Toolbarr.arm64.exe -ldflags='${{ env.VERSION_LDFLAGS }}'
           build/windows/signexe.sh
-          for FILE in build/bin/*.exe; do zip -9D "${FILE%.*}.zip" "${FILE}"; done
+          for FILE in build/bin/*.exe; do zip -9j "${FILE%.*}.zip" "${FILE}"; done
 
       - name: Package Linux Binaries
         if: runner.os == 'Linux' && (startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/unstable')
