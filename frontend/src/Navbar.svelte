@@ -28,7 +28,7 @@
   import bgDark from "./assets/images/dark-background.png"
   import {GetConfig, SaveConfigItem} from "../wailsjs/go/app/App"
   import {toasts}  from "svelte-toasts"
-  import {devMode, dark} from './Settings/store.js';
+  import {isLinux,isWindows,isMac,devMode, dark} from './Settings/store.js';
 
   let navIsOpen = false
   function toggleNavOpen(event) {
@@ -39,11 +39,14 @@
 
   const classes = window.document.body.classList
   
-  GetConfig().then(conf => (
-    $dark = conf.Dark,
-    $dark ? classes.add("dark-mode") : classes.remove("dark-mode"),
+  GetConfig().then(conf => {
+    $dark = conf.Dark
+    $dark ? classes.add("dark-mode") : classes.remove("dark-mode")
     $devMode = conf.DevMode
-  ))
+    $isLinux = conf.IsLinux
+    $isWindows = conf.IsWindows
+    $isMac = conf.IsMac
+  })
 
   function saveDark(event) {
     $dark = event.target.checked

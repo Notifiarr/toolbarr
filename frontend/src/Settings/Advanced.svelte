@@ -41,7 +41,7 @@
 </script>
 
 <InputGroup>
-  <InputGroupText>Dev Mode</InputGroupText>
+  <InputGroupText class="setting-name">Dev Mode</InputGroupText>
   <Input valid={validProps.DevMode} bind:invalid={invalidProps.DevMode} on:change={saveInput} value={dm} type="select" name="Advanced.DevMode" id="DevMode">
     <option value="true">Enabled</option>
     <option value="false">Disabled</option>

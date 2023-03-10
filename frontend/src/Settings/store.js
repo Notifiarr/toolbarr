@@ -6,4 +6,6 @@ import {writable} from 'svelte/store'
 export const devMode = writable(false)
 /* dark is here for convenience. */
 export const dark = writable(false)
-
+export const isWindows = writable(false)
+export const isLinux = writable(false)
+export const isMac = writable(false)
