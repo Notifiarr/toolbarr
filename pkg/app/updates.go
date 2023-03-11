@@ -65,7 +65,7 @@ func (a *App) DownloadUpdate() (string, error) {
 		return "", fmt.Errorf("%w: missing release, check first?", ErrInvalidInput)
 	}
 
-	filePath, err := update.DownloadURL(a.ctx, a.updates.release.CurrURL, "temp.file")
+	filePath, err := update.DownloadURL(a.ctx, a.updates.release.CurrURL, "temp.file", nil)
 	if err != nil {
 		return "", fmt.Errorf("downloading update: %w", err)
 	}
