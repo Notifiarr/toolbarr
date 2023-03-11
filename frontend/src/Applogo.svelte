@@ -11,7 +11,7 @@
   import sonarrLogo from "./assets/images/Sonarr.png"
   import whisparrLogo from "./assets/images/Whisparr.png"
   import Fa from "svelte-fa"
-  import {faBookBible,faLink} from "@fortawesome/free-solid-svg-icons"
+  import { faBookBible, faLink } from "@fortawesome/free-solid-svg-icons"
 </script>
 
 {#if app == "Lidarr"}

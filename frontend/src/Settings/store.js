@@ -1,4 +1,4 @@
-import {writable} from 'svelte/store'
+import { writable } from 'svelte/store'
 
 /* We have to save devMode in a store because it's "used" in Navbar,
  * but it's "changed" in a lower/included page: settings

@@ -1,7 +1,7 @@
 <script>
-  import {Input,InputGroup,InputGroupText,Tooltip} from "sveltestrap"
-  import {GetConfig} from "../../wailsjs/go/app/App.js"
-	import {devMode,dark} from './store.js'
+  import { Input, InputGroup, InputGroupText, Tooltip } from "sveltestrap"
+  import { GetConfig } from "../../wailsjs/go/app/App.js"
+	import { devMode, dark } from './store.js'
   import { saveValue } from "../funcs";
 
   let validProps = {}
@@ -22,7 +22,7 @@
 
 <InputGroup>
   <InputGroupText class="setting-name">Dev Mode</InputGroupText>
-  <Input valid={validProps.DevMode} bind:invalid={invalidProps.DevMode} on:change={saveInput} value={dm} type="select" name="Advanced.DevMode" id="DevMode">
+  <Input valid={validProps.DevMode} invalid={invalidProps.DevMode} on:change={saveInput} value={dm} type="select" name="Advanced.DevMode" id="DevMode">
     <option value="true">Enabled</option>
     <option value="false">Disabled</option>
   </Input>
@@ -30,7 +30,7 @@
 </InputGroup>
 <InputGroup>
   <InputGroupText class="setting-name">Updates</InputGroupText>
-  <Input valid={validProps.Updates} bind:invalid={invalidProps.Updates} value={conf.Updates} on:change={saveInput} type="select" name="Advanced.Updates" id="Updates">
+  <Input valid={validProps.Updates} invalid={invalidProps.Updates} value={conf.Updates} on:change={saveInput} type="select" name="Advanced.Updates" id="Updates">
     <option value="production">Production</option>
     <option value="unstable">Unstable</option>
   </Input>

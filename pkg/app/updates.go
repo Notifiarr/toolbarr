@@ -30,7 +30,7 @@ func (a *App) CheckUpdate() (*update.Update, error) {
 	)
 
 	if a.config.Updates == "unstable" {
-		release, err = update.CheckUnstable(a.ctx, "Toolbarr", version.Version+"-"+version.Revision)
+		release, err = update.CheckUnstable(a.ctx, "Toolbarr", version.Revision)
 	} else {
 		release, err = update.CheckGitHub(a.ctx, "Notifiarr/toolbarr", version.Version)
 	}

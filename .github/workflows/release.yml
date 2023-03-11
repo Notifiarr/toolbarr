@@ -179,7 +179,7 @@ jobs:
             [ -f "$file" ] || continue;
             echo "Uploading: ${file}";
             curl -sSH "X-API-KEY: ${{ secrets.UNSTABLE_UPLOAD_KEY }}" "https://unstable.golift.io/upload.php?folder=toolbarr" -F "file=@${file}";
-            echo '{"version":"${{needs.package.outputs.version}}","revision":"${{needs.package.outputs.revision}}","size":"'$(stat --printf="%s" ${file})'"}' >> ${file}.txt
+            echo '{"version":"${{needs.package.outputs.version}}","revision":${{needs.package.outputs.revision}},"size":'$(stat --printf="%s" ${file})'}' >> ${file}.txt
             curl -sSH "X-API-KEY: ${{ secrets.UNSTABLE_UPLOAD_KEY }}" "https://unstable.golift.io/upload.php?folder=toolbarr" -F "file=@${file}.txt";
           done
 

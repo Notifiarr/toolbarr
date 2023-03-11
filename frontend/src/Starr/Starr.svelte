@@ -1,6 +1,6 @@
 <script lang="ts">
   export let app
-  import {Container, Nav, NavLink, Row} from "sveltestrap"
+  import { Container, Nav, NavLink, Row } from "sveltestrap"
   import Instances from "./Instances.svelte"
   import Database from "./Database.svelte"
   import Source from "./Source.svelte"

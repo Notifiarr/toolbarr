@@ -2,8 +2,8 @@ package update
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
-	"io"
 	"net/http"
 	"runtime"
 	"strconv"
@@ -12,17 +12,19 @@ import (
 )
 
 type UnstableFile struct {
-	Time time.Time
-	File string
-	Ver  string
+	Time time.Time `json:"time"`
+	File string    `json:"file"`
+	Ver  string    `json:"version"`
+	Rev  int       `json:"revision"`
+	Size int64     `json:"size"`
 }
 
 // LatestUS is where we find the latest unstable.
 const unstableURL = "https://unstable.golift.io"
 
 // CheckUnstable checks if the provided app has an updated version on GitHub.
-// Pass in version in format version-revision, e.g. v0.1.2-346.
-func CheckUnstable(ctx context.Context, app string, version string) (*Update, error) {
+// Pass in revision only, no version.
+func CheckUnstable(ctx context.Context, app string, revision string) (*Update, error) {
 	uri := fmt.Sprintf("%s/%s/%s.%s.installer.zip", unstableURL, strings.ToLower(app), app, runtime.GOARCH)
 	if runtime.GOOS == "linux" {
 		uri = fmt.Sprintf("%s/%s/%s.%s.gz", unstableURL, strings.ToLower(app), app, runtime.GOARCH)
@@ -35,7 +37,7 @@ func CheckUnstable(ctx context.Context, app string, version string) (*Update, er
 		return nil, err
 	}
 
-	return fillUnstable(release, version), nil
+	return fillUnstable(release, revision), nil
 }
 
 // GetUnstable returns an unstable release. See CheckUnstable for an example on how to use it.
@@ -54,50 +56,27 @@ func GetUnstable(ctx context.Context, uri string) (*UnstableFile, error) {
 	}
 	defer resp.Body.Close()
 
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return nil, fmt.Errorf("reading http response: %w", err)
+	var release UnstableFile
+	if err = json.NewDecoder(resp.Body).Decode(&release); err != nil {
+		return nil, fmt.Errorf("decoding unstable response: %w", err)
 	}
 
-	modTime, _ := time.Parse(time.RFC1123, resp.Header.Get("last-modified"))
+	release.Time, _ = time.Parse(time.RFC1123, resp.Header.Get("last-modified"))
+	release.File = uri
 
-	return &UnstableFile{
-		Ver:  string(body),
-		File: uri,
-		Time: modTime,
-	}, nil
+	return &release, nil
 }
 
 // fillUnstable compares a current version with the latest GitHub release.
-// Pass in version in format version-revision, e.g. v0.1.2-346.
-func fillUnstable(release *UnstableFile, version string) *Update {
-	update := &Update{
+// Pass in revision only, no version.
+func fillUnstable(release *UnstableFile, revision string) *Update {
+	rev, _ := strconv.Atoi(revision)
+	return &Update{
 		RelDate: release.Time,
 		CurrURL: release.File,
-		Current: release.Ver,
-		Version: "v" + strings.TrimPrefix(version, "v"),
+		Current: fmt.Sprint(release.Ver, "-", release.Rev),
+		Version: revision, // on well.
+		RelSize: release.Size,
+		Outdate: release.Rev < rev,
 	}
-
-	splitN := strings.Split(release.Ver, "-") // new (from website)
-	splitO := strings.Split(version, "-")     // old (passed in)
-
-	if len(splitN) != 2 || len(splitO) != 2 {
-		return update
-	}
-
-	intN, err := strconv.Atoi(splitN[1])
-	if err != nil {
-		return update
-	}
-
-	intO, err := strconv.Atoi(splitO[1])
-	if err != nil {
-		return update
-	}
-
-	if intN > intO {
-		update.Outdate = true
-	}
-
-	return update
 }

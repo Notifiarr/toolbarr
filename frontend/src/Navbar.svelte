@@ -15,7 +15,7 @@
       Tooltip
   } from "sveltestrap"
   import Fa from "svelte-fa"
-  import {faGear,faBookBible,faLink} from "@fortawesome/free-solid-svg-icons"
+  import { faGear, faBookBible, faLink } from "@fortawesome/free-solid-svg-icons"
   import About from "./About.svelte"
   import Landing from "./Landing.svelte"
   import Starr from "./Starr/Starr.svelte"
@@ -23,11 +23,11 @@
   import Links from "./Links.svelte"
   import Settings from "./Settings/Settings.svelte"
   import Applogo from "./Applogo.svelte"
-  import {ToastContainer, FlatToast}  from "svelte-toasts"
+  import { ToastContainer, FlatToast }  from "svelte-toasts"
   import bgVint from "./assets/images/vintage-background.png"
   import bgDark from "./assets/images/dark-background.png"
-  import {GetConfig, SaveConfigItem} from "../wailsjs/go/app/App"
-  import {isLinux,isWindows,isMac,devMode, dark} from './Settings/store.js';
+  import { GetConfig, SaveConfigItem } from "../wailsjs/go/app/App"
+  import { isLinux, isWindows, isMac, devMode, dark } from './Settings/store.js';
   import { toast } from "./funcs";
 
   let navIsOpen = false

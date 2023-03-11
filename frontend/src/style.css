@@ -24,6 +24,7 @@ html, body, #app {
   height: 100%;
 }
 
+/* a dope font. */
 @font-face {
   font-family: "Nunito";
   font-style: normal;
@@ -32,20 +33,20 @@ html, body, #app {
   url("assets/fonts/nunito-v16-latin-regular.woff2") format("woff2");
 }
 
+/* Make top-navbar background look cool. */
 body .navbar {
   background-image: linear-gradient(to right, #334858 , #8596a0);
 }
-
 body.dark-mode .navbar {
   --bs-nav-link-color: #152028;
   --bs-navbar-color: #b3bec6;
   background-image: linear-gradient(to left, #13171a , #334858);
 }
-
 body.dark-mode .navbar-brand {
   color: #13171a;
 }
 
+/* Make the nav tabs look better. */
 #app .nav-tabs {
   border-color: #334858;
   border-width: 2px;
@@ -58,6 +59,7 @@ body.dark-mode .navbar-brand {
   --bs-nav-tabs-link-active-border-color: #495057 #495057 #495057;
 }
 
+/* Make tooltips a bit wider. */
 .tooltip-inner {
   max-width: 300px !important;
 }

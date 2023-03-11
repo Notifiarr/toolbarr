@@ -13,11 +13,11 @@
   } from "sveltestrap"
   import Logs from "./Logs.svelte"
   import Advanced from "./Advanced.svelte"
-  import {GetConfig,CreateShortcut} from "../../wailsjs/go/app/App.js"
+  import { GetConfig, CreateShortcut } from "../../wailsjs/go/app/App.js"
   import BGLogo from "../BackgroundLogo.svelte"
   import Fa from "svelte-fa"
-  import {faQuestion} from "@fortawesome/free-solid-svg-icons"
-  import {isLinux,isMac,dark} from './store.js';
+  import { faQuestion } from "@fortawesome/free-solid-svg-icons"
+  import { isLinux, isMac, dark } from './store.js';
   import windowsConf from "../assets/images/windows-conf-file.png"
   import { toast } from "../funcs";
 

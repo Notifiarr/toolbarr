@@ -1,8 +1,7 @@
 <script>
   import mainLogo from "./assets/images/notifiarr.png"
-  import {Container, Row} from "sveltestrap"
+  import { Container, Row } from "sveltestrap"
   import BGLogo from "./BackgroundLogo.svelte"
-
 </script>
 
 <BGLogo>

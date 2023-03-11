@@ -1,13 +1,13 @@
 <script>
   import Fa from "svelte-fa"
-  import {faGithub, faDiscord} from "@fortawesome/free-brands-svg-icons"
-  import {faGear} from "@fortawesome/free-solid-svg-icons"
-  import {BrowserOpenURL} from "../wailsjs/runtime"
-  import {Version, CheckUpdate, DownloadUpdate, LaunchInstaller} from "../wailsjs/go/app/App"
-  import {Container, Row, Table, Col, Card, Tooltip, Badge, Button} from   "sveltestrap"
-  import {tweened} from 'svelte/motion'
+  import { faGithub, faDiscord } from "@fortawesome/free-brands-svg-icons"
+  import { faGear } from "@fortawesome/free-solid-svg-icons"
+  import { BrowserOpenURL } from "../wailsjs/runtime"
+  import {Version, CheckUpdate, DownloadUpdate, LaunchInstaller } from "../wailsjs/go/app/App"
+  import { Container, Row, Table, Col, Card, Tooltip, Button } from   "sveltestrap"
+  import { tweened } from 'svelte/motion'
   import BGLogo from "./BackgroundLogo.svelte"
-  import {dark} from './Settings/store.js'
+  import { dark } from './Settings/store.js'
   import { toast } from "./funcs";
 
   let version

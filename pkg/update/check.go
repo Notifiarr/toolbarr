@@ -36,6 +36,7 @@ type Update struct {
 	Current string    // Current release available on GH or US.
 	CurrURL string    // URL of current release on GH or US.
 	RelDate time.Time // Current version release date.
+	RelSize int64     // Current release file size.
 }
 
 // CheckGitHub checks if the provided repo has an updated version on GitHub.
