@@ -6,6 +6,7 @@ require (
 	github.com/gorilla/schema v1.2.0
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/wailsapp/wails/v2 v2.4.0
+	golang.org/x/mod v0.8.0
 	golift.io/rotatorr v0.0.0-20230110212846-590e84fecf74
 	golift.io/version v0.0.2
 )

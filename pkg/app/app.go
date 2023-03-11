@@ -28,24 +28,24 @@ func (a *App) SaveConfigItem(name string, value string, reload bool) (string, er
 
 	err := decoder.Decode(config, map[string][]string{name: {value}})
 	if err != nil {
+		a.config.Errorf("Writing config: decoding '%s' value '%s' failed: %w", name, value, err)
 		return "", fmt.Errorf("decoding '%s' value '%s' failed: %w", name, value, err)
 	}
 
-	if err = config.Write(); err == nil && reload {
-		if err = a.config.Logger.Close(); err == nil {
-			a.config.Logger.Setup(a.ctx, config.LogConfig)
-		}
+	if err = config.Write(); err != nil {
+		a.config.Error("Error writing config: " + err.Error())
+		return "", fmt.Errorf("writing config: %w", err)
+	}
 
-		a.config.Update(config)
+	a.config.Update(config)
+
+	if reload {
+		_ = a.config.Logger.Close()
+		a.config.Logger.Setup(a.ctx, config.LogConfig)
 	}
 
 	msg := fmt.Sprintf("Config Item '%s' saved! Value: %s", name, value)
 	a.config.Print(msg)
-
-	if err != nil {
-		a.config.Print("Error writing config: " + err.Error())
-		return msg, fmt.Errorf("writing config: %w", err)
-	}
 
 	return msg, nil
 }

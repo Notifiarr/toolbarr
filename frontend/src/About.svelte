@@ -1,12 +1,13 @@
 <script>
   import Fa from "svelte-fa"
   import {faGithub, faDiscord} from "@fortawesome/free-brands-svg-icons"
+  import {faGear} from "@fortawesome/free-solid-svg-icons"
   import {BrowserOpenURL} from "../wailsjs/runtime"
   import {Version} from "../wailsjs/go/app/App"
-  import {Container, Row, Table, Col, Card, Tooltip} from   "sveltestrap"
-  import { tweened } from 'svelte/motion';
+  import {Container, Row, Table, Col, Card, Tooltip, Badge, Button} from   "sveltestrap"
+  import {tweened} from 'svelte/motion'
   import BGLogo from "./BackgroundLogo.svelte"
-  import {dark} from './Settings/store.js';
+  import {dark} from './Settings/store.js'
 
   let version
   let timer
@@ -14,6 +15,25 @@
     version = result
     timer = tweened(version.Running)
   })
+
+  let update = {}
+  function checkUpdate(e) {
+    e.preventDefault()
+    update.Checked = true
+    update.New = '1.2.3-12345'
+  }
+
+  function installUpdate(e) {
+    e.preventDefault()
+  }
+
+  function downloadUpdate(e) {
+    e.preventDefault()
+    update.Checked = true
+    update.Failed = false
+    update.Downloading = 'Downloading update... '
+//    update.Failed = true
+  }
 
   setInterval(() => {
     if ($timer > 0) $timer++;
@@ -36,7 +56,7 @@
       </p>
       <Col md="6">
         <h3>Development</h3>
-        <Table dark={$dark} class="table">
+        <Table dark={$dark} responsive>
           <tr>
             <td style="width:180px;"><a href="#top" on:click={() => (BrowserOpenURL("https://github.com/Notifiarr/toolbarr"))}><Fa icon={faGithub} /> Toolbarr GitHub</a></td> 
             <td>Visit the sausage factory.</td>
@@ -73,7 +93,7 @@
     <Col md="6">
       <h3>App Info</h3>
       <Card  color={$dark ? 'dark' : 'light'} body>
-        <Table dark={$dark} class="table">
+        <Table dark={$dark} responsive>
           <tr><td>Version</td><td>v{version.Version}-{version.Revision} ({version.GoVersion})</td></tr>
           <tr><td>Branch</td><td>{version.Branch}</td></tr>
           <tr><td>Created</td><td>{version.BuildDate} by {version.BuildUser}</td></tr>
@@ -81,7 +101,25 @@
             <td>Running</td>
             <Tooltip target="runningTime" placement="top">Running Since:<br>{version.Started}</Tooltip>
             <td id="runningTime">{uptime}</td>
-            </tr>
+          </tr>
+          <tr><td colspan="2">
+            {#if update.Downloading}
+            <Button block disabled size="sm" color="danger">
+              {update.Downloading}
+              {#if !update.Failed}
+                <Fa spin primaryColor="yellow" icon={faGear} />
+              {/if}
+            </Button>
+            {:else if update.Downloaded}
+            <Button block outline on:click={installUpdate} size="sm" color="primary">Downloaded! Launch Installer</Button>
+            {:else if update.New != "" && update.Checked}
+            <Button block outline on:click={downloadUpdate} size="sm" color="warning">Download update: {update.New}</Button>
+            {:else if update.Checked}
+            <Button block color="success" disabled size="sm">Up to date!</Button>
+            {:else}
+            <Button block outline size="sm" color="info" on:click={checkUpdate}>Check for update</Button>
+            {/if}
+          </td></tr>
         </Table>
       </Card>
     </Col>

@@ -10,9 +10,15 @@ import (
 	"runtime"
 
 	"github.com/Notifiarr/toolbarr/pkg/logs"
+	"golift.io/version"
 )
 
 var ErrEmptyInput = fmt.Errorf("input must have at least name or path")
+
+func init() { // TODO: remove this
+	version.Version = "1.2.3"
+	version.Revision = "1234"
+}
 
 // Input data to open a config file.
 // If Dir!="" then config is placed in a sub directory.
@@ -35,6 +41,7 @@ type Config struct {
 
 type Advanced struct {
 	DevMode bool
+	Updates string
 }
 
 type App struct {
@@ -64,6 +71,9 @@ func New(appName string, logger *logs.Logger) *Config {
 			IsMac:     runtime.GOOS == "darwin",
 			Exe:       exec,
 			Home:      user.HomeDir,
+		},
+		Advanced: Advanced{
+			Updates: "production",
 		},
 		Logger: logger,
 	}
@@ -150,6 +160,10 @@ func (i *Input) openConfig(configFile string) (*Config, error) {
 		Home:      user.HomeDir,
 	}
 
+	if config.Updates == "" {
+		config.Updates = "production"
+	}
+
 	return &config, nil
 }
 
@@ -187,4 +201,8 @@ func (c *Config) Copy() *Config {
 func (c *Config) Update(merge *Config) {
 	// All config structs must be added here.
 	c.LogConfig = merge.LogConfig
+	c.Advanced = merge.Advanced
+	c.Dark = merge.Dark
+	c.File = merge.File
+	c.App = merge.App
 }

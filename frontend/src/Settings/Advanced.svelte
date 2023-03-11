@@ -1,12 +1,14 @@
 <script>
   import {Input,InputGroup,InputGroupText,Tooltip} from "sveltestrap"
-  import {SaveConfigItem} from "../../wailsjs/go/app/App.js"
+  import {GetConfig,SaveConfigItem} from "../../wailsjs/go/app/App.js"
   import {toasts}  from "svelte-toasts"
 	import {devMode,dark} from './store.js'
 
   let validProps = {}
   let invalidProps = {}
   $: dm = $devMode + ""
+  let conf = {}
+  GetConfig().then(result => conf = result)
 
   const showToast = (type, msg) => {
     const toast = toasts.add({
@@ -33,7 +35,7 @@
   }
 
   function saveInput(event) {
-    if (event.target.id == 'DevMode') {
+    if (event.target.id == "DevMode") {
       $devMode = event.target.value == "false" ? false : true
     }
     saveValue(event.target.name, event.target.id, event.target.value)
@@ -47,4 +49,11 @@
     <option value="false">Disabled</option>
   </Input>
   <Tooltip target="DevMode" placement="top">Enable this when a developer instructs you to do so.</Tooltip>
+</InputGroup>
+<InputGroup>
+  <InputGroupText class="setting-name">Updates</InputGroupText>
+  <Input valid={validProps.Updates} bind:invalid={invalidProps.Updates} value={conf.Updates} on:change={saveInput} type="select" name="Advanced.Updates" id="Updates">
+    <option value="production">Production</option>
+    <option value="unstable">Unstable</option>
+  </Input>
 </InputGroup>

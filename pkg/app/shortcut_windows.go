@@ -19,7 +19,7 @@ type PowerShell struct {
 	powerShell string
 }
 
-// New create new session
+// newPowerShell creates a new session for powershell use.
 func newPowerShell() (*PowerShell, error) {
 	shell, err := exec.LookPath("powershell.exe")
 	if err != nil {
