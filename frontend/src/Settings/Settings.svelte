@@ -10,7 +10,6 @@
     NavLink,
     Offcanvas,
     Row,
-    Tooltip,
   } from "sveltestrap"
   import Logs from "./Logs.svelte"
   import Advanced from "./Advanced.svelte"
@@ -77,7 +76,7 @@
       </Form>
     </Row>
   </Container>
-  <Offcanvas style="width:50%" class="{$dark ? 'bg-dark' : ''}" isOpen={confHelp} toggle={toggleConfHelp} header="Custom Config Path" placement="end">
+  <Offcanvas style="width:50%;min-width:390px;max-width:550px" class="{$dark ? 'bg-dark' : ''}" isOpen={confHelp} toggle={toggleConfHelp} header="Custom Config Path" placement="end">
     {#if $isLinux}
       <p>To use a custom config file path on Linux, simply provide it as a cli argument when you launch the executable.</p>
       <h5>Example</h5>
@@ -105,7 +104,7 @@
         <li>Replace the provided path with your own.</li>
       </ol>
       <h5>Example</h5>
-      <img alt="screenshot of shortcut window" src={windowsConf}>
+      <img width="100%" alt="screenshot of shortcut window" src={windowsConf}>
     {/if}
   </Offcanvas>
 </BGLogo>
