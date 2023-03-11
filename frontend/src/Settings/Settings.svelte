@@ -19,7 +19,7 @@
   import {faQuestion} from "@fortawesome/free-solid-svg-icons"
   import {isLinux,isMac,dark} from './store.js';
   import windowsConf from "../assets/images/windows-conf-file.png"
-  import {toasts}  from "svelte-toasts"
+  import { toast } from "../funcs";
 
   let activeTab = "Logs"
   let confHelp = false
@@ -30,26 +30,10 @@
 
   function createWindowsShortcut(e) {
     e.preventDefault()
-    CreateShortcut().then((msg) => {
-      const toast = toasts.add({
-          description: msg,
-          duration: 7000,
-          theme: $dark ? "dark" : "light",
-          type: "success",
-          onClick: () => {toast.remove()},
-          showProgress: true,
-        })
-    }, (error) => {
-      const toast = toasts.add({
-        title: "Error Saving Config",
-        description: error,
-        duration: 7000,
-        theme: $dark ? "dark" : "light",
-        type: "error",
-        onClick: () => {toast.remove()},
-        showProgress: true,
-      })
-    })
+    CreateShortcut().then(
+      msg => (toast("success", "", msg, $dark)),
+      error => (toast("error", "", error, $dark))
+    )
   }
 </script>
 

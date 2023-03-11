@@ -14,6 +14,7 @@ jobs:
     runs-on: ${{ matrix.platform }}
     outputs:
       version: ${{ steps.version.outputs.version }}
+      revision: ${{ steps.version.outputs.revision }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -47,7 +48,9 @@ jobs:
           echo "VERSION_LDFLAGS=${VERSION_LDFLAGS}" >> $GITHUB_ENV
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
           echo "REVISION=${REVISION}" >> $GITHUB_ENV
-          echo "version=${VERSION}-${REVISION}" >> $GITHUB_OUTPUT
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+          echo "revision=${REVISION}" >> $GITHUB_OUTPUT
+
       - name: Build macOS
         if: runner.os == 'macOS' && (startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/unstable')
         env:
@@ -176,8 +179,8 @@ jobs:
             [ -f "$file" ] || continue;
             echo "Uploading: ${file}";
             curl -sSH "X-API-KEY: ${{ secrets.UNSTABLE_UPLOAD_KEY }}" "https://unstable.golift.io/upload.php?folder=toolbarr" -F "file=@${file}";
-            versionfile="${{needs.package.outputs.version}};filename=${file}.txt;type=text/plain";
-            curl -sSH "X-API-KEY: ${{ secrets.UNSTABLE_UPLOAD_KEY }}" "https://unstable.golift.io/upload.php?folder=toolbarr" -F "file=${versionfile}";
+            echo '{"version":"${{needs.package.outputs.version}}","revision":"${{needs.package.outputs.revision}}","size":"'$(stat --printf="%s" ${file})'"}' >> ${file}.txt
+            curl -sSH "X-API-KEY: ${{ secrets.UNSTABLE_UPLOAD_KEY }}" "https://unstable.golift.io/upload.php?folder=toolbarr" -F "file=@${file}.txt";
           done
 
   deploy-release-packagecloud:

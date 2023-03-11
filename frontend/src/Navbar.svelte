@@ -27,8 +27,8 @@
   import bgVint from "./assets/images/vintage-background.png"
   import bgDark from "./assets/images/dark-background.png"
   import {GetConfig, SaveConfigItem} from "../wailsjs/go/app/App"
-  import {toasts}  from "svelte-toasts"
   import {isLinux,isWindows,isMac,devMode, dark} from './Settings/store.js';
+  import { toast } from "./funcs";
 
   let navIsOpen = false
   function toggleNavOpen(event) {
@@ -52,27 +52,10 @@
     $dark = event.target.checked
     $dark ? classes.add("dark-mode") : classes.remove("dark-mode")
 
-    SaveConfigItem(event.target.name, event.target.checked+"", false).then((msg) => {
-      if ($devMode) {
-        const toast = toasts.add({
-          description: msg,
-          duration: 7000,
-          theme: $dark ? "dark" : "light",
-          type: "success",
-          onClick: () => {toast.remove()},
-          showProgress: true,
-        })
-      }
-    }, (error) => {
-      const toast = toasts.add({
-        title: "Error Saving Config",
-        description: error,
-        duration: 7000,
-        theme: $dark ? "dark" : "light",
-        type: "error",
-        onClick: () => {toast.remove()},
-        showProgress: true,
-      })
+    SaveConfigItem(event.target.name, event.target.checked+"", false).then((msg) => (
+        $devMode ? toast("success", "", msg, $dark) : ''
+    ), (error) => {
+      toast("error", "", error, $dark)
     })
   }
 

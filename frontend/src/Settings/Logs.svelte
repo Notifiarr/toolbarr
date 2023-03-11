@@ -8,20 +8,8 @@
   } from "sveltestrap"
   import Fa from "svelte-fa"
   import {faFolderOpen} from "@fortawesome/free-solid-svg-icons"
-  import {GetConfig, IsWindows, PickFolder, SaveConfigItem} from "../../wailsjs/go/app/App.js"
-  import {toasts}  from "svelte-toasts"
-
-  const showToast = (type, msg) => {
-    const toast = toasts.add({
-      title: "",
-      description: (type=="error"?"Error: ":"") +msg,
-      duration: 7000, // 0 or negative to avoid auto-remove
-      theme: conf.Dark ? "dark" : "light",
-      type: type,
-      onClick: () => {toast.remove()},
-      showProgress: true,
-    })
-  }
+  import {GetConfig, IsWindows, PickFolder} from "../../wailsjs/go/app/App.js"
+  import { saveValue } from "../funcs";
 
   let validProps = {}
   let invalidProps = {}
@@ -31,29 +19,21 @@
   GetConfig().then((result) => (conf = result))
   IsWindows().then((result) => (isWindows = result))
 
-  function saveValue(name, id, val) {
-    if (val == "") { return }
-    SaveConfigItem(name, val, true).then((msg) => {
-      showToast("success", msg)
-      validProps[id] = true
-      setInterval(() => {validProps[id]=false}, 5000)
-    }, (error) => {
-      showToast("error", error)
-      invalidProps[id] = false
-    })
-  }
-
-  function saveInput(event) {
-    saveValue(event.target.name, event.target.id, event.target.value)
+  function saveInput(e) {
+    validProps[e.target.id] = saveValue(e.target.name, e.target.value, conf.Dark, true)
+    invalidProps[e.target.id] = !validProps[e.target.id]
+    setInterval(() => {validProps[e.target.id]=false}, 5000)
   }
 
   // This func opens a 'pick a folder' dialog and populates the Log File Path with the selected value.
   function getLogFolder(event) {
     event.preventDefault()
-    PickFolder("Log File Path").then(path => (
-      saveValue('LogConfig.Path', 'Path', path),
+    PickFolder("Log File Path").then((path) => {
+      if (path == "") { return }
+      validProps['Path'] = saveValue('LogConfig.Path', path, conf.Dark, true)
+      invalidProps['Path'] = !validProps['Path']
       conf.Path = path
-    ), e => showToast("error", e))
+  })
   }
 </script>
 

@@ -83,20 +83,8 @@ func FillUpdate(release *GitHubReleasesLatest, version string) (*Update, error) 
 			"v"+strings.TrimPrefix(version, "v")) > 0,
 	}
 
-	arch := runtime.GOARCH
-	if arch == "arm" {
-		arch = "armhf"
-	} else if arch == "386" {
-		arch = "i386"
-	}
-
-	suffix := OSsuffixMap[runtime.GOOS]
-	if runtime.GOOS == "linux" {
-		suffix = arch + suffix
-	}
-
 	for _, file := range release.Assets {
-		if strings.HasSuffix(file.BrowserDownloadURL, suffix) {
+		if strings.HasSuffix(file.BrowserDownloadURL, OSsuffixMap[runtime.GOOS]) {
 			update.CurrURL = file.BrowserDownloadURL
 			update.RelDate = file.UpdatedAt
 

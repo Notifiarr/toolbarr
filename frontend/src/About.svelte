@@ -3,11 +3,12 @@
   import {faGithub, faDiscord} from "@fortawesome/free-brands-svg-icons"
   import {faGear} from "@fortawesome/free-solid-svg-icons"
   import {BrowserOpenURL} from "../wailsjs/runtime"
-  import {Version, CheckUpdate} from "../wailsjs/go/app/App"
+  import {Version, CheckUpdate, DownloadUpdate, LaunchInstaller} from "../wailsjs/go/app/App"
   import {Container, Row, Table, Col, Card, Tooltip, Badge, Button} from   "sveltestrap"
   import {tweened} from 'svelte/motion'
   import BGLogo from "./BackgroundLogo.svelte"
   import {dark} from './Settings/store.js'
+  import { toast } from "./funcs";
 
   let version
   let timer
@@ -18,21 +19,45 @@
 
   let update = {}
   let release = {}
+
   function checkUpdate(e) {
     e.preventDefault()
-    CheckUpdate().then(result => {release = result})
-    update.Checked = true
+    update.Downloading = "Checking for update..."
+    CheckUpdate().then(result => {
+      release = result
+      update.Checked = true
+      update.Downloading = ''
+    }, (error) => {
+      update.Failed = 'Error checking for update'
+      toast('error', "", error, $dark)
+      update.Downloading = ''
+    })
   }
 
   function installUpdate(e) {
     e.preventDefault()
+    update.Downloading = 'Launching Installer..'
+  // two buttons? view file (open folder) and launch
+    LaunchInstaller().then(result => {
+    }, (error) => {
+      update.Failed = error
+      toast('error', "", error, $dark)
+    })
   }
 
   function downloadUpdate(e) {
     e.preventDefault()
-    update.Failed = false
-    update.Downloading = 'Downloading update... '
-//    update.Failed = true
+    update.Downloading = 'Downloading the update... '
+    DownloadUpdate().then(result => {
+      update.Checked = true
+      update.Downloading = ''
+      update.Downloaded = 'Open Update File'
+      toast('success', "", result, $dark)
+    }, (error) => {
+      update.Failed = 'Error checking for update'
+      toast('error', "", error, $dark)
+      update.Downloading = ''
+    })
   }
 
   setInterval(() => {
@@ -103,15 +128,13 @@
             <td id="runningTime">{uptime}</td>
           </tr>
           <tr><td colspan="2">
-            {#if update.Downloading}
-            <Button block disabled size="sm" color="danger">
-              {update.Downloading}
-              {#if !update.Failed}
-                <Fa spin primaryColor="yellow" icon={faGear} />
-              {/if}
-            </Button>
+            {#if update.Failed}
+            <Button block disabled size="sm" color="danger">{update.Failed}</Button>
+            {:else if update.Downloading}
+            <Button block disabled size="sm" color="danger">{update.Downloading} <Fa spin primaryColor="yellow" icon={faGear} /></Button>
             {:else if update.Downloaded}
-            <Button block outline on:click={installUpdate} size="sm" color="primary">Downloaded! Launch Installer</Button>
+            <Button style="width:49%" outline on:click={installUpdate} size="sm" color="primary">{update.Downloaded}</Button>
+            <Button style="width:49%" outline on:click={installUpdate} size="sm" color="info">Open Folder</Button>
             {:else if release.Outdate}
             <Button block outline on:click={downloadUpdate} size="sm" color="warning">Download update: v{release.Current}</Button>
             {:else if update.Checked}

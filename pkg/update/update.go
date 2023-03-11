@@ -16,6 +16,7 @@ import (
 	"net/http"
 	"os"
 	"os/exec"
+	"os/user"
 	"path/filepath"
 	"runtime"
 	"strings"
@@ -137,7 +138,41 @@ func DownloadURL(ctx context.Context, uri string, fileName string, logger *log.L
 		Logger: logger,
 	}
 
-	return command.writeFile(ctx, os.TempDir())
+	tempFile, err := command.writeFile(ctx, os.TempDir())
+	if err != nil {
+		return "", err
+	}
+
+	newPath := filepath.Join(os.TempDir(), fileName)
+
+	switch user, err := user.Current(); {
+	default:
+	case err != nil:
+	case runtime.GOOS == "darwin":
+		fallthrough
+	case runtime.GOOS == "windows":
+		newPath = filepath.Join(user.HomeDir, "Downloads", fileName)
+	}
+
+	if _, err := os.Stat(newPath); err == nil {
+		// file already exists.
+		ext := filepath.Ext(fileName)
+		base := strings.TrimSuffix(fileName, ext) + "."
+		// find a new name.
+		for i := 1; i <= 99; i++ {
+			tryPath := filepath.Join(filepath.Dir(newPath), fmt.Sprint(base, i, ext))
+			if _, err := os.Stat(tryPath); err != nil {
+				newPath = tryPath
+				break
+			}
+
+		}
+	}
+	if err = os.Rename(tempFile, newPath); err != nil {
+		return "", fmt.Errorf("renaming temp file: %w", err)
+	}
+
+	return newPath, nil
 }
 
 func (u *Command) writeFile(ctx context.Context, folderPath string) (string, error) {

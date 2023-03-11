@@ -1,8 +1,8 @@
 <script>
   import {Input,InputGroup,InputGroupText,Tooltip} from "sveltestrap"
-  import {GetConfig,SaveConfigItem} from "../../wailsjs/go/app/App.js"
-  import {toasts}  from "svelte-toasts"
+  import {GetConfig} from "../../wailsjs/go/app/App.js"
 	import {devMode,dark} from './store.js'
+  import { saveValue } from "../funcs";
 
   let validProps = {}
   let invalidProps = {}
@@ -10,35 +10,13 @@
   let conf = {}
   GetConfig().then(result => conf = result)
 
-  const showToast = (type, msg) => {
-    const toast = toasts.add({
-      title: "",
-      description: (type=="error"?"Error: ":"") +msg,
-      duration: 7000, // 0 or negative to avoid auto-remove
-      theme: $dark ? "dark" : "light",
-      type: type,
-      onClick: () => {toast.remove()},
-      showProgress: true,
-    })
-  }
-
-  function saveValue(name, id, val) {
-    if (val == "") { return }
-    SaveConfigItem(name, val, false).then((msg) => {
-      showToast("success", msg)
-      validProps[id] = true
-      setInterval(() => {validProps[id]=false}, 5000)
-    }, (error) => {
-      showToast("error", error)
-      invalidProps[id] = false
-    })
-  }
-
-  function saveInput(event) {
-    if (event.target.id == "DevMode") {
-      $devMode = event.target.value == "false" ? false : true
+  function saveInput(e) {
+    if (e.target.id == "DevMode") {
+      $devMode = e.target.value == "false" ? false : true
     }
-    saveValue(event.target.name, event.target.id, event.target.value)
+    validProps[e.target.id] = saveValue(e.target.name, e.target.value, $dark, false)
+    invalidProps[e.target.id] = !validProps[e.target.id]
+    setInterval(() => {validProps[e.target.id]=false}, 5000)
   }
 </script>
 
