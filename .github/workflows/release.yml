@@ -12,6 +12,8 @@ jobs:
       matrix:
         platform: [macos-latest, ubuntu-latest]
     runs-on: ${{ matrix.platform }}
+    outputs:
+      version: ${{ steps.version.outputs.version }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -29,6 +31,7 @@ jobs:
         run: go install github.com/wailsapp/wails/v2/cmd/wails@latest
 
       - name: Inject Version Info
+        id: version
         run: |
           VERSION=$(git describe --abbrev=0 --tags $(git rev-list --tags --max-count=1) | tr -d v)
           [ "$VERSION" != "" ] || VERSION=0.0.0
@@ -44,7 +47,7 @@ jobs:
           echo "VERSION_LDFLAGS=${VERSION_LDFLAGS}" >> $GITHUB_ENV
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
           echo "REVISION=${REVISION}" >> $GITHUB_ENV
-
+          echo "version=${VERSION}-${ITERATION}" >> $GITHUB_OUTPUT
       - name: Build macOS
         if: runner.os == 'macOS' && (startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/unstable')
         env:
@@ -174,6 +177,8 @@ jobs:
             [ -f "$file" ] || continue;
             echo "Uploading: ${file}";
             curl -sSH "X-API-KEY: ${{ secrets.UNSTABLE_UPLOAD_KEY }}" "https://unstable.golift.io/upload.php?folder=toolbarr" -F "file=@${file}";
+            versionfile="${{needs.packaget.outputs.version}};filename=${file}.txt;type=text/plain";
+            curl -sSH "X-API-KEY: ${{ secrets.UNSTABLE_UPLOAD_KEY }}" "https://unstable.golift.io/upload.php?folder=toolbarr" -F "file=${versionfile}";
           done
 
   deploy-release-packagecloud:
