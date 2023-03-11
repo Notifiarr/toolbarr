@@ -16,8 +16,8 @@ import (
 var ErrEmptyInput = fmt.Errorf("input must have at least name or path")
 
 func init() { // TODO: remove this
-	version.Version = "1.2.3"
-	version.Revision = "1234"
+	version.Version = "0.0.1"
+	version.Revision = "12"
 }
 
 // Input data to open a config file.

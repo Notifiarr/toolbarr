@@ -3,7 +3,7 @@
   import {faGithub, faDiscord} from "@fortawesome/free-brands-svg-icons"
   import {faGear} from "@fortawesome/free-solid-svg-icons"
   import {BrowserOpenURL} from "../wailsjs/runtime"
-  import {Version} from "../wailsjs/go/app/App"
+  import {Version, CheckUpdate} from "../wailsjs/go/app/App"
   import {Container, Row, Table, Col, Card, Tooltip, Badge, Button} from   "sveltestrap"
   import {tweened} from 'svelte/motion'
   import BGLogo from "./BackgroundLogo.svelte"
@@ -17,10 +17,11 @@
   })
 
   let update = {}
+  let release = {}
   function checkUpdate(e) {
     e.preventDefault()
+    CheckUpdate().then(result => {release = result})
     update.Checked = true
-    update.New = '1.2.3-12345'
   }
 
   function installUpdate(e) {
@@ -29,7 +30,6 @@
 
   function downloadUpdate(e) {
     e.preventDefault()
-    update.Checked = true
     update.Failed = false
     update.Downloading = 'Downloading update... '
 //    update.Failed = true
@@ -112,10 +112,10 @@
             </Button>
             {:else if update.Downloaded}
             <Button block outline on:click={installUpdate} size="sm" color="primary">Downloaded! Launch Installer</Button>
-            {:else if update.New != "" && update.Checked}
-            <Button block outline on:click={downloadUpdate} size="sm" color="warning">Download update: {update.New}</Button>
+            {:else if release.Outdate}
+            <Button block outline on:click={downloadUpdate} size="sm" color="warning">Download update: v{release.Current}</Button>
             {:else if update.Checked}
-            <Button block color="success" disabled size="sm">Up to date!</Button>
+            <Button block color="success" disabled size="sm">Up to date! v{release.Current}</Button>
             {:else}
             <Button block outline size="sm" color="info" on:click={checkUpdate}>Check for update</Button>
             {/if}

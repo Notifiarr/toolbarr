@@ -14,6 +14,7 @@ type App struct {
 	logger     *logs.Logger
 	config     *config.Config
 	configFile string // empty unless passed in from cli
+	updates
 }
 
 // New creates a new App application struct.

@@ -47,7 +47,7 @@ jobs:
           echo "VERSION_LDFLAGS=${VERSION_LDFLAGS}" >> $GITHUB_ENV
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
           echo "REVISION=${REVISION}" >> $GITHUB_ENV
-          echo "version=${VERSION}-${ITERATION}" >> $GITHUB_OUTPUT
+          echo "version=${VERSION}-${REVISION}" >> $GITHUB_OUTPUT
       - name: Build macOS
         if: runner.os == 'macOS' && (startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/unstable')
         env:
