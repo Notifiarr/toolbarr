@@ -63,3 +63,8 @@ body.dark-mode .navbar-brand {
 .tooltip-inner {
   max-width: 300px !important;
 }
+
+/* Progress bars can be slow, so speed them up. */
+#app .progress-bar {
+  transition-duration: 0s;
+}

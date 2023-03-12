@@ -4,10 +4,10 @@
   import { faGear } from "@fortawesome/free-solid-svg-icons"
   import { BrowserOpenURL, EventsOn, EventsOff } from "../wailsjs/runtime"
   import { Version, CheckUpdate, DownloadUpdate, LaunchInstaller, OpenFolder } from "../wailsjs/go/app/App"
-  import { Container, Row, Table, Col, Card, Tooltip, Button } from   "sveltestrap"
+  import { Container, Row, Table, Col, Card, Tooltip, Button, Progress, Badge } from   "sveltestrap"
   import { tweened } from 'svelte/motion'
   import BGLogo from "./BackgroundLogo.svelte"
-  import { dark } from './Settings/store.js'
+  import { dark, isLinux, isMac } from './Settings/store.js'
   import { toast } from "./funcs";
 
   let version
@@ -20,14 +20,17 @@
   let update = {}
   let release = {}
   let progress = 0.0
+  let msg = "just waitin' for somethin' to happen"
 
   function checkUpdate(e) {
     e.preventDefault()
     update.Downloading = "Checking for update..."
+
     CheckUpdate().then(result => {
       release = result
       update.Checked = true
       update.Downloading = ""
+      msg = $isLinux ? 'Updates on Linux are unsupported. Help needed!' : 'Update avaialble! Click the button to download it.'
     }, (error) => {
       update.Failed = "Error checking for update"
       toast("error", "", error, $dark)
@@ -51,19 +54,22 @@
   function downloadUpdate(e) {
     e.preventDefault()
     update.Downloading = "Downloading the update... "
+
     DownloadUpdate().then(data => {
       update.Checked = true
       release.FilePath = data.Path
-      toast("success", "", data.Path, $dark)
+      toast("success", "", "Downloading: "+data.Path, $dark)
+
       EventsOn("downloadFinished", (data) => {
         EventsOff("downloadProgress", "downloadFinished")
-        update.Downloaded = "Open Update File"
+        update.Downloaded = "Open "+($isMac ? 'DMG' : 'Installer')
         update.Downloading = ""
-        progress = 0.0
+        msg = "Downloaded " + ($isMac ? 'disk image' : 'installer') + ". Click a button to use it."
+        setInterval(() => (progress = 0.0), 500);
+        update.Failed = "Error checking for update"
       })
-      EventsOn("downloadProgress", (data) => {
-        progress = data
-      })
+
+      EventsOn("downloadProgress", (data) => (progress = data))
     }, (error) => {
       update.Failed = "Error checking for update"
       toast("error", "", error, $dark)
@@ -71,9 +77,7 @@
     })
   }
 
-  setInterval(() => {
-    if ($timer > 0) $timer++;
-  }, 1000);
+  setInterval(() => {if ($timer > 0) $timer++;}, 1000)
   /* All of this is to create a "running" timer. */
   $: days = Math.floor($timer / 86400);
   $: hours = Math.floor(($timer - (days * 86400)) / 3600);
@@ -147,7 +151,11 @@
             <Button style="width:49%" outline on:click={installUpdate} size="sm" color="primary">{update.Downloaded}</Button>
             <Button style="width:49%" outline on:click={openFolder} size="sm" color="info">Open Folder</Button>
             {:else if release.Outdate}
-            <Button block outline on:click={downloadUpdate} size="sm" color="warning">Download update: v{release.Current}</Button>
+              {#if $isLinux}
+              <Button block outline disabled size="sm" color="warning">Update available! v{release.Current}</Button>
+              {:else}
+              <Button block outline on:click={downloadUpdate} size="sm" color="warning">Download update: v{release.Current}</Button>
+              {/if}
             {:else if update.Checked}
             <Button block color="success" disabled size="sm">Up to date! v{release.Current}</Button>
             {:else}
@@ -156,16 +164,12 @@
           </td></tr>
         </Table>
         {#if progress}
-        <progress value={progress}></progress>
+        <Progress striped color="success" value={progress*100}>{(progress*100).toFixed(0)}%</Progress>
+        {:else}
+        <Badge>{msg}</Badge>
         {/if}
       </Card>
     </Col>
     {/if}
   </Container>
 </BGLogo>
-
-<style>
-  progress {
-    width: 100%;
-  }
-</style>
