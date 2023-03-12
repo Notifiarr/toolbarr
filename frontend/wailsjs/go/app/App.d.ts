@@ -11,8 +11,6 @@ export function DownloadUpdate():Promise<any>;
 
 export function GetConfig():Promise<any>;
 
-export function GetProgress():Promise<any>;
-
 export function IsWindows():Promise<boolean>;
 
 export function LaunchInstaller(arg1:string):Promise<string>;

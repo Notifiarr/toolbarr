@@ -18,10 +18,6 @@ export function GetConfig() {
   return window['go']['app']['App']['GetConfig']();
 }
 
-export function GetProgress() {
-  return window['go']['app']['App']['GetProgress']();
-}
-
 export function IsWindows() {
   return window['go']['app']['App']['IsWindows']();
 }
