@@ -106,8 +106,10 @@ SectionEnd
 
 Section "uninstall" 
     RMDir /r "$AppData\${PRODUCT_EXECUTABLE}" # Remove the WebView2 DataPath
+    SetRegView 64
+    ReadRegStr $INSTDIR HKLM "${REGKEY}" InstallLocation
+    StrCmp $INSTDIR "" +2 0
     RMDir /r $INSTDIR
-
     Delete "$SMPROGRAMS\${INFO_PRODUCTNAME}.lnk"
     Delete "$DESKTOP\${INFO_PRODUCTNAME}.lnk"
     SetRegView 64
