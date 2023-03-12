@@ -47,7 +47,6 @@ VIAddVersionKey "ProductName"     "${INFO_PRODUCTNAME}"
 
 !include "MUI.nsh"
 
-!define REGKEY "SOFTWARE\${INFO_COMPANYNAME}\${INFO_PRODUCTNAME}"
 !define MUI_ICON "..\icon.ico"
 !define MUI_UNICON "..\icon.ico"
 !define MUI_WELCOMEFINISHPAGE_BITMAP "resources\side.bmp" #Include this to add a bitmap on the left side of the Welcome Page. Must be a size of 164x314
@@ -58,6 +57,8 @@ VIAddVersionKey "ProductName"     "${INFO_PRODUCTNAME}"
 !define MUI_FINISHPAGE_SHOWREADME_NOTCHECKED
 !define MUI_FINISHPAGE_SHOWREADME_TEXT "Create Desktop Shortcut"
 !define MUI_FINISHPAGE_SHOWREADME_FUNCTION createDesktopShortcut
+!define REGKEY "SOFTWARE\${INFO_COMPANYNAME}\${INFO_PRODUCTNAME}"
+!define INSTALL_LOCATION "$PROGRAMFILES64\${INFO_COMPANYNAME}\${INFO_PRODUCTNAME}"
 
 !insertmacro MUI_PAGE_WELCOME # Welcome to the installer page.
 !insertmacro MUI_PAGE_LICENSE "resources\eula.txt" # Adds a EULA page to the installer
@@ -73,16 +74,20 @@ VIAddVersionKey "ProductName"     "${INFO_PRODUCTNAME}"
 
 Name "${INFO_PRODUCTNAME}"
 OutFile "..\..\bin\${INFO_PROJECTNAME}.${ARCH}.installer.exe" # Name of the installer's file.
-InstallDir "$PROGRAMFILES64\${INFO_COMPANYNAME}\${INFO_PRODUCTNAME}" # Default installing folder ($PROGRAMFILES is Program Files folder).
-InstallDirRegKey HKLM "${REGKEY}" Path
+InstallDir "${INSTDIR}" # Default installing folder ($PROGRAMFILES is Program Files folder).
 ShowInstDetails show # This will always show the installation details.
+InstallDirRegKey HKLM "$REGKEY" InstallLocation
 
 Function createDesktopShortcut
     CreateShortCut "$DESKTOP\${INFO_PRODUCTNAME}.lnk" "$INSTDIR\${PRODUCT_EXECUTABLE}"
 FunctionEnd
 
 Function .onInit
-   !insertmacro wails.checkArchitecture
+    !insertmacro wails.checkArchitecture
+    SetRegView 64
+    ReadRegStr $INSTDIR HKLM "${REGKEY}" InstallLocation
+    StrCmp $INSTDIR "" 0 +2
+    StrCpy $INSTDIR "${INSTALL_LOCATION}"
 FunctionEnd
 
 Section
@@ -93,17 +98,20 @@ Section
     !insertmacro wails.files
 
     CreateShortcut "$SMPROGRAMS\${INFO_PRODUCTNAME}.lnk" "$INSTDIR\${PRODUCT_EXECUTABLE}"
+    SetRegView 64
+    WriteRegStr HKLM "${REGKEY}" InstallLocation "$INSTDIR"
 
     !insertmacro wails.writeUninstaller
 SectionEnd
 
 Section "uninstall" 
     RMDir /r "$AppData\${PRODUCT_EXECUTABLE}" # Remove the WebView2 DataPath
-
     RMDir /r $INSTDIR
 
     Delete "$SMPROGRAMS\${INFO_PRODUCTNAME}.lnk"
     Delete "$DESKTOP\${INFO_PRODUCTNAME}.lnk"
+    SetRegView 64
+    DeleteRegKey HKLM "${REGKEY}"
 
     !insertmacro wails.deleteUninstaller
 SectionEnd

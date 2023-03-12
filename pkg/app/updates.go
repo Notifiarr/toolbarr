@@ -102,15 +102,17 @@ func (a *App) DownloadUpdate() (*UpdateInfo, error) {
 func (a *App) LaunchInstaller(path string) (string, error) {
 	var err error
 
-	if mnd.IsMac {
-		err = ui.OpenFolder(a.ctx, path)
-	} else {
-		err = ui.OpenCmd(a.ctx, path)
-	}
+	go func() {
+		if mnd.IsMac {
+			err = ui.OpenFolder(a.ctx, path)
+		} else {
+			err = ui.OpenCmd(a.ctx, path)
+		}
 
-	if err != nil {
-		a.config.Errorf("Opening Folder: %s: %w", path, err)
-	}
+		if err != nil {
+			a.config.Errorf("Opening Folder: %s: %w", path, err)
+		}
+	}()
 
 	defer func() {
 		time.Sleep(5 * time.Second) //nolint:gomnd

@@ -68,10 +68,12 @@ func (a *App) PickFolder(id string) (string, error) {
 }
 
 func (a *App) OpenFolder(path string) string {
-	err := ui.OpenFolder(a.ctx, path)
-	if err != nil {
-		a.config.Errorf("Opening Folder: %s: %w", path, err)
-	}
+	go func() {
+		err := ui.OpenFolder(a.ctx, path)
+		if err != nil {
+			a.config.Errorf("Opening Folder: %s: %w", path, err)
+		}
+	}()
 
 	return "Opening Path: " + path
 }
