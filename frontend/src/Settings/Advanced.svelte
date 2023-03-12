@@ -1,7 +1,7 @@
 <script>
   import { Input, InputGroup, InputGroupText, Tooltip } from "sveltestrap"
   import { GetConfig } from "../../wailsjs/go/app/App.js"
-	import { devMode, dark } from './store.js'
+	import { devMode } from './store.js'
   import { saveValue } from "../funcs";
 
   let validProps = {}
@@ -20,6 +20,7 @@
   }
 </script>
 
+<p>These settings control advanced aspects of this application, and should probably not be changed.</p>
 <InputGroup>
   <InputGroupText class="setting-name">Dev Mode</InputGroupText>
   <Input valid={validProps.DevMode} invalid={invalidProps.DevMode} on:change={saveInput} value={dm} type="select" name="Advanced.DevMode" id="DevMode">
@@ -34,4 +35,8 @@
     <option value="production">Production</option>
     <option value="unstable">Unstable</option>
   </Input>
+</InputGroup>
+<InputGroup>
+  <InputGroupText class="setting-name">App Path</InputGroupText>
+  <Input readonly value={conf.Exe} type="text" name="App.Exe" id="Exe" />
 </InputGroup>

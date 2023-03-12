@@ -36,6 +36,8 @@
   }
 </script>
 
+<p>This app writes logs file, and rotates them itself. Use the settings below to control that behavior.
+Settings save automatically when changed.</p>
 <InputGroup>
   <Tooltip target="Path" placement="top">Must be a directory</Tooltip>
   <InputGroupText class="setting-name">Log File Path</InputGroupText>

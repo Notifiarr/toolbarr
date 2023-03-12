@@ -165,8 +165,8 @@
     <!-- version update card at the bottom of the About page -->
     {#if version}
     <Col md="6">
-      <h3>App Info</h3>
-      <Card  color={$dark ? 'dark' : 'light'} body>
+      <h3>App Info</h3><!-- following line shows an error but actually works. -->
+      <Card color={$dark ? 'secondary' : 'transparent'} body>
         <Table dark={$dark} responsive>
           <tr><td>Version</td><td>v{version.Version}-{version.Revision} ({version.GoVersion})</td></tr>
           <tr><td>Branch</td><td>{version.Branch}</td></tr>
@@ -200,9 +200,9 @@
           </td></tr>
         </Table>
         {#if progress}
-        <Progress striped color="success" value={progress*100}>{(progress*100).toFixed(0)}%</Progress>
+        <Progress striped animated color="success" value={progress*100}>{(progress*100).toFixed(0)}%</Progress>
         {:else}
-        <Badge>{msg}</Badge>
+        <Badge color="{$dark ?  'dark' : 'secondary'}">{msg}</Badge>
         {/if}
       </Card>
     </Col>

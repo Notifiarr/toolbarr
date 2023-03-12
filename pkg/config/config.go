@@ -12,6 +12,7 @@ import (
 	"github.com/Notifiarr/toolbarr/pkg/logs"
 )
 
+// TODO: load config file from same folder as exe or app.
 var ErrEmptyInput = fmt.Errorf("input must have at least name or path")
 
 // Input data to open a config file.

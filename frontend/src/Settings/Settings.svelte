@@ -40,13 +40,11 @@
 <BGLogo url="golift">
   <Container>
     <Row>
-      <p>
-        This is where the application settings are found.
-      </p>
+      <p>This is where the application settings are found.</p>
       <Form class="Settings">
         <InputGroup>
           <InputGroupText class="setting-name">Config File</InputGroupText>
-          <Input disabled value={conf.File} />
+          <Input readonly value={conf.File} />
           <Button on:click={(e) => (e.preventDefault(),toggleConfHelp())}><Fa primaryColor="cyan" icon="{faQuestion}" /></Button>
         </InputGroup>
         <br />
@@ -60,7 +58,8 @@
       </Form>
     </Row>
   </Container>
-  <Offcanvas style="width:50%;min-width:390px;max-width:550px" class="{$dark ? 'bg-dark' : ''}" isOpen={confHelp} toggle={toggleConfHelp} header="Custom Config Path" placement="end">
+
+  <Offcanvas style="width:50%;min-width:390px;max-width:550px" class="{$dark ? 'bg-secondary' : 'bg-light'}" isOpen={confHelp} toggle={toggleConfHelp} header="Custom Config Path" placement="end">
     {#if $isLinux}
       <p>To use a custom config file path on Linux, simply provide it as a cli argument when you launch the executable.</p>
       <h5>Example</h5>
