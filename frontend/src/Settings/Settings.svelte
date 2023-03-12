@@ -72,6 +72,12 @@
       <p>It's difficult to use a custom config location on a mac and is not recommended.</p>
     {:else}
       <p>
+        Toolbarr will look for <code>toolbarr.conf</code> in the same folder as <code>Toolbarr.exe</code>.
+        If it is not found, then a location inside your home folder is used for the config file.
+        If you want the config file to live next to the exe file: copy it there, restart this app, and it will be used.
+        If you want a custom config file location, follow the instructions below.
+      </p>
+      <p>
       To use a custom config file on Windows, you must create and edit a shortcut. 
       When you use the installer a shortcut is placed in your start menu, 
       and optionally on your desktop. You may use either of these files, or create a new one. 

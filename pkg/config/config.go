@@ -12,7 +12,6 @@ import (
 	"github.com/Notifiarr/toolbarr/pkg/logs"
 )
 
-// TODO: load config file from same folder as exe or app.
 var ErrEmptyInput = fmt.Errorf("input must have at least name or path")
 
 // Input data to open a config file.
@@ -34,11 +33,13 @@ type Config struct {
 	Dark bool
 }
 
+// Advanced settings. Mostly affects front end only.
 type Advanced struct {
 	DevMode bool
 	Updates string
 }
 
+// App data is read only.
 type App struct {
 	IsWindows bool
 	IsLinux   bool
