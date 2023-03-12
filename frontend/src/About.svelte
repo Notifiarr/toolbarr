@@ -2,8 +2,8 @@
   import Fa from "svelte-fa"
   import { faGithub, faDiscord } from "@fortawesome/free-brands-svg-icons"
   import { faGear } from "@fortawesome/free-solid-svg-icons"
-  import { BrowserOpenURL } from "../wailsjs/runtime"
-  import {Version, CheckUpdate, DownloadUpdate, LaunchInstaller } from "../wailsjs/go/app/App"
+  import { BrowserOpenURL, EventsOn, EventsOff } from "../wailsjs/runtime"
+  import { Version, CheckUpdate, DownloadUpdate, LaunchInstaller, OpenFolder } from "../wailsjs/go/app/App"
   import { Container, Row, Table, Col, Card, Tooltip, Button } from   "sveltestrap"
   import { tweened } from 'svelte/motion'
   import BGLogo from "./BackgroundLogo.svelte"
@@ -19,6 +19,7 @@
 
   let update = {}
   let release = {}
+  let progress = 0.0
 
   function checkUpdate(e) {
     e.preventDefault()
@@ -26,37 +27,47 @@
     CheckUpdate().then(result => {
       release = result
       update.Checked = true
-      update.Downloading = ''
+      update.Downloading = ""
     }, (error) => {
-      update.Failed = 'Error checking for update'
-      toast('error', "", error, $dark)
-      update.Downloading = ''
+      update.Failed = "Error checking for update"
+      toast("error", "", error, $dark)
+      update.Downloading = ""
     })
   }
 
   function installUpdate(e) {
     e.preventDefault()
-    update.Downloading = 'Launching Installer..'
-  // two buttons? view file (open folder) and launch
-    LaunchInstaller().then(result => {
-    }, (error) => {
-      update.Failed = error
-      toast('error', "", error, $dark)
+    update.Downloading = "Launching installer.."
+    LaunchInstaller(release.FilePath).then(result => {
+      update.Downloading = result
     })
+  }
+
+  function openFolder(e) {
+    e.preventDefault()
+    OpenFolder(release.FilePath).then(msg => (toast("warning", "", msg, $dark)))
   }
 
   function downloadUpdate(e) {
     e.preventDefault()
-    update.Downloading = 'Downloading the update... '
-    DownloadUpdate().then(result => {
+    update.Downloading = "Downloading the update... "
+    DownloadUpdate().then(data => {
       update.Checked = true
-      update.Downloading = ''
-      update.Downloaded = 'Open Update File'
-      toast('success', "", result, $dark)
+      release.FilePath = data.Path
+      toast("success", "", data.Path, $dark)
+      EventsOn("downloadFinished", (data) => {
+        EventsOff("downloadProgress", "downloadFinished")
+        update.Downloaded = "Open Update File"
+        update.Downloading = ""
+        progress = 0.0
+      })
+      EventsOn("downloadProgress", (data) => {
+        progress = data
+      })
     }, (error) => {
-      update.Failed = 'Error checking for update'
-      toast('error', "", error, $dark)
-      update.Downloading = ''
+      update.Failed = "Error checking for update"
+      toast("error", "", error, $dark)
+      update.Downloading = ""
     })
   }
 
@@ -134,7 +145,7 @@
             <Button block disabled size="sm" color="danger">{update.Downloading} <Fa spin primaryColor="yellow" icon={faGear} /></Button>
             {:else if update.Downloaded}
             <Button style="width:49%" outline on:click={installUpdate} size="sm" color="primary">{update.Downloaded}</Button>
-            <Button style="width:49%" outline on:click={installUpdate} size="sm" color="info">Open Folder</Button>
+            <Button style="width:49%" outline on:click={openFolder} size="sm" color="info">Open Folder</Button>
             {:else if release.Outdate}
             <Button block outline on:click={downloadUpdate} size="sm" color="warning">Download update: v{release.Current}</Button>
             {:else if update.Checked}
@@ -144,9 +155,17 @@
             {/if}
           </td></tr>
         </Table>
+        {#if progress}
+        <progress value={progress}></progress>
+        {/if}
       </Card>
     </Col>
     {/if}
   </Container>
 </BGLogo>
 
+<style>
+  progress {
+    width: 100%;
+  }
+</style>

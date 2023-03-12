@@ -25,7 +25,7 @@ const unstableURL = "https://unstable.golift.io"
 // CheckUnstable checks if the provided app has an updated version on GitHub.
 // Pass in revision only, no version.
 func CheckUnstable(ctx context.Context, app string, revision string) (*Update, error) {
-	uri := fmt.Sprintf("%s/%s/%s.%s.installer.zip", unstableURL, strings.ToLower(app), app, runtime.GOARCH)
+	uri := fmt.Sprintf("%s/%s/%s.%s.installer.exe", unstableURL, strings.ToLower(app), app, runtime.GOARCH)
 	if runtime.GOOS == "linux" {
 		uri = fmt.Sprintf("%s/%s/%s.%s.gz", unstableURL, strings.ToLower(app), app, runtime.GOARCH)
 	} else if runtime.GOOS == "darwin" {
@@ -37,7 +37,16 @@ func CheckUnstable(ctx context.Context, app string, revision string) (*Update, e
 		return nil, err
 	}
 
-	return fillUnstable(release, revision), nil
+	oldRev, _ := strconv.Atoi(revision)
+
+	return &Update{
+		RelDate: release.Time,
+		CurrURL: release.File,
+		Current: fmt.Sprint(release.Ver, "-", release.Rev),
+		Version: revision, // on well.
+		RelSize: release.Size,
+		Outdate: release.Rev > oldRev,
+	}, nil
 }
 
 // GetUnstable returns an unstable release. See CheckUnstable for an example on how to use it.
@@ -65,18 +74,4 @@ func GetUnstable(ctx context.Context, uri string) (*UnstableFile, error) {
 	release.File = uri
 
 	return &release, nil
-}
-
-// fillUnstable compares a current version with the latest GitHub release.
-// Pass in revision only, no version.
-func fillUnstable(release *UnstableFile, revision string) *Update {
-	rev, _ := strconv.Atoi(revision)
-	return &Update{
-		RelDate: release.Time,
-		CurrURL: release.File,
-		Current: fmt.Sprint(release.Ver, "-", release.Rev),
-		Version: revision, // on well.
-		RelSize: release.Size,
-		Outdate: release.Rev < rev,
-	}
 }

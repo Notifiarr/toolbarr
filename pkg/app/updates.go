@@ -6,6 +6,8 @@ import (
 	"sync"
 	"time"
 
+	"github.com/Notifiarr/toolbarr/pkg/mnd"
+	"github.com/Notifiarr/toolbarr/pkg/ui"
 	"github.com/Notifiarr/toolbarr/pkg/update"
 	"golift.io/version"
 )
@@ -15,7 +17,7 @@ var ErrInvalidInput = fmt.Errorf("invalid input provided")
 type updates struct {
 	sync.RWMutex
 	release  *update.Update
-	download string
+	progress *update.Progress
 	date     time.Time
 }
 
@@ -61,27 +63,59 @@ func (a *App) checkUpdateChecked() *update.Update {
 	return nil
 }
 
-func (a *App) DownloadUpdate() (string, error) {
+type UpdateInfo struct {
+	Msg  string
+	Path string
+	Size string
+}
+
+func (a *App) DownloadUpdate() (*UpdateInfo, error) {
 	a.updates.RLock()
 	defer a.updates.RUnlock()
 
 	a.config.Printf("Downloading File")
+
 	err := fmt.Errorf("%w: missing release, check first?", ErrInvalidInput)
+
 	if a.updates.release == nil {
-		return "", err
+		return nil, err
 	}
 
-	a.updates.download, err = update.DownloadURL(a.ctx, a.updates.release.CurrURL, path.Base(a.updates.release.CurrURL), nil)
+	a.updates.progress, err = update.DownloadURL(
+		a.ctx, a.updates.release.CurrURL, path.Base(a.updates.release.CurrURL), nil)
 	if err != nil {
 		a.config.Errorf("Downloading %s update: %w", a.config.Updates, err)
-		return "", fmt.Errorf("downloading update: %w", err)
+		return nil, fmt.Errorf("downloading failed: %w", err)
 	}
 
-	a.config.Printf("Downloaded %s release from %s to %s", a.config.Updates, a.updates.release.CurrURL, a.updates.download)
+	size := mnd.FormatBytes(a.updates.progress.Size())
+	a.config.Printf("Downloading %s release from %s to %s (%s)",
+		a.config.Updates, a.updates.release.CurrURL, a.updates.progress.Path(), size)
 
-	return "Downloaded: " + a.updates.download, nil
+	return &UpdateInfo{
+		Msg:  fmt.Sprintln("Downloading", size, "to", a.updates.progress.Path()),
+		Path: a.updates.progress.Path(),
+		Size: size,
+	}, nil
 }
 
-func (a *App) LaunchInstaller() (string, error) {
-	return "", fmt.Errorf("cannot launch an installer yet!")
+func (a *App) LaunchInstaller(path string) (string, error) {
+	var err error
+
+	if mnd.IsMac {
+		err = ui.OpenFolder(a.ctx, path)
+	} else {
+		err = ui.OpenCmd(a.ctx, path)
+	}
+
+	if err != nil {
+		a.config.Errorf("Opening Folder: %s: %w", path, err)
+	}
+
+	defer func() {
+		time.Sleep(5 * time.Second) //nolint:gomnd
+		a.Quit()
+	}()
+
+	return "Launching Installer: " + path, nil
 }

@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/Notifiarr/toolbarr/pkg/config"
+	"github.com/Notifiarr/toolbarr/pkg/ui"
 	"github.com/gorilla/schema"
 	wailsRuntime "github.com/wailsapp/wails/v2/pkg/runtime"
 	"golift.io/version"
@@ -64,6 +65,15 @@ func (a *App) PickFolder(id string) (string, error) {
 	}
 
 	return dir, nil
+}
+
+func (a *App) OpenFolder(path string) string {
+	err := ui.OpenFolder(a.ctx, path)
+	if err != nil {
+		a.config.Errorf("Opening Folder: %s: %w", path, err)
+	}
+
+	return "Opening Path: " + path
 }
 
 type Version struct {

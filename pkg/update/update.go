@@ -16,11 +16,11 @@ import (
 	"net/http"
 	"os"
 	"os/exec"
-	"os/user"
 	"path/filepath"
-	"runtime"
 	"strings"
 	"time"
+
+	"github.com/Notifiarr/toolbarr/pkg/mnd"
 )
 
 // SleepTime is how long we wait after updating before exiting.
@@ -95,7 +95,7 @@ func (u *Command) replaceFile(ctx context.Context) (string, error) {
 		return "", err
 	}
 
-	if runtime.GOOS != "windows" {
+	if !mnd.IsWindows {
 		_ = os.Chmod(tempFile, 0o755) //nolint:gomnd
 	}
 
@@ -127,54 +127,6 @@ func (u *Command) replaceFile(ctx context.Context) (string, error) {
 	return backupFile, nil
 }
 
-func DownloadURL(ctx context.Context, uri string, fileName string, logger *log.Logger) (string, error) {
-	if logger == nil {
-		logger = log.New(io.Discard, "", 0)
-	}
-
-	command := &Command{
-		URL:    uri,
-		Path:   fileName,
-		Logger: logger,
-	}
-
-	tempFile, err := command.writeFile(ctx, os.TempDir())
-	if err != nil {
-		return "", err
-	}
-
-	newPath := filepath.Join(os.TempDir(), fileName)
-
-	switch user, err := user.Current(); {
-	default:
-	case err != nil:
-	case runtime.GOOS == "darwin":
-		fallthrough
-	case runtime.GOOS == "windows":
-		newPath = filepath.Join(user.HomeDir, "Downloads", fileName)
-	}
-
-	if _, err := os.Stat(newPath); err == nil {
-		// file already exists.
-		ext := filepath.Ext(fileName)
-		base := strings.TrimSuffix(fileName, ext) + "."
-		// find a new name.
-		for i := 1; i <= 99; i++ {
-			tryPath := filepath.Join(filepath.Dir(newPath), fmt.Sprint(base, i, ext))
-			if _, err := os.Stat(tryPath); err != nil {
-				newPath = tryPath
-				break
-			}
-
-		}
-	}
-	if err = os.Rename(tempFile, newPath); err != nil {
-		return "", fmt.Errorf("renaming temp file: %w", err)
-	}
-
-	return newPath, nil
-}
-
 func (u *Command) writeFile(ctx context.Context, folderPath string) (string, error) {
 	tempFile, err := os.CreateTemp(folderPath, filepath.Base(u.Path))
 	if err != nil {
@@ -196,7 +148,7 @@ func (u *Command) writeFile(ctx context.Context, folderPath string) (string, err
 	return tempFile.Name(), u.decompressFile(tempFile, resp.Body, resp.ContentLength)
 }
 
-func (u *Command) decompressFile(tempFile *os.File, resp io.Reader, size int64) error {
+func (u *Command) decompressFile(tempFile io.Writer, resp io.Reader, size int64) error {
 	switch {
 	case strings.HasSuffix(u.URL, ".zip"):
 		if body, err := io.ReadAll(resp); err != nil {
@@ -221,7 +173,7 @@ func (u *Command) decompressFile(tempFile *os.File, resp io.Reader, size int64) 
 	return nil
 }
 
-func (u *Command) writeGZipFile(tempFile *os.File, resp io.Reader) error {
+func (u *Command) writeGZipFile(tempFile io.Writer, resp io.Reader) error {
 	gzFile, err := gzip.NewReader(resp)
 	if err != nil {
 		return fmt.Errorf("reading gzip file: %w", err)
@@ -235,7 +187,7 @@ func (u *Command) writeGZipFile(tempFile *os.File, resp io.Reader) error {
 	return nil
 }
 
-func (u *Command) writeZipFile(tempFile *os.File, body []byte, size int64) error {
+func (u *Command) writeZipFile(tempFile io.Writer, body []byte, size int64) error {
 	if size < 1 {
 		size = int64(len(body))
 	}
@@ -248,7 +200,7 @@ func (u *Command) writeZipFile(tempFile *os.File, body []byte, size int64) error
 
 	// Find the exe file and write that.
 	for _, zipFile := range zipReader.File {
-		if runtime.GOOS == "windows" && strings.HasSuffix(zipFile.Name, ".exe") {
+		if mnd.IsWindows && strings.HasSuffix(zipFile.Name, ".exe") {
 			zipOpen, err := zipFile.Open()
 			if err != nil {
 				return fmt.Errorf("reading zipped exe file: %w", err)

@@ -18,16 +18,24 @@ export function GetConfig() {
   return window['go']['app']['App']['GetConfig']();
 }
 
+export function GetProgress() {
+  return window['go']['app']['App']['GetProgress']();
+}
+
 export function IsWindows() {
   return window['go']['app']['App']['IsWindows']();
 }
 
-export function LaunchInstaller() {
-  return window['go']['app']['App']['LaunchInstaller']();
+export function LaunchInstaller(arg1) {
+  return window['go']['app']['App']['LaunchInstaller'](arg1);
 }
 
 export function Lock() {
   return window['go']['app']['App']['Lock']();
+}
+
+export function OpenFolder(arg1) {
+  return window['go']['app']['App']['OpenFolder'](arg1);
 }
 
 export function PickFolder(arg1) {

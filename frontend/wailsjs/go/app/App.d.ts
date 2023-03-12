@@ -7,15 +7,19 @@ export function CheckUpdate():Promise<any>;
 
 export function CreateShortcut():Promise<string>;
 
-export function DownloadUpdate():Promise<string>;
+export function DownloadUpdate():Promise<any>;
 
 export function GetConfig():Promise<any>;
 
+export function GetProgress():Promise<any>;
+
 export function IsWindows():Promise<boolean>;
 
-export function LaunchInstaller():Promise<string>;
+export function LaunchInstaller(arg1:string):Promise<string>;
 
 export function Lock():Promise<void>;
+
+export function OpenFolder(arg1:string):Promise<string>;
 
 export function PickFolder(arg1:string):Promise<string>;
 

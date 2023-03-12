@@ -47,6 +47,7 @@ VIAddVersionKey "ProductName"     "${INFO_PRODUCTNAME}"
 
 !include "MUI.nsh"
 
+!define REGKEY "SOFTWARE\${INFO_COMPANYNAME}\${INFO_PRODUCTNAME}"
 !define MUI_ICON "..\icon.ico"
 !define MUI_UNICON "..\icon.ico"
 !define MUI_WELCOMEFINISHPAGE_BITMAP "resources\side.bmp" #Include this to add a bitmap on the left side of the Welcome Page. Must be a size of 164x314
@@ -73,6 +74,7 @@ VIAddVersionKey "ProductName"     "${INFO_PRODUCTNAME}"
 Name "${INFO_PRODUCTNAME}"
 OutFile "..\..\bin\${INFO_PROJECTNAME}.${ARCH}.installer.exe" # Name of the installer's file.
 InstallDir "$PROGRAMFILES64\${INFO_COMPANYNAME}\${INFO_PRODUCTNAME}" # Default installing folder ($PROGRAMFILES is Program Files folder).
+InstallDirRegKey HKLM "${REGKEY}" Path
 ShowInstDetails show # This will always show the installation details.
 
 Function createDesktopShortcut

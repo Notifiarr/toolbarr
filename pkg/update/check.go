@@ -79,15 +79,16 @@ func FillUpdate(release *GitHubReleasesLatest, version string) (*Update, error) 
 		RelDate: release.PublishedAt,
 		CurrURL: release.HTMLURL,
 		Current: release.TagName,
-		Version: "v" + strings.TrimPrefix(version, "v"),
-		Outdate: semver.Compare("v"+strings.TrimPrefix(release.TagName, "v"),
-			"v"+strings.TrimPrefix(version, "v")) > 0,
+		Version: strings.TrimPrefix(version, "v"),
+		Outdate: semver.Compare(strings.TrimPrefix(release.TagName, "v"),
+			strings.TrimPrefix(version, "v")) > 0,
 	}
 
 	for _, file := range release.Assets {
 		if strings.HasSuffix(file.BrowserDownloadURL, OSsuffixMap[runtime.GOOS]) {
 			update.CurrURL = file.BrowserDownloadURL
 			update.RelDate = file.UpdatedAt
+			update.RelSize = file.Size
 
 			break
 		}
@@ -132,7 +133,7 @@ type GHasset struct {
 	Uploader           GHuser    `json:"uploader"`
 	ContentType        string    `json:"content_type"`
 	State              string    `json:"state"`
-	Size               int       `json:"size"`
+	Size               int64     `json:"size"`
 	DownloadCount      int       `json:"download_count"`
 	CreatedAt          time.Time `json:"created_at"`
 	UpdatedAt          time.Time `json:"updated_at"`

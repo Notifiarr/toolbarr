@@ -10,15 +10,9 @@ import (
 	"runtime"
 
 	"github.com/Notifiarr/toolbarr/pkg/logs"
-	"golift.io/version"
 )
 
 var ErrEmptyInput = fmt.Errorf("input must have at least name or path")
-
-func init() { // TODO: remove this
-	version.Version = "0.0.1"
-	version.Revision = "12"
-}
 
 // Input data to open a config file.
 // If Dir!="" then config is placed in a sub directory.
