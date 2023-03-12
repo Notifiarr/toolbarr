@@ -18,16 +18,8 @@ export function GetConfig() {
   return window['go']['app']['App']['GetConfig']();
 }
 
-export function IsWindows() {
-  return window['go']['app']['App']['IsWindows']();
-}
-
 export function LaunchInstaller(arg1) {
   return window['go']['app']['App']['LaunchInstaller'](arg1);
-}
-
-export function Lock() {
-  return window['go']['app']['App']['Lock']();
 }
 
 export function OpenFolder(arg1) {
@@ -42,32 +34,8 @@ export function Quit() {
   return window['go']['app']['App']['Quit']();
 }
 
-export function RLock() {
-  return window['go']['app']['App']['RLock']();
-}
-
-export function RLocker() {
-  return window['go']['app']['App']['RLocker']();
-}
-
-export function RUnlock() {
-  return window['go']['app']['App']['RUnlock']();
-}
-
 export function SaveConfigItem(arg1, arg2, arg3) {
   return window['go']['app']['App']['SaveConfigItem'](arg1, arg2, arg3);
-}
-
-export function TryLock() {
-  return window['go']['app']['App']['TryLock']();
-}
-
-export function TryRLock() {
-  return window['go']['app']['App']['TryRLock']();
-}
-
-export function Unlock() {
-  return window['go']['app']['App']['Unlock']();
 }
 
 export function Version() {

@@ -31,13 +31,13 @@
   function createWindowsShortcut(e) {
     e.preventDefault()
     CreateShortcut().then(
-      msg => (toast("success", "", msg, $dark)),
-      error => (toast("error", "", error, $dark))
+      msg => (toast("success", msg)),
+      error => (toast("error", error))
     )
   }
 </script>
 
-<BGLogo>
+<BGLogo url="golift">
   <Container>
     <Row>
       <p>

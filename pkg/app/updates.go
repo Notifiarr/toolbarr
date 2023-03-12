@@ -57,7 +57,7 @@ func (a *App) checkUpdateChecked() *update.Update {
 	defer a.updates.RUnlock()
 
 	if a.updates.release != nil && time.Since(a.updates.date) < 10*time.Second {
-		return a.release
+		return a.updates.release
 	}
 
 	return nil
@@ -120,4 +120,15 @@ func (a *App) LaunchInstaller(path string) (string, error) {
 	}()
 
 	return "Launching Installer: " + path, nil
+}
+
+func (a *App) OpenFolder(path string) string {
+	go func() {
+		err := ui.OpenFolder(a.ctx, path)
+		if err != nil {
+			a.config.Errorf("Opening Folder: %s: %w", path, err)
+		}
+	}()
+
+	return "Opening Path: " + path
 }

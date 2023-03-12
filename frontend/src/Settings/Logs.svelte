@@ -8,19 +8,18 @@
   } from "sveltestrap"
   import Fa from "svelte-fa"
   import {faFolderOpen} from "@fortawesome/free-solid-svg-icons"
-  import {GetConfig, IsWindows, PickFolder} from "../../wailsjs/go/app/App.js"
+  import {GetConfig, PickFolder} from "../../wailsjs/go/app/App.js"
   import { saveValue } from "../funcs";
+  import { isWindows } from './store.js';
 
   let validProps = {}
   let invalidProps = {}
   let conf = {}
-  let isWindows = false
 
   GetConfig().then((result) => (conf = result))
-  IsWindows().then((result) => (isWindows = result))
 
   function saveInput(e) {
-    validProps[e.target.id] = saveValue(e.target.name, e.target.value, conf.Dark, true)
+    validProps[e.target.id] = saveValue(e.target.name, e.target.value, true)
     invalidProps[e.target.id] = !validProps[e.target.id]
     setInterval(() => {validProps[e.target.id]=false}, 5000)
   }
@@ -30,10 +29,10 @@
     event.preventDefault()
     PickFolder("Log File Path").then((path) => {
       if (path == "") { return }
-      validProps['Path'] = saveValue('LogConfig.Path', path, conf.Dark, true)
+      validProps['Path'] = saveValue('LogConfig.Path', path, true)
       invalidProps['Path'] = !validProps['Path']
       conf.Path = path
-  })
+    })
   }
 </script>
 
@@ -55,7 +54,7 @@
     <option value="2" selected={conf.Level == 2}>Trace Logging</option>
   </Input>
 </InputGroup>
-{#if !isWindows}
+{#if !$isWindows}
 <InputGroup>
   <InputGroupText class="setting-name">Log File Mode</InputGroupText>
   <Input valid={validProps.Mode} invalid={invalidProps.Mode} on:change={saveInput} type="select" name="LogConfig.Mode" id="Mode">

@@ -14,7 +14,7 @@
     if (e.target.id == "DevMode") {
       $devMode = e.target.value == "false" ? false : true
     }
-    validProps[e.target.id] = saveValue(e.target.name, e.target.value, $dark, false)
+    validProps[e.target.id] = saveValue(e.target.name, e.target.value, false)
     invalidProps[e.target.id] = !validProps[e.target.id]
     setInterval(() => {validProps[e.target.id]=false}, 5000)
   }

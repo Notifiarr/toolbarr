@@ -1,4 +1,4 @@
-<script>
+<script type="ts">
   import { 
       Collapse, 
       Dropdown, 
@@ -38,7 +38,6 @@
   let app = "Toolbarr"
 
   const classes = window.document.body.classList
-  
   GetConfig().then(conf => {
     $dark = conf.Dark
     $dark ? classes.add("dark-mode") : classes.remove("dark-mode")
@@ -52,11 +51,9 @@
     $dark = event.target.checked
     $dark ? classes.add("dark-mode") : classes.remove("dark-mode")
 
-    SaveConfigItem(event.target.name, event.target.checked+"", false).then((msg) => (
-        $devMode ? toast("success", "", msg, $dark) : ''
-    ), (error) => {
-      toast("error", "", error, $dark)
-    })
+    SaveConfigItem(event.target.name, event.target.checked+"", false).then(
+      (msg) => {if ($devMode) toast("success", msg, "Debug")}, 
+      (error) => (toast("error", error)))
   }
 
   /* Prevent right-click when dev mode is disabled. */
@@ -94,7 +91,7 @@
 <br />
 
 <!-- This gets used by any toast from any page. -->
-<ToastContainer placement="bottom-right" theme={$dark ? "dark" : "light"} let:data={data}>
+<ToastContainer placement="bottom-right" let:data={data}>
   <FlatToast {data} /> <!-- default slot as toast component -->
 </ToastContainer>
 

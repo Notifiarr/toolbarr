@@ -1,13 +1,16 @@
 <script lang="ts">
   export let app
+
   import { Container, Nav, NavLink, Row } from "sveltestrap"
   import Instances from "./Instances.svelte"
   import Database from "./Database.svelte"
   import Source from "./Source.svelte"
+  import BGLogo from "../BackgroundLogo.svelte"
+
   let activeTab = "Instances"
 </script>
 
-<div id="starr">
+<BGLogo url="starr">
   <Nav tabs fill>
     <NavLink href="#" on:click={() => (activeTab = "Instances")} active={activeTab == "Instances"}>{app} Tools</NavLink>
     <NavLink href="#" on:click={() => (activeTab = "Database")} active={activeTab == "Database"}>Database Tools</NavLink>
@@ -21,5 +24,4 @@
       {#if activeTab == "Source"}<Source {app} />{/if}
     </Row>
   </Container>
-</div>
-
+</BGLogo>

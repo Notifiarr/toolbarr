@@ -1,26 +1,30 @@
-  import {toasts}  from "svelte-toasts"
-  import {SaveConfigItem} from "../wailsjs/go/app/App"
+  import { toasts }  from "svelte-toasts"
+  import { SaveConfigItem } from "../wailsjs/go/app/App"
+  import { dark } from './Settings/store.js'
 
-  export const toast = (type, title, msg, dark, seconds=7) => {
+  let isDark = false;
+  dark.subscribe(value => (isDark = value))
+
+  export const toast = (type, msg, title="", seconds=7) => {
     const toast = toasts.add({
-      title: title,
-      description: (type=="error"?"Error: ":"") +msg,
+      title: title != "" ? title : type == "error" ? 'ERROR' : '',
+      description: msg,
       duration: seconds*1000,
-      theme: dark ? "dark" : "light",
+      theme: isDark ? "dark" : "light",
       type: type,
       onClick: () => {toast.remove()},
       showProgress: true,
     })
   }
 
-  export function saveValue(name, val, dark, reload) {
+  export function saveValue(name, val, reload) {
     if (val == "") { return true }
   
     SaveConfigItem(name, val, reload).then((msg) => {
-      toast("success", "", msg, dark)
+      toast("success", msg)
       return true
     }, (error) => {
-      toast("error", "", error, dark)
+      toast("error", error)
       return false
     })
 

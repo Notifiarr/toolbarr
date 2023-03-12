@@ -6,7 +6,6 @@ import (
 	"time"
 
 	"github.com/Notifiarr/toolbarr/pkg/config"
-	"github.com/Notifiarr/toolbarr/pkg/ui"
 	"github.com/gorilla/schema"
 	wailsRuntime "github.com/wailsapp/wails/v2/pkg/runtime"
 	"golift.io/version"
@@ -17,10 +16,6 @@ var decoder = schema.NewDecoder()
 
 func (a *App) GetConfig() *config.Config {
 	return a.config
-}
-
-func (a *App) IsWindows() bool {
-	return runtime.GOOS == "windows"
 }
 
 // SaveConfigItem saves a single item to the running config and writes the config file.
@@ -65,17 +60,6 @@ func (a *App) PickFolder(id string) (string, error) {
 	}
 
 	return dir, nil
-}
-
-func (a *App) OpenFolder(path string) string {
-	go func() {
-		err := ui.OpenFolder(a.ctx, path)
-		if err != nil {
-			a.config.Errorf("Opening Folder: %s: %w", path, err)
-		}
-	}()
-
-	return "Opening Path: " + path
 }
 
 type Version struct {
