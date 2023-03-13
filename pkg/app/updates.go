@@ -55,7 +55,8 @@ func (a *App) CheckUpdate() (*Release, error) {
 		Size:   mnd.FormatBytes(release.RelSize),
 	}
 	a.updates.date = time.Now()
-	a.config.Printf("Checked Current %s release: %v (%s)", a.config.Updates, release.Version, mnd.FormatBytes(release.RelSize))
+	a.config.Printf("Checked Current %s release: %v (%s)",
+		a.config.Updates, release.Version, mnd.FormatBytes(release.RelSize))
 
 	return a.updates.release, nil
 }

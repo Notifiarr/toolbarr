@@ -75,7 +75,6 @@ func GetRelease(ctx context.Context, uri string) (*GitHubReleasesLatest, error) 
 
 // FillUpdate compares a current version with the latest GitHub release.
 func FillUpdate(release *GitHubReleasesLatest, version string) (*Update, error) {
-
 	update := &Update{
 		RelDate: release.PublishedAt,
 		CurrURL: release.HTMLURL,
