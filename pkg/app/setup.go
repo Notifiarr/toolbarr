@@ -14,6 +14,7 @@ type App struct {
 	logger     *logs.Logger
 	config     *config.Config
 	configFile string // empty unless passed in from cli
+	updates    updates
 }
 
 // New creates a new App application struct.
@@ -28,7 +29,7 @@ func (a *App) Startup(ctx context.Context) {
 
 	defer a.logger.CapturePanic()
 
-	conf, err := config.Get(config.Input{
+	conf, err := config.Get(&config.Input{
 		Path:   a.configFile,
 		Name:   "toolbarr",
 		Dir:    "com.notifiarr.toolbarr",

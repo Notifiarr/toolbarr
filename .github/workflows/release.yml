@@ -10,8 +10,11 @@ jobs:
   package:
     strategy:
       matrix:
-        platform: [ubuntu-latest]
+        platform: [macos-latest, ubuntu-latest]
     runs-on: ${{ matrix.platform }}
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      revision: ${{ steps.version.outputs.revision }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -29,6 +32,7 @@ jobs:
         run: go install github.com/wailsapp/wails/v2/cmd/wails@latest
 
       - name: Inject Version Info
+        id: version
         run: |
           VERSION=$(git describe --abbrev=0 --tags $(git rev-list --tags --max-count=1) | tr -d v)
           [ "$VERSION" != "" ] || VERSION=0.0.0
@@ -44,6 +48,8 @@ jobs:
           echo "VERSION_LDFLAGS=${VERSION_LDFLAGS}" >> $GITHUB_ENV
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
           echo "REVISION=${REVISION}" >> $GITHUB_ENV
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+          echo "revision=${REVISION}" >> $GITHUB_OUTPUT
 
       - name: Build macOS
         if: runner.os == 'macOS' && (startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/unstable')
@@ -68,8 +74,7 @@ jobs:
 
       # This one sucked to figure out, and it's slow, but it works!
       - name: Build Linux ARM
-        if: runner.os == 'Linux' 
-        # && (startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/unstable')
+        if: runner.os == 'Linux' && (startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/unstable')
         uses: pguyot/arm-runner-action@v2
         with:
           base_image: https://cdimage.ubuntu.com/releases/22.10/release/ubuntu-22.10-preinstalled-desktop-arm64+raspi.img.xz
@@ -86,19 +91,17 @@ jobs:
               go build -o build/bin/toolbarr.arm64 -ldflags='${{ env.VERSION_LDFLAGS }}' .
 
       - name: Build Windows
-        if: runner.os == 'Windows'
+        if: runner.os == 'Linux'
         env:
           EXE_SIGNING_KEY: ${{ secrets.EXE_SIGNING_KEY }}
           EXE_SIGNING_KEY_PASSWORD: ${{ secrets.EXE_SIGNING_KEY_PASSWORD }}
         run: |
           wails build -s -m -trimpath -platform windows/amd64 -nsis -webview2 embed -o Toolbarr.amd64.exe -ldflags='${{ env.VERSION_LDFLAGS }}'
           wails build -s -m -trimpath -platform windows/arm64 -nsis -webview2 embed -o Toolbarr.arm64.exe -ldflags='${{ env.VERSION_LDFLAGS }}'
-          build/windows/signexe.sh
-          for FILE in build/bin/*.exe; do zip -9D "${FILE%.*}.zip" "${FILE}"; done
+          for FILE in build/bin/*.a??64.exe; do zip -9j "${FILE%.*}.zip" "${FILE}"; done
 
       - name: Package Linux Binaries
-        if: runner.os == 'Linux'
-        # && (startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/unstable')
+        if: runner.os == 'Linux' && (startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/unstable')
         env:
           KEYID: B93DD66EF98E54E2EAE025BA0166AD34ABC5A57C
           GPG_SIGNING_KEY: ${{ secrets.GPG_SIGNING_KEY }}
@@ -137,14 +140,32 @@ jobs:
           name: toolbarr-${{ matrix.platform }}
           path: build/bin/*
 
+  deploy-unstable-packagecloud:
+    # description: "Uploads pre-built RPM and DEB packages to packagecloud.io/golift"
+    if: github.ref == 'refs/heads/unstable'
+    needs: package
+    name: Deploy Unstable PackageCloud
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download release files
+        uses: actions/download-artifact@v3
+        with:
+          name: toolbarr-ubuntu-latest
+      - uses: golift/upload-packagecloud@v1
+        with:
+          userrepo: golift/unstable
+          apitoken: ${{ secrets.PACKAGECLOUD_TOKEN }}
+          packages: .
+          rpmdists: el/6
+          debdists: ubuntu/focal
+
   deploy-unstable-unstable:
     # description: "Uploads pre-built binaries to unstable.golift.io."
     if: startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/unstable'
     strategy:
       matrix:
         files: [toolbarr-macos-latest, toolbarr-ubuntu-latest]
-    needs:
-      - package
+    needs: package
     name: Deploy Unstable
     runs-on: ubuntu-latest
     steps:
@@ -154,8 +175,57 @@ jobs:
           name: ${{ matrix.files }}
       - name: Upload files to unstable.golift.io
         run: >-
-          for file in *.{zip,dmg,gz}; do
+          for file in *.{zip,dmg,gz,installer.exe}; do
             [ -f "$file" ] || continue;
             echo "Uploading: ${file}";
             curl -sSH "X-API-KEY: ${{ secrets.UNSTABLE_UPLOAD_KEY }}" "https://unstable.golift.io/upload.php?folder=toolbarr" -F "file=@${file}";
+            echo '{"version":"${{needs.package.outputs.version}}","revision":${{needs.package.outputs.revision}},"size":'$(stat --printf="%s" ${file})'}' >> ${file}.txt
+            curl -sSH "X-API-KEY: ${{ secrets.UNSTABLE_UPLOAD_KEY }}" "https://unstable.golift.io/upload.php?folder=toolbarr" -F "file=@${file}.txt";
           done
+
+  deploy-release-packagecloud:
+    # description: "Uploads pre-built RPM and DEB packages to packagecloud.io/golift"
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: package
+    name: Deploy Release PackageCloud
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download release files
+        uses: actions/download-artifact@v3
+        with:
+          name: toolbarr-ubuntu-latest
+      - uses: golift/upload-packagecloud@v1
+        with:
+          userrepo: golift/pkgs
+          apitoken: ${{ secrets.PACKAGECLOUD_TOKEN }}
+          packages: .
+          rpmdists: el/6
+          debdists: ubuntu/focal
+
+  deploy-github-release:
+    # description: uploads all the built release assets to the GitHub Release.
+    if: startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: write
+    needs: package
+    strategy:
+      matrix:
+        files: [toolbarr-macos-latest, toolbarr-ubuntu-latest]
+    name: Deploy GitHub Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download ${{ matrix.files }} Files
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ matrix.files }}
+      - name: Publish ${{ matrix.files }} artifacts to github
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            *.rpm
+            *.deb
+            *.zip
+            *.dmg
+            *.gz
+            *.txt
+            *.installer.exe

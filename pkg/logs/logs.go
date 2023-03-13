@@ -147,7 +147,7 @@ func (l *Logger) postLogRotate(fileName, newFile string) {
 }
 
 func (l *Logger) Close() error {
-	l.Debug("Closing Logger")
+	l.Print("Closing Logger")
 	l.logger.SetOutput(io.Discard)
 
 	if err := l.rotator.Close(); err != nil {

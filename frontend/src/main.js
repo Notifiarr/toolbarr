@@ -1,7 +1,7 @@
 import './style.css'
-import NavBar from './Navbar.svelte'
+import Navbar from './Navbar.svelte'
 
-const app = new NavBar({
+const app = new Navbar({
   target: document.getElementById('app')
 })
 

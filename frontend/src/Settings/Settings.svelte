@@ -1,6 +1,6 @@
 <script>
-  export let dark
   import { 
+    Button,
     Container,
     Form,
     Input,
@@ -8,31 +8,44 @@
     InputGroupText,
     Nav,
     NavLink,
+    Offcanvas,
     Row,
-    Tooltip,
   } from "sveltestrap"
   import Logs from "./Logs.svelte"
   import Advanced from "./Advanced.svelte"
-  import {GetConfig} from "../../wailsjs/go/app/App.js"
+  import { GetConfig, CreateShortcut } from "../../wailsjs/go/app/App.js"
   import BGLogo from "../BackgroundLogo.svelte"
+  import Fa from "svelte-fa"
+  import { faQuestion } from "@fortawesome/free-solid-svg-icons"
+  import { isLinux, isMac, dark } from './store.js';
+  import windowsConf from "../assets/images/windows-conf-file.png"
+  import { toast } from "../funcs";
 
   let activeTab = "Logs"
+  let confHelp = false
+  const toggleConfHelp = () => (confHelp = !confHelp);
 
   let conf = {}
   GetConfig().then(result => conf = result)
+
+  function createWindowsShortcut(e) {
+    e.preventDefault()
+    CreateShortcut().then(
+      msg => (toast("success", msg)),
+      error => (toast("error", error))
+    )
+  }
 </script>
 
-<BGLogo>
+<BGLogo url="golift">
   <Container>
     <Row>
-      <p>
-        This is where the application settings are found.
-      </p>
+      <p>This is where the application settings are found.</p>
       <Form class="Settings">
-        <Tooltip target="ConfigFilePath" placement="bottom">May not be changed</Tooltip>
-        <InputGroup id="ConfigFilePath">
-          <InputGroupText>Config File</InputGroupText>
-          <Input disabled value={conf.File} />
+        <InputGroup>
+          <InputGroupText class="setting-name">Config File</InputGroupText>
+          <Input readonly value={conf.File} />
+          <Button on:click={(e) => (e.preventDefault(),toggleConfHelp())}><Fa primaryColor="cyan" icon="{faQuestion}" /></Button>
         </InputGroup>
         <br />
         <Nav tabs fill>
@@ -41,14 +54,62 @@
         </Nav>
         <br />
         {#if activeTab == "Advanced"}<Advanced />{/if}
-        {#if activeTab == "Logs"}<Logs {dark} />{/if}
+        {#if activeTab == "Logs"}<Logs />{/if}
       </Form>
     </Row>
   </Container>
+
+  <Offcanvas style="width:50%;min-width:390px;max-width:550px" class="{$dark ? 'bg-secondary' : 'bg-light'}" isOpen={confHelp} toggle={toggleConfHelp} header="Custom Config Path" placement="end">
+    {#if $isLinux}
+      <p>
+        Toolbarr will look for <code>toolbarr.conf</code> in the same folder as the <code>toolbarr</code> binary.
+        If it is not found, then a location inside your home folder is used for the config file.
+        If you want the config file to live next to the binary: copy it there, restart this app, and it will be used.
+        To use a custom config file path on Linux, provide it as a cli argument when you launch the executable.
+      </p>
+      <h5>Example</h5>
+      <p>
+      <code>toolbarr -c /path/to/toolbarr.conf</code><br>
+      With a full path:<br>
+      <code>{conf.Exe} -c {conf.Home}/.toolbarr/toolbarr.conf</code><br>
+      Make a bash alias or script to do this for you.</p>
+    {:else if $isMac}
+    <p>
+      Toolbarr will look for <code>toolbarr.conf</code> in the same folder as <code>Toolbarr.app</code>.
+      If it is not found, then a location inside your home folder is used for the config file.
+      If you want the config file to live next to the app: copy it there, restart this app, and it will be used.
+      It's difficult to use a custom config location on a mac and is not recommended.
+    </p>
+    {:else}
+      <p>
+        Toolbarr will look for <code>toolbarr.conf</code> in the same folder as <code>Toolbarr.exe</code>.
+        If it is not found, then a location inside your home folder is used for the config file.
+        If you want the config file to live next to the exe file: copy it there, restart this app, and it will be used.
+        If you want a custom config file location, follow the instructions below.
+      </p>
+      <p>
+      To use a custom config file on Windows, you must create and edit a shortcut. 
+      When you use the installer a shortcut is placed in your start menu, 
+      and optionally on your desktop. You may use either of these files, or create a new one. 
+      Click the Create Shortcut button below to create a new shortcut on your desktop now.<br>
+      <Button size="sm" color="info" on:click={createWindowsShortcut}>Create Shortcut</Button>
+      </p>
+      <h5>Directions</h5>
+      <ol>
+        <li>Right-click the short cut and click Properties.</li>
+        <li>Click the Shortcut tab if not already there.</li>
+        <li>In Target, you're going to ADD this:</li>
+        <li><code>-c "C:\path\to\toolbarr.conf"</code></li>
+        <li>Replace the provided path with your own.</li>
+      </ol>
+      <h5>Example</h5>
+      <img width="100%" alt="screenshot of shortcut window" src={windowsConf}>
+    {/if}
+  </Offcanvas>
 </BGLogo>
 
 <style>
-  :global(.Settings .input-group-text) {
+  :global(.Settings .setting-name) {
     min-width:120px;
     max-width:120px;
   }
