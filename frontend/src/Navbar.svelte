@@ -22,43 +22,32 @@
   import Toolbox from "./Toolbox.svelte"
   import Links from "./Links.svelte"
   import Settings from "./Settings/Settings.svelte"
-  import Applogo from "./Applogo.svelte"
+  import Applogo from "./libs/Applogo.svelte"
   import { ToastContainer, FlatToast }  from "svelte-toasts"
   import bgVint from "./assets/images/vintage-background.png"
   import bgDark from "./assets/images/dark-background.png"
-  import { GetConfig, SaveConfigItem } from "../wailsjs/go/app/App"
-  import { isLinux, isWindows, isMac, devMode, dark } from './Settings/store.js';
-  import { toast } from "./funcs";
+  import { SaveConfigItem } from "../wailsjs/go/app/App"
+  import { devMode, dark } from './Settings/settings.js';
+  import { toast } from "./libs/funcs";
 
   let navIsOpen = false
   function toggleNavOpen(event) {
     navIsOpen = event.detail.isOpen
   }
 
-  let app = "Toolbarr"
+  let app = "Toolbarr" // start page (landing)
 
   const classes = window.document.body.classList
-  GetConfig().then(conf => {
-    $dark = conf.Dark
-    $dark ? classes.add("dark-mode") : classes.remove("dark-mode")
-    $devMode = conf.DevMode
-    $isLinux = conf.IsLinux
-    $isWindows = conf.IsWindows
-    $isMac = conf.IsMac
-  })
-
+  $: $dark ? classes.add("dark-mode") : classes.remove("dark-mode")
   function saveDark(event) {
     $dark = event.target.checked
-    $dark ? classes.add("dark-mode") : classes.remove("dark-mode")
-
     SaveConfigItem(event.target.name, event.target.checked+"", false).then(
       (msg) => {if ($devMode) toast("success", msg, "Debug")}, 
       (error) => (toast("error", error)))
   }
 
   /* Prevent right-click when dev mode is disabled. */
-  function pd(e) { $devMode ? '' : e.preventDefault() }
-  document.addEventListener("contextmenu", pd)
+  document.addEventListener("contextmenu", (e) => {if (!$devMode) e.preventDefault()})
 </script> 
 
 <link rel="preload" as="image" href={bgVint}>

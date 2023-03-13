@@ -7,10 +7,10 @@
     Tooltip,
   } from "sveltestrap"
   import Fa from "svelte-fa"
-  import {faFolderOpen} from "@fortawesome/free-solid-svg-icons"
-  import {GetConfig, PickFolder} from "../../wailsjs/go/app/App.js"
-  import { saveValue } from "../funcs";
-  import { isWindows } from './store.js';
+  import { faFolderOpen } from "@fortawesome/free-solid-svg-icons"
+  import { GetConfig, PickFolder } from "../../wailsjs/go/app/App.js"
+  import { saveValue } from "../libs/funcs";
+  import { isWindows, devMode } from './settings.js';
 
   let validProps = {}
   let invalidProps = {}
@@ -19,9 +19,11 @@
   GetConfig().then((result) => (conf = result))
 
   function saveInput(e) {
-    validProps[e.target.id] = saveValue(e.target.name, e.target.value, true)
-    invalidProps[e.target.id] = !validProps[e.target.id]
-    setInterval(() => {validProps[e.target.id]=false}, 5000)
+    saveValue(e.target.name, e.target.value, true, (ok) => {
+      validProps[e.target.id] = ok
+      invalidProps[e.target.id] = !ok
+      setInterval(() => {validProps[e.target.id]=false}, 5000)
+    })
   }
 
   // This func opens a 'pick a folder' dialog and populates the Log File Path with the selected value.
@@ -53,6 +55,9 @@ Settings save automatically when changed.</p>
     <!-- option value="-1" selected={conf.Level < 0}>Logging Disabled</option -->
     <option value="0" selected={conf.Level == 0}>Normal Logging</option>
     <option value="1" selected={conf.Level == 1}>Debug Logging</option>
+    {#if $devMode}
+      <option value="dev mode is cool">make an error</option>
+    {/if}
     <option value="2" selected={conf.Level == 2}>Trace Logging</option>
   </Input>
 </InputGroup>

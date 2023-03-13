@@ -1,8 +1,8 @@
 <script>
   import { Input, InputGroup, InputGroupText, Tooltip } from "sveltestrap"
   import { GetConfig } from "../../wailsjs/go/app/App.js"
-	import { devMode } from './store.js'
-  import { saveValue } from "../funcs";
+	import { devMode } from "./settings.js"
+  import { saveValue } from "../libs/funcs.js"
 
   let validProps = {}
   let invalidProps = {}
@@ -14,9 +14,12 @@
     if (e.target.id == "DevMode") {
       $devMode = e.target.value == "false" ? false : true
     }
-    validProps[e.target.id] = saveValue(e.target.name, e.target.value, false)
-    invalidProps[e.target.id] = !validProps[e.target.id]
-    setInterval(() => {validProps[e.target.id]=false}, 5000)
+
+    saveValue(e.target.name, e.target.value, true, (ok) => {
+      validProps[e.target.id] = ok
+      invalidProps[e.target.id] = !ok
+      setInterval(() => {validProps[e.target.id]=false}, 5000)
+    })
   }
 </script>
 

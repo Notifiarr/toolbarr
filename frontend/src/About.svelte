@@ -2,13 +2,14 @@
   import Fa from "svelte-fa"
   import { faGithub, faDiscord } from "@fortawesome/free-brands-svg-icons"
   import { faGear } from "@fortawesome/free-solid-svg-icons"
-  import { BrowserOpenURL, EventsOn, EventsOff } from "../wailsjs/runtime"
+  import { EventsOn, EventsOff } from "../wailsjs/runtime"
   import { Version, CheckUpdate, DownloadUpdate, LaunchInstaller, OpenFolder } from "../wailsjs/go/app/App"
   import { Container, Row, Table, Col, Card, Tooltip, Button, Progress, Badge } from   "sveltestrap"
   import { tweened } from 'svelte/motion'
-  import BGLogo from "./BackgroundLogo.svelte"
-  import { dark, isLinux, isMac, isWindows, devMode } from './Settings/store.js'
-  import { toast } from "./funcs";
+  import BGLogo from "./libs/BackgroundLogo.svelte"
+  import A from "./libs/Link.svelte"
+  import { dark, isLinux, isMac, isWindows, devMode } from './Settings/settings.js'
+  import { toast } from "./libs/funcs";
 
   let version = {
     Version: "",
@@ -57,7 +58,11 @@
       release = result
       update.Checked = true
       update.Downloading = ""
-      msg = $isLinux ? 'Use your package manager to install the update.' : 'Update available! Click the button to download it.'
+      if (release.Outdate) {
+        msg = $isLinux ? 'Use your package manager to install the update.' : 'Update available! Click the button to download it.'
+      } else {
+        msg = 'that was pretty cool'
+      }
     }, (error) => {
       update.Failed = "Error checking for update"
       toast("primary", error)
@@ -108,7 +113,7 @@
     const current = (new Date()).getTime()
     if ($timer > 0) {
       $timer++
-      if (current > (lastTime + 1100)) version.Running = 0
+      if (current > (lastTime + 2000)) version.Running = 0
     }
     lastTime = current
   }, 1000)
@@ -127,21 +132,21 @@
     <Row>
       <h1>About Toolbarr</h1>
       <p>
-        Toolbarr fixes problems with Starr apps. It comes with a five starr rating from <a href="#top" on:click={() => (BrowserOpenURL("https://toys-arr.us"))}>Toys Arr Us</a>!
+        Toolbarr fixes problems with Starr apps. It comes with a five starr rating from <A href="https://toys-arr.us">Toys Arr Us</A>!
       </p>
       <Col md="6">
         <h3>Development</h3>
         <Table dark={$dark} responsive>
           <tr>
-            <td style="width:180px;"><a href="#top" on:click={() => (BrowserOpenURL("https://github.com/Notifiarr/toolbarr"))}><Fa icon={faGithub} /> Toolbarr GitHub</a></td> 
+            <td style="width:180px;"><A href="https://github.com/Notifiarr/toolbarr"><Fa icon={faGithub} /> Toolbarr GitHub</A></td> 
             <td>Visit the sausage factory.</td>
           </tr>
           <tr>
-            <td><a href="#top" on:click={() => (BrowserOpenURL("https://notifiarr.com/discord"))}><Fa fw icon={faDiscord} /> Notifiarr Discord</a></td>
+            <td><A href="https://notifiarr.com/discord"><Fa fw icon={faDiscord} /> Notifiarr Discord</A></td>
             <td>For your notifications needs.</td>
           </tr>
           <tr>
-            <td><a href="#top" on:click={() => (BrowserOpenURL("https://golift.io/discord"))}><Fa fw icon={faDiscord} /> Go Lift Discord</a></td>
+            <td><A href="https://golift.io/discord"><Fa fw icon={faDiscord} /> Go Lift Discord</A></td>
             <td>Code cookin' collaborators.</td>
           </tr>
         </Table>
@@ -150,16 +155,16 @@
       <h3>Attribution</h3>
       <p>
         <li>
-          Created by <a href="#top" on:click={() => (BrowserOpenURL("https://golift.io"))}>Go Lift</a> 
-          for <a href="#top" on:click={() => (BrowserOpenURL("https://notifiarr.com"))}>Notifiarr</a>.
+          Created by <A href="https://golift.io">Go Lift</A> 
+          for <A href="https://notifiarr.com">Notifiarr</A>.
         </li>
         <li>
-          Backgrounds by <a href="#top" on:click={() => (BrowserOpenURL("https://rawpixel.com"))}>rawpixel.com</a> 
-          on <a href="#top" on:click={() => (BrowserOpenURL("https://www.freepik.com/author/rawpixel-com"))}>Freepik</a>.
+          Backgrounds by <A href="https://rawpixel.com">rawpixel.com</A> 
+          on <A href="https://www.freepik.com/author/rawpixel-com">Freepik</A>.
         </li>
         <li>
-          Written in <a href="#top" on:click={() => (BrowserOpenURL("https://svelte.dev"))}>Svelte</a> 
-          using <a href="#top" on:click={() => (BrowserOpenURL("https://wails.io"))}>Wails</a>.
+          Written in <A href="https://svelte.dev">Svelte</A> 
+          using <A href="https://wails.io">Wails</A>.
         </li>
       </p>
     </Col>
@@ -196,7 +201,7 @@
               <Button block outline on:click={downloadUpdate} size="sm" color="warning">Download: v{release.Current} ({release.Size})</Button>
               {/if}
             {:else if update.Checked}
-            <Button block color="success" disabled size="sm">Up to date! v{release.Current}</Button>
+            <Button block color="success" disabled size="sm">Up to date! Current: v{release.Current}</Button>
             {:else}
             <Button block outline size="sm" color="info" on:click={checkUpdate}>Check for update</Button>
             {/if}

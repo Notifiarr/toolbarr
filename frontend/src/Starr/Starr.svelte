@@ -5,23 +5,21 @@
   import Instances from "./Instances.svelte"
   import Database from "./Database.svelte"
   import Source from "./Source.svelte"
-  import BGLogo from "../BackgroundLogo.svelte"
+  import BGLogo from "../libs/BackgroundLogo.svelte"
 
-  let activeTab = "Instances"
+  let tab = Instances
 </script>
 
 <BGLogo url="starr">
   <Nav tabs fill>
-    <NavLink href="#" on:click={() => (activeTab = "Instances")} active={activeTab == "Instances"}>{app} Tools</NavLink>
-    <NavLink href="#" on:click={() => (activeTab = "Database")} active={activeTab == "Database"}>Database Tools</NavLink>
-    <NavLink href="#" on:click={() => (activeTab = "Source")} active={activeTab == "Source"}>Source Info</NavLink>
+    <NavLink href="#" on:click={() => (tab = Instances)} active={tab == Instances}>{app} Tools</NavLink>
+    <NavLink href="#" on:click={() => (tab = Database)} active={tab == Database}>Database</NavLink>
+    <NavLink href="#" on:click={() => (tab = Source)} active={tab == Source}>Source</NavLink>
   </Nav>
   <br />
   <Container>
     <Row>
-      {#if activeTab == "Instances"}<Instances {app} />{/if}
-      {#if activeTab == "Database"}<Database {app} />{/if}
-      {#if activeTab == "Source"}<Source {app} />{/if}
+      <svelte:component this={tab} {app}/>
     </Row>
   </Container>
 </BGLogo>

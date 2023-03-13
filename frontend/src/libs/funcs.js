@@ -1,6 +1,6 @@
   import { toasts }  from "svelte-toasts"
-  import { SaveConfigItem } from "../wailsjs/go/app/App"
-  import { dark } from './Settings/store.js'
+  import { SaveConfigItem } from "../../wailsjs/go/app/App"
+  import { dark } from '../Settings/settings.js'
 
   let isDark = false;
   dark.subscribe(value => (isDark = value))
@@ -17,16 +17,13 @@
     })
   }
 
-  export function saveValue(name, val, reload) {
-    if (val == "") { return true }
-  
+  export function saveValue(name, val, reload, run) {
+    if (val == "") return 
     SaveConfigItem(name, val, reload).then((msg) => {
       toast("success", msg)
-      return true
+      run(true)
     }, (error) => {
       toast("error", error)
-      return false
+      run(false)
     })
-
-    return true
   }

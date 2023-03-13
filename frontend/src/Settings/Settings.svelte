@@ -14,12 +14,12 @@
   import Logs from "./Logs.svelte"
   import Advanced from "./Advanced.svelte"
   import { GetConfig, CreateShortcut } from "../../wailsjs/go/app/App.js"
-  import BGLogo from "../BackgroundLogo.svelte"
+  import BGLogo from "../libs/BackgroundLogo.svelte"
   import Fa from "svelte-fa"
   import { faQuestion } from "@fortawesome/free-solid-svg-icons"
-  import { isLinux, isMac, dark } from './store.js';
+  import { isLinux, isMac, dark } from './settings.js';
   import windowsConf from "../assets/images/windows-conf-file.png"
-  import { toast } from "../funcs";
+  import { toast } from "../libs/funcs";
 
   let activeTab = "Logs"
   let confHelp = false

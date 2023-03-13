@@ -81,7 +81,7 @@ func FillUpdate(release *GitHubReleasesLatest, version string) (*Update, error) 
 		Current: strings.TrimPrefix(release.TagName, "v"),
 		Version: strings.TrimPrefix(version, "v"),
 	}
-	update.Outdate = semver.Compare("v"+update.CurrURL, "v"+update.Version) < 0
+	update.Outdate = semver.Compare("v"+update.Current, "v"+update.Version) < 0
 
 	for _, file := range release.Assets {
 		if strings.HasSuffix(file.BrowserDownloadURL, OSsuffixMap[runtime.GOOS]) {

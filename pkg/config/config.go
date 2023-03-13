@@ -7,7 +7,6 @@ import (
 	"os"
 	"os/user"
 	"path/filepath"
-	"runtime"
 
 	"github.com/Notifiarr/toolbarr/pkg/logs"
 	"github.com/Notifiarr/toolbarr/pkg/mnd"
@@ -65,9 +64,9 @@ func New(appName string, logger *logs.Logger) *Config {
 			Files: 10,
 		},
 		App: App{
-			IsWindows: runtime.GOOS == "windows",
-			IsLinux:   runtime.GOOS == "linux",
-			IsMac:     runtime.GOOS == "darwin",
+			IsWindows: mnd.IsWindows,
+			IsLinux:   mnd.IsLinux,
+			IsMac:     mnd.IsMac,
 			Exe:       exec,
 			Home:      user.HomeDir,
 		},
@@ -154,9 +153,9 @@ func (i *Input) openConfig(configFile string) (*Config, error) {
 	config.Logger = i.Logger
 	config.Name = i.Name
 	config.App = App{
-		IsWindows: runtime.GOOS == "windows",
-		IsLinux:   runtime.GOOS == "linux",
-		IsMac:     runtime.GOOS == "darwin",
+		IsWindows: mnd.IsWindows,
+		IsLinux:   mnd.IsLinux,
+		IsMac:     mnd.IsMac,
 		Exe:       exec,
 		Home:      user.HomeDir,
 	}
