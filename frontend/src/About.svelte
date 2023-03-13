@@ -56,7 +56,7 @@
       release = result
       update.Checked = true
       update.Downloading = ""
-      msg = $isLinux ? 'Updates on Linux are unsupported. Help needed!' : 'Update available! Click the button to download it.'
+      msg = $isLinux ? 'Use your package manager to install the update.' : 'Update available! Click the button to download it.'
     }, (error) => {
       update.Failed = "Error checking for update"
       toast("primary", error)
@@ -104,10 +104,12 @@
 
   let lastTime = (new Date()).getTime();
   setInterval(() => {
-    if ($timer > 0) $timer++
     const current = (new Date()).getTime()
-    if (current > (lastTime + 1500)) version.Running = 0
-    lastTime = current;
+    if ($timer > 0) {
+      $timer++
+      if (current > (lastTime + 1100)) version.Running = 0
+    }
+    lastTime = current
   }, 1000)
 
   /* All of this is to create a "running" timer. */

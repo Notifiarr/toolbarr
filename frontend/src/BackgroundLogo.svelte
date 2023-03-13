@@ -12,11 +12,20 @@
   }
 </script>
 
-<div id="background" style="background-image:url({url});"><slot></slot></div>
+<div id="container">
+  <div id="background" style="background-image:url({url});">
+    <slot></slot>
+  </div>
+</div>
 
 <style>
+  #container {
+    height:100%;
+    overflow:visible;
+  }
+
   #background  {
-    height: 100%;
+    min-height:100%;
     background-position: 10px bottom;
     background-size: 100px;
     background-repeat: no-repeat; 
