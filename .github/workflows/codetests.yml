@@ -28,10 +28,9 @@ jobs:
 
 
   golangci:
-    # description: "Runs golangci-lint on macos against freebsd and macos."
     strategy:
       matrix:
-        os: [freebsd, darwin, linux, windows]
+        os: [darwin, linux, windows]
     name: golangci-lint
     runs-on: macos-latest
     env:

@@ -13,6 +13,8 @@ import (
 	"github.com/Notifiarr/toolbarr/pkg/mnd"
 )
 
+const confExt = ".conf"
+
 var ErrEmptyInput = fmt.Errorf("input must have at least name or path")
 
 // Input data to open a config file.
@@ -102,7 +104,7 @@ func Get(input *Input) (*Config, error) {
 		return nil, fmt.Errorf("creating config dir:  %s: %w", configDir, err)
 	}
 
-	configFile := filepath.Join(configDir, input.Name+".conf")
+	configFile := filepath.Join(configDir, input.Name+confExt)
 	if _, err = os.Stat(configFile); err == nil {
 		return input.openConfig(configFile)
 	}
@@ -209,12 +211,8 @@ func (c *Config) Update(merge *Config) {
 // findConfigFileFolder checks the app/exe directory for a config file.
 // Returns the directory if the file is found.
 func (i *Input) findConfigFileFolder() {
-	if i.Path != "" || i.Name == "" {
-		return
-	}
-
 	exe, err := os.Executable()
-	if err != nil {
+	if i.Path != "" || i.Name == "" || err != nil {
 		return
 	}
 
@@ -223,10 +221,8 @@ func (i *Input) findConfigFileFolder() {
 		path = filepath.Dir(filepath.Dir(filepath.Dir(path)))
 	}
 
-	path = filepath.Join(path, i.Name+".conf")
+	path = filepath.Join(path, i.Name+confExt)
 	if _, err := os.Stat(path); err == nil {
-		i.Path = path
+		i.Path = path // file exists next to executable.
 	}
-
-	return
 }
