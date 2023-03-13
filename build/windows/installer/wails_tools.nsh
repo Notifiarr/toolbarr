@@ -14,7 +14,7 @@
     !define INFO_PRODUCTNAME "Toolbarr"
 !endif
 !ifndef INFO_PRODUCTVERSION
-    !define INFO_PRODUCTVERSION "0.0.0"
+    !define INFO_PRODUCTVERSION "0.0.2"
 !endif
 !ifndef INFO_COPYRIGHT
     !define INFO_COPYRIGHT "Copyright 2023 Notifiarr (https://notifiarr.com)"

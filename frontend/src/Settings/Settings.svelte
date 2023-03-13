@@ -21,7 +21,7 @@
   import windowsConf from "../assets/images/windows-conf-file.png"
   import { toast } from "../libs/funcs";
 
-  let activeTab = "Logs"
+  let activeTab = Logs
   let confHelp = false
   const toggleConfHelp = () => (confHelp = !confHelp);
 
@@ -49,12 +49,11 @@
         </InputGroup>
         <br />
         <Nav tabs fill>
-          <NavLink href="#" on:click={() => (activeTab = "Logs")} active={activeTab == "Logs"}>Logging</NavLink>
-          <NavLink href="#" on:click={() => (activeTab = "Advanced")} active={activeTab == "Advanced"}>Advanced</NavLink>
+          <NavLink href="#" on:click={() => (activeTab = Logs)} active={activeTab == Logs}>Logging</NavLink>
+          <NavLink href="#" on:click={() => (activeTab = Advanced)} active={activeTab == Advanced}>Advanced</NavLink>
         </Nav>
         <br />
-        {#if activeTab == "Advanced"}<Advanced />{/if}
-        {#if activeTab == "Logs"}<Logs />{/if}
+        <svelte:component this={activeTab} />
       </Form>
     </Row>
   </Container>

@@ -6,3 +6,4 @@ frontend/dist
 /Toolbarr*
 /*.new
 ?
+*.signing.*

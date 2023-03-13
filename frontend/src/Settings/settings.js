@@ -1,24 +1,21 @@
-import { writable } from 'svelte/store'
+import { derived, readable, writable } from 'svelte/store'
 import { GetConfig } from "../../wailsjs/go/app/App"
 
-/* How do we make these readable instead of writable? */
-export const isWindows = writable(false)
-export const isLinux = writable(false)
-export const isMac = writable(false)
+/* Not exported because it's not kept up to date. */
+const config = readable({
+    IsWindows: false,
+    IsMac: false,
+    IsLinux: false,
+    DevMode: false,
+    Dark: false,
+  },
+  (set) => { GetConfig().then(conf => set(conf)) },
+)
+
+/* writable */
+export const devMode = writable(false, (set) => { derived(config, $config => set($config.DevMode)) })
+export const dark = writable(false, (set) => { derived(config, $config => set($config.Dark)) })
 /* here for convenience. */
-export const devMode = writable(false)
-export const dark = writable(false)
-
-let ready
-
-if (!ready) {
-    GetConfig().then(result => {
-        devMode.set(result.DevMode)
-        isLinux.set(result.IsLinux)
-        isMac.set(result.IsMac)
-        isWindows.set(result.IsWindows)
-        dark.set(result.Dark)
-        ready = true
-    })
-}
-
+export const isWindows = derived(config, $config => $config.IsWindows)
+export const isLinux = derived(config, $config => $config.IsLinux)
+export const isMac = derived(config, $config => $config.IsMac)
