@@ -2,12 +2,9 @@ package app
 
 import (
 	"context"
-	"os"
-	"path/filepath"
 
 	"github.com/Notifiarr/toolbarr/pkg/config"
 	"github.com/Notifiarr/toolbarr/pkg/logs"
-	"github.com/Notifiarr/toolbarr/pkg/mnd"
 	wailsRuntime "github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
@@ -32,8 +29,8 @@ func (a *App) Startup(ctx context.Context) {
 
 	defer a.logger.CapturePanic()
 
-	conf, err := config.Get(config.Input{
-		Path:   findConfigFileFolder(a.configFile),
+	conf, err := config.Get(&config.Input{
+		Path:   a.configFile,
 		Name:   "toolbarr",
 		Dir:    "com.notifiarr.toolbarr",
 		Logger: a.logger,
@@ -57,29 +54,4 @@ func (a *App) Startup(ctx context.Context) {
 // Quit shuts the app down.
 func (a *App) Quit() {
 	wailsRuntime.Quit(a.ctx)
-}
-
-// findConfigFileFolder checks the app/exe directory for a config file.
-// Returns the directory if the file is found.
-func findConfigFileFolder(path string) string {
-	if path != "" {
-		return path
-	}
-
-	exe, err := os.Executable()
-	if err != nil {
-		return ""
-	}
-
-	path = filepath.Dir(exe)
-	if mnd.IsMac && filepath.Base(path) == "MacOS" {
-		path = filepath.Dir(filepath.Dir(filepath.Dir(path)))
-	}
-
-	path = filepath.Join(path, "toolbarr.conf")
-	if _, err := os.Stat(path); err == nil {
-		return path
-	}
-
-	return ""
 }

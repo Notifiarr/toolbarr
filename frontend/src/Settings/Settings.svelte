@@ -61,7 +61,12 @@
 
   <Offcanvas style="width:50%;min-width:390px;max-width:550px" class="{$dark ? 'bg-secondary' : 'bg-light'}" isOpen={confHelp} toggle={toggleConfHelp} header="Custom Config Path" placement="end">
     {#if $isLinux}
-      <p>To use a custom config file path on Linux, simply provide it as a cli argument when you launch the executable.</p>
+      <p>
+        Toolbarr will look for <code>toolbarr.conf</code> in the same folder as the <code>toolbarr</code> binary.
+        If it is not found, then a location inside your home folder is used for the config file.
+        If you want the config file to live next to the binary: copy it there, restart this app, and it will be used.
+        To use a custom config file path on Linux, provide it as a cli argument when you launch the executable.
+      </p>
       <h5>Example</h5>
       <p>
       <code>toolbarr -c /path/to/toolbarr.conf</code><br>
@@ -69,7 +74,12 @@
       <code>{conf.Exe} -c {conf.Home}/.toolbarr/toolbarr.conf</code><br>
       Make a bash alias or script to do this for you.</p>
     {:else if $isMac}
-      <p>It's difficult to use a custom config location on a mac and is not recommended.</p>
+    <p>
+      Toolbarr will look for <code>toolbarr.conf</code> in the same folder as <code>Toolbarr.app</code>.
+      If it is not found, then a location inside your home folder is used for the config file.
+      If you want the config file to live next to the app: copy it there, restart this app, and it will be used.
+      It's difficult to use a custom config location on a mac and is not recommended.
+    </p>
     {:else}
       <p>
         Toolbarr will look for <code>toolbarr.conf</code> in the same folder as <code>Toolbarr.exe</code>.
