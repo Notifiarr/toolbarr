@@ -22,10 +22,5 @@ func StartCmd(ctx context.Context, c string, v ...string) error {
 	cmd.Stderr = io.Discard
 	modifyCmd(cmd)
 
-	err := cmd.Run()
-	if err != nil {
-		return err //nolint:wrapcheck
-	}
-
-	return cmd.Wait() //nolint:wrapcheck
+	return cmd.Run() //nolint:wrapcheck
 }

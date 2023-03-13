@@ -75,14 +75,14 @@ func GetRelease(ctx context.Context, uri string) (*GitHubReleasesLatest, error) 
 
 // FillUpdate compares a current version with the latest GitHub release.
 func FillUpdate(release *GitHubReleasesLatest, version string) (*Update, error) {
+
 	update := &Update{
 		RelDate: release.PublishedAt,
 		CurrURL: release.HTMLURL,
-		Current: release.TagName,
+		Current: strings.TrimPrefix(release.TagName, "v"),
 		Version: strings.TrimPrefix(version, "v"),
-		Outdate: semver.Compare(strings.TrimPrefix(release.TagName, "v"),
-			strings.TrimPrefix(version, "v")) > 0,
 	}
+	update.Outdate = semver.Compare("v"+update.CurrURL, "v"+update.Version) < 0
 
 	for _, file := range release.Assets {
 		if strings.HasSuffix(file.BrowserDownloadURL, OSsuffixMap[runtime.GOOS]) {

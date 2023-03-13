@@ -16,12 +16,17 @@ var ErrInvalidInput = fmt.Errorf("invalid input provided")
 
 type updates struct {
 	sync.RWMutex
-	release  *update.Update
+	release  *Release
 	progress *update.Progress
 	date     time.Time
 }
 
-func (a *App) CheckUpdate() (*update.Update, error) {
+type Release struct {
+	*update.Update
+	Size string
+}
+
+func (a *App) CheckUpdate() (*Release, error) {
 	if release := a.checkUpdateChecked(); release != nil {
 		return release, nil
 	}
@@ -45,14 +50,17 @@ func (a *App) CheckUpdate() (*update.Update, error) {
 	a.updates.Lock()
 	defer a.updates.Unlock()
 
-	a.updates.release = release
+	a.updates.release = &Release{
+		Update: release,
+		Size:   mnd.FormatBytes(release.RelSize),
+	}
 	a.updates.date = time.Now()
-	a.config.Printf("Checked Current %s release: %s", a.config.Updates, release.Current)
+	a.config.Printf("Checked Current %s release: %v (%s)", a.config.Updates, release.Version, mnd.FormatBytes(release.RelSize))
 
-	return release, nil
+	return a.updates.release, nil
 }
 
-func (a *App) checkUpdateChecked() *update.Update {
+func (a *App) checkUpdateChecked() *Release {
 	a.updates.RLock()
 	defer a.updates.RUnlock()
 

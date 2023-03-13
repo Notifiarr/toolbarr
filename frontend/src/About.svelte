@@ -43,6 +43,7 @@
     Outdate: false,
     FilePath: "",
     Current: "",
+    Size: "",
   }
 
   let progress = 0.0
@@ -192,7 +193,7 @@
               {#if $isLinux}
               <Button block outline disabled size="sm" color="warning">Update available! v{release.Current}</Button>
               {:else}
-              <Button block outline on:click={downloadUpdate} size="sm" color="warning">Download update: v{release.Current}</Button>
+              <Button block outline on:click={downloadUpdate} size="sm" color="warning">Download: v{release.Current} ({release.Size})</Button>
               {/if}
             {:else if update.Checked}
             <Button block color="success" disabled size="sm">Up to date! v{release.Current}</Button>
