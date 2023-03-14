@@ -15,17 +15,19 @@ import (
 var decoder = schema.NewDecoder()
 
 func (a *App) GetConfig() *config.Config {
+	a.config.Trace("Call:GetConfig()")
 	return a.config
 }
 
 // SaveConfigItem saves a single item to the running config and writes the config file.
-func (a *App) SaveConfigItem(name string, value string, reload bool) (string, error) {
+func (a *App) SaveConfigItem(name string, value any, reload bool) (string, error) {
+	a.config.Tracef("Call:SaveConfigItem(%s,%v,%v)", name, value, reload)
 	config := a.config.Copy()
 
-	err := decoder.Decode(config, map[string][]string{name: {value}})
+	err := decoder.Decode(config, map[string][]string{name: {fmt.Sprint(value)}})
 	if err != nil {
-		a.config.Errorf("Writing config: decoding '%s' value '%s' failed: %w", name, value, err)
-		return "", fmt.Errorf("decoding '%s' value '%s' failed: %w", name, value, err)
+		a.config.Errorf("Writing config: decoding '%s' value '%v' failed: %w", name, value, err)
+		return "", fmt.Errorf("decoding '%s' value '%v' failed: %w", name, value, err)
 	}
 
 	if err = config.Write(); err != nil {
@@ -40,7 +42,7 @@ func (a *App) SaveConfigItem(name string, value string, reload bool) (string, er
 		a.config.Logger.Setup(a.ctx, config.LogConfig)
 	}
 
-	msg := fmt.Sprintf("Item '%s' saved! Value: %s", name, value)
+	msg := fmt.Sprintf("Saved: '%s' Value: %v", name, value)
 	a.config.Print("Config " + msg)
 
 	return msg, nil

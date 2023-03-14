@@ -18,8 +18,12 @@ func (l *Logger) Print(msg string) {
 }
 
 func (l *Logger) Trace(msg string) {
+	l.Tracef(msg)
+}
+
+func (l *Logger) Tracef(msg string, v ...any) {
 	if l.config.Level >= LogLevelTrace {
-		l.writeMsg("[TRACE] " + msg)
+		l.writeMsg(fmt.Sprintf("[TRACE] "+msg, v...))
 	}
 }
 

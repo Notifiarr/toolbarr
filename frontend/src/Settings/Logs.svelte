@@ -1,5 +1,5 @@
 <script>
-  import { Button, InputGroup, InputGroupText, Tooltip } from "sveltestrap"
+  import { Button, InputGroup, InputGroupText } from "sveltestrap"
   import Fa from "svelte-fa"
   import { faFolderOpen } from "@fortawesome/free-solid-svg-icons"
   import { PickFolder } from "../../wailsjs/go/app/App.js"
@@ -17,9 +17,8 @@
 <p>This app writes logs file, and rotates them itself. Use the settings below to control that behavior.
 Settings save automatically when changed.</p>
 <InputGroup>
-  <Tooltip target="LogConfig\.Path" placement="top">Must be a directory</Tooltip>
   <InputGroupText class="setting-name">Log File Path</InputGroupText>
-  <ConfigInput bind:this={confPath} type="text" id="LogConfig.Path" name="Path" readonly />
+  <ConfigInput bind:this={confPath} type="text" id="LogConfig.Path" name="Path" tooltip="Must be a directory" readonly />
   <Button color="success" on:click={getLogFolder}>
     <Fa icon="{faFolderOpen}" />
     <span class="d-none d-md-inline-block">Browse</span>
@@ -50,18 +49,16 @@ Settings save automatically when changed.</p>
 </InputGroup>
 {/if}
 <InputGroup>
-  <Tooltip target="LogConfig\.Size" placement="top">Rotate log file when it reaches this size</Tooltip>
   <InputGroupText class="setting-name">Log File Size</InputGroupText>
-  <ConfigInput type="select" id="LogConfig.Size" name="Size">
+  <ConfigInput type="select" id="LogConfig.Size" name="Size" tooltip="Rotate log file when it reaches this size">
     {#each Array(20) as _, i}
       <option value={i+1}>{i+1} Megabyte{i==0?'':'s'}</option>
     {/each}
   </ConfigInput>
 </InputGroup>
 <InputGroup>
-  <Tooltip target="LogConfig\.Files" placement="top">How many backup files to keep when rotating</Tooltip>
   <InputGroupText class="setting-name">Log Files</InputGroupText>
-  <ConfigInput type="select" id="LogConfig.Files" name="Files">
+  <ConfigInput type="select" id="LogConfig.Files" name="Files" tooltip="How many backup files to keep when rotating">
     <option value={0}>Disable Rotation</option>
     {#each Array(50) as _, i}
       <option value={i+1}>{i+1} File{i==0?'':'s'}</option>

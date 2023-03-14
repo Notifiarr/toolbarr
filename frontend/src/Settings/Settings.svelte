@@ -44,7 +44,7 @@
       <Form class="Settings">
         <InputGroup>
           <InputGroupText class="setting-name">Config File</InputGroupText>
-          <ConfigInput locked type="text" id="File" name="File" />
+          <ConfigInput locked type="text" id="File" name="File" tooltip="Can only be changed on application launch" />
           <Button on:click={(e) => (e.preventDefault(),toggleConfHelp())}><Fa primaryColor="cyan" icon="{faQuestion}" /></Button>
         </InputGroup>
         <br />
