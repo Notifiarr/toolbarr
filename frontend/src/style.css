@@ -68,3 +68,8 @@ body.dark-mode .navbar-brand {
 #app .progress-bar {
   transition-duration: 0s;
 }
+
+/* Make bootstrap card backgrounds slightly transparent. */
+.card {
+  --bs-bg-opacity: 0.5 !important;
+}

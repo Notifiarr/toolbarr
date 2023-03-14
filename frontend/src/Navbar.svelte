@@ -31,9 +31,7 @@
   import { toast } from "./libs/funcs";
 
   let navIsOpen = false
-  function toggleNavOpen(event) {
-    navIsOpen = event.detail.isOpen
-  }
+  const toggleNavOpen = (e) => { navIsOpen = e.detail.isOpen }
 
   let app = "Toolbarr" // start page (landing)
 
@@ -47,7 +45,9 @@
   }
 
   /* Prevent right-click when dev mode is disabled. */
-  document.addEventListener("contextmenu", (e) => {if (!$devMode) e.preventDefault()})
+  function blockRightClick(e) {if (!$devMode) e.preventDefault() }
+  document.removeEventListener("contextmenu", blockRightClick)
+  document.addEventListener("contextmenu", blockRightClick)
 </script> 
 
 <link rel="preload" as="image" href={bgVint}>

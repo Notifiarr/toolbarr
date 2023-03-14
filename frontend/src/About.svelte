@@ -174,7 +174,7 @@
     {#if version}
     <Col md="6">
       <h3>App Info</h3><!-- following line shows an error but actually works. -->
-      <Card color={$dark ? 'secondary' : 'transparent'} body>
+      <Card color={$dark ? 'secondary' : 'light'} body>
         <Table dark={$dark} responsive>
           <tr><td>Version</td><td>v{version.Version}-{version.Revision} ({version.GoVersion})</td></tr>
           <tr><td>Branch</td><td>{version.Branch}</td></tr>
@@ -210,10 +210,16 @@
         {#if progress}
         <Progress striped animated color="success" value={progress*100}>{(progress*100).toFixed(0)}%</Progress>
         {:else}
-        <Badge color="{$dark ?  'dark' : 'secondary'}">{msg}</Badge>
+        <Badge class="about-badge" color="dark">{msg}</Badge>
         {/if}
       </Card>
     </Col>
     {/if}
   </Container>
 </BGLogo>
+
+<style>
+  :global(.about-badge) {
+    --bs-bg-opacity: 0.5 !important;
+  }
+</style>
