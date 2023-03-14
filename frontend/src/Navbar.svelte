@@ -5,7 +5,6 @@
       DropdownItem,
       DropdownMenu, 
       DropdownToggle,
-      Input,
       Nav,
       Navbar,
       NavbarBrand, 
@@ -26,23 +25,15 @@
   import { ToastContainer, FlatToast }  from "svelte-toasts"
   import bgVint from "./assets/images/vintage-background.png"
   import bgDark from "./assets/images/dark-background.png"
-  import { SaveConfigItem } from "../wailsjs/go/app/App"
   import { devMode, dark } from './Settings/settings.js';
-  import { toast } from "./libs/funcs";
+  import ConfigInput from "./libs/Input.svelte"
 
   let navIsOpen = false
-  const toggleNavOpen = (e) => { navIsOpen = e.detail.isOpen }
+  const toggleNav = (e) => { navIsOpen = e.detail.isOpen }
 
   let app = "Toolbarr" // start page (landing)
 
-  const classes = window.document.body.classList
-  $: $dark ? classes.add("dark-mode") : classes.remove("dark-mode")
-  function saveDark(event) {
-    $dark = event.target.checked
-    SaveConfigItem(event.target.name, event.target.checked+"", false).then(
-      (msg) => {if ($devMode) toast("success", msg, "Debug")}, 
-      (error) => (toast("error", error)))
-  }
+  $: $dark ? window.document.body.classList.add("dark-mode") : window.document.body.classList.remove("dark-mode")
 
   /* Prevent right-click when dev mode is disabled. */
   function blockRightClick(e) {if (!$devMode) e.preventDefault() }
@@ -54,10 +45,10 @@
 <link rel="preload" as="image" href={bgDark}>
 <Styles />
 <Navbar color="secondary"  expand="md py-0">
-  <NavbarBrand on:click={(e) => (e.preventDefault(), app = "Toolbarr")}><Applogo size="25px" {app} /> {app}</NavbarBrand>
-  <Input type="switch" on:change={saveDark} id="Dark" name="Dark" checked={$dark} />
+  <NavbarBrand on:click={(e) => (app = "Toolbarr",e.preventDefault())}><Applogo size="25px" {app} /> {app}</NavbarBrand>
+  <ConfigInput bind:value={$dark} type="switch" id="Dark" name="Dark" notoast noreload></ConfigInput>
   <NavbarToggler on:click={() => (navIsOpen = !navIsOpen)} />
-  <Collapse isOpen={navIsOpen} navbar expand="md" on:update={toggleNavOpen}>
+  <Collapse isOpen={navIsOpen} navbar expand="md" on:update={toggleNav}>
     <Nav class="ms-auto" navbar>
       {#each ["Lidarr", "Prowlarr", "Radarr", "Readarr", "Sonarr", "Whisparr"] as appLink}
         <Tooltip target="{appLink}-navbar" class="d-none d-md-block" placement="bottom">{appLink}</Tooltip>

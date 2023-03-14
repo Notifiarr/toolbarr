@@ -1,45 +1,26 @@
 <script>
-  import { Input, InputGroup, InputGroupText, Tooltip } from "sveltestrap"
-  import { GetConfig } from "../../wailsjs/go/app/App.js"
+  import { InputGroup, InputGroupText, Tooltip } from "sveltestrap"
 	import { devMode } from "./settings.js"
-  import { saveValue } from "../libs/funcs.js"
-
-  let validProps = {}
-  let invalidProps = {}
-  $: dm = $devMode + ""
-  let conf = {}
-  GetConfig().then(result => conf = result)
-
-  function saveInput(e) {
-    if (e.target.id == "DevMode") {
-      $devMode = e.target.value == "false" ? false : true
-    }
-
-    saveValue(e.target.name, e.target.value, true, (ok) => {
-      validProps[e.target.id] = ok
-      invalidProps[e.target.id] = !ok
-      setInterval(() => {validProps[e.target.id]=false}, 5000)
-    })
-  }
+  import ConfigInput from "../libs/Input.svelte"
 </script>
 
 <p>These settings control advanced aspects of this application, and should probably not be changed.</p>
 <InputGroup>
   <InputGroupText class="setting-name">Dev Mode</InputGroupText>
-  <Input valid={validProps.DevMode} invalid={invalidProps.DevMode} on:change={saveInput} value={dm} type="select" name="Advanced.DevMode" id="DevMode">
-    <option value="true">Enabled</option>
-    <option value="false">Disabled</option>
-  </Input>
+  <ConfigInput bind:value={$devMode} type="select" id="Advanced.DevMode" name="DevMode">
+    <option value={true}>Enabled</option>
+    <option value={false}>Disabled</option>
+  </ConfigInput>
   <Tooltip target="DevMode" placement="top">Enable this when a developer instructs you to do so.</Tooltip>
 </InputGroup>
 <InputGroup>
   <InputGroupText class="setting-name">Updates</InputGroupText>
-  <Input valid={validProps.Updates} invalid={invalidProps.Updates} value={conf.Updates} on:change={saveInput} type="select" name="Advanced.Updates" id="Updates">
+  <ConfigInput type="select" id="Advanced.Updates" name="Updates">
     <option value="production">Production</option>
     <option value="unstable">Unstable</option>
-  </Input>
+  </ConfigInput>
 </InputGroup>
 <InputGroup>
   <InputGroupText class="setting-name">App Path</InputGroupText>
-  <Input readonly value={conf.Exe} type="text" name="App.Exe" id="Exe" />
+  <ConfigInput locked type="text"id="App.Exe" name="Exe" />
 </InputGroup>

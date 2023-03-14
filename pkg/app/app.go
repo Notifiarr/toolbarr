@@ -40,8 +40,8 @@ func (a *App) SaveConfigItem(name string, value string, reload bool) (string, er
 		a.config.Logger.Setup(a.ctx, config.LogConfig)
 	}
 
-	msg := fmt.Sprintf("Config Item '%s' saved! Value: %s", name, value)
-	a.config.Print(msg)
+	msg := fmt.Sprintf("Item '%s' saved! Value: %s", name, value)
+	a.config.Print("Config " + msg)
 
 	return msg, nil
 }

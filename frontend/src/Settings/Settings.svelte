@@ -3,7 +3,6 @@
     Button,
     Container,
     Form,
-    Input,
     InputGroup,
     InputGroupText,
     Nav,
@@ -20,6 +19,7 @@
   import { isLinux, isMac, dark } from './settings.js';
   import windowsConf from "../assets/images/windows-conf-file.png"
   import { toast } from "../libs/funcs";
+  import ConfigInput from "../libs/Input.svelte"
 
   let activeTab = Logs
   let confHelp = false
@@ -44,7 +44,7 @@
       <Form class="Settings">
         <InputGroup>
           <InputGroupText class="setting-name">Config File</InputGroupText>
-          <Input readonly value={conf.File} />
+          <ConfigInput locked type="text" id="File" name="File" />
           <Button on:click={(e) => (e.preventDefault(),toggleConfHelp())}><Fa primaryColor="cyan" icon="{faQuestion}" /></Button>
         </InputGroup>
         <br />

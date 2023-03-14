@@ -6,7 +6,7 @@ const config = readable({
     IsWindows: false,
     IsMac: false,
     IsLinux: false,
-    DevMode: false,
+    DevMode: true,
     Dark: false,
   },
   (set) => { GetConfig().then(conf => set(conf)) },
@@ -17,7 +17,7 @@ export const isWindows = derived(config, $config => $config.IsWindows)
 export const isLinux = derived(config, $config => $config.IsLinux)
 export const isMac = derived(config, $config => $config.IsMac)
 /* writable */
-export const devMode = writable(false)
+export const devMode = writable(true)
 export const dark = writable(false)
 /* this only sets an initial value. */
 config.subscribe(conf => {
