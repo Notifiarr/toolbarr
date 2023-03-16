@@ -12,11 +12,11 @@
   } from "sveltestrap"
   import Logs from "./Logs.svelte"
   import Advanced from "./Advanced.svelte"
-  import { GetConfig, CreateShortcut } from "../../wailsjs/go/app/App.js"
+  import { CreateShortcut } from "../../wailsjs/go/app/App.js"
   import BGLogo from "../libs/BackgroundLogo.svelte"
   import Fa from "svelte-fa"
   import { faQuestion } from "@fortawesome/free-solid-svg-icons"
-  import { isLinux, isMac, dark } from './settings.js';
+  import { app, user, dark } from './settings.js';
   import windowsConf from "../assets/images/windows-conf-file.png"
   import { toast } from "../libs/funcs";
   import ConfigInput from "../libs/Input.svelte"
@@ -24,9 +24,6 @@
   let activeTab = Logs
   let confHelp = false
   const toggleConfHelp = () => (confHelp = !confHelp);
-
-  let conf = {}
-  GetConfig().then(result => conf = result)
 
   function createWindowsShortcut(e) {
     e.preventDefault()
@@ -59,7 +56,7 @@
   </Container>
 
   <Offcanvas style="width:50%;min-width:390px;max-width:550px" class="{$dark ? 'bg-secondary' : 'bg-light'}" isOpen={confHelp} toggle={toggleConfHelp} header="Custom Config Path" placement="end">
-    {#if $isLinux}
+    {#if $app.IsLinux}
       <p>
         Toolbarr will look for <code>toolbarr.conf</code> in the same folder as the <code>toolbarr</code> binary.
         If it is not found, then a location inside your home folder is used for the config file.
@@ -70,9 +67,9 @@
       <p>
       <code>toolbarr -c /path/to/toolbarr.conf</code><br>
       With a full path:<br>
-      <code>{conf.Exe} -c {conf.Home}/.toolbarr/toolbarr.conf</code><br>
+      <code>{$app.Exe} -c {$user.Home}/.toolbarr/toolbarr.conf</code><br>
       Make a bash alias or script to do this for you.</p>
-    {:else if $isMac}
+    {:else if $app.IsMac}
     <p>
       Toolbarr will look for <code>toolbarr.conf</code> in the same folder as <code>Toolbarr.app</code>.
       If it is not found, then a location inside your home folder is used for the config file.

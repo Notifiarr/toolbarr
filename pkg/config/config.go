@@ -48,6 +48,7 @@ type App struct {
 	IsMac     bool
 	Exe       string
 	Home      string
+	Username  string
 }
 
 // New returns a config with defaults.
@@ -69,6 +70,7 @@ func New(appName string, logger *logs.Logger) *Config {
 			IsMac:     mnd.IsMac,
 			Exe:       exec,
 			Home:      user.HomeDir,
+			Username:  user.Name,
 		},
 		Advanced: Advanced{
 			Updates: "production",
@@ -158,6 +160,7 @@ func (i *Input) openConfig(configFile string) (*Config, error) {
 		IsMac:     mnd.IsMac,
 		Exe:       exec,
 		Home:      user.HomeDir,
+		Username:  user.Name,
 	}
 
 	if config.Updates == "" {

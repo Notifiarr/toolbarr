@@ -1,26 +1,50 @@
-import { derived, readable, writable } from 'svelte/store'
+import { readable, writable } from 'svelte/store'
 import { GetConfig } from "../../wailsjs/go/app/App"
 
-/* Not exported because it's not kept up to date. */
-const config = readable({
-    IsWindows: false,
-    IsMac: false,
-    IsLinux: false,
-    DevMode: true,
-    Dark: false,
-  },
-  (set) => { GetConfig().then(conf => set(conf)) },
-)
+/* This gets all the values and only runs GetConfig a single time. */
+let derivedConf = undefined
+function getConfig(set) {
+  if (derivedConf != undefined) {
+    set(derivedConf)
+    return
+  }
+  GetConfig().then(v => {
+    derivedConf = v
+    set(derivedConf)
+  })
+}
 
-/* here for convenience. */
-export const isWindows = derived(config, $config => $config.IsWindows)
-export const isLinux = derived(config, $config => $config.IsLinux)
-export const isMac = derived(config, $config => $config.IsMac)
+// All the values shown below come from one endpoint, but
+// we split them here to make them more meaningful in svelte.
+
+const defaultApp = {
+  IsWindows: false,
+  IsMac:     false,
+  IsLinux:   false,
+  Exe:       "",
+}
+
+const defaultConfig = {
+  DevMode: false, // use $devMode instead.
+  Dark:    false, // use $dark instead.
+}
+
+const defaultUser = {
+  Home: "",
+  Username: "",
+}
+
+// Use this for read-only app items.
+export const app = readable(defaultApp, (set) => { getConfig(set) })
+// Read only user-specific items.
+export const user = readable(defaultUser, (set) => { getConfig(set) })
+
 /* writable */
+const conf = readable(defaultConfig, (set) => { getConfig(set) })
 export const devMode = writable(true)
 export const dark = writable(false)
 /* this only sets an initial value. */
-config.subscribe(conf => {
-  devMode.set(conf.DevMode)
-  dark.set(conf.Dark)
+conf.subscribe(value => {
+  devMode.set(value.DevMode)
+  dark.set(value.Dark)
 })

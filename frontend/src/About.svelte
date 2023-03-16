@@ -8,7 +8,7 @@
   import { tweened } from 'svelte/motion'
   import BGLogo from "./libs/BackgroundLogo.svelte"
   import A from "./libs/Link.svelte"
-  import { dark, isLinux, isMac, isWindows, devMode } from './Settings/settings.js'
+  import { app, dark, devMode } from './Settings/settings.js'
   import { toast } from "./libs/funcs";
 
   let version = {
@@ -28,7 +28,9 @@
       version = result
       timer = tweened(version.Running)
       if ($devMode) {
-        toast("warning", "This message should only show up when you load the page, and again if the page gets reloaded or the window wakes from sleep. Let captain know if it shows up a lot.", "Debug")
+        toast("warning", "This message should only show up when you load the page, "+
+        "and again if the page gets reloaded or the window wakes from sleep. "+
+        "Let captain know if it shows up a lot.", "Debug")
       }
     })
   }
@@ -59,7 +61,9 @@
       update.Checked = true
       update.Downloading = ""
       if (release.Outdate) {
-        msg = $isLinux ? 'Use your package manager to install the update.' : 'Update available! Click the button to download it.'
+        msg = $app.IsLinux ?
+        'Use your package manager to install the update.' :
+        'Update available! Click the button to download it.'
       } else {
         msg = 'that was pretty cool'
       }
@@ -94,9 +98,9 @@
 
       EventsOn("downloadFinished", (data) => {
         EventsOff("downloadProgress", "downloadFinished")
-        update.Downloaded = "Open "+($isMac ? 'DMG' : 'Installer')
+        update.Downloaded = "Open "+($app.IsMac ? 'DMG' : 'Installer')
         update.Downloading = ""
-        msg = ($isMac ? 'Disk image' : 'Installer') + " downloaded! Click a button to use it."
+        msg = ($app.IsMac ? 'Disk image' : 'Installer') + " downloaded! Click a button to use it."
         setInterval(() => (progress = 0.0), 500);
       })
 
@@ -191,11 +195,11 @@
             <Button block disabled size="sm" color="danger">{update.Downloading} <Fa spin primaryColor="yellow" icon={faGear} /></Button>
             {:else if update.Downloaded}
             <Tooltip target="installButton">{release.FilePath}</Tooltip>
-            <Tooltip target="folderButton">{(release.FilePath).split(/[\\/]/).slice(0,-1).join($isWindows?"\\":"/")}</Tooltip>
+            <Tooltip target="folderButton">{(release.FilePath).split(/[\\/]/).slice(0,-1).join($app.IsWindows?"\\":"/")}</Tooltip>
             <Button id="installButton" style="width:49%" outline on:click={installUpdate} size="sm" color="primary">{update.Downloaded}</Button>
             <Button id="folderButton" style="width:49%" outline on:click={openFolder} size="sm" color="info">Open Folder</Button>
             {:else if release.Outdate}
-              {#if $isLinux}
+              {#if $app.IsLinux}
               <Button block outline disabled size="sm" color="warning">Update available! v{release.Current}</Button>
               {:else}
               <Button block outline on:click={downloadUpdate} size="sm" color="warning">Download: v{release.Current} ({release.Size})</Button>

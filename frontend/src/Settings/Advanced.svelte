@@ -15,7 +15,8 @@
 </InputGroup>
 <InputGroup>
   <InputGroupText class="setting-name">Updates</InputGroupText>
-  <ConfigInput type="select" id="Advanced.Updates" name="Updates">
+  <ConfigInput type="select" id="Advanced.Updates" name="Updates"
+    tooltip="Production gets updates from github, unstable gets them from unstable.golift.io">
     <option value="production">Production</option>
     <option value="unstable">Unstable</option>
   </ConfigInput>
