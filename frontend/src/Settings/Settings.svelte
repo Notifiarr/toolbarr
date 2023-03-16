@@ -16,9 +16,9 @@
   import BGLogo from "../libs/BackgroundLogo.svelte"
   import Fa from "svelte-fa"
   import { faQuestion } from "@fortawesome/free-solid-svg-icons"
-  import { app, user, dark } from './settings.js';
+  import { conf } from "../libs/config.js"
   import windowsConf from "../assets/images/windows-conf-file.png"
-  import { toast } from "../libs/funcs";
+  import { toast } from "../libs/funcs"
   import ConfigInput from "../libs/Input.svelte"
 
   let activeTab = Logs
@@ -28,7 +28,7 @@
   function createWindowsShortcut(e) {
     e.preventDefault()
     CreateShortcut().then(
-      msg => (toast("success", msg)),
+      msg => (toast("primary", msg)),
       error => (toast("error", error))
     )
   }
@@ -41,7 +41,8 @@
       <Form class="Settings">
         <InputGroup>
           <InputGroupText class="setting-name">Config File</InputGroupText>
-          <ConfigInput locked type="text" id="File" name="File" tooltip="Can only be changed on application launch" />
+          <ConfigInput locked type="text" id="File" name="File" 
+          tooltip="Can only be changed on application launch" placement="bottom" />
           <Button on:click={(e) => (e.preventDefault(),toggleConfHelp())}><Fa primaryColor="cyan" icon="{faQuestion}" /></Button>
         </InputGroup>
         <br />
@@ -55,8 +56,8 @@
     </Row>
   </Container>
 
-  <Offcanvas style="width:50%;min-width:390px;max-width:550px" class="{$dark ? 'bg-secondary' : 'bg-light'}" isOpen={confHelp} toggle={toggleConfHelp} header="Custom Config Path" placement="end">
-    {#if $app.IsLinux}
+  <Offcanvas style="width:50%;min-width:390px;max-width:550px" class="{$conf.Dark ? "bg-secondary" : "bg-light"}" isOpen={confHelp} toggle={toggleConfHelp} header="Custom Config Path" placement="end">
+    {#if $conf.IsLinux}
       <p>
         Toolbarr will look for <code>toolbarr.conf</code> in the same folder as the <code>toolbarr</code> binary.
         If it is not found, then a location inside your home folder is used for the config file.
@@ -67,9 +68,9 @@
       <p>
       <code>toolbarr -c /path/to/toolbarr.conf</code><br>
       With a full path:<br>
-      <code>{$app.Exe} -c {$user.Home}/.toolbarr/toolbarr.conf</code><br>
+      <code>{$conf.Exe} -c {$conf.Home}/.toolbarr/toolbarr.conf</code><br>
       Make a bash alias or script to do this for you.</p>
-    {:else if $app.IsMac}
+    {:else if $conf.IsMac}
     <p>
       Toolbarr will look for <code>toolbarr.conf</code> in the same folder as <code>Toolbarr.app</code>.
       If it is not found, then a location inside your home folder is used for the config file.
@@ -94,7 +95,7 @@
       <ol>
         <li>Right-click the short cut and click Properties.</li>
         <li>Click the Shortcut tab if not already there.</li>
-        <li>In Target, you're going to ADD this:</li>
+        <li>In Target, ADD this:</li>
         <li><code>-c "C:\path\to\toolbarr.conf"</code></li>
         <li>Replace the provided path with your own.</li>
       </ol>

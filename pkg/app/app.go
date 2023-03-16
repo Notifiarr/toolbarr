@@ -19,20 +19,25 @@ func (a *App) GetConfig() *config.Config {
 	return a.config
 }
 
+type ConfigSaved struct {
+	Msg string
+	Val any
+}
+
 // SaveConfigItem saves a single item to the running config and writes the config file.
-func (a *App) SaveConfigItem(name string, value any, reload bool) (string, error) {
+func (a *App) SaveConfigItem(name string, value any, reload bool) (*ConfigSaved, error) {
 	a.config.Tracef("Call:SaveConfigItem(%s,%v,%v)", name, value, reload)
 	config := a.config.Copy()
 
 	err := decoder.Decode(config, map[string][]string{name: {fmt.Sprint(value)}})
 	if err != nil {
 		a.config.Errorf("Writing config: decoding '%s' value '%v' failed: %w", name, value, err)
-		return "", fmt.Errorf("decoding '%s' value '%v' failed: %w", name, value, err)
+		return nil, fmt.Errorf("decoding '%s' value '%v' failed: %w", name, value, err)
 	}
 
 	if err = config.Write(); err != nil {
 		a.config.Error("Error writing config: " + err.Error())
-		return "", fmt.Errorf("writing config: %w", err)
+		return nil, fmt.Errorf("writing config: %w", err)
 	}
 
 	a.config.Update(config)
@@ -45,14 +50,18 @@ func (a *App) SaveConfigItem(name string, value any, reload bool) (string, error
 	msg := fmt.Sprintf("Saved: '%s' Value: %v", name, value)
 	a.config.Print("Config " + msg)
 
-	return msg, nil
+	return &ConfigSaved{Msg: msg, Val: value}, nil
 }
 
 // PickFolder opens the folder selector.
-func (a *App) PickFolder(id string) (string, error) {
+func (a *App) PickFolder(path string) (string, error) {
+	if path == "" {
+		path = a.config.Path
+	}
+
 	dir, err := wailsRuntime.OpenDirectoryDialog(a.ctx, wailsRuntime.OpenDialogOptions{
-		DefaultDirectory:     a.config.Path,
-		Title:                id,
+		DefaultDirectory:     path,
+		Title:                "Choose Folder",
 		CanCreateDirectories: true,
 		ShowHiddenFiles:      true,
 	})

@@ -1,13 +1,12 @@
 <script>
   import { InputGroup, InputGroupText } from "sveltestrap"
-	import { devMode } from "./settings.js"
   import ConfigInput from "../libs/Input.svelte"
 </script>
 
 <p>These settings control advanced aspects of this application, and should probably not be changed.</p>
 <InputGroup>
   <InputGroupText class="setting-name">Dev Mode</InputGroupText>
-  <ConfigInput bind:value={$devMode} type="select" id="Advanced.DevMode" name="DevMode"
+  <ConfigInput type="select" id="Advanced.DevMode" name="DevMode"
     tooltip="Enable this when a developer instructs you to do so.">
     <option value={true}>Enabled</option>
     <option value={false}>Disabled</option>

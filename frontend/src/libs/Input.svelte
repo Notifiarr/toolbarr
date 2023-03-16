@@ -1,24 +1,20 @@
-<script context="module">
+<script lang="ts">
   import { Input, Tooltip } from "sveltestrap"
-  import { toast } from "./funcs.js"
-  import { GetConfig, SaveConfigItem } from "../../wailsjs/go/app/App.js"
-  import { devMode } from '../Settings/settings.js'
-  import { onMount } from 'svelte';
-  let conf = undefined
-</script>
+  import { toast, onOnce } from "./funcs.js"
+  import { SaveConfigItem } from "../../wailsjs/go/app/App.js"
+  import { conf } from "./config"
 
-<script>
   // Like `text` or `select`.
   export let type
   // Used to update the valie in Go. Needs full struct path for gorilla/schema.
   export let id
   // Used as the config item name, only struct member name goes here.
   export let name
-  // Used if you don't want this value changed.
+  // Used if you do not want this value changed directly.
   export let readonly = false
   // Similar to readonly, but the input dims/greys out.
   export let disabled = false
-  // Similar to readonly, but the update method won't work.
+  // Similar to readonly, but the update method will not work.
   export let locked = false
   // Avoid relaoding running config when saving? Most things need to.
   export let noreload = false
@@ -26,45 +22,42 @@
   export let notoast = false
   // Optional tooptip to bind to input.
   export let tooltip = ""
+  // Where the tooltip goes.
+  export let placement = "top"
   // Optional value. Should only be used for binding.
   export let value = undefined
+  // Set the value from the config.
+  value = $conf[name]
 
-  let sync = false
+  // These control the green/red on success/error of a change.
   let valid = false
   let invalid = false
-
-  onMount(async () => {
-    if (conf == undefined) {
-      await GetConfig().then(result => {
-        conf = result
-        value = conf[name]
-        sync = true
-      })
-    } else {
-      value = conf[name]
-      sync = true
-    }
-	});
-
-  // Keep conf[name] up to date, in case it gets used across component pages.
-  $: if (sync&&value!=undefined) conf[name] = value
-
+  // Controls if we use .checked or .value. Might need adjustments?
   const checkbox = (type=="switch" || type=="checkbox")
 
   async function saveValue(e) {
     if (locked) return
     // We have to use e.target because value does not update before this runs.
-    await SaveConfigItem(id, checkbox?e.target.checked:e.target.value, !noreload).then((msg) => {
-      if (!notoast) {toast("success", msg, "CONFIG")}
-      if (notoast&&$devMode) {toast("warning", msg, "DEBUG")}
-      invalid = false
-      valid = true
-      setInterval(() => {valid=false}, 5000)
-    }, (error) => {
-      toast("error", error)
-      invalid = true
-      valid = false
-    })
+    const val = checkbox?e.target.checked:e.target.value
+    await SaveConfigItem(id, val, !noreload).then(saved, failed)
+  }
+
+  function saved(resp) {
+    // Convert the strinfified value back into a type.. by guessing?
+    $conf[name] = resp.Val == "true" ? true : resp.Val == "false" ? false :
+      /^[1-9]\d*(\.\d+)?$/.test(resp.Val) ? Number(resp.Val) : resp.Val
+    invalid = false
+    valid = true
+    onOnce(() => {valid=false}, 5)
+    // Send 1 toast.
+    if (!notoast) toast("success", resp.Msg, "CONFIG")
+    if (notoast&&$conf.DevMode) toast("warning", resp.Msg, "CONFIG (debug)")
+  }
+
+  function failed(err) {
+    toast("error", err)
+    invalid = true
+    valid = false
   }
 
   // Allows importers to call the exported functions below.
@@ -81,7 +74,7 @@
   {#if checkbox}
     <Input {type} {id} {name} 
       {disabled} {valid} {invalid}
-      readonly={(readonly||locked)}
+      readonly={readonly||locked}
       bind:this={input}
       on:change={saveValue}
       bind:checked={value}
@@ -89,7 +82,7 @@
   {:else}
     <Input {type} {id} {name} 
       {disabled} {valid} {invalid}
-      readonly={(readonly||locked)}
+      readonly={readonly||locked}
       bind:this={input}
       bind:value={value}
       on:change={saveValue}
@@ -97,8 +90,8 @@
   {/if}
 
   {#if tooltip != ""}
-    <Tooltip target={id.replace(/\./g, '\\.')} placement="top">{tooltip}</Tooltip>
+    <Tooltip target={id.replace(/([\.:])/g, '\\$1')} {placement}>{tooltip}</Tooltip>
   {/if}
 {:else}
-Provided id '{id}' has no value in config.
+  Provided name '{name}' has no value in config.
 {/if}

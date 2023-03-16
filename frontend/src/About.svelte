@@ -5,11 +5,11 @@
   import { EventsOn, EventsOff } from "../wailsjs/runtime"
   import { Version, CheckUpdate, DownloadUpdate, LaunchInstaller, OpenFolder } from "../wailsjs/go/app/App"
   import { Container, Row, Table, Col, Card, Tooltip, Button, Progress, Badge } from   "sveltestrap"
-  import { tweened } from 'svelte/motion'
+  import { tweened } from "svelte/motion"
   import BGLogo from "./libs/BackgroundLogo.svelte"
   import A from "./libs/Link.svelte"
-  import { app, dark, devMode } from './Settings/settings.js'
-  import { toast } from "./libs/funcs";
+  import { conf } from "./libs/config.js"
+  import { toast, onOnce, onInterval } from "./libs/funcs";
 
   let version = {
     Version: "",
@@ -27,7 +27,7 @@
     Version().then(result => {
       version = result
       timer = tweened(version.Running)
-      if ($devMode) {
+      if ($conf.DevMode) {
         toast("warning", "This message should only show up when you load the page, "+
         "and again if the page gets reloaded or the window wakes from sleep. "+
         "Let captain know if it shows up a lot.", "Debug")
@@ -60,16 +60,13 @@
       release = result
       update.Checked = true
       update.Downloading = ""
-      if (release.Outdate) {
-        msg = $app.IsLinux ?
-        'Use your package manager to install the update.' :
-        'Update available! Click the button to download it.'
-      } else {
-        msg = 'that was pretty cool'
-      }
+      msg = "that was pretty cool"
+      if (release.Outdate) msg = $conf.IsLinux ?
+        "Use your package manager to install the update." :
+        "Update available! Click the button to download it."
     }, (error) => {
       update.Failed = "Error checking for update"
-      toast("primary", error)
+      toast("error", error)
       update.Downloading = ""
     })
   }
@@ -98,10 +95,10 @@
 
       EventsOn("downloadFinished", (data) => {
         EventsOff("downloadProgress", "downloadFinished")
-        update.Downloaded = "Open "+($app.IsMac ? 'DMG' : 'Installer')
+        update.Downloaded = "Open "+($conf.IsMac ? "DMG" : "Installer")
         update.Downloading = ""
-        msg = ($app.IsMac ? 'Disk image' : 'Installer') + " downloaded! Click a button to use it."
-        setInterval(() => (progress = 0.0), 500);
+        msg = ($conf.IsMac ? "Disk image" : "Installer") + " downloaded! Click a button to use it."
+        onOnce(() => (progress = 0.0), 0.5)
       })
 
       EventsOn("downloadProgress", (data) => (progress = data))
@@ -113,22 +110,23 @@
   }
 
   let lastTime = (new Date()).getTime();
-  setInterval(() => {
+   onInterval(() => {
     const current = (new Date()).getTime()
     if ($timer > 0) {
       $timer++
-      if (current > (lastTime + 2000)) version.Running = 0
+      if (current > (lastTime + 1100)) version.Running = 0
     }
     lastTime = current
   }, 1000)
+
 
   /* All of this is to create a "running" timer. */
   $: days = Math.floor($timer / 86400);
   $: hours = Math.floor(($timer - (days * 86400)) / 3600);
   $: minutes = Math.floor(($timer - (days * 86400) - (hours * 3600)) / 60);
   $: seconds = Math.floor(($timer - (days * 86400) - (hours * 3600) - (minutes * 60)))
-  $: uptime = (days > 0 ? days + 'd ' : '') + (hours > 0 ? hours + 'h ' : '') + 
-        (minutes > 0 ? minutes + 'm ' : '') + (seconds > 0 ? seconds + 's ' : '')
+  $: uptime = (days > 0 ? days + "d " : "") + (hours > 0 ? hours + "h " : "") + 
+        (minutes > 0 ? minutes + "m " : "") + (seconds > 0 ? seconds + "s " : "")
 </script>
 
 <BGLogo url="golift">
@@ -140,7 +138,7 @@
       </p>
       <Col md="6">
         <h3>Development</h3>
-        <Table dark={$dark} responsive>
+        <Table dark={$conf.Dark} responsive>
           <tr>
             <td style="width:180px;"><A href="https://github.com/Notifiarr/toolbarr"><Fa icon={faGithub} /> Toolbarr GitHub</A></td> 
             <td>Visit the sausage factory.</td>
@@ -175,11 +173,11 @@
     </Row>
 
     <!-- version update card at the bottom of the About page -->
-    {#if version}
+    {#if Object.keys(version).length > 0}
     <Col md="6">
       <h3>App Info</h3><!-- following line shows an error but actually works. -->
-      <Card color={$dark ? 'secondary' : 'light'} body>
-        <Table dark={$dark} responsive>
+      <Card color={$conf.Dark ? "secondary" : "light"} body>
+        <Table dark={$conf.Dark} responsive>
           <tr><td>Version</td><td>v{version.Version}-{version.Revision} ({version.GoVersion})</td></tr>
           <tr><td>Branch</td><td>{version.Branch}</td></tr>
           <tr><td>Created</td><td>{version.BuildDate} by {version.BuildUser}</td></tr>
@@ -195,11 +193,11 @@
             <Button block disabled size="sm" color="danger">{update.Downloading} <Fa spin primaryColor="yellow" icon={faGear} /></Button>
             {:else if update.Downloaded}
             <Tooltip target="installButton">{release.FilePath}</Tooltip>
-            <Tooltip target="folderButton">{(release.FilePath).split(/[\\/]/).slice(0,-1).join($app.IsWindows?"\\":"/")}</Tooltip>
+            <Tooltip target="folderButton">{(release.FilePath).split(/[\\/]/).slice(0,-1).join($conf.IsWindows?"\\":"/")}</Tooltip>
             <Button id="installButton" style="width:49%" outline on:click={installUpdate} size="sm" color="primary">{update.Downloaded}</Button>
             <Button id="folderButton" style="width:49%" outline on:click={openFolder} size="sm" color="info">Open Folder</Button>
             {:else if release.Outdate}
-              {#if $app.IsLinux}
+              {#if $conf.IsLinux}
               <Button block outline disabled size="sm" color="warning">Update available! v{release.Current}</Button>
               {:else}
               <Button block outline on:click={downloadUpdate} size="sm" color="warning">Download: v{release.Current} ({release.Size})</Button>
