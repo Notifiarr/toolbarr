@@ -8,8 +8,6 @@
   export let type
   // Used to update the valie in Go. Needs full struct path for gorilla/schema.
   export let id
-  // Used as the config item name, only struct member name goes here.
-  export let name
   // Used if you do not want this value changed directly.
   export let readonly = false
   // Similar to readonly, but the input dims/greys out.
@@ -34,7 +32,7 @@
 
   // This reactive if block updates the config when the 'value' changes.
   $: if (value == undefined) {
-    value = last = $conf[name] // Set the initial value from the config.
+    value = last = $conf[id] // Set the initial value from the config.
   } else if (value != last) {
     clearInterval(timer) // clears previous timer (if exists)
     last = value // prevent infinite loops.
@@ -44,7 +42,7 @@
   // This runs on successful save to config file.
   function saved(resp){
     valid = true         // set green check mark
-    $conf[name] = value  // updates running config in javascript store
+    $conf[id] = value  // updates running config in javascript store
     timer = onOnce(() => {valid=undefined}, 5) // clears green check mark
     // Send only 1 toast.
     if (!notoast) toast("success", resp.Msg, "CONFIG")
@@ -61,19 +59,13 @@
   export function update(val) { value = val }
 </script>
 
+{#if tooltip != ""}
+  <Tooltip target={id.replace(/([\.:])/g, '\\$1')} {placement}>{tooltip}</Tooltip>
+{/if}
 {#if value!=undefined}
-  {#if tooltip != ""}
-    <Tooltip target={id.replace(/([\.:])/g, '\\$1')} {placement}>{tooltip}</Tooltip>
-  {/if}
-  <Input {type} {id} {name} {disabled}
-    valid={valid==true}
-    invalid={valid==false}
-    readonly={readonly||locked}
-    bind:this={input}
-    bind:checked={value}
-    bind:value={value}
-    ><slot/>
+  <Input bind:this={input} {type} {id} {disabled} invalid={valid==false} {valid}
+    readonly={readonly||locked} bind:checked={value} bind:value={value}><slot/>
   </Input>
 {:else}
-  Name '{name}' has no value in config.
+  ID '{id}' has no value in config.
 {/if}

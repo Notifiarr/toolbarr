@@ -7,6 +7,7 @@ require (
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/wailsapp/wails/v2 v2.4.0
 	golang.org/x/mod v0.9.0
+	golang.org/x/sys v0.6.0
 	golift.io/datacounter v1.0.4
 	golift.io/rotatorr v0.0.0-20230110212846-590e84fecf74
 	golift.io/version v0.0.2
@@ -35,6 +36,5 @@ require (
 	golang.org/x/crypto v0.6.0 // indirect
 	golang.org/x/exp v0.0.0-20220303212507-bbda1eaf7a17 // indirect
 	golang.org/x/net v0.7.0 // indirect
-	golang.org/x/sys v0.6.0 // indirect
 	golang.org/x/text v0.7.0 // indirect
 )

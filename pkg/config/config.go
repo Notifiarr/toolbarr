@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"time"
 
 	"github.com/Notifiarr/toolbarr/pkg/logs"
 	"github.com/Notifiarr/toolbarr/pkg/mnd"
@@ -28,6 +29,7 @@ type Input struct {
 type Config struct {
 	*logs.LogConfig
 	Advanced
+	General
 	*logs.Logger
 	File string
 	Dark bool
@@ -37,6 +39,12 @@ type Config struct {
 type Advanced struct {
 	DevMode bool
 	Updates string
+}
+
+// General application settings.
+type General struct {
+	Language string
+	TimeZone string
 }
 
 // New returns a config with defaults.
@@ -51,6 +59,10 @@ func New(appName string, logger *logs.Logger) *Config {
 		},
 		Advanced: Advanced{
 			Updates: "production",
+		},
+		General: General{
+			Language: "en-us",
+			TimeZone: time.Local.String(),
 		},
 		Logger: logger,
 	}
@@ -132,6 +144,14 @@ func (i *Input) openConfig(configFile string) (*Config, error) {
 
 	if config.Updates == "" {
 		config.Updates = "production"
+	}
+
+	if config.General.Language == "" {
+		config.General.Language = "en-us"
+	}
+
+	if config.General.TimeZone == "" {
+		config.General.TimeZone, _ = time.Now().Zone()
 	}
 
 	return &config, nil

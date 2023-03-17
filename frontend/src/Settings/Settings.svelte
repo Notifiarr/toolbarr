@@ -20,11 +20,11 @@
   import windowsConf from "../assets/images/windows-conf-file.png"
   import { toast } from "../libs/funcs"
   import ConfigInput from "../libs/Input.svelte"
+    import General from "./General.svelte";
 
   let activeTab = Logs
   let confHelp = false
   let confSpin = false
-  const toggleConfHelp = () => (confHelp = !confHelp);
 
   function createWindowsShortcut(e) {
     e.preventDefault()
@@ -43,15 +43,15 @@
         <div on:mouseenter={() => {confSpin=true}} on:mouseleave={() => {confSpin=false}}>
           <InputGroup>
             <InputGroupText class="setting-name">Config File</InputGroupText>
-            <ConfigInput locked type="text" id="File" name="File" 
-            tooltip="Can only be changed on application launch" placement="bottom" />
-            <Button on:click={(e) => (e.preventDefault(),toggleConfHelp())}>
+            <ConfigInput locked type="text" id="File" tooltip="Can only be changed on application launch" placement="bottom" />
+            <Button on:click={(e) => {e.preventDefault();confHelp = !confHelp}}>
               <Fa primaryColor="cyan" spin={confSpin} icon="{faQuestion}" />
             </Button>
           </InputGroup>
         </div>
       <br />
         <Nav tabs fill>
+          <NavLink href="#" on:click={() => (activeTab = General)} active={activeTab == General}>General</NavLink>
           <NavLink href="#" on:click={() => (activeTab = Logs)} active={activeTab == Logs}>Logging</NavLink>
           <NavLink href="#" on:click={() => (activeTab = Advanced)} active={activeTab == Advanced}>Advanced</NavLink>
         </Nav>
@@ -61,7 +61,12 @@
     </Row>
   </Container>
 
-  <Offcanvas style="width:50%;min-width:390px;max-width:550px" class="{$conf.Dark ? "bg-secondary" : "bg-light"}" isOpen={confHelp} toggle={toggleConfHelp} header="Custom Config Path" placement="end">
+  <Offcanvas 
+    style="width:50%;min-width:390px;max-width:550px"
+    class="{$conf.Dark ? "bg-secondary" : "bg-light"}"
+    isOpen={confHelp}
+    toggle={() => {confHelp = !confHelp}}
+    header="Custom Config Path" placement="end">
     {#if $app.IsLinux}
       <p>
         Toolbarr will look for <code>toolbarr.conf</code> in the same folder as the <code>toolbarr</code> binary.
