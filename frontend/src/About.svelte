@@ -3,37 +3,12 @@
   import { faGithub, faDiscord } from "@fortawesome/free-brands-svg-icons"
   import { faGear } from "@fortawesome/free-solid-svg-icons"
   import { EventsOn, EventsOff } from "../wailsjs/runtime"
-  import { Version, CheckUpdate, DownloadUpdate, LaunchInstaller, OpenFolder } from "../wailsjs/go/app/App"
+  import { CheckUpdate, DownloadUpdate, LaunchInstaller, OpenFolder } from "../wailsjs/go/app/App"
   import { Container, Row, Table, Col, Card, Tooltip, Button, Progress, Badge } from   "sveltestrap"
-  import { tweened } from "svelte/motion"
   import BGLogo from "./libs/BackgroundLogo.svelte"
   import A from "./libs/Link.svelte"
-  import { conf } from "./libs/config.js"
+  import { app, conf } from "./libs/config.js"
   import { toast, onOnce, onInterval } from "./libs/funcs";
-
-  let version = {
-    Version: "",
-    Revision: "",
-    GoVersion: "",
-    Running: 0,
-    BuildUser: "",
-    BuildDate: "",
-    Branch: "",
-    Started: "",
-  }
-
-  let timer = tweened(1)
-  $: if (version.Running == 0) {
-    Version().then(result => {
-      version = result
-      timer = tweened(version.Running)
-      if ($conf.DevMode) {
-        toast("warning", "This message should only show up when you load the page, "+
-        "and again if the page gets reloaded or the window wakes from sleep. "+
-        "Let captain know if it shows up a lot.", "Debug")
-      }
-    })
-  }
 
   let update = {
     Downloading: "",
@@ -61,7 +36,7 @@
       update.Checked = true
       update.Downloading = ""
       msg = "that was pretty cool"
-      if (release.Outdate) msg = $conf.IsLinux ?
+      if (release.Outdate) msg = $app.IsLinux ?
         "Use your package manager to install the update." :
         "Update available! Click the button to download it."
     }, (error) => {
@@ -81,7 +56,7 @@
 
   function openFolder(e) {
     e.preventDefault()
-    OpenFolder(release.FilePath).then(msg => (toast("warning", msg)))
+    OpenFolder(release.FilePath).then(msg => (toast("info", msg)))
   }
 
   function downloadUpdate(e) {
@@ -91,17 +66,15 @@
     DownloadUpdate().then(data => {
       update.Checked = true
       release.FilePath = data.Path
-      toast("success", "Downloading: "+data.Path)
-
-      EventsOn("downloadFinished", (data) => {
+      toast("info", "Downloading: "+data.Path)
+      EventsOn("downloadProgress", (data) => (progress = data))
+      EventsOn("downloadFinished", () => {
         EventsOff("downloadProgress", "downloadFinished")
-        update.Downloaded = "Open "+($conf.IsMac ? "DMG" : "Installer")
+        update.Downloaded = "Open "+($app.IsMac ? "DMG" : "Installer")
         update.Downloading = ""
-        msg = ($conf.IsMac ? "Disk image" : "Installer") + " downloaded! Click a button to use it."
+        msg = ($app.IsMac ? "Disk image" : "Installer") + " downloaded! Click a button to use it."
         onOnce(() => (progress = 0.0), 0.5)
       })
-
-      EventsOn("downloadProgress", (data) => (progress = data))
     }, (error) => {
       update.Failed = "Error checking for update"
       toast("error", error)
@@ -109,22 +82,13 @@
     })
   }
 
-  let lastTime = (new Date()).getTime();
-   onInterval(() => {
-    const current = (new Date()).getTime()
-    if ($timer > 0) {
-      $timer++
-      if (current > (lastTime + 1100)) version.Running = 0
-    }
-    lastTime = current
-  }, 1000)
-
-
+  $: timer = (new Date()).getTime()/1000-$app.StartTime
+  onInterval(() => { timer = (new Date()).getTime()/1000-$app.StartTime }, 1)
   /* All of this is to create a "running" timer. */
-  $: days = Math.floor($timer / 86400);
-  $: hours = Math.floor(($timer - (days * 86400)) / 3600);
-  $: minutes = Math.floor(($timer - (days * 86400) - (hours * 3600)) / 60);
-  $: seconds = Math.floor(($timer - (days * 86400) - (hours * 3600) - (minutes * 60)))
+  $: days = Math.floor(timer / 86400);
+  $: hours = Math.floor((timer - (days * 86400)) / 3600);
+  $: minutes = Math.floor((timer - (days * 86400) - (hours * 3600)) / 60);
+  $: seconds = Math.floor((timer - (days * 86400) - (hours * 3600) - (minutes * 60)))
   $: uptime = (days > 0 ? days + "d " : "") + (hours > 0 ? hours + "h " : "") + 
         (minutes > 0 ? minutes + "m " : "") + (seconds > 0 ? seconds + "s " : "")
 </script>
@@ -173,17 +137,17 @@
     </Row>
 
     <!-- version update card at the bottom of the About page -->
-    {#if Object.keys(version).length > 0}
+    {#if Object.keys(app).length > 0}
     <Col md="6">
       <h3>App Info</h3><!-- following line shows an error but actually works. -->
       <Card color={$conf.Dark ? "secondary" : "light"} body>
         <Table dark={$conf.Dark} responsive>
-          <tr><td>Version</td><td>v{version.Version}-{version.Revision} ({version.GoVersion})</td></tr>
-          <tr><td>Branch</td><td>{version.Branch}</td></tr>
-          <tr><td>Created</td><td>{version.BuildDate} by {version.BuildUser}</td></tr>
+          <tr><td>Version</td><td>v{$app.Version}-{$app.Revision} ({$app.GoVersion})</td></tr>
+          <tr><td>Branch</td><td>{$app.Branch}</td></tr>
+          <tr><td>Created</td><td>{$app.BuildDate} by {$app.BuildUser}</td></tr>
           <tr>
             <td>Running</td>
-            <Tooltip target="runningTime" placement="top">Running Since:<br>{version.Started}</Tooltip>
+            <Tooltip target="runningTime" placement="top">Running Since:<br>{$app.Started}</Tooltip>
             <td id="runningTime">{uptime}</td>
           </tr>
           <tr><td colspan="2">
@@ -193,11 +157,11 @@
             <Button block disabled size="sm" color="danger">{update.Downloading} <Fa spin primaryColor="yellow" icon={faGear} /></Button>
             {:else if update.Downloaded}
             <Tooltip target="installButton">{release.FilePath}</Tooltip>
-            <Tooltip target="folderButton">{(release.FilePath).split(/[\\/]/).slice(0,-1).join($conf.IsWindows?"\\":"/")}</Tooltip>
+            <Tooltip target="folderButton">{(release.FilePath).split(/[\\/]/).slice(0,-1).join($app.IsWindows?"\\":"/")}</Tooltip>
             <Button id="installButton" style="width:49%" outline on:click={installUpdate} size="sm" color="primary">{update.Downloaded}</Button>
             <Button id="folderButton" style="width:49%" outline on:click={openFolder} size="sm" color="info">Open Folder</Button>
             {:else if release.Outdate}
-              {#if $conf.IsLinux}
+              {#if $app.IsLinux}
               <Button block outline disabled size="sm" color="warning">Update available! v{release.Current}</Button>
               {:else}
               <Button block outline on:click={downloadUpdate} size="sm" color="warning">Download: v{release.Current} ({release.Size})</Button>

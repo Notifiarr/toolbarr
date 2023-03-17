@@ -16,13 +16,14 @@
   import BGLogo from "../libs/BackgroundLogo.svelte"
   import Fa from "svelte-fa"
   import { faQuestion } from "@fortawesome/free-solid-svg-icons"
-  import { conf } from "../libs/config.js"
+  import { conf, app } from "../libs/config.js"
   import windowsConf from "../assets/images/windows-conf-file.png"
   import { toast } from "../libs/funcs"
   import ConfigInput from "../libs/Input.svelte"
 
   let activeTab = Logs
   let confHelp = false
+  let confSpin = false
   const toggleConfHelp = () => (confHelp = !confHelp);
 
   function createWindowsShortcut(e) {
@@ -39,13 +40,17 @@
     <Row>
       <p>This is where the application settings are found.</p>
       <Form class="Settings">
-        <InputGroup>
-          <InputGroupText class="setting-name">Config File</InputGroupText>
-          <ConfigInput locked type="text" id="File" name="File" 
-          tooltip="Can only be changed on application launch" placement="bottom" />
-          <Button on:click={(e) => (e.preventDefault(),toggleConfHelp())}><Fa primaryColor="cyan" icon="{faQuestion}" /></Button>
-        </InputGroup>
-        <br />
+        <div on:mouseenter={() => {confSpin=true}} on:mouseleave={() => {confSpin=false}}>
+          <InputGroup>
+            <InputGroupText class="setting-name">Config File</InputGroupText>
+            <ConfigInput locked type="text" id="File" name="File" 
+            tooltip="Can only be changed on application launch" placement="bottom" />
+            <Button on:click={(e) => (e.preventDefault(),toggleConfHelp())}>
+              <Fa primaryColor="cyan" spin={confSpin} icon="{faQuestion}" />
+            </Button>
+          </InputGroup>
+        </div>
+      <br />
         <Nav tabs fill>
           <NavLink href="#" on:click={() => (activeTab = Logs)} active={activeTab == Logs}>Logging</NavLink>
           <NavLink href="#" on:click={() => (activeTab = Advanced)} active={activeTab == Advanced}>Advanced</NavLink>
@@ -57,7 +62,7 @@
   </Container>
 
   <Offcanvas style="width:50%;min-width:390px;max-width:550px" class="{$conf.Dark ? "bg-secondary" : "bg-light"}" isOpen={confHelp} toggle={toggleConfHelp} header="Custom Config Path" placement="end">
-    {#if $conf.IsLinux}
+    {#if $app.IsLinux}
       <p>
         Toolbarr will look for <code>toolbarr.conf</code> in the same folder as the <code>toolbarr</code> binary.
         If it is not found, then a location inside your home folder is used for the config file.
@@ -68,9 +73,9 @@
       <p>
       <code>toolbarr -c /path/to/toolbarr.conf</code><br>
       With a full path:<br>
-      <code>{$conf.Exe} -c {$conf.Home}/.toolbarr/toolbarr.conf</code><br>
+      <code>{$app.Exe} -c {$app.Home}/.toolbarr/toolbarr.conf</code><br>
       Make a bash alias or script to do this for you.</p>
-    {:else if $conf.IsMac}
+    {:else if $app.IsMac}
     <p>
       Toolbarr will look for <code>toolbarr.conf</code> in the same folder as <code>Toolbarr.app</code>.
       If it is not found, then a location inside your home folder is used for the config file.

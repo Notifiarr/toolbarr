@@ -5,7 +5,6 @@ import (
 	"encoding/gob"
 	"fmt"
 	"os"
-	"os/user"
 	"path/filepath"
 
 	"github.com/Notifiarr/toolbarr/pkg/logs"
@@ -29,7 +28,6 @@ type Input struct {
 type Config struct {
 	*logs.LogConfig
 	Advanced
-	App
 	*logs.Logger
 	File string
 	Dark bool
@@ -41,21 +39,8 @@ type Advanced struct {
 	Updates string
 }
 
-// App data is read only.
-type App struct {
-	IsWindows bool
-	IsLinux   bool
-	IsMac     bool
-	Exe       string
-	Home      string
-	Username  string
-}
-
 // New returns a config with defaults.
 func New(appName string, logger *logs.Logger) *Config {
-	exec, _ := os.Executable()
-	user, _ := user.Current()
-
 	return &Config{
 		LogConfig: &logs.LogConfig{
 			Name:  appName,
@@ -63,14 +48,6 @@ func New(appName string, logger *logs.Logger) *Config {
 			Size:  4,
 			Mode:  "0640",
 			Files: 10,
-		},
-		App: App{
-			IsWindows: mnd.IsWindows,
-			IsLinux:   mnd.IsLinux,
-			IsMac:     mnd.IsMac,
-			Exe:       exec,
-			Home:      user.HomeDir,
-			Username:  user.Name,
 		},
 		Advanced: Advanced{
 			Updates: "production",
@@ -149,19 +126,9 @@ func (i *Input) openConfig(configFile string) (*Config, error) {
 		return nil, fmt.Errorf("decoding config file:  %s: %w", configFile, err)
 	}
 
-	user, _ := user.Current()
-	exec, _ := os.Executable()
 	config.File = configFile
 	config.Logger = i.Logger
 	config.Name = i.Name
-	config.App = App{
-		IsWindows: mnd.IsWindows,
-		IsLinux:   mnd.IsLinux,
-		IsMac:     mnd.IsMac,
-		Exe:       exec,
-		Home:      user.HomeDir,
-		Username:  user.Name,
-	}
 
 	if config.Updates == "" {
 		config.Updates = "production"
@@ -207,7 +174,6 @@ func (c *Config) Update(merge *Config) {
 	c.Advanced = merge.Advanced
 	c.Dark = merge.Dark
 	c.File = merge.File
-	c.App = merge.App
 }
 
 // findConfigFileFolder checks the app/exe directory for a config file.

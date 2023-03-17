@@ -5,6 +5,7 @@ import (
 
 	"github.com/Notifiarr/toolbarr/pkg/config"
 	"github.com/Notifiarr/toolbarr/pkg/logs"
+	"github.com/Notifiarr/toolbarr/pkg/mnd"
 	wailsRuntime "github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
@@ -31,8 +32,8 @@ func (a *App) Startup(ctx context.Context) {
 
 	conf, err := config.Get(&config.Input{
 		Path:   a.configFile,
-		Name:   "toolbarr",
-		Dir:    "com.notifiarr.toolbarr",
+		Name:   mnd.Name,
+		Dir:    "com.notifiarr." + mnd.Name,
 		Logger: a.logger,
 	})
 	if err != nil {

@@ -54,7 +54,7 @@
 
 <!-- This if statement prevents the app from loading until the config is retrieved from the backend. -->
 {#if Object.keys($conf).length > 0}
-<Navbar color="secondary"  expand="md py-0">
+<Navbar color="secondary" dark={$conf.Dark} expand="md py-0">
   <NavbarBrand on:click={(e) => (app = "Toolbarr",e.preventDefault())}><Applogo size="25px" {app} /> {app}</NavbarBrand>
   <ConfigInput type="switch" id="Dark" name="Dark" notoast noreload></ConfigInput>
   <NavbarToggler on:click={() => (isOpen = !isOpen)} />
@@ -63,7 +63,7 @@
       {#each ["Lidarr", "Prowlarr", "Radarr", "Readarr", "Sonarr", "Whisparr"] as appLink}
         <Tooltip target={appLink} class="d-none d-md-block" placement="bottom">{appLink}</Tooltip>
         <NavLink id={appLink} on:click={()=>nav(appLink)}>
-          <Applogo size="20px" app={appLink} /><span class="d-md-none">{appLink}</span>
+          <Applogo size="20px" app={appLink} /> <span class="d-md-none">{appLink}</span>
         </NavLink>
       {/each}
       <Dropdown nav inNavbar>

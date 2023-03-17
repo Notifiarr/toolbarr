@@ -2,10 +2,13 @@ package app
 
 import (
 	"fmt"
+	"os"
+	"os/user"
 	"runtime"
 	"time"
 
 	"github.com/Notifiarr/toolbarr/pkg/config"
+	"github.com/Notifiarr/toolbarr/pkg/mnd"
 	"github.com/gorilla/schema"
 	wailsRuntime "github.com/wailsapp/wails/v2/pkg/runtime"
 	"golift.io/version"
@@ -55,6 +58,8 @@ func (a *App) SaveConfigItem(name string, value any, reload bool) (*ConfigSaved,
 
 // PickFolder opens the folder selector.
 func (a *App) PickFolder(path string) (string, error) {
+	a.config.Tracef("Call:PickFolder(%s)", path)
+
 	if path == "" {
 		path = a.config.Path
 	}
@@ -74,6 +79,7 @@ func (a *App) PickFolder(path string) (string, error) {
 }
 
 type Version struct {
+	StartTime int64
 	Version   string
 	Revision  string
 	Branch    string
@@ -81,11 +87,28 @@ type Version struct {
 	BuildDate string
 	GoVersion string
 	Started   string
-	Running   int
+	Info
+}
+
+type Info struct {
+	IsWindows bool
+	IsLinux   bool
+	IsMac     bool
+	Name      string
+	Title     string
+	Exe       string
+	Home      string
+	Username  string
 }
 
 func (a *App) Version() Version {
+	a.config.Trace("Call:Version()")
+
+	user, _ := user.Current()
+	exec, _ := os.Executable()
+
 	return Version{
+		StartTime: version.Started.Unix(),
 		Version:   version.Version,
 		Revision:  version.Revision,
 		Branch:    version.Branch,
@@ -93,6 +116,15 @@ func (a *App) Version() Version {
 		BuildDate: version.BuildDate,
 		GoVersion: runtime.Version(),
 		Started:   version.Started.Round(time.Second).String(),
-		Running:   int(time.Since(version.Started).Seconds()),
+		Info: Info{
+			Title:     mnd.Title,
+			Name:      mnd.Name,
+			IsWindows: mnd.IsWindows,
+			IsLinux:   mnd.IsLinux,
+			IsMac:     mnd.IsMac,
+			Exe:       exec,
+			Home:      user.HomeDir,
+			Username:  user.Name,
+		},
 	}
 }

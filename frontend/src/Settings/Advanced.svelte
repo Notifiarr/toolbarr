@@ -1,6 +1,7 @@
 <script>
-  import { InputGroup, InputGroupText } from "sveltestrap"
+  import { Input, InputGroup, InputGroupText } from "sveltestrap"
   import ConfigInput from "../libs/Input.svelte"
+  import { app } from "../libs/config.js"
 </script>
 
 <p>These settings control advanced aspects of this application, and should probably not be changed.</p>
@@ -22,5 +23,5 @@
 </InputGroup>
 <InputGroup>
   <InputGroupText class="setting-name">App Path</InputGroupText>
-  <ConfigInput locked type="text"id="App.Exe" name="Exe" />
+  <Input disabled type="text" value={$app.Exe} />
 </InputGroup>

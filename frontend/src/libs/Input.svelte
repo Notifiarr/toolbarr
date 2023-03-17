@@ -26,72 +26,54 @@
   export let placement = "top"
   // Optional value. Should only be used for binding.
   export let value = undefined
-  // Set the value from the config.
-  value = $conf[name]
 
-  // These control the green/red on success/error of a change.
-  let valid = false
-  let invalid = false
-  // Controls if we use .checked or .value. Might need adjustments?
-  const checkbox = (type=="switch" || type=="checkbox")
+  let valid // Controls the green/red on success/error of a change.
+  let timer // Allows clearing the green/red marks after an interval.
+  let input // Allows importers to call the exported functions.
+  let last  // This stays simple to trigger the reactive if block.
 
-  async function saveValue(e) {
-    if (locked) return
-    // We have to use e.target because value does not update before this runs.
-    const val = checkbox?e.target.checked:e.target.value
-    await SaveConfigItem(id, val, !noreload).then(saved, failed)
+  // This reactive if block updates the config when the 'value' changes.
+  $: if (value == undefined) {
+    value = last = $conf[name] // Set the initial value from the config.
+  } else if (value != last) {
+    clearInterval(timer) // clears previous timer (if exists)
+    last = value // prevent infinite loops.
+    SaveConfigItem(id, value, !noreload).then(saved, failed)
   }
 
-  function saved(resp) {
-    // Convert the strinfified value back into a type.. by guessing?
-    $conf[name] = resp.Val == "true" ? true : resp.Val == "false" ? false :
-      /^[1-9]\d*(\.\d+)?$/.test(resp.Val) ? Number(resp.Val) : resp.Val
-    invalid = false
-    valid = true
-    onOnce(() => {valid=false}, 5)
-    // Send 1 toast.
+  // This runs on successful save to config file.
+  function saved(resp){
+    valid = true         // set green check mark
+    $conf[name] = value  // updates running config in javascript store
+    timer = onOnce(() => {valid=undefined}, 5) // clears green check mark
+    // Send only 1 toast.
     if (!notoast) toast("success", resp.Msg, "CONFIG")
     if (notoast&&$conf.DevMode) toast("warning", resp.Msg, "CONFIG (debug)")
   }
 
+  // This runs when the save to config file fails.
   function failed(err) {
-    toast("error", err)
-    invalid = true
-    valid = false
+    valid = false // set red X mark, does not clear
+    toast("error", err, "CONFIG ERROR", 9)
   }
-
-  // Allows importers to call the exported functions below.
-  let input 
 
   // Allows updating/saving inputs (readonly or not) from other inputs.
-  export function update(newVal) {
-    value = newVal
-    saveValue({target:{value:newVal,checked:newVal}})
-  }
+  export function update(val) { value = val }
 </script>
 
 {#if value!=undefined}
-  {#if checkbox}
-    <Input {type} {id} {name} 
-      {disabled} {valid} {invalid}
-      readonly={readonly||locked}
-      bind:this={input}
-      on:change={saveValue}
-      bind:checked={value}
-    ><slot/></Input>
-  {:else}
-    <Input {type} {id} {name} 
-      {disabled} {valid} {invalid}
-      readonly={readonly||locked}
-      bind:this={input}
-      bind:value={value}
-      on:change={saveValue}
-    ><slot/></Input>
-  {/if}
-
   {#if tooltip != ""}
     <Tooltip target={id.replace(/([\.:])/g, '\\$1')} {placement}>{tooltip}</Tooltip>
   {/if}
+  <Input {type} {id} {name} {disabled}
+    valid={valid==true}
+    invalid={valid==false}
+    readonly={readonly||locked}
+    bind:this={input}
+    bind:checked={value}
+    bind:value={value}
+    ><slot/>
+  </Input>
 {:else}
-  Provided name '{name}' has no value in config.
+  Name '{name}' has no value in config.
 {/if}

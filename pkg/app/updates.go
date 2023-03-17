@@ -27,6 +27,8 @@ type Release struct {
 }
 
 func (a *App) CheckUpdate() (*Release, error) {
+	a.config.Trace("Call:CheckUpdate()")
+
 	if release := a.checkUpdateChecked(); release != nil {
 		return release, nil
 	}
@@ -79,6 +81,8 @@ type UpdateInfo struct {
 }
 
 func (a *App) DownloadUpdate() (*UpdateInfo, error) {
+	a.config.Trace("Call:DownloadUpdate()")
+
 	a.updates.RLock()
 	defer a.updates.RUnlock()
 
@@ -109,6 +113,8 @@ func (a *App) DownloadUpdate() (*UpdateInfo, error) {
 }
 
 func (a *App) LaunchInstaller(path string) (string, error) {
+	a.config.Tracef("Call:LaunchInstaller(%s)", path)
+
 	var err error
 
 	go func() {
@@ -132,6 +138,8 @@ func (a *App) LaunchInstaller(path string) (string, error) {
 }
 
 func (a *App) OpenFolder(path string) string {
+	a.config.Tracef("Call:OpenFolder(%s)", path)
+
 	go func() {
 		err := ui.OpenFolder(a.ctx, path)
 		if err != nil {
