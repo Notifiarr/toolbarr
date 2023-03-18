@@ -26,7 +26,6 @@ jobs:
           check_hidden: true
           skip: .git,node_modules,dist,catalog.go
 
-
   golangci:
     strategy:
       matrix:
