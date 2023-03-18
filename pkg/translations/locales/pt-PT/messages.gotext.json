@@ -1,0 +1,484 @@
+{
+    "language": "pt-PT",
+    "messages": [
+        {
+            "id": "Writing config: decoding '{Name}' value '{Value}' error: {Err}",
+            "message": "Writing config: decoding '{Name}' value '{Value}' error: {Err}",
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "Value",
+                    "string": "%[2]v",
+                    "type": "any",
+                    "underlyingType": "any",
+                    "argNum": 2,
+                    "expr": "value"
+                },
+                {
+                    "id": "Err",
+                    "string": "%[3]v",
+                    "type": "error",
+                    "underlyingType": "interface{Error() string}",
+                    "argNum": 3,
+                    "expr": "err"
+                }
+            ]
+        },
+        {
+            "id": "decoding '{Name}' value '{Value}' error:",
+            "message": "decoding '{Name}' value '{Value}' error:",
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "Value",
+                    "string": "%[2]v",
+                    "type": "any",
+                    "underlyingType": "any",
+                    "argNum": 2,
+                    "expr": "value"
+                }
+            ]
+        },
+        {
+            "id": "Error writing config: {Error}",
+            "message": "Error writing config: {Error}",
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "writing config:",
+            "message": "writing config:",
+            "translation": ""
+        },
+        {
+            "id": "Saved: '{Name}' Value: {Value}",
+            "message": "Saved: '{Name}' Value: {Value}",
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "Value",
+                    "string": "%[2]v",
+                    "type": "any",
+                    "underlyingType": "any",
+                    "argNum": 2,
+                    "expr": "value"
+                }
+            ]
+        },
+        {
+            "id": "Config {Msg}",
+            "message": "Config {Msg}",
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Msg",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "msg"
+                }
+            ]
+        },
+        {
+            "id": "Choose Folder",
+            "message": "Choose Folder",
+            "translation": ""
+        },
+        {
+            "id": "opening directory browser:",
+            "message": "opening directory browser:",
+            "translation": ""
+        },
+        {
+            "id": "Config Problem",
+            "message": "Config Problem",
+            "translation": ""
+        },
+        {
+            "id": "Checking for current {Updates} release: {Err}",
+            "message": "Checking for current {Updates} release: {Err}",
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Updates",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "updates"
+                },
+                {
+                    "id": "Err",
+                    "string": "%[2]v",
+                    "type": "error",
+                    "underlyingType": "interface{Error() string}",
+                    "argNum": 2,
+                    "expr": "err"
+                }
+            ]
+        },
+        {
+            "id": "checking for current {Updates} release:",
+            "message": "checking for current {Updates} release:",
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Updates",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "updates"
+                }
+            ]
+        },
+        {
+            "id": "Checked Current {Updates} release: {Version} ({RelSize})",
+            "message": "Checked Current {Updates} release: {Version} ({RelSize})",
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Updates",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "updates"
+                },
+                {
+                    "id": "Version",
+                    "string": "%[2]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "release.Version"
+                },
+                {
+                    "id": "RelSize",
+                    "string": "%[3]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 3,
+                    "expr": "mnd.FormatBytes(release.RelSize)"
+                }
+            ]
+        },
+        {
+            "id": "Downloading File",
+            "message": "Downloading File",
+            "translation": ""
+        },
+        {
+            "id": "missing release, check first?",
+            "message": "missing release, check first?",
+            "translation": ""
+        },
+        {
+            "id": "Downloading {Updates} update: {Err}",
+            "message": "Downloading {Updates} update: {Err}",
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Updates",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "updates"
+                },
+                {
+                    "id": "Err",
+                    "string": "%[2]v",
+                    "type": "error",
+                    "underlyingType": "interface{Error() string}",
+                    "argNum": 2,
+                    "expr": "err"
+                }
+            ]
+        },
+        {
+            "id": "downloading failed:",
+            "message": "downloading failed:",
+            "translation": ""
+        },
+        {
+            "id": "Downloading {Updates} release from {CurrURL} to {Path} ({Size})",
+            "message": "Downloading {Updates} release from {CurrURL} to {Path} ({Size})",
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Updates",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "updates"
+                },
+                {
+                    "id": "CurrURL",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "a.updates.release.CurrURL"
+                },
+                {
+                    "id": "Path",
+                    "string": "%[3]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 3,
+                    "expr": "a.updates.progress.Path()"
+                },
+                {
+                    "id": "Size",
+                    "string": "%[4]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 4,
+                    "expr": "size"
+                }
+            ]
+        },
+        {
+            "id": "Downloading {Size} to {Path}",
+            "message": "Downloading {Size} to {Path}",
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Size",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "size"
+                },
+                {
+                    "id": "Path",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "a.updates.progress.Path()"
+                }
+            ]
+        },
+        {
+            "id": "Launching installer: {Path}: {Err}",
+            "message": "Launching installer: {Path}: {Err}",
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Path",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "path"
+                },
+                {
+                    "id": "Err",
+                    "string": "%[2]v",
+                    "type": "error",
+                    "underlyingType": "interface{Error() string}",
+                    "argNum": 2,
+                    "expr": "err"
+                }
+            ]
+        },
+        {
+            "id": "Launching Installer: {Path}",
+            "message": "Launching Installer: {Path}",
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Path",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "path"
+                }
+            ]
+        },
+        {
+            "id": "Opening Folder: {Path}: {Err}",
+            "message": "Opening Folder: {Path}: {Err}",
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Path",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "path"
+                },
+                {
+                    "id": "Err",
+                    "string": "%[2]v",
+                    "type": "error",
+                    "underlyingType": "interface{Error() string}",
+                    "argNum": 2,
+                    "expr": "err"
+                }
+            ]
+        },
+        {
+            "id": "Opening Path: {Path}",
+            "message": "Opening Path: {Path}",
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Path",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "path"
+                }
+            ]
+        },
+        {
+            "id": "ERROR",
+            "message": "ERROR",
+            "translation": ""
+        },
+        {
+            "id": "WARN",
+            "message": "WARN",
+            "translation": ""
+        },
+        {
+            "id": "INFO",
+            "message": "INFO",
+            "translation": ""
+        },
+        {
+            "id": "DEBUG",
+            "message": "DEBUG",
+            "translation": ""
+        },
+        {
+            "id": "TRACE",
+            "message": "TRACE",
+            "translation": ""
+        },
+        {
+            "id": "FATAL",
+            "message": "FATAL",
+            "translation": ""
+        },
+        {
+            "id": "Logger Error: {Err}",
+            "message": "Logger Error: {Err}",
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Err",
+                    "string": "%[1]v",
+                    "type": "error",
+                    "underlyingType": "interface{Error() string}",
+                    "argNum": 1,
+                    "expr": "err"
+                }
+            ]
+        },
+        {
+            "id": "...continuing:",
+            "message": "...continuing:",
+            "translation": ""
+        },
+        {
+            "id": "Go Panic! This is a bug!\n{Version}-{Revision} {Branch} {R}\n{Stack}",
+            "message": "Go Panic! This is a bug!\n{Version}-{Revision} {Branch} {R}\n{Stack}",
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Version",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "version.Version"
+                },
+                {
+                    "id": "Revision",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "version.Revision"
+                },
+                {
+                    "id": "Branch",
+                    "string": "%[3]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 3,
+                    "expr": "version.Branch"
+                },
+                {
+                    "id": "R",
+                    "string": "%[4]v",
+                    "type": "interface{}",
+                    "underlyingType": "interface{}",
+                    "argNum": 4,
+                    "expr": "r"
+                },
+                {
+                    "id": "Stack",
+                    "string": "%[5]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 5,
+                    "expr": "string(debug.Stack())"
+                }
+            ]
+        },
+        {
+            "id": "Closing Logger",
+            "message": "Closing Logger",
+            "translation": ""
+        },
+        {
+            "id": "closing log rotator:",
+            "message": "closing log rotator:",
+            "translation": ""
+        }
+    ]
+}

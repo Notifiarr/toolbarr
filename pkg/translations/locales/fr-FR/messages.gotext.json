@@ -1,10 +1,10 @@
 {
-    "language": "de-DE",
+    "language": "fr-FR",
     "messages": [
         {
             "id": "Writing config: decoding '{Name}' value '{Value}' error: {Err}",
             "message": "Writing config: decoding '{Name}' value '{Value}' error: {Err}",
-            "translation": "Vortumar {Name} {Value} {Err}",
+            "translation": "",
             "placeholders": [
                 {
                     "id": "Name",
