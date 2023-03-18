@@ -8,7 +8,7 @@ require (
 	github.com/wailsapp/wails/v2 v2.4.0
 	golang.org/x/mod v0.9.0
 	golift.io/datacounter v1.0.4
-	golift.io/rotatorr v0.0.0-20230110212846-590e84fecf74
+	golift.io/rotatorr v0.0.0-20230317103044-d974d22ee164
 	golift.io/version v0.0.2
 )
 
