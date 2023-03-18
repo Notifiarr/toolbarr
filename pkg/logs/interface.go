@@ -77,7 +77,7 @@ func (l *Logger) writeMsg(msg string, logger *log.Logger) {
 			return
 		}
 
-		l.printer.Println("Logger Error:", err)
+		l.printer.Printf("Logger Error: %v", err)
 	}
 }
 

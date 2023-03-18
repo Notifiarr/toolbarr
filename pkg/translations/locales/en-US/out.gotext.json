@@ -520,6 +520,23 @@
             "fuzzy": true
         },
         {
+            "id": "Logger Error: {Err}",
+            "message": "Logger Error: {Err}",
+            "translation": "Logger Error: {Err}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Err",
+                    "string": "%[1]v",
+                    "type": "error",
+                    "underlyingType": "interface{Error() string}",
+                    "argNum": 1,
+                    "expr": "err"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
             "id": "...continuing:",
             "message": "...continuing:",
             "translation": "...continuing:",

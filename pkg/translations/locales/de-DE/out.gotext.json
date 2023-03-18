@@ -464,6 +464,21 @@
             ]
         },
         {
+            "id": "Logger Error: {Err}",
+            "message": "Logger Error: {Err}",
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Err",
+                    "string": "%[1]v",
+                    "type": "error",
+                    "underlyingType": "interface{Error() string}",
+                    "argNum": 1,
+                    "expr": "err"
+                }
+            ]
+        },
+        {
             "id": "...continuing:",
             "message": "...continuing:",
             "translation": ""

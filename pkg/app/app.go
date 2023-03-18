@@ -125,7 +125,7 @@ func (a *App) Version() Version {
 			Exe:       exec,
 			Home:      user.HomeDir,
 			Username:  user.Name,
-			Langs:     translations.Languages,
+			Langs:     translations.Languages(),
 		},
 	}
 }

@@ -5,9 +5,16 @@
 
 package translations
 
+import "golang.org/x/text/message"
+
 // Languages should match the languages in the generate command above.
-var Languages = []string{ //nolint:gochecknoglobals
-	"en-US",
-	"de-DE",
-	"fr-CH",
+func Languages() []string {
+	tags := message.DefaultCatalog.Languages()
+	langs := make([]string, len(tags))
+
+	for i := range tags {
+		langs[i] = tags[i].String()
+	}
+
+	return langs
 }
