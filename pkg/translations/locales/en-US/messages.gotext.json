@@ -109,9 +109,40 @@
             "fuzzy": true
         },
         {
+            "id": "Config {Msg}",
+            "message": "Config {Msg}",
+            "translation": "Config {Msg}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Msg",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "msg"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
             "id": "Choose Folder",
             "message": "Choose Folder",
             "translation": "Choose Folder",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "opening directory browser:",
+            "message": "opening directory browser:",
+            "translation": "opening directory browser:",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Config Problem",
+            "message": "Config Problem",
+            "translation": "Config Problem",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -387,88 +418,69 @@
             "fuzzy": true
         },
         {
-            "id": "[DEBUG] {Msg}",
-            "message": "[DEBUG] {Msg}",
-            "translation": "[DEBUG] {Msg}",
+            "id": "ERROR",
+            "message": "ERROR",
+            "translation": "ERROR",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "WARN",
+            "message": "WARN",
+            "translation": "WARN",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "INFO",
+            "message": "INFO",
+            "translation": "INFO",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "DEBUG",
+            "message": "DEBUG",
+            "translation": "DEBUG",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "TRACE",
+            "message": "TRACE",
+            "translation": "TRACE",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "FATAL",
+            "message": "FATAL",
+            "translation": "FATAL",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Logger Error: {Err}",
+            "message": "Logger Error: {Err}",
+            "translation": "Logger Error: {Err}",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
-                    "id": "Msg",
+                    "id": "Err",
                     "string": "%[1]v",
-                    "type": "string",
-                    "underlyingType": "string",
+                    "type": "error",
+                    "underlyingType": "interface{Error() string}",
                     "argNum": 1,
-                    "expr": "msg"
+                    "expr": "err"
                 }
             ],
             "fuzzy": true
         },
         {
-            "id": "[INFO] {Msg}",
-            "message": "[INFO] {Msg}",
-            "translation": "[INFO] {Msg}",
+            "id": "...continuing:",
+            "message": "...continuing:",
+            "translation": "...continuing:",
             "translatorComment": "Copied from source.",
-            "placeholders": [
-                {
-                    "id": "Msg",
-                    "string": "%[1]v",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 1,
-                    "expr": "msg"
-                }
-            ],
-            "fuzzy": true
-        },
-        {
-            "id": "[WARN] {Msg}",
-            "message": "[WARN] {Msg}",
-            "translation": "[WARN] {Msg}",
-            "translatorComment": "Copied from source.",
-            "placeholders": [
-                {
-                    "id": "Msg",
-                    "string": "%[1]v",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 1,
-                    "expr": "msg"
-                }
-            ],
-            "fuzzy": true
-        },
-        {
-            "id": "[ERROR] {Msg}",
-            "message": "[ERROR] {Msg}",
-            "translation": "[ERROR] {Msg}",
-            "translatorComment": "Copied from source.",
-            "placeholders": [
-                {
-                    "id": "Msg",
-                    "string": "%[1]v",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 1,
-                    "expr": "msg"
-                }
-            ],
-            "fuzzy": true
-        },
-        {
-            "id": "[FATAL] {Msg}",
-            "message": "[FATAL] {Msg}",
-            "translation": "[FATAL] {Msg}",
-            "translatorComment": "Copied from source.",
-            "placeholders": [
-                {
-                    "id": "Msg",
-                    "string": "%[1]v",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 1,
-                    "expr": "msg"
-                }
-            ],
             "fuzzy": true
         },
         {
@@ -521,37 +533,17 @@
             "fuzzy": true
         },
         {
-            "id": "Opened log file: {File}",
-            "message": "Opened log file: {File}",
-            "translation": "Opened log file: {File}",
+            "id": "Closing Logger",
+            "message": "Closing Logger",
+            "translation": "Closing Logger",
             "translatorComment": "Copied from source.",
-            "placeholders": [
-                {
-                    "id": "File",
-                    "string": "%[1]v",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 1,
-                    "expr": "l.File"
-                }
-            ],
             "fuzzy": true
         },
         {
-            "id": "Rotated log file to: {NewFile}",
-            "message": "Rotated log file to: {NewFile}",
-            "translation": "Rotated log file to: {NewFile}",
+            "id": "closing log rotator:",
+            "message": "closing log rotator:",
+            "translation": "closing log rotator:",
             "translatorComment": "Copied from source.",
-            "placeholders": [
-                {
-                    "id": "NewFile",
-                    "string": "%[1]s",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 1,
-                    "expr": "newFile"
-                }
-            ],
             "fuzzy": true
         }
     ]
