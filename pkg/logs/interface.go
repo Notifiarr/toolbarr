@@ -3,82 +3,97 @@ package logs
 import (
 	"errors"
 	"fmt"
+	"log"
 	"runtime/debug"
 
+	"golang.org/x/text/message"
 	"golift.io/rotatorr"
 	"golift.io/version"
 )
 
-func (l *Logger) Printf(msg string, v ...any) {
-	l.writeMsg(fmt.Sprintf("[INFO] "+msg, v...))
+// Translate is like Sprintf.
+func (l *Logger) Translate(msg message.Reference, v ...any) string {
+	// Locking allows changing the translation language on the fly.
+	l.mu.RLock()
+	defer l.mu.RUnlock()
+
+	return l.printer.Sprintf(msg, v...)
 }
 
-func (l *Logger) Print(msg string) {
-	l.writeMsg("[INFO] " + msg)
+func (l *Logger) Errorf(msg message.Reference, v ...any) {
+	l.writeMsg(l.Translate("[ERROR] %s", l.Translate(msg, v...)), l.logger)
 }
 
-func (l *Logger) Trace(msg string) {
-	if l.config.Level >= LogLevelTrace {
-		l.writeMsg("[TRACE] " + msg)
-	}
+func (l *Logger) Warnf(msg message.Reference, v ...any) {
+	l.writeMsg(l.Translate("[WARN] %s", l.Translate(msg, v...)), l.logger)
 }
 
-func (l *Logger) Debugf(msg string, v ...any) {
-	if l.config.Level >= LogLevelDebug {
-		l.writeMsg(fmt.Sprintf("[DEBUG] "+msg, v...))
-	}
+func (l *Logger) Infof(msg message.Reference, v ...any) {
+	l.writeMsg(l.Translate("[INFO] %s", l.Translate(msg, v...)), l.logger)
 }
 
-func (l *Logger) Debug(msg string) {
-	l.Debugf(msg)
+func (l *Logger) Debugf(msg message.Reference, v ...any) {
+	l.writeMsg(l.Translate("[DEBUG] %s", l.Translate(msg, v...)), l.debug)
 }
 
-func (l *Logger) Info(msg string) {
-	l.writeMsg("[INFO] " + msg)
+func (l *Logger) Tracef(msg string, v ...any) {
+	l.writeMsg(l.Translate("[TRACE] %s", fmt.Sprintf(msg, v...)), l.trace)
 }
 
-func (l *Logger) Warning(msg string) {
-	l.writeMsg("[WARN] " + msg)
+func (l *wailsInterface) Trace(msg string) {
+	l.log.writeMsg(l.log.Translate("[TRACE] %s", msg), l.log.trace)
 }
 
-func (l *Logger) Error(msg string) {
-	l.writeMsg("[ERROR] " + msg)
+func (l *wailsInterface) Debug(msg string) {
+	l.log.writeMsg(l.log.Translate("[DEBUG] %s", msg), l.log.debug)
 }
 
-func (l *Logger) Errorf(msg string, v ...any) {
-	l.writeMsg(fmt.Sprintf("[ERROR] "+msg, v...))
+func (l *wailsInterface) Print(msg string) {
+	l.log.writeMsg(l.log.Translate("[INFO] %s", msg), l.log.logger)
 }
 
-func (l *Logger) Fatal(msg string) {
-	l.writeMsg("[FATAL] " + msg)
+func (l *wailsInterface) Info(msg string) {
+	l.Print(msg)
+}
+
+func (l *wailsInterface) Warning(msg string) {
+	l.log.writeMsg(l.log.Translate("[WARN] %s", msg), l.log.logger)
+}
+
+func (l *wailsInterface) Error(msg string) {
+	l.log.writeMsg(l.log.Translate("[ERROR] %s", msg), l.log.logger)
+}
+
+func (l *wailsInterface) Fatal(msg string) {
+	l.log.writeMsg(l.log.Translate("[FATAL] %s", msg), l.log.logger)
 }
 
 const callDepth = 2
 
-func (l *Logger) writeMsg(msg string) {
-	if err := l.logger.Output(callDepth, msg); err != nil {
+func (l *Logger) writeMsg(msg string, logger *log.Logger) {
+	if err := logger.Output(callDepth, msg); err != nil {
 		if errors.Is(err, rotatorr.ErrWriteTooLarge) {
-			l.writeSplitMsg(msg)
+			l.writeSplitMsg(msg, logger)
 			return
 		}
 
-		fmt.Println("Logger Error:", err) //nolint:forbidigo
+		l.printer.Println("Logger Error:", err)
 	}
 }
 
 // writeSplitMsg splits the message in half and attempts to write each half.
 // If the message is still too large, it'll be split again, and the process continues until it works.
-func (l *Logger) writeSplitMsg(msg string) {
+func (l *Logger) writeSplitMsg(msg string, logger *log.Logger) {
 	half := len(msg) / 2 //nolint:gomnd // split messages in half, recursively as needed.
-	l.writeMsg(msg[:half])
-	l.writeMsg("...continuing: " + msg[half:])
+	l.writeMsg(msg[:half], logger)
+	l.writeMsg(l.Translate("...continuing: ")+msg[half:], logger)
 }
 
 // CapturePanic can be deferred in any go routine to log any panic that occurs.
 func (l *Logger) CapturePanic() {
 	if r := recover(); r != nil {
 		l.logger.Output(callDepth, //nolint:errcheck
-			fmt.Sprintf("Go Panic! This is a bug!\n%s-%s %s %v\n%s",
+			l.Translate("Go Panic! This is a bug!\n%s-%s %s %v\n%s",
 				version.Version, version.Revision, version.Branch, r, string(debug.Stack())))
 		panic(r)
 	}

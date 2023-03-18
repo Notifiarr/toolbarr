@@ -1,0 +1,558 @@
+{
+    "language": "en-US",
+    "messages": [
+        {
+            "id": "Writing config: decoding '{Name}' value '{Value}' error: {Err}",
+            "message": "Writing config: decoding '{Name}' value '{Value}' error: {Err}",
+            "translation": "Writing config: decoding '{Name}' value '{Value}' error: {Err}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "Value",
+                    "string": "%[2]v",
+                    "type": "any",
+                    "underlyingType": "any",
+                    "argNum": 2,
+                    "expr": "value"
+                },
+                {
+                    "id": "Err",
+                    "string": "%[3]v",
+                    "type": "error",
+                    "underlyingType": "interface{Error() string}",
+                    "argNum": 3,
+                    "expr": "err"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "decoding '{Name}' value '{Value}' error:",
+            "message": "decoding '{Name}' value '{Value}' error:",
+            "translation": "decoding '{Name}' value '{Value}' error:",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "Value",
+                    "string": "%[2]v",
+                    "type": "any",
+                    "underlyingType": "any",
+                    "argNum": 2,
+                    "expr": "value"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Error writing config: {Error}",
+            "message": "Error writing config: {Error}",
+            "translation": "Error writing config: {Error}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "writing config:",
+            "message": "writing config:",
+            "translation": "writing config:",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Saved: '{Name}' Value: {Value}",
+            "message": "Saved: '{Name}' Value: {Value}",
+            "translation": "Saved: '{Name}' Value: {Value}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "Value",
+                    "string": "%[2]v",
+                    "type": "any",
+                    "underlyingType": "any",
+                    "argNum": 2,
+                    "expr": "value"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Choose Folder",
+            "message": "Choose Folder",
+            "translation": "Choose Folder",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Checking for current {Updates} release: {Err}",
+            "message": "Checking for current {Updates} release: {Err}",
+            "translation": "Checking for current {Updates} release: {Err}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Updates",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "updates"
+                },
+                {
+                    "id": "Err",
+                    "string": "%[2]v",
+                    "type": "error",
+                    "underlyingType": "interface{Error() string}",
+                    "argNum": 2,
+                    "expr": "err"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "checking for current {Updates} release:",
+            "message": "checking for current {Updates} release:",
+            "translation": "checking for current {Updates} release:",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Updates",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "updates"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Checked Current {Updates} release: {Version} ({RelSize})",
+            "message": "Checked Current {Updates} release: {Version} ({RelSize})",
+            "translation": "Checked Current {Updates} release: {Version} ({RelSize})",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Updates",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "updates"
+                },
+                {
+                    "id": "Version",
+                    "string": "%[2]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "release.Version"
+                },
+                {
+                    "id": "RelSize",
+                    "string": "%[3]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 3,
+                    "expr": "mnd.FormatBytes(release.RelSize)"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Downloading File",
+            "message": "Downloading File",
+            "translation": "Downloading File",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "missing release, check first?",
+            "message": "missing release, check first?",
+            "translation": "missing release, check first?",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Downloading {Updates} update: {Err}",
+            "message": "Downloading {Updates} update: {Err}",
+            "translation": "Downloading {Updates} update: {Err}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Updates",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "updates"
+                },
+                {
+                    "id": "Err",
+                    "string": "%[2]v",
+                    "type": "error",
+                    "underlyingType": "interface{Error() string}",
+                    "argNum": 2,
+                    "expr": "err"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "downloading failed:",
+            "message": "downloading failed:",
+            "translation": "downloading failed:",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Downloading {Updates} release from {CurrURL} to {Path} ({Size})",
+            "message": "Downloading {Updates} release from {CurrURL} to {Path} ({Size})",
+            "translation": "Downloading {Updates} release from {CurrURL} to {Path} ({Size})",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Updates",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "updates"
+                },
+                {
+                    "id": "CurrURL",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "a.updates.release.CurrURL"
+                },
+                {
+                    "id": "Path",
+                    "string": "%[3]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 3,
+                    "expr": "a.updates.progress.Path()"
+                },
+                {
+                    "id": "Size",
+                    "string": "%[4]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 4,
+                    "expr": "size"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Downloading {Size} to {Path}",
+            "message": "Downloading {Size} to {Path}",
+            "translation": "Downloading {Size} to {Path}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Size",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "size"
+                },
+                {
+                    "id": "Path",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "a.updates.progress.Path()"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Launching installer: {Path}: {Err}",
+            "message": "Launching installer: {Path}: {Err}",
+            "translation": "Launching installer: {Path}: {Err}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Path",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "path"
+                },
+                {
+                    "id": "Err",
+                    "string": "%[2]v",
+                    "type": "error",
+                    "underlyingType": "interface{Error() string}",
+                    "argNum": 2,
+                    "expr": "err"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Launching Installer: {Path}",
+            "message": "Launching Installer: {Path}",
+            "translation": "Launching Installer: {Path}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Path",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "path"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Opening Folder: {Path}: {Err}",
+            "message": "Opening Folder: {Path}: {Err}",
+            "translation": "Opening Folder: {Path}: {Err}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Path",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "path"
+                },
+                {
+                    "id": "Err",
+                    "string": "%[2]v",
+                    "type": "error",
+                    "underlyingType": "interface{Error() string}",
+                    "argNum": 2,
+                    "expr": "err"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Opening Path: {Path}",
+            "message": "Opening Path: {Path}",
+            "translation": "Opening Path: {Path}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Path",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "path"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "[DEBUG] {Msg}",
+            "message": "[DEBUG] {Msg}",
+            "translation": "[DEBUG] {Msg}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Msg",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "msg"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "[INFO] {Msg}",
+            "message": "[INFO] {Msg}",
+            "translation": "[INFO] {Msg}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Msg",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "msg"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "[WARN] {Msg}",
+            "message": "[WARN] {Msg}",
+            "translation": "[WARN] {Msg}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Msg",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "msg"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "[ERROR] {Msg}",
+            "message": "[ERROR] {Msg}",
+            "translation": "[ERROR] {Msg}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Msg",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "msg"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "[FATAL] {Msg}",
+            "message": "[FATAL] {Msg}",
+            "translation": "[FATAL] {Msg}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Msg",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "msg"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Go Panic! This is a bug!\n{Version}-{Revision} {Branch} {R}\n{Stack}",
+            "message": "Go Panic! This is a bug!\n{Version}-{Revision} {Branch} {R}\n{Stack}",
+            "translation": "Go Panic! This is a bug!\n{Version}-{Revision} {Branch} {R}\n{Stack}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Version",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "version.Version"
+                },
+                {
+                    "id": "Revision",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "version.Revision"
+                },
+                {
+                    "id": "Branch",
+                    "string": "%[3]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 3,
+                    "expr": "version.Branch"
+                },
+                {
+                    "id": "R",
+                    "string": "%[4]v",
+                    "type": "interface{}",
+                    "underlyingType": "interface{}",
+                    "argNum": 4,
+                    "expr": "r"
+                },
+                {
+                    "id": "Stack",
+                    "string": "%[5]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 5,
+                    "expr": "string(debug.Stack())"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Opened log file: {File}",
+            "message": "Opened log file: {File}",
+            "translation": "Opened log file: {File}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "File",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "l.File"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Rotated log file to: {NewFile}",
+            "message": "Rotated log file to: {NewFile}",
+            "translation": "Rotated log file to: {NewFile}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "NewFile",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "newFile"
+                }
+            ],
+            "fuzzy": true
+        }
+    ]
+}

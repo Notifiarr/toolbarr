@@ -31,6 +31,6 @@ const (
 
 // Application Defaults.
 const (
-	Title       = "Toolbarr"
-	DefaultName = "toolbarr"
+	Title = "Toolbarr"
+	Name  = "toolbarr"
 )

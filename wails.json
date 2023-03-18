@@ -12,11 +12,14 @@
   "info": {
     "companyName": "Notifiarr",
     "productName": "Toolbarr",
-    "productVersion": "0.0.0",
+    "productVersion": "0.0.2",
     "copyright": "Copyright 2023 Notifiarr (https://notifiarr.com)",
     "comments": "The starr of the show."
   },
   "runNonNativeBuildHooks": true,
+  "preBuildHooks": {
+    "*/*": "go generate ../../..."
+  },
   "postBuildHooks": {
     "windows/*": "../../build/windows/signexe.sh ${bin}"
   }

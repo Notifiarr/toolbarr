@@ -1,15 +1,15 @@
 <script>
   export let app
   export let size
-  import logo from "./assets/images/logo.png"
-  import toolboxLogo from "./assets/images/Toolbox.png"
-  import settingsLogo from "./assets/images/settings.png"
-  import lidarrLogo from "./assets/images/Lidarr.png"
-  import prowlarrLogo from "./assets/images/Prowlarr.png"
-  import radarrLogo from "./assets/images/Radarr.png"
-  import readarrLogo from "./assets/images/Readarr.png"
-  import sonarrLogo from "./assets/images/Sonarr.png"
-  import whisparrLogo from "./assets/images/Whisparr.png"
+  import logo from "../assets/images/logo.png"
+  import toolboxLogo from "../assets/images/Toolbox.png"
+  import settingsLogo from "../assets/images/settings.png"
+  import lidarrLogo from "../assets/images/Lidarr.png"
+  import prowlarrLogo from "../assets/images/Prowlarr.png"
+  import radarrLogo from "../assets/images/Radarr.png"
+  import readarrLogo from "../assets/images/Readarr.png"
+  import sonarrLogo from "../assets/images/Sonarr.png"
+  import whisparrLogo from "../assets/images/Whisparr.png"
   import Fa from "svelte-fa"
   import { faBookBible, faLink } from "@fortawesome/free-solid-svg-icons"
 </script>

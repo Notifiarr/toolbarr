@@ -16,12 +16,19 @@ var ErrInvalidInput = fmt.Errorf("invalid input provided")
 
 type updates struct {
 	sync.RWMutex
-	release  *update.Update
+	release  *Release
 	progress *update.Progress
 	date     time.Time
 }
 
-func (a *App) CheckUpdate() (*update.Update, error) {
+type Release struct {
+	*update.Update
+	Size string
+}
+
+func (a *App) CheckUpdate() (*Release, error) {
+	a.log.Tracef("Call:CheckUpdate()")
+
 	if release := a.checkUpdateChecked(); release != nil {
 		return release, nil
 	}
@@ -31,28 +38,33 @@ func (a *App) CheckUpdate() (*update.Update, error) {
 		err     error
 	)
 
-	if a.config.Updates == "unstable" {
-		release, err = update.CheckUnstable(a.ctx, "Toolbarr", version.Revision)
+	updates := a.config.Settings().Updates
+	if updates == "unstable" {
+		release, err = update.CheckUnstable(a.ctx, mnd.Title, version.Revision)
 	} else {
-		release, err = update.CheckGitHub(a.ctx, "Notifiarr/toolbarr", version.Version)
+		release, err = update.CheckGitHub(a.ctx, mnd.UserRepo, version.Version)
 	}
 
 	if err != nil {
-		a.config.Errorf("Checking for current %s release: %w", a.config.Updates, err)
-		return nil, fmt.Errorf("checking for current %s release: %w", a.config.Updates, err)
+		a.log.Errorf("Checking for current %s release: %v", updates, err)
+		return nil, fmt.Errorf("%s %w", a.log.Translate("checking for current %s release:", updates), err)
 	}
 
 	a.updates.Lock()
 	defer a.updates.Unlock()
 
-	a.updates.release = release
+	a.updates.release = &Release{
+		Update: release,
+		Size:   mnd.FormatBytes(release.RelSize),
+	}
 	a.updates.date = time.Now()
-	a.config.Printf("Checked Current %s release: %s", a.config.Updates, release.Current)
+	a.log.Infof("Checked Current %s release: %v (%s)",
+		updates, release.Version, mnd.FormatBytes(release.RelSize))
 
-	return release, nil
+	return a.updates.release, nil
 }
 
-func (a *App) checkUpdateChecked() *update.Update {
+func (a *App) checkUpdateChecked() *Release {
 	a.updates.RLock()
 	defer a.updates.RUnlock()
 
@@ -70,36 +82,41 @@ type UpdateInfo struct {
 }
 
 func (a *App) DownloadUpdate() (*UpdateInfo, error) {
+	a.log.Tracef("Call:DownloadUpdate()")
+
 	a.updates.RLock()
 	defer a.updates.RUnlock()
 
-	a.config.Printf("Downloading File")
+	a.log.Infof("Downloading File")
 
-	err := fmt.Errorf("%w: missing release, check first?", ErrInvalidInput)
-
+	err := fmt.Errorf("%s %w", a.log.Translate("missing release, check first?"), ErrInvalidInput)
 	if a.updates.release == nil {
 		return nil, err
 	}
 
+	updates := a.config.Settings().Updates
+
 	a.updates.progress, err = update.DownloadURL(
 		a.ctx, a.updates.release.CurrURL, path.Base(a.updates.release.CurrURL), nil)
 	if err != nil {
-		a.config.Errorf("Downloading %s update: %w", a.config.Updates, err)
-		return nil, fmt.Errorf("downloading failed: %w", err)
+		a.log.Errorf("Downloading %s update: %v", updates, err)
+		return nil, fmt.Errorf("%s %w", a.log.Translate("downloading failed:"), err)
 	}
 
 	size := mnd.FormatBytes(a.updates.progress.Size())
-	a.config.Printf("Downloading %s release from %s to %s (%s)",
-		a.config.Updates, a.updates.release.CurrURL, a.updates.progress.Path(), size)
+	a.log.Infof("Downloading %s release from %s to %s (%s)",
+		updates, a.updates.release.CurrURL, a.updates.progress.Path(), size)
 
 	return &UpdateInfo{
-		Msg:  fmt.Sprintln("Downloading", size, "to", a.updates.progress.Path()),
+		Msg:  a.log.Translate("Downloading %s to %s", size, a.updates.progress.Path()),
 		Path: a.updates.progress.Path(),
 		Size: size,
 	}, nil
 }
 
 func (a *App) LaunchInstaller(path string) (string, error) {
+	a.log.Tracef("Call:LaunchInstaller(%s)", path)
+
 	var err error
 
 	go func() {
@@ -110,7 +127,7 @@ func (a *App) LaunchInstaller(path string) (string, error) {
 		}
 
 		if err != nil {
-			a.config.Errorf("Opening Folder: %s: %w", path, err)
+			a.log.Errorf("Launching installer: %s: %v", path, err)
 		}
 	}()
 
@@ -119,16 +136,18 @@ func (a *App) LaunchInstaller(path string) (string, error) {
 		a.Quit()
 	}()
 
-	return "Launching Installer: " + path, nil
+	return a.log.Translate("Launching Installer: %s", path), nil
 }
 
 func (a *App) OpenFolder(path string) string {
+	a.log.Tracef("Call:OpenFolder(%s)", path)
+
 	go func() {
 		err := ui.OpenFolder(a.ctx, path)
 		if err != nil {
-			a.config.Errorf("Opening Folder: %s: %w", path, err)
+			a.log.Errorf("Opening Folder: %s: %v", path, err)
 		}
 	}()
 
-	return "Opening Path: " + path
+	return a.log.Translate("Opening Path: %s", path)
 }

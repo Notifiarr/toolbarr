@@ -3,7 +3,6 @@ package logs
 import (
 	"context"
 	"fmt"
-	"io"
 	"log"
 	"os"
 	"path/filepath"
@@ -13,6 +12,8 @@ import (
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/wailsapp/wails/v2/pkg/logger"
 	wailsRuntime "github.com/wailsapp/wails/v2/pkg/runtime"
+	"golang.org/x/text/language"
+	"golang.org/x/text/message"
 	"golift.io/rotatorr"
 	"golift.io/rotatorr/timerotator"
 )
@@ -37,6 +38,7 @@ type LogConfig struct {
 	Mode  FileMode
 	Level Level
 	Files uint
+	Lang  string
 }
 
 // String returns the human-readable log level.
@@ -57,43 +59,54 @@ func (l Level) String() string {
 
 // Logger provides some methods with baked in assumptions.
 type Logger struct {
-	logger  *log.Logger // Shares a Writer with InfoLog.
+	Wails   logger.Logger // special interface for wails.
+	logger  *log.Logger
+	debug   *log.Logger // Shares a Writer with logger.
+	trace   *log.Logger // Shares a Writer with logger.
 	rotator *rotatorr.Logger
 	config  *LogConfig
 	mu      sync.RWMutex
 	File    string
+	printer *message.Printer
+}
+
+type wailsInterface struct {
+	log *Logger
 }
 
 // New returns an uninitialized logger.
 // Config is optional, but must be provided here or with Setup().
 func New() *Logger {
-	return &Logger{
-		logger: log.New(os.Stdout, "", log.LstdFlags),
-		config: &LogConfig{},
+	logger := &Logger{
+		logger:  log.New(os.Stdout, "", log.LstdFlags),
+		debug:   log.New(os.Stdout, "", log.LstdFlags),
+		trace:   log.New(os.Stdout, "", log.LstdFlags),
+		config:  &LogConfig{},
+		printer: message.NewPrinter(language.AmericanEnglish),
 	}
+	logger.Wails = &wailsInterface{log: logger}
+
+	return logger
 }
 
 // SetupLogging splits log writers into a file and/or stdout.
 // Config is optional, but must be provided here or with New().
-func (l *Logger) Setup(ctx context.Context, config *LogConfig) {
+func (l *Logger) Setup(ctx context.Context, config LogConfig) {
 	l.mu.Lock()
 	defer l.mu.Unlock()
 
-	if config != nil {
-		l.config = config
-	} else if l.config == nil {
-		panic("nil logger config")
-	}
+	l.config = &config
+	l.printer = message.NewPrinter(message.MatchLanguage(language.AmericanEnglish.String(), config.Lang))
 
 	wailsRuntime.LogSetLogLevel(ctx, map[Level]logger.LogLevel{
 		LogLevelDebug:  logger.DEBUG,
 		LogLevelNormal: logger.INFO,
 		LogLevelTrace:  logger.TRACE,
 	}[config.Level])
-
 	l.setLogPaths()
 	l.openLogFile()
-	l.Print("Opened log file: " + l.File)
+
+	go l.Infof("Opened log file: %v", l.File)
 }
 
 // setLogPaths sets the log paths for app and http logs.
@@ -131,8 +144,16 @@ func (l *Logger) openLogFile() {
 			PostRotate: l.postLogRotate,     // method to run after rotating.
 		},
 	})
-	l.logger.SetOutput(l.rotator)
 	redirectStderr(l.rotator.File)
+	l.logger.SetOutput(l.rotator)
+
+	if l.config.Level >= LogLevelDebug {
+		l.debug.SetOutput(l.rotator)
+	}
+
+	if l.config.Level >= LogLevelTrace {
+		l.trace.SetOutput(l.rotator)
+	}
 }
 
 // This is only for the main log. To deal with stderr.
@@ -142,16 +163,18 @@ func (l *Logger) postLogRotate(fileName, newFile string) {
 	}
 
 	if newFile != "" && l != nil {
-		go l.Printf("Rotated log file to: %s", newFile)
+		go l.Infof("Rotated log file to: %s", newFile)
 	}
 }
 
 func (l *Logger) Close() error {
-	l.Print("Closing Logger")
-	l.logger.SetOutput(io.Discard)
+	l.Infof("Closing Logger")
+	l.logger.SetOutput(os.Stdout)
+	l.debug.SetOutput(os.Stdout)
+	l.trace.SetOutput(os.Stdout)
 
 	if err := l.rotator.Close(); err != nil {
-		return fmt.Errorf("closing log rotator: %w", err)
+		return fmt.Errorf("%s %w", l.Translate("closing log rotator:"), err)
 	}
 
 	return nil

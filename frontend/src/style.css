@@ -5,7 +5,6 @@ body {
   sans-serif;
   background-image: url(assets/images/vintage-background.png);
   background-color: #fffeee;
-  color: #0084f6;
   transition: background-image 0.6s;
   background-position: top; 
   background-repeat: repeat;
@@ -14,6 +13,7 @@ body {
 }
 
 body.dark-mode {
+  transition: background-image 0.4s;
   background-image: url(assets/images/dark-background.png);
   background-color: #1d3040;
   color: #fffeee;
@@ -35,15 +35,10 @@ html, body, #app {
 
 /* Make top-navbar background look cool. */
 body .navbar {
-  background-image: linear-gradient(to right, #334858 , #8596a0);
+  background-image: linear-gradient(to right, #8596a0 , #334858);
 }
 body.dark-mode .navbar {
-  --bs-nav-link-color: #152028;
-  --bs-navbar-color: #b3bec6;
-  background-image: linear-gradient(to left, #13171a , #334858);
-}
-body.dark-mode .navbar-brand {
-  color: #13171a;
+  background-image: linear-gradient(to left, #334858 , #13171a);
 }
 
 /* Make the nav tabs look better. */
@@ -65,6 +60,11 @@ body.dark-mode .navbar-brand {
 }
 
 /* Progress bars can be slow, so speed them up. */
-#app .progress-bar {
+.progress-bar {
   transition-duration: 0s;
+}
+
+/* Make bootstrap card backgrounds slightly transparent. */
+.card {
+  --bs-bg-opacity: 0.5 !important;
 }

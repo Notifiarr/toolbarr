@@ -1,7 +1,7 @@
 <script type="ts">
-  import golift from "./assets/images/golift.png"
-  import starr from "./assets/images/servarr.png"
-  import notifiarr from "./assets/images/notifiarr.png"
+  import golift from "../assets/images/golift.png"
+  import starr from "../assets/images/servarr.png"
+  import notifiarr from "../assets/images/notifiarr.png"
 
   export let url = golift
 

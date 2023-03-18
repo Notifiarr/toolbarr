@@ -18,6 +18,6 @@ export function PickFolder(arg1:string):Promise<string>;
 
 export function Quit():Promise<void>;
 
-export function SaveConfigItem(arg1:string,arg2:string,arg3:boolean):Promise<string>;
+export function SaveConfigItem(arg1:string,arg2:any,arg3:boolean):Promise<any>;
 
 export function Version():Promise<app.Version>;

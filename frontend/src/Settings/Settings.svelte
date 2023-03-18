@@ -3,7 +3,6 @@
     Button,
     Container,
     Form,
-    Input,
     InputGroup,
     InputGroupText,
     Nav,
@@ -13,25 +12,24 @@
   } from "sveltestrap"
   import Logs from "./Logs.svelte"
   import Advanced from "./Advanced.svelte"
-  import { GetConfig, CreateShortcut } from "../../wailsjs/go/app/App.js"
-  import BGLogo from "../BackgroundLogo.svelte"
+  import { CreateShortcut } from "../../wailsjs/go/app/App.js"
+  import BGLogo from "../libs/BackgroundLogo.svelte"
   import Fa from "svelte-fa"
   import { faQuestion } from "@fortawesome/free-solid-svg-icons"
-  import { isLinux, isMac, dark } from './store.js';
+  import { conf, app } from "../libs/config.js"
   import windowsConf from "../assets/images/windows-conf-file.png"
-  import { toast } from "../funcs";
+  import { toast } from "../libs/funcs"
+  import ConfigInput from "../libs/Input.svelte"
+    import General from "./General.svelte";
 
-  let activeTab = "Logs"
+  let activeTab = Logs
   let confHelp = false
-  const toggleConfHelp = () => (confHelp = !confHelp);
-
-  let conf = {}
-  GetConfig().then(result => conf = result)
+  let confSpin = false
 
   function createWindowsShortcut(e) {
     e.preventDefault()
     CreateShortcut().then(
-      msg => (toast("success", msg)),
+      msg => (toast("primary", msg)),
       error => (toast("error", error))
     )
   }
@@ -42,25 +40,34 @@
     <Row>
       <p>This is where the application settings are found.</p>
       <Form class="Settings">
-        <InputGroup>
-          <InputGroupText class="setting-name">Config File</InputGroupText>
-          <Input readonly value={conf.File} />
-          <Button on:click={(e) => (e.preventDefault(),toggleConfHelp())}><Fa primaryColor="cyan" icon="{faQuestion}" /></Button>
-        </InputGroup>
-        <br />
+        <div on:mouseenter={() => {confSpin=true}} on:mouseleave={() => {confSpin=false}}>
+          <InputGroup>
+            <InputGroupText class="setting-name">Config File</InputGroupText>
+            <ConfigInput locked type="text" id="File" tooltip="Can only be changed on application launch" placement="bottom" />
+            <Button on:click={(e) => {e.preventDefault();confHelp = !confHelp}}>
+              <Fa primaryColor="cyan" spin={confSpin} icon="{faQuestion}" />
+            </Button>
+          </InputGroup>
+        </div>
+      <br />
         <Nav tabs fill>
-          <NavLink href="#" on:click={() => (activeTab = "Logs")} active={activeTab == "Logs"}>Logging</NavLink>
-          <NavLink href="#" on:click={() => (activeTab = "Advanced")} active={activeTab == "Advanced"}>Advanced</NavLink>
+          <NavLink href="#" on:click={() => (activeTab = General)} active={activeTab == General}>General</NavLink>
+          <NavLink href="#" on:click={() => (activeTab = Logs)} active={activeTab == Logs}>Logging</NavLink>
+          <NavLink href="#" on:click={() => (activeTab = Advanced)} active={activeTab == Advanced}>Advanced</NavLink>
         </Nav>
         <br />
-        {#if activeTab == "Advanced"}<Advanced />{/if}
-        {#if activeTab == "Logs"}<Logs />{/if}
+        <svelte:component this={activeTab} />
       </Form>
     </Row>
   </Container>
 
-  <Offcanvas style="width:50%;min-width:390px;max-width:550px" class="{$dark ? 'bg-secondary' : 'bg-light'}" isOpen={confHelp} toggle={toggleConfHelp} header="Custom Config Path" placement="end">
-    {#if $isLinux}
+  <Offcanvas 
+    style="width:50%;min-width:390px;max-width:550px"
+    class="{$conf.Dark ? "bg-secondary" : "bg-light"}"
+    isOpen={confHelp}
+    toggle={() => {confHelp = !confHelp}}
+    header="Custom Config Path" placement="end">
+    {#if $app.IsLinux}
       <p>
         Toolbarr will look for <code>toolbarr.conf</code> in the same folder as the <code>toolbarr</code> binary.
         If it is not found, then a location inside your home folder is used for the config file.
@@ -71,9 +78,9 @@
       <p>
       <code>toolbarr -c /path/to/toolbarr.conf</code><br>
       With a full path:<br>
-      <code>{conf.Exe} -c {conf.Home}/.toolbarr/toolbarr.conf</code><br>
+      <code>{$app.Exe} -c {$app.Home}/.toolbarr/toolbarr.conf</code><br>
       Make a bash alias or script to do this for you.</p>
-    {:else if $isMac}
+    {:else if $app.IsMac}
     <p>
       Toolbarr will look for <code>toolbarr.conf</code> in the same folder as <code>Toolbarr.app</code>.
       If it is not found, then a location inside your home folder is used for the config file.
@@ -98,7 +105,7 @@
       <ol>
         <li>Right-click the short cut and click Properties.</li>
         <li>Click the Shortcut tab if not already there.</li>
-        <li>In Target, you're going to ADD this:</li>
+        <li>In Target, ADD this:</li>
         <li><code>-c "C:\path\to\toolbarr.conf"</code></li>
         <li>Replace the provided path with your own.</li>
       </ol>

@@ -7,6 +7,7 @@ import (
 
 	"github.com/Notifiarr/toolbarr/pkg/app"
 	logs "github.com/Notifiarr/toolbarr/pkg/logs"
+	"github.com/Notifiarr/toolbarr/pkg/mnd"
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/logger"
 	"github.com/wailsapp/wails/v2/pkg/menu"
@@ -43,7 +44,7 @@ func main() {
 
 	// Create application with options
 	err := wails.Run(&options.App{
-		Title:              "Toolbarr",
+		Title:              mnd.Title,
 		Width:              1024,
 		Height:             720,
 		MinWidth:           480,
@@ -55,7 +56,7 @@ func main() {
 		OnStartup:          app.Startup,
 		Menu:               appMenu,
 		Bind:               []interface{}{app},
-		Logger:             log,
+		Logger:             log.Wails,
 		LogLevel:           logger.DEBUG,
 		LogLevelProduction: logger.INFO,
 	})
