@@ -12,7 +12,7 @@ import (
 // App struct.
 type App struct {
 	ctx        context.Context
-	logger     *logs.Logger
+	log        *logs.Logger
 	config     *config.Config
 	configFile string // empty unless passed in from cli
 	updates    updates
@@ -20,7 +20,7 @@ type App struct {
 
 // New creates a new App application struct.
 func New(logger *logs.Logger, configFile string) *App {
-	return &App{logger: logger, configFile: configFile}
+	return &App{log: logger, configFile: configFile}
 }
 
 // Startup is called when the app starts.
@@ -28,13 +28,12 @@ func New(logger *logs.Logger, configFile string) *App {
 func (a *App) Startup(ctx context.Context) {
 	a.ctx = ctx
 
-	defer a.logger.CapturePanic()
+	defer a.log.CapturePanic()
 
 	conf, err := config.Get(&config.Input{
-		Path:   a.configFile,
-		Name:   mnd.Name,
-		Dir:    "com.notifiarr." + mnd.Name,
-		Logger: a.logger,
+		File: a.configFile,
+		Name: mnd.Name,
+		Dir:  "com.notifiarr." + mnd.Name,
 	})
 	if err != nil {
 		_, _ = wailsRuntime.MessageDialog(a.ctx, wailsRuntime.MessageDialogOptions{
@@ -49,7 +48,7 @@ func (a *App) Startup(ctx context.Context) {
 	}
 
 	a.config = conf
-	a.logger.Setup(ctx, conf.LogConfig)
+	a.log.Setup(ctx, conf.Settings().LogConfig)
 }
 
 // Quit shuts the app down.

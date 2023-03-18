@@ -27,7 +27,7 @@ type Release struct {
 }
 
 func (a *App) CheckUpdate() (*Release, error) {
-	a.config.Trace("Call:CheckUpdate()")
+	a.log.Trace("Call:CheckUpdate()")
 
 	if release := a.checkUpdateChecked(); release != nil {
 		return release, nil
@@ -38,15 +38,16 @@ func (a *App) CheckUpdate() (*Release, error) {
 		err     error
 	)
 
-	if a.config.Updates == "unstable" {
+	updates := a.config.Settings().Updates
+	if updates == "unstable" {
 		release, err = update.CheckUnstable(a.ctx, "Toolbarr", version.Revision)
 	} else {
 		release, err = update.CheckGitHub(a.ctx, "Notifiarr/toolbarr", version.Version)
 	}
 
 	if err != nil {
-		a.config.Errorf("Checking for current %s release: %w", a.config.Updates, err)
-		return nil, fmt.Errorf("checking for current %s release: %w", a.config.Updates, err)
+		a.log.Errorf("Checking for current %s release: %w", updates, err)
+		return nil, fmt.Errorf("checking for current %s release: %w", updates, err)
 	}
 
 	a.updates.Lock()
@@ -57,8 +58,8 @@ func (a *App) CheckUpdate() (*Release, error) {
 		Size:   mnd.FormatBytes(release.RelSize),
 	}
 	a.updates.date = time.Now()
-	a.config.Printf("Checked Current %s release: %v (%s)",
-		a.config.Updates, release.Version, mnd.FormatBytes(release.RelSize))
+	a.log.Printf("Checked Current %s release: %v (%s)",
+		updates, release.Version, mnd.FormatBytes(release.RelSize))
 
 	return a.updates.release, nil
 }
@@ -81,29 +82,30 @@ type UpdateInfo struct {
 }
 
 func (a *App) DownloadUpdate() (*UpdateInfo, error) {
-	a.config.Trace("Call:DownloadUpdate()")
+	a.log.Trace("Call:DownloadUpdate()")
 
 	a.updates.RLock()
 	defer a.updates.RUnlock()
 
-	a.config.Printf("Downloading File")
+	a.log.Printf("Downloading File")
 
 	err := fmt.Errorf("%w: missing release, check first?", ErrInvalidInput)
-
 	if a.updates.release == nil {
 		return nil, err
 	}
 
+	updates := a.config.Settings().Updates
+
 	a.updates.progress, err = update.DownloadURL(
 		a.ctx, a.updates.release.CurrURL, path.Base(a.updates.release.CurrURL), nil)
 	if err != nil {
-		a.config.Errorf("Downloading %s update: %w", a.config.Updates, err)
+		a.log.Errorf("Downloading %s update: %w", updates, err)
 		return nil, fmt.Errorf("downloading failed: %w", err)
 	}
 
 	size := mnd.FormatBytes(a.updates.progress.Size())
-	a.config.Printf("Downloading %s release from %s to %s (%s)",
-		a.config.Updates, a.updates.release.CurrURL, a.updates.progress.Path(), size)
+	a.log.Printf("Downloading %s release from %s to %s (%s)",
+		updates, a.updates.release.CurrURL, a.updates.progress.Path(), size)
 
 	return &UpdateInfo{
 		Msg:  fmt.Sprintln("Downloading", size, "to", a.updates.progress.Path()),
@@ -113,7 +115,7 @@ func (a *App) DownloadUpdate() (*UpdateInfo, error) {
 }
 
 func (a *App) LaunchInstaller(path string) (string, error) {
-	a.config.Tracef("Call:LaunchInstaller(%s)", path)
+	a.log.Tracef("Call:LaunchInstaller(%s)", path)
 
 	var err error
 
@@ -125,7 +127,7 @@ func (a *App) LaunchInstaller(path string) (string, error) {
 		}
 
 		if err != nil {
-			a.config.Errorf("Opening Folder: %s: %w", path, err)
+			a.log.Errorf("Opening Folder: %s: %w", path, err)
 		}
 	}()
 
@@ -138,12 +140,12 @@ func (a *App) LaunchInstaller(path string) (string, error) {
 }
 
 func (a *App) OpenFolder(path string) string {
-	a.config.Tracef("Call:OpenFolder(%s)", path)
+	a.log.Tracef("Call:OpenFolder(%s)", path)
 
 	go func() {
 		err := ui.OpenFolder(a.ctx, path)
 		if err != nil {
-			a.config.Errorf("Opening Folder: %s: %w", path, err)
+			a.log.Errorf("Opening Folder: %s: %w", path, err)
 		}
 	}()
 

@@ -42,7 +42,7 @@ body.dark-mode .navbar {
 }
 
 /* Make the nav tabs look better. */
-.nav-tabs {
+#app .nav-tabs {
   border-color: #334858;
   border-width: 2px;
   --bs-nav-tabs-border-width: 2px;

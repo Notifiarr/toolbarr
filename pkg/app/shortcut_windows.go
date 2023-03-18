@@ -8,6 +8,8 @@ import (
 	"os/user"
 	"path/filepath"
 	"syscall"
+
+	"github.com/Notifiarr/toolbarr/pkg/mnd"
 )
 
 const createShortcut = `$WshShell = New-Object -comObject WScript.Shell
@@ -54,10 +56,10 @@ func (a *App) CreateShortcut() (string, error) {
 
 	exePath, err := os.Executable()
 	if err != nil {
-		return "", fmt.Errorf("cannot locate Toolbarr: %w", err)
+		return "", fmt.Errorf("cannot locate %s: %w", mnd.Title, err)
 	}
 
-	linkPath := filepath.Join(user.HomeDir, "Desktop", "Toolbarr.lnk")
+	linkPath := filepath.Join(user.HomeDir, "Desktop", mnd.Title+".lnk")
 	if _, err := os.Stat(linkPath); err == nil {
 		return "Shortcut already exists!", nil
 	}

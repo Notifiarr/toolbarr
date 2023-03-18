@@ -19,188 +19,167 @@ var ErrEmptyInput = fmt.Errorf("input must have at least name or path")
 // Input data to open a config file.
 // If Dir!="" then config is placed in a sub directory.
 type Input struct {
-	Path   string
-	Name   string
-	Dir    string
-	Logger *logs.Logger
-}
-
-// Config is the data read and written to/from the config file.
-type Config struct {
-	*logs.LogConfig
-	Advanced
-	General
-	*logs.Logger
+	// File path to config file. Optional.
+	// Name and Dir are not used for config file path if this is provided.
 	File string
-	Dark bool
+	// Application name. Used to construct a config file path.
+	// Also used for log file names. Overrides what's in config file.
+	Name string
+	// Sub-directory to put the config file into. Optional.
+	Dir string
 }
 
-// Advanced settings. Mostly affects front end only.
-type Advanced struct {
-	DevMode bool
-	Updates string
-}
-
-// General application settings.
-type General struct {
-	Language string
-	TimeZone string
-}
-
-// New returns a config with defaults.
-func New(appName string, logger *logs.Logger) *Config {
-	return &Config{
-		LogConfig: &logs.LogConfig{
-			Name:  appName,
-			Path:  filepath.Join("~", "."+appName),
-			Size:  4,
-			Mode:  "0640",
-			Files: 10,
-		},
-		Advanced: Advanced{
-			Updates: "production",
-		},
-		General: General{
-			Language: "en-us",
-			TimeZone: time.Local.String(),
-		},
-		Logger: logger,
-	}
+// Config provides an interface to read and write config values, thread safe.
+type Config struct {
+	file     string // file read from and written to.
+	settings *Settings
+	ask      chan *Settings
+	rep      chan *Settings
 }
 
 // Get opens/reads or creates/writes a config file.
-func Get(input *Input) (*Config, error) {
-	input.findConfigFileFolder()
+func Get(i *Input) (*Config, error) {
+	return i.load()
+}
 
-	if input.Path != "" {
-		return input.getCustomPath()
-	} else if input.Name == "" {
+// load the config from the provided input data.
+func (i *Input) load() (*Config, error) {
+	i.findConfigFileFolder()
+
+	if i.File != "" {
+		return i.openCustomPath()
+	} else if i.Name == "" {
 		return nil, ErrEmptyInput
 	}
 
-	configDir, err := os.UserConfigDir()
+	configDir, err := i.getConfigDir()
 	if err != nil {
-		configDir, err = os.Executable()
-		if configDir = filepath.Dir(configDir); err != nil {
-			return nil, fmt.Errorf("could not find a suitable config directory:  %s: %w", configDir, err)
-		}
-	}
-
-	if input.Dir != "" {
-		configDir = filepath.Join(configDir, input.Dir)
+		return nil, err
 	}
 
 	if err = os.MkdirAll(configDir, 0o755); err != nil {
 		return nil, fmt.Errorf("creating config dir:  %s: %w", configDir, err)
 	}
 
-	configFile := filepath.Join(configDir, input.Name+confExt)
-	if _, err = os.Stat(configFile); err == nil {
-		return input.openConfig(configFile)
+	i.File = filepath.Join(configDir, i.Name+confExt)
+	if _, err = os.Stat(i.File); err == nil {
+		return i.openConfigFile()
 	}
 
-	config := New(input.Name, input.Logger)
-	config.File = configFile
-
-	return config, config.Write()
+	return i.defaultConfig()
 }
 
-func (i *Input) getCustomPath() (*Config, error) {
+func (i *Input) defaultConfig() (*Config, error) {
+	c := i.newConfig(nil)
+	return c, c.Write(nil)
+}
+
+// newConfig returns a config with defaults.
+func (i *Input) newConfig(settings *Settings) *Config {
+	if settings == nil {
+		settings = &Settings{
+			File: i.File,
+			LogConfig: logs.LogConfig{
+				Name:  i.Name,
+				Path:  filepath.Join("~", "."+i.Name),
+				Size:  4,
+				Mode:  "0640",
+				Files: 10,
+			},
+			Updates:  "production",
+			Language: "en-us",
+			TimeZone: time.Local.String(),
+		}
+	}
+
+	config := &Config{
+		file:     i.File,
+		settings: settings,
+	}
+	config.Start()
+
+	return config
+}
+
+// getConfigDir finds a good place in the home folder for a config file.
+// If a good place in home folder is not found, then a place next to the executable is used.
+func (i *Input) getConfigDir() (string, error) {
+	configDir, err := os.UserConfigDir()
+	if err != nil {
+		configDir, err = os.Executable()
+		if configDir = filepath.Dir(configDir); err != nil {
+			return "", fmt.Errorf("could not find a suitable config directory: %s: %w", configDir, err)
+		}
+	}
+
+	if i.Dir != "" {
+		configDir = filepath.Join(configDir, i.Dir)
+	}
+
+	return configDir, nil
+}
+
+func (i *Input) openCustomPath() (*Config, error) {
 	var err error
-	if i.Path, err = filepath.Abs(i.Path); err != nil {
+	if i.File, err = filepath.Abs(i.File); err != nil {
 		return nil, fmt.Errorf("invalid config path provided: %w", err)
 	}
 
-	config := New(i.Name, i.Logger)
-	config.File = i.Path
-
-	if _, err := os.Stat(config.File); err == nil {
-		return i.openConfig(config.File)
+	if _, err := os.Stat(i.File); err == nil {
+		return i.openConfigFile()
 	}
 
-	configDir := filepath.Dir(config.File)
+	// Custom config path does not exist, so create it.
+	config := i.newConfig(nil)
+
+	configDir := filepath.Dir(config.file)
 	if err := os.MkdirAll(configDir, 0o755); err != nil {
 		return nil, fmt.Errorf("creating config path dir:  %s: %w", configDir, err)
 	}
 
-	return config, config.Write()
+	return config, config.Write(nil)
 }
 
-func (i *Input) openConfig(configFile string) (*Config, error) {
-	cnfOpen, err := os.Open(configFile)
+func (i *Input) openConfigFile() (*Config, error) {
+	cnfOpen, err := os.Open(i.File)
 	if err != nil {
-		return nil, fmt.Errorf("opening config file: %s: %w", configFile, err)
+		return nil, fmt.Errorf("opening config file: %s: %w", i.File, err)
 	}
 	defer cnfOpen.Close()
 
-	var config Config
-	if err = gob.NewDecoder(cnfOpen).Decode(&config); err != nil {
-		return nil, fmt.Errorf("decoding config file:  %s: %w", configFile, err)
+	var settings Settings
+	if err = gob.NewDecoder(cnfOpen).Decode(&settings); err != nil {
+		return nil, fmt.Errorf("decoding config file:  %s: %w", i.File, err)
 	}
 
-	config.File = configFile
-	config.Logger = i.Logger
-	config.Name = i.Name
-
-	if config.Updates == "" {
-		config.Updates = "production"
-	}
-
-	if config.General.Language == "" {
-		config.General.Language = "en-us"
-	}
-
-	if config.General.TimeZone == "" {
-		config.General.TimeZone, _ = time.Now().Zone()
-	}
-
-	return &config, nil
+	return i.newConfig(i.setDefaults(&settings)), nil
 }
 
-// Write writes the config file.
-func (c *Config) Write() error {
-	cnfOpen, err := os.Create(c.File)
-	if err != nil {
-		return fmt.Errorf("creating config file:  %s: %w", c.File, err)
-	}
-	defer cnfOpen.Close()
+// setDefaults only needs to handle "new" things that get added later.
+func (i *Input) setDefaults(s *Settings) *Settings { //nolint:varnamelen
+	s.Name = i.Name
+	s.File = i.File
 
-	if err = gob.NewEncoder(cnfOpen).Encode(c); err != nil {
-		return fmt.Errorf("encoding config file:  %s: %w", c.File, err)
+	if s.Updates == "" {
+		s.Updates = "production"
 	}
 
-	return nil
-}
-
-// Copy returns a copy of the config data. Useful for updating the config file.
-func (c *Config) Copy() *Config {
-	newConfig := *c
-	newConfig.LogConfig = &logs.LogConfig{
-		Name:  c.Name,
-		Path:  c.Path,
-		Size:  c.Size,
-		Mode:  c.Mode,
-		Level: c.Level,
-		Files: c.Files,
+	if s.Language == "" {
+		s.Language = "en-us"
 	}
 
-	return &newConfig
-}
+	if s.TimeZone == "" {
+		s.TimeZone, _ = time.Now().Zone()
+	}
 
-// Update merges in a new config.
-func (c *Config) Update(merge *Config) {
-	// All config structs must be added here.
-	c.LogConfig = merge.LogConfig
-	c.Advanced = merge.Advanced
-	c.Dark = merge.Dark
-	c.File = merge.File
+	return s
 }
 
 // findConfigFileFolder checks the app/exe directory for a config file.
 // Returns the directory if the file is found.
 func (i *Input) findConfigFileFolder() {
 	exe, err := os.Executable()
-	if i.Path != "" || i.Name == "" || err != nil {
+	if i.File != "" || i.Name == "" || err != nil {
 		return
 	}
 
@@ -211,6 +190,6 @@ func (i *Input) findConfigFileFolder() {
 
 	path = filepath.Join(path, i.Name+confExt)
 	if _, err := os.Stat(path); err == nil {
-		i.Path = path // file exists next to executable.
+		i.File = path // file exists next to executable.
 	}
 }

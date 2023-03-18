@@ -75,15 +75,11 @@ func New() *Logger {
 
 // SetupLogging splits log writers into a file and/or stdout.
 // Config is optional, but must be provided here or with New().
-func (l *Logger) Setup(ctx context.Context, config *LogConfig) {
+func (l *Logger) Setup(ctx context.Context, config LogConfig) {
 	l.mu.Lock()
 	defer l.mu.Unlock()
 
-	if config != nil {
-		l.config = config
-	} else if l.config == nil {
-		panic("nil logger config")
-	}
+	l.config = &config
 
 	wailsRuntime.LogSetLogLevel(ctx, map[Level]logger.LogLevel{
 		LogLevelDebug:  logger.DEBUG,
