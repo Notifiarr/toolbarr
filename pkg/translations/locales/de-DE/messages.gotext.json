@@ -1,11 +1,10 @@
 {
-    "language": "en-US",
+    "language": "de-DE",
     "messages": [
         {
             "id": "Writing config: decoding '{Name}' value '{Value}' error: {Err}",
             "message": "Writing config: decoding '{Name}' value '{Value}' error: {Err}",
-            "translation": "Writing config: decoding '{Name}' value '{Value}' error: {Err}",
-            "translatorComment": "Copied from source.",
+            "translation": "Vortumar {Name} {Value} {Err}",
             "placeholders": [
                 {
                     "id": "Name",
@@ -31,14 +30,12 @@
                     "argNum": 3,
                     "expr": "err"
                 }
-            ],
-            "fuzzy": true
+            ]
         },
         {
             "id": "decoding '{Name}' value '{Value}' error:",
             "message": "decoding '{Name}' value '{Value}' error:",
-            "translation": "decoding '{Name}' value '{Value}' error:",
-            "translatorComment": "Copied from source.",
+            "translation": "",
             "placeholders": [
                 {
                     "id": "Name",
@@ -56,14 +53,12 @@
                     "argNum": 2,
                     "expr": "value"
                 }
-            ],
-            "fuzzy": true
+            ]
         },
         {
             "id": "Error writing config: {Error}",
             "message": "Error writing config: {Error}",
-            "translation": "Error writing config: {Error}",
-            "translatorComment": "Copied from source.",
+            "translation": "",
             "placeholders": [
                 {
                     "id": "Error",
@@ -73,21 +68,17 @@
                     "argNum": 1,
                     "expr": "err.Error()"
                 }
-            ],
-            "fuzzy": true
+            ]
         },
         {
             "id": "writing config:",
             "message": "writing config:",
-            "translation": "writing config:",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
+            "translation": ""
         },
         {
             "id": "Saved: '{Name}' Value: {Value}",
             "message": "Saved: '{Name}' Value: {Value}",
-            "translation": "Saved: '{Name}' Value: {Value}",
-            "translatorComment": "Copied from source.",
+            "translation": "",
             "placeholders": [
                 {
                     "id": "Name",
@@ -105,14 +96,12 @@
                     "argNum": 2,
                     "expr": "value"
                 }
-            ],
-            "fuzzy": true
+            ]
         },
         {
             "id": "Config {Msg}",
             "message": "Config {Msg}",
-            "translation": "Config {Msg}",
-            "translatorComment": "Copied from source.",
+            "translation": "",
             "placeholders": [
                 {
                     "id": "Msg",
@@ -122,35 +111,27 @@
                     "argNum": 1,
                     "expr": "msg"
                 }
-            ],
-            "fuzzy": true
+            ]
         },
         {
             "id": "Choose Folder",
             "message": "Choose Folder",
-            "translation": "Choose Folder",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
+            "translation": ""
         },
         {
             "id": "opening directory browser:",
             "message": "opening directory browser:",
-            "translation": "opening directory browser:",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
+            "translation": ""
         },
         {
             "id": "Config Problem",
             "message": "Config Problem",
-            "translation": "Config Problem",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
+            "translation": ""
         },
         {
             "id": "Checking for current {Updates} release: {Err}",
             "message": "Checking for current {Updates} release: {Err}",
-            "translation": "Checking for current {Updates} release: {Err}",
-            "translatorComment": "Copied from source.",
+            "translation": "",
             "placeholders": [
                 {
                     "id": "Updates",
@@ -168,14 +149,12 @@
                     "argNum": 2,
                     "expr": "err"
                 }
-            ],
-            "fuzzy": true
+            ]
         },
         {
             "id": "checking for current {Updates} release:",
             "message": "checking for current {Updates} release:",
-            "translation": "checking for current {Updates} release:",
-            "translatorComment": "Copied from source.",
+            "translation": "",
             "placeholders": [
                 {
                     "id": "Updates",
@@ -185,14 +164,12 @@
                     "argNum": 1,
                     "expr": "updates"
                 }
-            ],
-            "fuzzy": true
+            ]
         },
         {
             "id": "Checked Current {Updates} release: {Version} ({RelSize})",
             "message": "Checked Current {Updates} release: {Version} ({RelSize})",
-            "translation": "Checked Current {Updates} release: {Version} ({RelSize})",
-            "translatorComment": "Copied from source.",
+            "translation": "",
             "placeholders": [
                 {
                     "id": "Updates",
@@ -218,28 +195,22 @@
                     "argNum": 3,
                     "expr": "mnd.FormatBytes(release.RelSize)"
                 }
-            ],
-            "fuzzy": true
+            ]
         },
         {
             "id": "Downloading File",
             "message": "Downloading File",
-            "translation": "Downloading File",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
+            "translation": ""
         },
         {
             "id": "missing release, check first?",
             "message": "missing release, check first?",
-            "translation": "missing release, check first?",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
+            "translation": ""
         },
         {
             "id": "Downloading {Updates} update: {Err}",
             "message": "Downloading {Updates} update: {Err}",
-            "translation": "Downloading {Updates} update: {Err}",
-            "translatorComment": "Copied from source.",
+            "translation": "",
             "placeholders": [
                 {
                     "id": "Updates",
@@ -257,21 +228,17 @@
                     "argNum": 2,
                     "expr": "err"
                 }
-            ],
-            "fuzzy": true
+            ]
         },
         {
             "id": "downloading failed:",
             "message": "downloading failed:",
-            "translation": "downloading failed:",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
+            "translation": ""
         },
         {
             "id": "Downloading {Updates} release from {CurrURL} to {Path} ({Size})",
             "message": "Downloading {Updates} release from {CurrURL} to {Path} ({Size})",
-            "translation": "Downloading {Updates} release from {CurrURL} to {Path} ({Size})",
-            "translatorComment": "Copied from source.",
+            "translation": "",
             "placeholders": [
                 {
                     "id": "Updates",
@@ -305,14 +272,12 @@
                     "argNum": 4,
                     "expr": "size"
                 }
-            ],
-            "fuzzy": true
+            ]
         },
         {
             "id": "Downloading {Size} to {Path}",
             "message": "Downloading {Size} to {Path}",
-            "translation": "Downloading {Size} to {Path}",
-            "translatorComment": "Copied from source.",
+            "translation": "",
             "placeholders": [
                 {
                     "id": "Size",
@@ -330,14 +295,12 @@
                     "argNum": 2,
                     "expr": "a.updates.progress.Path()"
                 }
-            ],
-            "fuzzy": true
+            ]
         },
         {
             "id": "Launching installer: {Path}: {Err}",
             "message": "Launching installer: {Path}: {Err}",
-            "translation": "Launching installer: {Path}: {Err}",
-            "translatorComment": "Copied from source.",
+            "translation": "",
             "placeholders": [
                 {
                     "id": "Path",
@@ -355,14 +318,12 @@
                     "argNum": 2,
                     "expr": "err"
                 }
-            ],
-            "fuzzy": true
+            ]
         },
         {
             "id": "Launching Installer: {Path}",
             "message": "Launching Installer: {Path}",
-            "translation": "Launching Installer: {Path}",
-            "translatorComment": "Copied from source.",
+            "translation": "",
             "placeholders": [
                 {
                     "id": "Path",
@@ -372,14 +333,12 @@
                     "argNum": 1,
                     "expr": "path"
                 }
-            ],
-            "fuzzy": true
+            ]
         },
         {
             "id": "Opening Folder: {Path}: {Err}",
             "message": "Opening Folder: {Path}: {Err}",
-            "translation": "Opening Folder: {Path}: {Err}",
-            "translatorComment": "Copied from source.",
+            "translation": "",
             "placeholders": [
                 {
                     "id": "Path",
@@ -397,14 +356,12 @@
                     "argNum": 2,
                     "expr": "err"
                 }
-            ],
-            "fuzzy": true
+            ]
         },
         {
             "id": "Opening Path: {Path}",
             "message": "Opening Path: {Path}",
-            "translation": "Opening Path: {Path}",
-            "translatorComment": "Copied from source.",
+            "translation": "",
             "placeholders": [
                 {
                     "id": "Path",
@@ -414,56 +371,42 @@
                     "argNum": 1,
                     "expr": "path"
                 }
-            ],
-            "fuzzy": true
+            ]
         },
         {
             "id": "ERROR",
             "message": "ERROR",
-            "translation": "ERROR",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
+            "translation": ""
         },
         {
             "id": "WARN",
             "message": "WARN",
-            "translation": "WARN",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
+            "translation": ""
         },
         {
             "id": "INFO",
             "message": "INFO",
-            "translation": "INFO",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
+            "translation": ""
         },
         {
             "id": "DEBUG",
             "message": "DEBUG",
-            "translation": "DEBUG",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
+            "translation": ""
         },
         {
             "id": "TRACE",
             "message": "TRACE",
-            "translation": "TRACE",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
+            "translation": ""
         },
         {
             "id": "FATAL",
             "message": "FATAL",
-            "translation": "FATAL",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
+            "translation": ""
         },
         {
             "id": "Logger Error: {Err}",
             "message": "Logger Error: {Err}",
-            "translation": "Logger Error: {Err}",
-            "translatorComment": "Copied from source.",
+            "translation": "",
             "placeholders": [
                 {
                     "id": "Err",
@@ -473,21 +416,17 @@
                     "argNum": 1,
                     "expr": "err"
                 }
-            ],
-            "fuzzy": true
+            ]
         },
         {
             "id": "...continuing:",
             "message": "...continuing:",
-            "translation": "...continuing:",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
+            "translation": ""
         },
         {
             "id": "Go Panic! This is a bug!\n{Version}-{Revision} {Branch} {R}\n{Stack}",
             "message": "Go Panic! This is a bug!\n{Version}-{Revision} {Branch} {R}\n{Stack}",
-            "translation": "Go Panic! This is a bug!\n{Version}-{Revision} {Branch} {R}\n{Stack}",
-            "translatorComment": "Copied from source.",
+            "translation": "",
             "placeholders": [
                 {
                     "id": "Version",
@@ -529,22 +468,17 @@
                     "argNum": 5,
                     "expr": "string(debug.Stack())"
                 }
-            ],
-            "fuzzy": true
+            ]
         },
         {
             "id": "Closing Logger",
             "message": "Closing Logger",
-            "translation": "Closing Logger",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
+            "translation": ""
         },
         {
             "id": "closing log rotator:",
             "message": "closing log rotator:",
-            "translation": "closing log rotator:",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
+            "translation": ""
         }
     ]
 }
