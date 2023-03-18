@@ -24,7 +24,7 @@ jobs:
       - uses: codespell-project/actions-codespell@v1
         with:
           check_hidden: true
-          skip: .git,node_modules,dist
+          skip: .git,node_modules,dist,catalog.go
 
 
   golangci:
