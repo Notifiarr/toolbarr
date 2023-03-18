@@ -418,105 +418,45 @@
             "fuzzy": true
         },
         {
-            "id": "[ERROR] {}",
-            "message": "[ERROR] {}",
-            "translation": "[ERROR] {}",
+            "id": "ERROR",
+            "message": "ERROR",
+            "translation": "ERROR",
             "translatorComment": "Copied from source.",
-            "placeholders": [
-                {
-                    "id": "",
-                    "string": "%[1]s",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 1,
-                    "expr": "l.Translate(msg, v...)"
-                }
-            ],
             "fuzzy": true
         },
         {
-            "id": "[WARN] {}",
-            "message": "[WARN] {}",
-            "translation": "[WARN] {}",
+            "id": "WARN",
+            "message": "WARN",
+            "translation": "WARN",
             "translatorComment": "Copied from source.",
-            "placeholders": [
-                {
-                    "id": "",
-                    "string": "%[1]s",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 1,
-                    "expr": "l.Translate(msg, v...)"
-                }
-            ],
             "fuzzy": true
         },
         {
-            "id": "[INFO] {}",
-            "message": "[INFO] {}",
-            "translation": "[INFO] {}",
+            "id": "INFO",
+            "message": "INFO",
+            "translation": "INFO",
             "translatorComment": "Copied from source.",
-            "placeholders": [
-                {
-                    "id": "",
-                    "string": "%[1]s",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 1,
-                    "expr": "l.Translate(msg, v...)"
-                }
-            ],
             "fuzzy": true
         },
         {
-            "id": "[DEBUG] {}",
-            "message": "[DEBUG] {}",
-            "translation": "[DEBUG] {}",
+            "id": "DEBUG",
+            "message": "DEBUG",
+            "translation": "DEBUG",
             "translatorComment": "Copied from source.",
-            "placeholders": [
-                {
-                    "id": "",
-                    "string": "%[1]s",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 1,
-                    "expr": "l.Translate(msg, v...)"
-                }
-            ],
             "fuzzy": true
         },
         {
-            "id": "[TRACE] {}",
-            "message": "[TRACE] {}",
-            "translation": "[TRACE] {}",
+            "id": "TRACE",
+            "message": "TRACE",
+            "translation": "TRACE",
             "translatorComment": "Copied from source.",
-            "placeholders": [
-                {
-                    "id": "",
-                    "string": "%[1]s",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 1,
-                    "expr": "fmt.Sprintf(msg, v...)"
-                }
-            ],
             "fuzzy": true
         },
         {
-            "id": "[FATAL] {Msg}",
-            "message": "[FATAL] {Msg}",
-            "translation": "[FATAL] {Msg}",
+            "id": "FATAL",
+            "message": "FATAL",
+            "translation": "FATAL",
             "translatorComment": "Copied from source.",
-            "placeholders": [
-                {
-                    "id": "Msg",
-                    "string": "%[1]s",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 1,
-                    "expr": "msg"
-                }
-            ],
             "fuzzy": true
         },
         {

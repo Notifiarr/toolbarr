@@ -21,35 +21,35 @@ func (l *Logger) Translate(msg message.Reference, v ...any) string {
 }
 
 func (l *Logger) Errorf(msg message.Reference, v ...any) {
-	l.writeMsg(l.Translate("[ERROR] %s", l.Translate(msg, v...)), l.logger)
+	l.writeMsg("["+l.Translate("ERROR")+"] "+l.Translate(msg, v...), l.logger)
 }
 
 func (l *Logger) Warnf(msg message.Reference, v ...any) {
-	l.writeMsg(l.Translate("[WARN] %s", l.Translate(msg, v...)), l.logger)
+	l.writeMsg("["+l.Translate("WARN")+"] "+l.Translate(msg, v...), l.logger)
 }
 
 func (l *Logger) Infof(msg message.Reference, v ...any) {
-	l.writeMsg(l.Translate("[INFO] %s", l.Translate(msg, v...)), l.logger)
+	l.writeMsg("["+l.Translate("INFO")+"] "+l.Translate(msg, v...), l.logger)
 }
 
 func (l *Logger) Debugf(msg message.Reference, v ...any) {
-	l.writeMsg(l.Translate("[DEBUG] %s", l.Translate(msg, v...)), l.debug)
+	l.writeMsg("["+l.Translate("DEBUG")+"] "+l.Translate(msg, v...), l.debug)
 }
 
 func (l *Logger) Tracef(msg string, v ...any) {
-	l.writeMsg(l.Translate("[TRACE] %s", fmt.Sprintf(msg, v...)), l.trace)
+	l.writeMsg("["+l.Translate("TRACE")+"] "+fmt.Sprintf(msg, v...), l.trace)
 }
 
 func (l *wailsInterface) Trace(msg string) {
-	l.log.writeMsg(l.log.Translate("[TRACE] %s", msg), l.log.trace)
+	l.log.writeMsg("["+l.log.Translate("TRACE")+"] "+msg, l.log.trace)
 }
 
 func (l *wailsInterface) Debug(msg string) {
-	l.log.writeMsg(l.log.Translate("[DEBUG] %s", msg), l.log.debug)
+	l.log.writeMsg("["+l.log.Translate("DEBUG")+"] "+msg, l.log.debug)
 }
 
 func (l *wailsInterface) Print(msg string) {
-	l.log.writeMsg(l.log.Translate("[INFO] %s", msg), l.log.logger)
+	l.log.writeMsg("["+l.log.Translate("INFO")+"] "+msg, l.log.logger)
 }
 
 func (l *wailsInterface) Info(msg string) {
@@ -57,15 +57,15 @@ func (l *wailsInterface) Info(msg string) {
 }
 
 func (l *wailsInterface) Warning(msg string) {
-	l.log.writeMsg(l.log.Translate("[WARN] %s", msg), l.log.logger)
+	l.log.writeMsg("["+l.log.Translate("WARN")+"] "+msg, l.log.logger)
 }
 
 func (l *wailsInterface) Error(msg string) {
-	l.log.writeMsg(l.log.Translate("[ERROR] %s", msg), l.log.logger)
+	l.log.writeMsg("["+l.log.Translate("ERROR")+"] "+msg, l.log.logger)
 }
 
 func (l *wailsInterface) Fatal(msg string) {
-	l.log.writeMsg(l.log.Translate("[FATAL] %s", msg), l.log.logger)
+	l.log.writeMsg("["+l.log.Translate("FATAL")+"] "+msg, l.log.logger)
 }
 
 const callDepth = 2

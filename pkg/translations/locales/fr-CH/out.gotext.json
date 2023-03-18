@@ -374,94 +374,34 @@
             ]
         },
         {
-            "id": "[ERROR] {}",
-            "message": "[ERROR] {}",
-            "translation": "",
-            "placeholders": [
-                {
-                    "id": "",
-                    "string": "%[1]s",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 1,
-                    "expr": "l.Translate(msg, v...)"
-                }
-            ]
+            "id": "ERROR",
+            "message": "ERROR",
+            "translation": ""
         },
         {
-            "id": "[WARN] {}",
-            "message": "[WARN] {}",
-            "translation": "",
-            "placeholders": [
-                {
-                    "id": "",
-                    "string": "%[1]s",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 1,
-                    "expr": "l.Translate(msg, v...)"
-                }
-            ]
+            "id": "WARN",
+            "message": "WARN",
+            "translation": ""
         },
         {
-            "id": "[INFO] {}",
-            "message": "[INFO] {}",
-            "translation": "",
-            "placeholders": [
-                {
-                    "id": "",
-                    "string": "%[1]s",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 1,
-                    "expr": "l.Translate(msg, v...)"
-                }
-            ]
+            "id": "INFO",
+            "message": "INFO",
+            "translation": ""
         },
         {
-            "id": "[DEBUG] {}",
-            "message": "[DEBUG] {}",
-            "translation": "",
-            "placeholders": [
-                {
-                    "id": "",
-                    "string": "%[1]s",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 1,
-                    "expr": "l.Translate(msg, v...)"
-                }
-            ]
+            "id": "DEBUG",
+            "message": "DEBUG",
+            "translation": ""
         },
         {
-            "id": "[TRACE] {}",
-            "message": "[TRACE] {}",
-            "translation": "",
-            "placeholders": [
-                {
-                    "id": "",
-                    "string": "%[1]s",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 1,
-                    "expr": "fmt.Sprintf(msg, v...)"
-                }
-            ]
+            "id": "TRACE",
+            "message": "TRACE",
+            "translation": ""
         },
         {
-            "id": "[FATAL] {Msg}",
-            "message": "[FATAL] {Msg}",
-            "translation": "",
-            "placeholders": [
-                {
-                    "id": "Msg",
-                    "string": "%[1]s",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 1,
-                    "expr": "msg"
-                }
-            ]
+            "id": "FATAL",
+            "message": "FATAL",
+            "translation": ""
         },
         {
             "id": "Logger Error: {Err}",
