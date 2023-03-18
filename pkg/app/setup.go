@@ -38,7 +38,7 @@ func (a *App) Startup(ctx context.Context) {
 	if err != nil {
 		_, _ = wailsRuntime.MessageDialog(a.ctx, wailsRuntime.MessageDialogOptions{
 			Type:    "error",
-			Title:   "Config Problem",
+			Title:   a.log.Translate("Config Problem"),
 			Message: err.Error(),
 		})
 

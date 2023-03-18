@@ -6,10 +6,10 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"time"
 
 	"github.com/Notifiarr/toolbarr/pkg/logs"
 	"github.com/Notifiarr/toolbarr/pkg/mnd"
+	"golang.org/x/text/language"
 )
 
 const confExt = ".conf"
@@ -85,10 +85,9 @@ func (i *Input) newConfig(settings *Settings) *Config {
 				Size:  4,
 				Mode:  "0640",
 				Files: 10,
+				Lang:  language.AmericanEnglish.String(),
 			},
-			Updates:  "production",
-			Language: "en-us",
-			TimeZone: time.Local.String(),
+			Updates: "production",
 		}
 	}
 
@@ -164,12 +163,8 @@ func (i *Input) setDefaults(s *Settings) *Settings { //nolint:varnamelen
 		s.Updates = "production"
 	}
 
-	if s.Language == "" {
-		s.Language = "en-us"
-	}
-
-	if s.TimeZone == "" {
-		s.TimeZone, _ = time.Now().Zone()
+	if s.Lang == "" {
+		s.Lang = language.AmericanEnglish.String()
 	}
 
 	return s

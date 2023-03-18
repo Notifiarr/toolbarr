@@ -56,7 +56,7 @@ func main() {
 		OnStartup:          app.Startup,
 		Menu:               appMenu,
 		Bind:               []interface{}{app},
-		Logger:             log,
+		Logger:             log.Wails,
 		LogLevel:           logger.DEBUG,
 		LogLevelProduction: logger.INFO,
 	})

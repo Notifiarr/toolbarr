@@ -1,19 +1,18 @@
 <script>
   import { InputGroup, InputGroupText } from "sveltestrap"
   import ConfigInput from "../libs/Input.svelte"
-  import { conf } from "../libs/config.js"
+  import { app, conf } from "../libs/config.js"
 </script>
 
 <p>General application settings.</p>
 <InputGroup>
   <InputGroupText class="setting-name">Language</InputGroupText>
-  <ConfigInput type="select" id="Language" tooltip="Not working yet.">
-    <option value="{$conf.Language}">{$conf.Language}</option>
-  </ConfigInput>
-</InputGroup>
-<InputGroup>
-  <InputGroupText class="setting-name">Time Zone</InputGroupText>
-  <ConfigInput type="select" id="TimeZone" tooltip="Not woring yet.">
-    <option value="{$conf.TimeZone}">{$conf.TimeZone}</option>
+  <ConfigInput type="select" id="Lang" tooltip="Only English works.">
+    <option value="{$conf.Lang}">{$conf.Lang}</option>
+    {#each $app.Langs as $lang}
+      {#if $lang != $conf.Lang}
+        <option value="{$lang}">{$lang}</option>
+      {/if}
+    {/each}
   </ConfigInput>
 </InputGroup>

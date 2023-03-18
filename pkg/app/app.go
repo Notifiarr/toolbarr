@@ -9,6 +9,7 @@ import (
 
 	"github.com/Notifiarr/toolbarr/pkg/config"
 	"github.com/Notifiarr/toolbarr/pkg/mnd"
+	"github.com/Notifiarr/toolbarr/pkg/translations"
 	"github.com/gorilla/schema"
 	wailsRuntime "github.com/wailsapp/wails/v2/pkg/runtime"
 	"golift.io/version"
@@ -18,7 +19,7 @@ import (
 var decoder = schema.NewDecoder()
 
 func (a *App) GetConfig() *config.Settings {
-	a.log.Trace("Call:GetConfig()")
+	a.log.Tracef("Call:GetConfig()")
 	return a.config.Settings()
 }
 
@@ -34,13 +35,13 @@ func (a *App) SaveConfigItem(name string, value any, reload bool) (*ConfigSaved,
 
 	err := decoder.Decode(config, map[string][]string{name: {fmt.Sprint(value)}})
 	if err != nil {
-		a.log.Errorf("Writing config: decoding '%s' value '%v' failed: %w", name, value, err)
-		return nil, fmt.Errorf("decoding '%s' value '%v' failed: %w", name, value, err)
+		a.log.Errorf("Writing config: decoding '%s' value '%v' error: %v", name, value, err)
+		return nil, fmt.Errorf("%s %w", a.log.Translate("decoding '%s' value '%v' error:", name, value), err)
 	}
 
 	if err = a.config.Write(config); err != nil {
-		a.log.Error("Error writing config: " + err.Error())
-		return nil, fmt.Errorf("writing config: %w", err)
+		a.log.Errorf("Error writing config: %v", err.Error())
+		return nil, fmt.Errorf("%s %w", a.log.Translate("writing config:"), err)
 	}
 
 	if reload {
@@ -48,8 +49,8 @@ func (a *App) SaveConfigItem(name string, value any, reload bool) (*ConfigSaved,
 		a.log.Setup(a.ctx, a.config.Settings().LogConfig)
 	}
 
-	msg := fmt.Sprintf("Saved: '%s' Value: %v", name, value)
-	a.log.Print("Config " + msg)
+	msg := a.log.Translate("Saved: '%s' Value: %v", name, value)
+	a.log.Infof("Config %s", msg)
 
 	return &ConfigSaved{Msg: msg, Val: value}, nil
 }
@@ -64,13 +65,13 @@ func (a *App) PickFolder(path string) (string, error) {
 
 	dir, err := wailsRuntime.OpenDirectoryDialog(a.ctx, wailsRuntime.OpenDialogOptions{
 		DefaultDirectory:     path,
-		Title:                "Choose Folder",
+		Title:                a.log.Translate("Choose Folder"),
 		CanCreateDirectories: true,
 		ShowHiddenFiles:      true,
 	})
 	if err != nil {
 		wailsRuntime.LogError(a.ctx, err.Error())
-		return "", fmt.Errorf("opening directory browser: %w", err)
+		return "", fmt.Errorf("%s %w", a.log.Translate("opening directory browser:"), err)
 	}
 
 	return dir, nil
@@ -97,10 +98,11 @@ type Info struct {
 	Exe       string
 	Home      string
 	Username  string
+	Langs     []string
 }
 
 func (a *App) Version() Version {
-	a.log.Trace("Call:Version()")
+	a.log.Tracef("Call:Version()")
 
 	user, _ := user.Current()
 	exec, _ := os.Executable()
@@ -123,6 +125,7 @@ func (a *App) Version() Version {
 			Exe:       exec,
 			Home:      user.HomeDir,
 			Username:  user.Name,
+			Langs:     translations.Languages,
 		},
 	}
 }

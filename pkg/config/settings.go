@@ -12,12 +12,10 @@ import (
 // Avoid pointers and complex types.
 type Settings struct {
 	logs.LogConfig
-	Language string
-	TimeZone string
-	Dark     bool
-	DevMode  bool
-	Updates  string
-	File     string // should not be changed.
+	Dark    bool
+	DevMode bool
+	Updates string
+	File    string // should not be changed.
 }
 
 func (c *Config) Stop() {
@@ -58,12 +56,12 @@ func (c *Config) Write(settings *Settings) error {
 
 	cnfOpen, err := os.Create(c.file)
 	if err != nil {
-		return fmt.Errorf("creating config file:  %s: %w", c.file, err)
+		return fmt.Errorf("creating config file: %s: %w", c.file, err)
 	}
 	defer cnfOpen.Close()
 
 	if err = gob.NewEncoder(cnfOpen).Encode(settings); err != nil {
-		return fmt.Errorf("encoding config file:  %s: %w", c.file, err)
+		return fmt.Errorf("encoding config file: %s: %w", c.file, err)
 	}
 
 	c.Update(settings)

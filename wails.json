@@ -17,6 +17,9 @@
     "comments": "The starr of the show."
   },
   "runNonNativeBuildHooks": true,
+  "preBuildHooks": {
+    "*/*": "go generate ../../..."
+  },
   "postBuildHooks": {
     "windows/*": "../../build/windows/signexe.sh ${bin}"
   }
