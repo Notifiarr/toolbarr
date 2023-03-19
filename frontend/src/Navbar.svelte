@@ -23,13 +23,16 @@
   import Settings from "./Settings/Settings.svelte"
   import Applogo from "./libs/Applogo.svelte"
   import { ToastContainer, FlatToast }  from "svelte-toasts"
-  import { conf } from "./libs/config.js"
+  import { app as ver, conf } from "./libs/config.js"
   import ConfigInput from "./libs/Input.svelte"
   import bgVint from "./assets/images/vintage-background.png"
   import bgDark from "./assets/images/dark-background.png"
+  import { _, isReady } from "./libs/locale.js"
 
   let isOpen = false // nav open/closer tracker (mobile)
-  let app = "Toolbarr" // start page (landing)
+  let app
+  $: if (app == undefined) app = $ver.Title // start page (landing)
+
   // Keep dark-mode class up to date with dark config setting.
   $: $conf.Dark ? window.document.body.classList.add("dark-mode") : window.document.body.classList.remove("dark-mode")
 
@@ -52,11 +55,13 @@
 <!-- This gets used by any toast from any page. -->
 <ToastContainer placement="bottom-right" let:data={data}><FlatToast {data} /></ToastContainer>
 
-<!-- This if statement prevents the app from loading until the config is retrieved from the backend. -->
-{#if Object.keys($conf).length > 0}
+<!-- This if statement prevents the app from loading until the config and locale is retrieved from the backend. -->
+{#if Object.keys($conf).length > 0 && $isReady == true}
 <Navbar color="secondary" dark={$conf.Dark} expand="md py-0">
-  <NavbarBrand on:click={(e) => (app = "Toolbarr",e.preventDefault())}><Applogo size="25px" {app} /> {app}</NavbarBrand>
-  <ConfigInput type="switch" id="Dark" name="Dark" notoast noreload></ConfigInput>
+  <NavbarBrand on:click={(e) => (app = $ver.Title,e.preventDefault())}>
+    <Applogo size="25px" {app} /> {$_("words."+app) == "words."+app ? app : $_("words."+app)}
+  </NavbarBrand>
+  <ConfigInput type="switch" id="Dark" notoast noreload></ConfigInput>
   <NavbarToggler on:click={() => (isOpen = !isOpen)} />
   <Collapse {isOpen} navbar expand="md">
     <Nav class="ms-auto" navbar>
@@ -68,13 +73,13 @@
       {/each}
       <Dropdown nav inNavbar>
         <DropdownToggle nav>
-          <Applogo size="20px" app="Settings" /> <span class="d-md-none">Configuration</span>
+          <Applogo size="20px" app="Settings" /> <span class="d-md-none">{$_("words.Configuration")}</span>
         </DropdownToggle>
         <DropdownMenu dark={$conf.Dark} end>
-          <DropdownItem on:click={()=>nav("Settings")}><Fa primaryColor="sienna" icon="{faGear}" /> Settings</DropdownItem>
+          <DropdownItem on:click={()=>nav("Settings")}><Fa primaryColor="sienna" icon="{faGear}" /> {$_("words.Settings")}</DropdownItem>
           <DropdownItem on:click={()=>nav("Toolbox")}><Applogo size="19px" app="Toolbox" /> Toolbox</DropdownItem>
-          <DropdownItem on:click={()=>nav("Links")}><Fa primaryColor="dodgerblue" icon="{faLink}" /> Links</DropdownItem>
-          <DropdownItem on:click={()=>nav("About")}><Fa primaryColor="mediumpurple" icon="{faBookBible}" /> About</DropdownItem>
+          <DropdownItem on:click={()=>nav("Links")}><Fa primaryColor="dodgerblue" icon="{faLink}" /> {$_("words.Links")}</DropdownItem>
+          <DropdownItem on:click={()=>nav("About")}><Fa primaryColor="mediumpurple" icon="{faBookBible}" /> {$_("words.About")}</DropdownItem>
         </DropdownMenu>
       </Dropdown>
     </Nav>
@@ -83,7 +88,7 @@
 <br />
 
 <main>
-  {#if app == "Toolbarr" }
+  {#if app == $ver.Title }
   <Landing />
   {:else if app == "About"}
   <About />

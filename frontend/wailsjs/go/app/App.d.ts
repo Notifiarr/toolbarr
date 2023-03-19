@@ -10,6 +10,8 @@ export function DownloadUpdate():Promise<any>;
 
 export function GetConfig():Promise<any>;
 
+export function Languages():Promise<{[key: string]: string}>;
+
 export function LaunchInstaller(arg1:string):Promise<string>;
 
 export function OpenFolder(arg1:string):Promise<string>;

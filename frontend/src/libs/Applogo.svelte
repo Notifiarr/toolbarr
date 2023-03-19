@@ -12,28 +12,30 @@
   import whisparrLogo from "../assets/images/Whisparr.png"
   import Fa from "svelte-fa"
   import { faBookBible, faLink } from "@fortawesome/free-solid-svg-icons"
+  import { _ } from "./locale"
+
 </script>
 
 {#if app == "Lidarr"}
-  <img alt="{app} Logo" height={size} src={lidarrLogo} />
+  <img alt="{app} {$_("words.Logo")}" height={size} src={lidarrLogo} />
 {:else if app == "Prowlarr"}
-  <img alt="{app} Logo" height={size} src={prowlarrLogo} />
+  <img alt="{app} {$_("words.Logo")}" height={size} src={prowlarrLogo} />
 {:else if app == "Radarr"}
-  <img alt="{app} Logo" height={size} src={radarrLogo} />
+  <img alt="{app} {$_("words.Logo")}" height={size} src={radarrLogo} />
 {:else if app == "Readarr"}
-  <img alt="{app} Logo" height={size} src={readarrLogo} />
+  <img alt="{app} {$_("words.Logo")}" height={size} src={readarrLogo} />
 {:else if app == "Sonarr"}
-  <img alt="{app} Logo" height={size} src={sonarrLogo} />
+  <img alt="{app} {$_("Lwords.ogo")}" height={size} src={sonarrLogo} />
 {:else if app == "Whisparr"}
-  <img alt="{app} Logo" height={size} src={whisparrLogo} />
+  <img alt="{app} {$_("words.Logo")}" height={size} src={whisparrLogo} />
 {:else if app == "Toolbox"}
-  <img alt="{app} Logo" height={size} src={toolboxLogo} />
+  <img alt="{app} {$_("words.Logo")}" height={size} src={toolboxLogo} />
 {:else if app == "Settings"}
-  <img alt="{app} Logo" height={size} src={settingsLogo} />
+  <img alt="{app} {$_("words.Logo")}" height={size} src={settingsLogo} />
 {:else if app == "Links"}
   <Fa primaryColor="dodgerblue" icon="{faLink}" />
 {:else if app == "About"}
   <Fa primaryColor="mediumpurple" icon="{faBookBible}" />
 {:else}
-  <img alt="{app} Logo" height={size} src={logo} />
+  <img alt="{app} {$_("words.Logo")}" height={size} src={logo} />
 {/if}

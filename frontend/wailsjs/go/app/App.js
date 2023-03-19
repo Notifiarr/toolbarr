@@ -18,6 +18,10 @@ export function GetConfig() {
   return window['go']['app']['App']['GetConfig']();
 }
 
+export function Languages() {
+  return window['go']['app']['App']['Languages']();
+}
+
 export function LaunchInstaller(arg1) {
   return window['go']['app']['App']['LaunchInstaller'](arg1);
 }

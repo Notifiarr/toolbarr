@@ -1,5 +1,5 @@
 {
-    "language": "nl-AN",
+    "language": "da",
     "messages": [
         {
             "id": "Writing config: decoding '{Name}' value '{Value}' error: {Err}",

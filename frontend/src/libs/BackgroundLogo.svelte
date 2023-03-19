@@ -28,6 +28,6 @@
     min-height:100%;
     background-position: 10px bottom;
     background-size: 100px;
-    background-repeat: no-repeat; 
+    background-repeat: no-repeat;
   }
 </style>

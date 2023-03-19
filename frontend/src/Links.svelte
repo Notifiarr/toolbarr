@@ -1,13 +1,13 @@
 <script>
   import { Container, Row } from "sveltestrap"
   import BGLogo from "./libs/BackgroundLogo.svelte"
-
+  import { _ } from "./libs/locale"
 </script>
 
 <BGLogo url="notifiarr">
   <Container>
     <Row>
-      <h1>Resources</h1>
+      <h1>{$_("words.Resources")}</h1>
       <p>
         Starr apps, unpackerr, notifiarr, autobrr, others?<br>
         We can make this load dynamically from toys-arr.us.

@@ -4,7 +4,6 @@
     Container,
     Form,
     InputGroup,
-    InputGroupText,
     Nav,
     NavLink,
     Offcanvas,
@@ -20,7 +19,8 @@
   import windowsConf from "../assets/images/windows-conf-file.png"
   import { toast } from "../libs/funcs"
   import ConfigInput from "../libs/Input.svelte"
-    import General from "./General.svelte";
+  import General from "./General.svelte"
+  import { _ } from "../libs/locale"
 
   let activeTab = Logs
   let confHelp = false
@@ -38,12 +38,11 @@
 <BGLogo url="golift">
   <Container>
     <Row>
-      <p>This is where the application settings are found.</p>
+      <p>{$_("main_application_settings")}</p>
       <Form class="Settings">
         <div on:mouseenter={() => {confSpin=true}} on:mouseleave={() => {confSpin=false}}>
           <InputGroup>
-            <InputGroupText class="setting-name">Config File</InputGroupText>
-            <ConfigInput locked type="text" id="File" tooltip="Can only be changed on application launch" placement="bottom" />
+            <ConfigInput locked type="text" id="File" placement="bottom" />
             <Button on:click={(e) => {e.preventDefault();confHelp = !confHelp}}>
               <Fa primaryColor="cyan" spin={confSpin} icon="{faQuestion}" />
             </Button>
@@ -51,9 +50,9 @@
         </div>
       <br />
         <Nav tabs fill>
-          <NavLink href="#" on:click={() => (activeTab = General)} active={activeTab == General}>General</NavLink>
-          <NavLink href="#" on:click={() => (activeTab = Logs)} active={activeTab == Logs}>Logging</NavLink>
-          <NavLink href="#" on:click={() => (activeTab = Advanced)} active={activeTab == Advanced}>Advanced</NavLink>
+          <NavLink href="#" on:click={() => (activeTab = General)} active={activeTab == General}>{$_("words.General")}</NavLink>
+          <NavLink href="#" on:click={() => (activeTab = Logs)} active={activeTab == Logs}>{$_("words.Logs")}</NavLink>
+          <NavLink href="#" on:click={() => (activeTab = Advanced)} active={activeTab == Advanced}>{$_("words.Advanced")}</NavLink>
         </Nav>
         <br />
         <svelte:component this={activeTab} />
@@ -66,51 +65,29 @@
     class="{$conf.Dark ? "bg-secondary" : "bg-light"}"
     isOpen={confHelp}
     toggle={() => {confHelp = !confHelp}}
-    header="Custom Config Path" placement="end">
+    header={$_("customconfig.Makeabashscript")} placement="end">
     {#if $app.IsLinux}
+      <p>{@html $_("customconfig.linuxHelp", {values: {title: $app.Title, name: $app.Name}})}</p>
+      <h5>{$_("words.Example")}</h5>
       <p>
-        Toolbarr will look for <code>toolbarr.conf</code> in the same folder as the <code>toolbarr</code> binary.
-        If it is not found, then a location inside your home folder is used for the config file.
-        If you want the config file to live next to the binary: copy it there, restart this app, and it will be used.
-        To use a custom config file path on Linux, provide it as a cli argument when you launch the executable.
-      </p>
-      <h5>Example</h5>
-      <p>
-      <code>toolbarr -c /path/to/toolbarr.conf</code><br>
-      With a full path:<br>
-      <code>{$app.Exe} -c {$app.Home}/.toolbarr/toolbarr.conf</code><br>
-      Make a bash alias or script to do this for you.</p>
-    {:else if $app.IsMac}
-    <p>
-      Toolbarr will look for <code>toolbarr.conf</code> in the same folder as <code>Toolbarr.app</code>.
-      If it is not found, then a location inside your home folder is used for the config file.
-      If you want the config file to live next to the app: copy it there, restart this app, and it will be used.
-      It's difficult to use a custom config location on a mac and is not recommended.
+        <code>{$app.Name} -c /path/to/{$app.Name}.conf</code><br>
+        {$_("customconfig.Withafullpath")}:<br>
+        <code>{$app.Exe} -c {$app.Home}/.{$app.Name}/{$app.Name}.conf</code><br>
+        {$_("customconfig.Makeabashscript")}
     </p>
+    {:else if $app.IsMac}
+      <p>{@html $_("customconfig.macHelp", {values: {title: $app.Title, name: $app.Name}})}</p>
     {:else}
+      <p>{@html $_("customconfig.winHelp", {values: {title: $app.Title, name: $app.Name}})}</p>
       <p>
-        Toolbarr will look for <code>toolbarr.conf</code> in the same folder as <code>Toolbarr.exe</code>.
-        If it is not found, then a location inside your home folder is used for the config file.
-        If you want the config file to live next to the exe file: copy it there, restart this app, and it will be used.
-        If you want a custom config file location, follow the instructions below.
+        {@html $_("customconfig.winCustom", {values: {title: $app.Title, name: $app.Name}})}
+        <br>
+        <Button size="sm" color="info" on:click={createWindowsShortcut}>{$_("customconfig.CreateShortcut")}</Button>
       </p>
-      <p>
-      To use a custom config file on Windows, you must create and edit a shortcut. 
-      When you use the installer a shortcut is placed in your start menu, 
-      and optionally on your desktop. You may use either of these files, or create a new one. 
-      Click the Create Shortcut button below to create a new shortcut on your desktop now.<br>
-      <Button size="sm" color="info" on:click={createWindowsShortcut}>Create Shortcut</Button>
-      </p>
-      <h5>Directions</h5>
-      <ol>
-        <li>Right-click the short cut and click Properties.</li>
-        <li>Click the Shortcut tab if not already there.</li>
-        <li>In Target, ADD this:</li>
-        <li><code>-c "C:\path\to\toolbarr.conf"</code></li>
-        <li>Replace the provided path with your own.</li>
-      </ol>
-      <h5>Example</h5>
-      <img width="100%" alt="screenshot of shortcut window" src={windowsConf}>
+      <h5>{$_("words.Directions")}</h5>
+      <ol>{@html $_("customconfig.winDirectionList", {values: {name: $app.Name}})}</ol>
+      <h5>{$_("words.Example")}</h5>
+      <img width="100%" alt="{$_("screenshotofshortcutwindow")}" src={windowsConf}>
     {/if}
   </Offcanvas>
 </BGLogo>
