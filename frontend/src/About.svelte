@@ -169,7 +169,7 @@
               <Button block outline on:click={downloadUpdate} size="sm" color="warning">{$_("words.Download")}: v{release.Current} ({release.Size})</Button>
               {/if}
             {:else if update.Checked}
-            <Button block color="success" disabled size="sm">{$_("aboutPage.Uptodate")} {$_("words.Current")}: v{release.Current}</Button>
+            <Button block color="success" disabled size="sm">{$_("aboutPage.Up-to-date")} {$_("words.Current")}: v{release.Current}</Button>
             {:else}
             <Button block outline size="sm" color="info" on:click={checkUpdate}>{$_("aboutPage.Checkforupdate")}</Button>
             {/if}
