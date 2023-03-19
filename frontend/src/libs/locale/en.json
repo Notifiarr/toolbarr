@@ -6,6 +6,9 @@
   "theStarroftheshow": "The Starr of the show.",
   "OtherTools": "Other Tools",
   "words": {
+    "ERROR": "ERROR",
+    "CONFIG": "CONFIG",
+    "debug": "debug",
     "Development": "Development",
     "Example": "Example",
     "Attribution": "Attribution",
@@ -73,7 +76,8 @@
     "TraceLogging": "Trace Logging",
     "Megabyte": "{count} Megabyte{count, plural, =0 {s} one {} other {s}}",
     "File": "{count} File{count, plural, =0 {s} one {} other {s}}",
-    "DisableRotation": "Disable Rotation"
+    "DisableRotation": "Disable Rotation",
+    "CONFIGERROR": "CONFIG ERROR"
   },
   "aboutPage": {
     "justWaitin": "Just waitin' for somethin' to happen.",

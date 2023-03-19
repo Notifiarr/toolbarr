@@ -52,14 +52,15 @@
     timer = onOnce(() => {valid=undefined}, 5) // clears green check mark
     dispatch("change", {val: value});
     // Send only 1 toast.
-    if (!notoast) toast("success", resp.Msg, "CONFIG")
-    if (notoast&&$conf.DevMode) toast("warning", resp.Msg, "CONFIG (debug)")
+    if (!notoast) toast("success", resp.Msg, $_("words.CONFIG"))
+    if (notoast&&$conf.DevMode)
+      toast("warning", resp.Msg, $_("words.CONFIG") + " ("+$_("words.debug")+")")
   }
 
   // This runs when the save to config file fails.
   function failed(err) {
     valid = false // set red X mark, does not clear
-    toast("error", err, "CONFIG ERROR", 9)
+    toast("error", err, $_("configvalues.CONFIGERROR"), 9)
     dispatch("error", {val: value});
   }
 

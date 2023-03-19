@@ -8,7 +8,7 @@
   import BGLogo from "./libs/BackgroundLogo.svelte"
   import A from "./libs/Link.svelte"
   import { app, conf } from "./libs/config.js"
-  import { toast, onOnce, onInterval } from "./libs/funcs";
+  import { toast, onOnce, onInterval } from "./libs/funcs"
   import { _ } from "./libs/locale"
 
   let update = {
