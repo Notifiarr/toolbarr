@@ -98,7 +98,6 @@ type Info struct {
 	Exe       string
 	Home      string
 	Username  string
-	Langs     []string
 }
 
 func (a *App) Version() Version {
@@ -125,7 +124,11 @@ func (a *App) Version() Version {
 			Exe:       exec,
 			Home:      user.HomeDir,
 			Username:  user.Name,
-			Langs:     translations.Languages(),
 		},
 	}
+}
+
+func (a *App) Languages() map[string]string {
+	a.log.Tracef("Call:Languages()")
+	return translations.Languages(a.config.Settings().Lang)
 }

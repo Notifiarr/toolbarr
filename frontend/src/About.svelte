@@ -8,7 +8,8 @@
   import BGLogo from "./libs/BackgroundLogo.svelte"
   import A from "./libs/Link.svelte"
   import { app, conf } from "./libs/config.js"
-  import { toast, onOnce, onInterval } from "./libs/funcs";
+  import { toast, onOnce, onInterval } from "./libs/funcs"
+  import { _ } from "./libs/locale"
 
   let update = {
     Downloading: "",
@@ -25,22 +26,22 @@
   }
 
   let progress = 0.0
-  let msg = "just waitin' for somethin' to happen"
+  let msg = $_("aboutPage.justWaitin")
 
   function checkUpdate(e) {
     e.preventDefault()
-    update.Downloading = "Checking for update..."
+    update.Downloading = $_("aboutPage.Checkingforupdate")
 
     CheckUpdate().then(result => {
       release = result
       update.Checked = true
       update.Downloading = ""
-      msg = "that was pretty cool"
+      msg = $_("aboutPage.Thatwascool")
       if (release.Outdate) msg = $app.IsLinux ?
-        "Use your package manager to install the update." :
-        "Update available! Click the button to download it."
+        $_("aboutPage.Useyourpackagemanager") :
+        ($_("aboutPage.UpdateAvailable")+ " " + $_("aboutPage.Clickthebuttontouseit"))
     }, (error) => {
-      update.Failed = "Error checking for update"
+      update.Failed = $_("aboutPage.Errorchecking")
       toast("error", error)
       update.Downloading = ""
     })
@@ -48,7 +49,7 @@
 
   function installUpdate(e) {
     e.preventDefault()
-    update.Downloading = "Launching installer.."
+    update.Downloading = $_("aboutPage.Launchinginstaller")
     LaunchInstaller(release.FilePath).then(result => {
       update.Downloading = result
     })
@@ -61,22 +62,23 @@
 
   function downloadUpdate(e) {
     e.preventDefault()
-    update.Downloading = "Downloading the update... "
+    update.Downloading = $_("aboutPage.Downloadingtheupdate")
 
     DownloadUpdate().then(data => {
       update.Checked = true
       release.FilePath = data.Path
-      toast("info", "Downloading: "+data.Path)
+      toast("info", $_("words.Downloading")+": "+data.Path)
       EventsOn("downloadProgress", (data) => (progress = data))
       EventsOn("downloadFinished", () => {
         EventsOff("downloadProgress", "downloadFinished")
-        update.Downloaded = "Open "+($app.IsMac ? "DMG" : "Installer")
+        update.Downloaded = "Open "+($app.IsMac ? "DMG" : $_("words.Installer"))
         update.Downloading = ""
-        msg = ($app.IsMac ? "Disk image" : "Installer") + " downloaded! Click a button to use it."
+        msg = ($app.IsMac ? $_("aboutPage.Diskimagedownloaded") : $_("aboutPage.Installerdownloaded")) +
+          " " + $_("aboutPage.Clickabuttontouseit")
         onOnce(() => (progress = 0.0), 0.5)
       })
     }, (error) => {
-      update.Failed = "Error checking for update"
+      update.Failed = $_("aboutPage.Errordownloading")
       toast("error", error)
       update.Downloading = ""
     })
@@ -96,29 +98,29 @@
 <BGLogo url="golift">
   <Container>
     <Row>
-      <h1>About Toolbarr</h1>
+      <h1>{$_("words.About")} {$app.Title}</h1>
       <p>
-        Toolbarr fixes problems with Starr apps. It comes with a five starr rating from <A href="https://toys-arr.us">Toys Arr Us</A>!
+        {@html $_("aboutPage.toolbarDescription")} <A href="https://toys-arr.us">Toys Arr Us</A>
       </p>
       <Col md="6">
-        <h3>Development</h3>
+        <h3>{$_("words.Development")} </h3>
         <Table dark={$conf.Dark} responsive>
           <tr>
-            <td style="width:180px;"><A href="https://github.com/Notifiarr/toolbarr"><Fa icon={faGithub} /> Toolbarr GitHub</A></td> 
-            <td>Visit the sausage factory.</td>
+            <td style="width:180px;"><A href="https://github.com/Notifiarr/toolbarr"><Fa icon={faGithub} /> {$app.Title} GitHub</A></td> 
+            <td>{$_("aboutPage.Visitthesausagefactory")}</td>
           </tr>
           <tr>
             <td><A href="https://notifiarr.com/discord"><Fa fw icon={faDiscord} /> Notifiarr Discord</A></td>
-            <td>For your notifications needs.</td>
+            <td>{$_("aboutPage.Foryournotificationsneeds")}</td>
           </tr>
           <tr>
             <td><A href="https://golift.io/discord"><Fa fw icon={faDiscord} /> Go Lift Discord</A></td>
-            <td>Code cookin' collaborators.</td>
+            <td>{$_("aboutPage.Codecookincollaborators")}</td>
           </tr>
         </Table>
       </Col>
       <Col md="6">
-      <h3>Attribution</h3>
+      <h3>{$_("words.Attribution")}</h3>
       <p>
         <li>
           Created by <A href="https://golift.io">Go Lift</A> 
@@ -139,15 +141,15 @@
     <!-- version update card at the bottom of the About page -->
     {#if Object.keys(app).length > 0}
     <Col md="6">
-      <h3>App Info</h3><!-- following line shows an error but actually works. -->
+      <h3>{$_("aboutPage.AppInfo")}</h3><!-- following line shows an error but actually works. -->
       <Card color={$conf.Dark ? "secondary" : "light"} body>
         <Table dark={$conf.Dark} responsive>
-          <tr><td>Version</td><td>v{$app.Version}-{$app.Revision} ({$app.GoVersion})</td></tr>
-          <tr><td>Branch</td><td>{$app.Branch}</td></tr>
-          <tr><td>Created</td><td>{$app.BuildDate} by {$app.BuildUser}</td></tr>
+          <tr><td>{$_("words.Version")}</td><td>v{$app.Version}-{$app.Revision} ({$app.GoVersion})</td></tr>
+          <tr><td>{$_("words.Branch")}</td><td>{$app.Branch}</td></tr>
+          <tr><td>{$_("words.Created")}</td><td>{$app.BuildDate} {$_("words.by")} {$app.BuildUser}</td></tr>
           <tr>
-            <td>Running</td>
-            <Tooltip target="runningTime" placement="top">Running Since:<br>{$app.Started}</Tooltip>
+            <td>{$_("words.Running")}</td>
+            <Tooltip target="runningTime" placement="top">{$_("aboutPage.RunningSince")}:<br>{$app.Started}</Tooltip>
             <td id="runningTime">{uptime}</td>
           </tr>
           <tr><td colspan="2">
@@ -159,17 +161,17 @@
             <Tooltip target="installButton">{release.FilePath}</Tooltip>
             <Tooltip target="folderButton">{(release.FilePath).split(/[\\/]/).slice(0,-1).join($app.IsWindows?"\\":"/")}</Tooltip>
             <Button id="installButton" style="width:49%" outline on:click={installUpdate} size="sm" color="primary">{update.Downloaded}</Button>
-            <Button id="folderButton" style="width:49%" outline on:click={openFolder} size="sm" color="info">Open Folder</Button>
+            <Button id="folderButton" style="width:49%" outline on:click={openFolder} size="sm" color="info">{$_("aboutPage.OpenFolder")}</Button>
             {:else if release.Outdate}
               {#if $app.IsLinux}
-              <Button block outline disabled size="sm" color="warning">Update available! v{release.Current}</Button>
+              <Button block outline disabled size="sm" color="warning">{$_("aboutPage.UpdateAvailable")} v{release.Current}</Button>
               {:else}
-              <Button block outline on:click={downloadUpdate} size="sm" color="warning">Download: v{release.Current} ({release.Size})</Button>
+              <Button block outline on:click={downloadUpdate} size="sm" color="warning">{$_("words.Download")}: v{release.Current} ({release.Size})</Button>
               {/if}
             {:else if update.Checked}
-            <Button block color="success" disabled size="sm">Up to date! Current: v{release.Current}</Button>
+            <Button block color="success" disabled size="sm">{$_("aboutPage.Up-to-date")} {$_("words.Current")}: v{release.Current}</Button>
             {:else}
-            <Button block outline size="sm" color="info" on:click={checkUpdate}>Check for update</Button>
+            <Button block outline size="sm" color="info" on:click={checkUpdate}>{$_("aboutPage.Checkforupdate")}</Button>
             {/if}
           </td></tr>
         </Table>

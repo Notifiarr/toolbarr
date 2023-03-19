@@ -1,9 +1,15 @@
 import { toasts }  from "svelte-toasts"
 import { conf } from "./config.js"
 import { onDestroy } from "svelte"
+import { _, isReady } from "./locale"
 
 // Keep track of toasts so their theme may be kept up to date.
 const sentToasts = []
+
+let errorWord = "ERROR"
+isReady.subscribe(ready => {
+  if (ready) _.subscribe(val => {errorWord = val("words.ERROR")})
+})
 
 let isDark = false;
 conf.subscribe(value => {
@@ -14,7 +20,7 @@ conf.subscribe(value => {
 
 export const toast = (type, msg, title="", seconds=7) => {
   const thisToast = toasts.add({
-    title: title != "" ? title : type == "error" ? "ERROR" : "",
+    title: title != "" ? title : type == "error" ? errorWord : "",
     description: msg,
     duration: seconds*1000,
     theme: isDark ? "dark" : "light",

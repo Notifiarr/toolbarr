@@ -2,25 +2,23 @@
   import { Input, InputGroup, InputGroupText } from "sveltestrap"
   import ConfigInput from "../libs/Input.svelte"
   import { app } from "../libs/config.js"
+  import { _ } from "../libs/locale"
 </script>
 
-<p>These settings control advanced aspects of this application, and should probably not be changed.</p>
+<p>{$_("advanced_application_settings")}</p>
 <InputGroup>
-  <InputGroupText class="setting-name">Dev Mode</InputGroupText>
-  <ConfigInput type="select" id="DevMode" tooltip="Enable this when a developer instructs you to do so.">
-    <option value={true}>Enabled</option>
-    <option value={false}>Disabled</option>
+  <ConfigInput type="select" id="DevMode">
+    <option value={true}>{$_("configvalues.Enabled")}</option>
+    <option value={false}>{$_("configvalues.Disabled")}</option>
   </ConfigInput>
 </InputGroup>
 <InputGroup>
-  <InputGroupText class="setting-name">Updates</InputGroupText>
-  <ConfigInput type="select" id="Updates"
-    tooltip="Production gets updates from github, unstable gets them from unstable.golift.io">
-    <option value="production">Production</option>
-    <option value="unstable">Unstable</option>
+  <ConfigInput type="select" id="Updates">
+    <option value="production">{$_("configvalues.Production")}</option>
+    <option value="unstable">{$_("configvalues.Unstable")}</option>
   </ConfigInput>
 </InputGroup>
 <InputGroup>
-  <InputGroupText class="setting-name">App Path</InputGroupText>
+  <InputGroupText class="setting-name">{$_("configinput.AppPath")}</InputGroupText>
   <Input disabled type="text" value={$app.Exe} />
 </InputGroup>

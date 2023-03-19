@@ -2,13 +2,14 @@
   import mainLogo from "./assets/images/notifiarr.png"
   import { Container, Row } from "sveltestrap"
   import BGLogo from "./libs/BackgroundLogo.svelte"
+  import { _ } from "./libs/locale"
 </script>
 
 <BGLogo>
   <Container>
     <Row>
-        <img alt="Main logo" id="logo" src="{mainLogo}" />
-        <p class="main">The Starr of the show.</p>
+        <img alt="{$_("words.Main")} {$_("words.Logo")}" id="logo" src="{mainLogo}" />
+        <p class="main">{$_("theStarroftheshow")}</p>
     </Row>
   </Container>
 </BGLogo>
