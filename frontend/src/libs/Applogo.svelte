@@ -13,7 +13,6 @@
   import Fa from "svelte-fa"
   import { faBookBible, faLink } from "@fortawesome/free-solid-svg-icons"
   import { _ } from "./locale"
-
 </script>
 
 {#if app == "Lidarr"}

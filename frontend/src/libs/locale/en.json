@@ -5,6 +5,8 @@
   "advanced_application_settings": "These settings control advanced aspects of this application, and should probably not be changed.",
   "theStarroftheshow": "The Starr of the show.",
   "OtherTools": "Other Tools",
+  "TranslationInformation": "Translation Information",
+  "LanguageHelpText": "While this application supports many languages, there are not many translations available. If you can translate text, please help us out at <a-link url=\"{url}\">Notifiarr Translations</a-link>.",
   "words": {
     "ERROR": "ERROR",
     "CONFIG": "CONFIG",
@@ -101,6 +103,9 @@
     "Visitthesausagefactory": "Visit the sausage factory.",
     "Foryournotificationsneeds": "For your notifications needs.",
     "Codecookincollaborators": "Code cookin' collaborators.",
-    "toolbarDescription": "Toolbarr fixes problems with Starr apps. It comes with a five starr rating from"
+    "toolbarDescription": "Toolbarr fixes problems with Starr apps. It comes with a five starr rating from <a-link url=\"{url}\">Toys Arr Us</a-link>.",
+    "CreatedbyGoLift": "Created by <a-link url=\"{goLiftURL}\">Go Lift</a-link> for <a-link url=\"{notifiarrURL}\">Notifiarr</a-link>.",
+    "Backgroundbyrawpixel": "Backgrounds by <a-link url=\"{rawPixelURL}\">rawpixel.com</a-link> on <a-link url=\"{freepikURL}\">Freepik</a-link>.",
+    "WritteninSvelte": "Written in <a-link url=\"{svelteURL}\">Svelte</a-link> using <a-link url=\"{wailsURL}\">Wails</a-link>."
   }
 }
