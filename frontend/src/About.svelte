@@ -100,18 +100,18 @@
       <h1>{$_("words.About")} {$app.Title}</h1>
       <p><T id="aboutPage.toolbarDescription" url="https://toys-arr.us"/></p>
       <Col md="6">
-        <h3>{$_("words.Development")} </h3>
+        <h3>{$_("words.Development")}</h3>
         <Table dark={$conf.Dark} responsive>
           <tr>
-            <td style="width:180px;"><a-link url="https://github.com/Notifiarr/toolbarr"><Fa icon={faGithub} /> {$app.Title} GitHub</a-link></td>
+            <td style="width:180px;"><open-browser href="https://github.com/Notifiarr/toolbarr"><Fa icon={faGithub} /> {$app.Title} GitHub</open-browser></td>
             <td>{$_("aboutPage.Visitthesausagefactory")}</td>
           </tr>
           <tr>
-            <td><a-link url="https://notifiarr.com/discord"><Fa fw icon={faDiscord} /> Notifiarr Discord</a-link></td>
+            <td><open-browser href="https://notifiarr.com/discord"><Fa fw icon={faDiscord} /> Notifiarr Discord</open-browser></td>
             <td>{$_("aboutPage.Foryournotificationsneeds")}</td>
           </tr>
           <tr>
-            <td><a-link url="https://golift.io/discord"><Fa fw icon={faDiscord} /> Go Lift Discord</a-link></td>
+            <td><open-browser href="https://golift.io/discord"><Fa fw icon={faDiscord} /> Go Lift Discord</open-browser></td>
             <td>{$_("aboutPage.Codecookincollaborators")}</td>
           </tr>
         </Table>
