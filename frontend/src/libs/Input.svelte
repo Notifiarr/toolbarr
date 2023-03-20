@@ -4,7 +4,7 @@
   import { SaveConfigItem } from "../../wailsjs/go/app/App.js"
   import { conf } from "./config"
   import { _ } from "./Translate.svelte"
-	import { createEventDispatcher } from "svelte"
+  import { createEventDispatcher } from "svelte"
 
   // Like `text` or `select`.
   export let type
