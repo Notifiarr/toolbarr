@@ -7,4 +7,4 @@
   const openUrl = (e) => { e.preventDefault(); BrowserOpenURL(url) }
 </script>
 
-<a color={color} href="#top" on:click={openUrl}><slot></slot></a>
+<a href="#top" on:click={openUrl}><slot></slot></a>

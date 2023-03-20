@@ -3,9 +3,9 @@
   import ConfigInput from "../libs/Input.svelte"
   import { conf } from "../libs/config.js"
   import { Languages } from "../../wailsjs/go/app/App.js"
-  import { _ } from "../libs/locale"
   import { faQuestion } from "@fortawesome/free-solid-svg-icons"
   import Fa from "svelte-fa"
+  import T, { _ } from "../libs/Translate.svelte"
 
   let langHelp = false
   let langs = undefined
@@ -37,5 +37,5 @@
   isOpen={langHelp}
   toggle={() => {langHelp = !langHelp}}
   header={$_("TranslationInformation")} placement="end">
-  <p>{@html $_("LanguageHelpText", {values: {url: "https://translate.notifiarr.com/projects/toolbarr/"}})}</p>
+  <p><T id="LanguageHelpText" url="https://translate.notifiarr.com/projects/toolbarr/"/></p>
 </Offcanvas>

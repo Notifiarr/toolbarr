@@ -8,7 +8,7 @@
   import BGLogo from "./libs/BackgroundLogo.svelte"
   import { app, conf } from "./libs/config.js"
   import { toast, onOnce, onInterval } from "./libs/funcs"
-  import { _ } from "./libs/locale"
+  import T, { _ } from "./libs/Translate.svelte"
 
   let update = {
     Downloading: "",
@@ -98,7 +98,7 @@
   <Container>
     <Row>
       <h1>{$_("words.About")} {$app.Title}</h1>
-      <p>{@html $_("aboutPage.toolbarDescription", {values:{url: "https://toys-arr.us"}})}</p>
+      <p><T id="aboutPage.toolbarDescription" url="https://toys-arr.us"/></p>
       <Col md="6">
         <h3>{$_("words.Development")} </h3>
         <Table dark={$conf.Dark} responsive>
@@ -119,9 +119,9 @@
       <Col md="6">
       <h3>{$_("words.Attribution")}</h3>
       <p>
-        <li>{@html $_("aboutPage.CreatedbyGoLift", {values:{goLiftURL: "https://golift.io", notifiarrURL: "https://notifiarr.com"}})}</li>
-        <li>{@html $_("aboutPage.Backgroundbyrawpixel", {values:{rawPixelURL: "https://rawpixel.com", freepikURL: "https://www.freepik.com/author/rawpixel-com"}})}</li>
-        <li>{@html $_("aboutPage.WritteninSvelte", {values:{svelteURL: "https://svelte.dev", wailsURL: "https://wails.io"}})}</li>
+        <li><T id="aboutPage.CreatedbyGoLift" goLiftURL="https://golift.io" notifiarrURL="https://notifiarr.com" /></li>
+        <li><T id="aboutPage.Backgroundbyrawpixel" rawPixelURL="https://rawpixel.com" freepikURL="https://www.freepik.com/author/rawpixel-com" /></li>
+        <li><T id="aboutPage.WritteninSvelte" svelteURL="https://svelte.dev" wailsURL="https://wails.io" /></li>
       </p>
     </Col>
     </Row>
