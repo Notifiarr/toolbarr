@@ -6,7 +6,7 @@
   "theStarroftheshow": "The Starr of the show.",
   "OtherTools": "Other Tools",
   "TranslationInformation": "Translation Information",
-  "LanguageHelpText": "While this application supports many languages, there are not many translations available. If you can translate text, please help us out at <a-link url=\"{url}\">Notifiarr Translations</a-link>.",
+  "LanguageHelpText": "While this application supports many languages, there are not many translations available. If you can translate text, please help us out at <a href=\"{url}\">Notifiarr Translations</a>.",
   "words": {
     "ERROR": "ERROR",
     "CONFIG": "CONFIG",
@@ -103,9 +103,9 @@
     "Visitthesausagefactory": "Visit the sausage factory.",
     "Foryournotificationsneeds": "For your notifications needs.",
     "Codecookincollaborators": "Code cookin' collaborators.",
-    "toolbarDescription": "Toolbarr fixes problems with Starr apps. It comes with a five starr rating from <a-link url=\"{url}\">Toys Arr Us</a-link>.",
-    "CreatedbyGoLift": "Created by <a-link url=\"{goLiftURL}\">Go Lift</a-link> for <a-link url=\"{notifiarrURL}\">Notifiarr</a-link>.",
-    "Backgroundbyrawpixel": "Backgrounds by <a-link url=\"{rawPixelURL}\">rawpixel.com</a-link> on <a-link url=\"{freepikURL}\">Freepik</a-link>.",
-    "WritteninSvelte": "Written in <a-link url=\"{svelteURL}\">Svelte</a-link> using <a-link url=\"{wailsURL}\">Wails</a-link>."
+    "toolbarDescription": "Toolbarr fixes problems with Starr apps. It comes with a five starr rating from <a href=\"{url}\">Toys Arr Us</a>.",
+    "CreatedbyGoLift": "Created by <a href=\"{goLiftURL}\">Go Lift</a> for <a href=\"{notifiarrURL}\">Notifiarr</a>.",
+    "Backgroundbyrawpixel": "Backgrounds by <a href=\"{rawPixelURL}\">rawpixel.com</a> on <a href=\"{freepikURL}\">Freepik</a>.",
+    "WritteninSvelte": "Written in <a href=\"{svelteURL}\">Svelte</a> using <a href=\"{wailsURL}\">Wails</a>."
   }
 }

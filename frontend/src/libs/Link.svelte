@@ -1,10 +1,10 @@
-<svelte:options tag="a-link"/>
+<svelte:options tag="open-browser"/>
 
 <!-- This allows us to open an external link in a browser. -->
 <script type="ts">
   import { BrowserOpenURL } from "../../wailsjs/runtime/runtime"
-  export let url
-  const openUrl = (e) => { e.preventDefault(); BrowserOpenURL(url) }
+  export let href
+  const openUrl = (e) => { e.preventDefault(); BrowserOpenURL(href) }
 </script>
 
-<a href="#top" on:click={openUrl}><slot></slot></a>
+<a href="#top" {...$$props} on:click={openUrl}><slot></slot></a>

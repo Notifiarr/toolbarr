@@ -12,5 +12,5 @@
 </script>
 
 {#if $isReady == true}
-  {@html $_(id,{values:{...$$props}})}
+  {@html $_(id,{values:{...$$props}}).replaceAll(/<([/]?)a([ >])/ig,"<$1open-browser$2") }
 {/if}
