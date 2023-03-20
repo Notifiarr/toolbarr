@@ -5,7 +5,7 @@ go 1.20
 require (
 	github.com/gorilla/schema v1.2.0
 	github.com/mitchellh/go-homedir v1.1.0
-	github.com/wailsapp/wails/v2 v2.4.0
+	github.com/wailsapp/wails/v2 v2.4.1
 	golang.org/x/mod v0.9.0
 	golang.org/x/text v0.8.0
 	golift.io/datacounter v1.0.4
