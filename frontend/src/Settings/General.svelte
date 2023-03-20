@@ -1,10 +1,13 @@
-<script>
-  import { InputGroup, InputGroupText } from "sveltestrap"
+<script lang="ts">
+  import { Button, InputGroup, Offcanvas } from "sveltestrap"
   import ConfigInput from "../libs/Input.svelte"
   import { conf } from "../libs/config.js"
   import { Languages } from "../../wailsjs/go/app/App.js"
-  import { _ } from "../libs/locale"
+  import { faQuestion } from "@fortawesome/free-solid-svg-icons"
+  import Fa from "svelte-fa"
+  import T, { _ } from "../libs/Translate.svelte"
 
+  let langHelp = false
   let langs = undefined
   const update = () => Languages().then(v => langs = v)
   update()
@@ -23,4 +26,16 @@
       {/each}
     {/if}
   </ConfigInput>
+  <Button on:click={(e) => {e.preventDefault();langHelp = !langHelp}}>
+    <Fa primaryColor="cyan" icon="{faQuestion}" />
+  </Button>
 </InputGroup>
+
+<Offcanvas
+  style="width:50%;min-width:390px;max-width:550px"
+  class="{$conf.Dark ? "bg-secondary" : "bg-light"}"
+  isOpen={langHelp}
+  toggle={() => {langHelp = !langHelp}}
+  header={$_("TranslationInformation")} placement="end">
+  <p><T id="LanguageHelpText" url="https://translate.notifiarr.com/projects/toolbarr/"/></p>
+</Offcanvas>

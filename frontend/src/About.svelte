@@ -6,10 +6,9 @@
   import { CheckUpdate, DownloadUpdate, LaunchInstaller, OpenFolder } from "../wailsjs/go/app/App"
   import { Container, Row, Table, Col, Card, Tooltip, Button, Progress, Badge } from   "sveltestrap"
   import BGLogo from "./libs/BackgroundLogo.svelte"
-  import A from "./libs/Link.svelte"
   import { app, conf } from "./libs/config.js"
   import { toast, onOnce, onInterval } from "./libs/funcs"
-  import { _ } from "./libs/locale"
+  import T, { _ } from "./libs/Translate.svelte"
 
   let update = {
     Downloading: "",
@@ -99,22 +98,20 @@
   <Container>
     <Row>
       <h1>{$_("words.About")} {$app.Title}</h1>
-      <p>
-        {@html $_("aboutPage.toolbarDescription")} <A href="https://toys-arr.us">Toys Arr Us</A>
-      </p>
+      <p><T id="aboutPage.toolbarDescription" url="https://toys-arr.us"/></p>
       <Col md="6">
         <h3>{$_("words.Development")} </h3>
         <Table dark={$conf.Dark} responsive>
           <tr>
-            <td style="width:180px;"><A href="https://github.com/Notifiarr/toolbarr"><Fa icon={faGithub} /> {$app.Title} GitHub</A></td> 
+            <td style="width:180px;"><a-link url="https://github.com/Notifiarr/toolbarr"><Fa icon={faGithub} /> {$app.Title} GitHub</a-link></td>
             <td>{$_("aboutPage.Visitthesausagefactory")}</td>
           </tr>
           <tr>
-            <td><A href="https://notifiarr.com/discord"><Fa fw icon={faDiscord} /> Notifiarr Discord</A></td>
+            <td><a-link url="https://notifiarr.com/discord"><Fa fw icon={faDiscord} /> Notifiarr Discord</a-link></td>
             <td>{$_("aboutPage.Foryournotificationsneeds")}</td>
           </tr>
           <tr>
-            <td><A href="https://golift.io/discord"><Fa fw icon={faDiscord} /> Go Lift Discord</A></td>
+            <td><a-link url="https://golift.io/discord"><Fa fw icon={faDiscord} /> Go Lift Discord</a-link></td>
             <td>{$_("aboutPage.Codecookincollaborators")}</td>
           </tr>
         </Table>
@@ -122,18 +119,9 @@
       <Col md="6">
       <h3>{$_("words.Attribution")}</h3>
       <p>
-        <li>
-          Created by <A href="https://golift.io">Go Lift</A> 
-          for <A href="https://notifiarr.com">Notifiarr</A>.
-        </li>
-        <li>
-          Backgrounds by <A href="https://rawpixel.com">rawpixel.com</A> 
-          on <A href="https://www.freepik.com/author/rawpixel-com">Freepik</A>.
-        </li>
-        <li>
-          Written in <A href="https://svelte.dev">Svelte</A> 
-          using <A href="https://wails.io">Wails</A>.
-        </li>
+        <li><T id="aboutPage.CreatedbyGoLift" goLiftURL="https://golift.io" notifiarrURL="https://notifiarr.com" /></li>
+        <li><T id="aboutPage.Backgroundbyrawpixel" rawPixelURL="https://rawpixel.com" freepikURL="https://www.freepik.com/author/rawpixel-com" /></li>
+        <li><T id="aboutPage.WritteninSvelte" svelteURL="https://svelte.dev" wailsURL="https://wails.io" /></li>
       </p>
     </Col>
     </Row>

@@ -27,7 +27,7 @@
   import ConfigInput from "./libs/Input.svelte"
   import bgVint from "./assets/images/vintage-background.png"
   import bgDark from "./assets/images/dark-background.png"
-  import { _, isReady } from "./libs/locale.js"
+  import { _, isReady } from "./libs/Translate.svelte"
 
   let isOpen = false // nav open/closer tracker (mobile)
   let app

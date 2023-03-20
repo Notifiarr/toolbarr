@@ -20,7 +20,7 @@
   import { toast } from "../libs/funcs"
   import ConfigInput from "../libs/Input.svelte"
   import General from "./General.svelte"
-  import { _ } from "../libs/locale"
+  import T, { _ } from "../libs/Translate.svelte"
 
   let activeTab = Logs
   let confHelp = false
@@ -29,7 +29,7 @@
   function createWindowsShortcut(e) {
     e.preventDefault()
     CreateShortcut().then(
-      msg => (toast("primary", msg)),
+      msg => (toast("info", msg)),
       error => (toast("error", error))
     )
   }
@@ -65,27 +65,27 @@
     class="{$conf.Dark ? "bg-secondary" : "bg-light"}"
     isOpen={confHelp}
     toggle={() => {confHelp = !confHelp}}
-    header={$_("customconfig.Makeabashscript")} placement="end">
+    header={$_("customconfig.CustomConfigPath")} placement="end">
     {#if $app.IsLinux}
-      <p>{@html $_("customconfig.linuxHelp", {values: {title: $app.Title, name: $app.Name}})}</p>
+      <p><T id="customconfig.linuxHelp" title={$app.Title} name={$app.Name}/></p>
       <h5>{$_("words.Example")}</h5>
       <p>
         <code>{$app.Name} -c /path/to/{$app.Name}.conf</code><br>
         {$_("customconfig.Withafullpath")}:<br>
         <code>{$app.Exe} -c {$app.Home}/.{$app.Name}/{$app.Name}.conf</code><br>
         {$_("customconfig.Makeabashscript")}
-    </p>
+      </p>
     {:else if $app.IsMac}
-      <p>{@html $_("customconfig.macHelp", {values: {title: $app.Title, name: $app.Name}})}</p>
+      <p><T id="customconfig.macHelp" title={$app.Title} name={$app.Name}/></p>
     {:else}
-      <p>{@html $_("customconfig.winHelp", {values: {title: $app.Title, name: $app.Name}})}</p>
+      <p><T id="customconfig.winHelp" title={$app.Title} name={$app.Name}/></p>
       <p>
-        {@html $_("customconfig.winCustom", {values: {title: $app.Title, name: $app.Name}})}
+        <T id="customconfig.winCustom" title={$app.Title} name={$app.Name}/>
         <br>
         <Button size="sm" color="info" on:click={createWindowsShortcut}>{$_("customconfig.CreateShortcut")}</Button>
       </p>
       <h5>{$_("words.Directions")}</h5>
-      <ol>{@html $_("customconfig.winDirectionList", {values: {name: $app.Name}})}</ol>
+      <ol><T id="customconfig.winDirectionList" name={$app.Name}/></ol>
       <h5>{$_("words.Example")}</h5>
       <img width="100%" alt="{$_("screenshotofshortcutwindow")}" src={windowsConf}>
     {/if}

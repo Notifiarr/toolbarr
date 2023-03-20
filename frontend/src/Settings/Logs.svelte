@@ -5,8 +5,7 @@
   import { PickFolder } from "../../wailsjs/go/app/App.js"
   import { conf } from "../libs/config.js"
   import ConfigInput from "../libs/Input.svelte"
-  import { _ } from "../libs/locale.js"
-
+  import T, { _ } from "../libs/Translate.svelte"
 
   let confPath
   // This func opens a "pick a folder" dialog and populates the Log File Path with the current config file folder.
@@ -48,7 +47,7 @@
 <InputGroup>
   <ConfigInput type="select" id="Size">
     {#each Array(20) as u, i}
-      <option value={i+1}>{$_("configvalues.Megabyte", {values: {count: i+1}})}</option>
+      <option value={i+1}><T id="configvalues.Megabyte" count={i+1}/></option>
     {/each}
   </ConfigInput>
 </InputGroup>
@@ -56,7 +55,7 @@
   <ConfigInput type="select" id="Files">
     <option value={0}>{$_("configvalues.DisableRotation")}</option>
     {#each Array(50) as u, i}
-      <option value={i+1}>{$_("configvalues.File", {values: {count: i+1}})}</option>
+      <option value={i+1}><T id="configvalues.File" count={i+1}/></option>
     {/each}
   </ConfigInput>
 </InputGroup>
