@@ -1,5 +1,5 @@
 //nolint:lll
-//go:generate go run golang.org/x/text/cmd/gotext@latest -srclang=en-US update -out=catalog.go -lang=en,es,da,nl,fr,it,pt,sv github.com/Notifiarr/toolbarr/pkg/...
+//go:generate go run golang.org/x/text/cmd/gotext@latest -srclang=en update -out=catalog.go -lang=en,es,da,nl,fr,it,pt,sv github.com/Notifiarr/toolbarr/pkg/...
 //
 // https://www.alexedwards.net/blog/i18n-managing-translations
 

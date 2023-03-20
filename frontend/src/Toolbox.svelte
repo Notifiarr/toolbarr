@@ -8,7 +8,7 @@
   <Container>
     <Row>
       <h1>{$_("OtherTools")}</h1>
-      <p>No idea what goes here. Gimme ideas!</p>
+      <p>No idea what goes here. <open-browser href="https://github.com/Notifiarr/toolbarr/issues/new">Gimme ideas!</open-browser></p>
     </Row>
   </Container>
   </BGLogo>

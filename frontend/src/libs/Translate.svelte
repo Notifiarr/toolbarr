@@ -1,4 +1,4 @@
-<!-- this component allows a slightly easier syntax for html translations with values. -->
+<!-- this component allows a smoother syntax for html translations with values or href links. -->
 
 <script context="module">
   import { derived } from "svelte/store"
