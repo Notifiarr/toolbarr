@@ -3,7 +3,7 @@
   import { toast, onOnce } from "./funcs.js"
   import { SaveConfigItem } from "../../wailsjs/go/app/App.js"
   import { conf } from "./config"
-  import { _ } from "../libs/locale"
+  import { _ } from "./Translate.svelte"
 	import { createEventDispatcher } from "svelte"
 
   // Like `text` or `select`.

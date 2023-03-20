@@ -2,7 +2,7 @@
   import { Input, InputGroup, InputGroupText } from "sveltestrap"
   import ConfigInput from "../libs/Input.svelte"
   import { app } from "../libs/config.js"
-  import { _ } from "../libs/locale"
+  import { _ } from "../libs/Translate.svelte"
 </script>
 
 <p>{$_("advanced_application_settings")}</p>
