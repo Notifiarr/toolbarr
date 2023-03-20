@@ -9,6 +9,7 @@ import (
 
 	"github.com/Notifiarr/toolbarr/pkg/logs"
 	"github.com/Notifiarr/toolbarr/pkg/mnd"
+	"github.com/Notifiarr/toolbarr/pkg/translations"
 	"golang.org/x/text/language"
 )
 
@@ -85,7 +86,7 @@ func (i *Input) newConfig(settings *Settings) *Config {
 				Size:  4,
 				Mode:  "0640",
 				Files: 10,
-				Lang:  language.AmericanEnglish.String(),
+				Lang:  language.English.String(),
 			},
 			Updates: "production",
 		}
@@ -163,8 +164,8 @@ func (i *Input) setDefaults(s *Settings) *Settings { //nolint:varnamelen
 		s.Updates = "production"
 	}
 
-	if s.Lang == "" {
-		s.Lang = language.AmericanEnglish.String()
+	if translations.Languages(language.English.String())[s.Lang] == "" {
+		s.Lang = language.English.String()
 	}
 
 	return s

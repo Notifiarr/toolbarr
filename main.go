@@ -3,7 +3,6 @@ package main
 import (
 	"embed"
 	"flag"
-	"runtime"
 
 	"github.com/Notifiarr/toolbarr/pkg/app"
 	logs "github.com/Notifiarr/toolbarr/pkg/logs"
@@ -30,16 +29,15 @@ func main() {
 	flag.StringVar(&configFile, "c", "", "Config file path. Determined automatically if not provided.")
 	flag.Parse()
 
-	app := app.New(log, configFile)
 	appMenu := menu.NewMenu()
-	FileMenu := appMenu.AddSubmenu("File")
-	FileMenu.AddText("Quit", keys.CmdOrCtrl("q"), func(a *menu.CallbackData) {
-		app.Quit()
-	})
+	fileMenu := appMenu.AddSubmenu("File")
+	appMenu.Append(menu.EditMenu())
+	app := app.New(log, configFile)
 
-	if runtime.GOOS == "darwin" {
-		// on macos, append EditMenu to enable Cmd+C,Cmd+V,Cmd+Z.
-		appMenu.Append(menu.EditMenu())
+	if mnd.IsWindows {
+		fileMenu.AddText("Exit", keys.OptionOrAlt("f4"), func(a *menu.CallbackData) { app.Quit() })
+	} else {
+		fileMenu.AddText("Quit", keys.CmdOrCtrl("q"), func(a *menu.CallbackData) { app.Quit() })
 	}
 
 	// Create application with options

@@ -3,7 +3,7 @@
   import Fa from "svelte-fa"
   import { faFolderOpen } from "@fortawesome/free-solid-svg-icons"
   import { PickFolder } from "../../wailsjs/go/app/App.js"
-  import { conf } from "../libs/config.js"
+  import { app, conf } from "../libs/config.js"
   import ConfigInput from "../libs/Input.svelte"
   import T, { _ } from "../libs/Translate.svelte"
 
@@ -33,7 +33,7 @@
     <option value={2}>{$_("configvalues.TraceLogging")}</option>
   </ConfigInput>
 </InputGroup>
-{#if !$conf.IsWindows}
+{#if !$app.IsWindows}
 <InputGroup>
   <ConfigInput type="select" id="Mode">
     <option value="0600">0600 (rw-------)</option>
