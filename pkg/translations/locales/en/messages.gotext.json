@@ -2,6 +2,23 @@
     "language": "en",
     "messages": [
         {
+            "id": "Dialog Failed: {Err}",
+            "message": "Dialog Failed: {Err}",
+            "translation": "Dialog Failed: {Err}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Err",
+                    "string": "%[1]v",
+                    "type": "error",
+                    "underlyingType": "interface{Error() string}",
+                    "argNum": 1,
+                    "expr": "err"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
             "id": "Writing config: decoding '{Name}' value '{Value}' error: {Err}",
             "message": "Writing config: decoding '{Name}' value '{Value}' error: {Err}",
             "translation": "Writing config: decoding '{Name}' value '{Value}' error: {Err}",
@@ -122,6 +139,114 @@
             "id": "opening directory browser:",
             "message": "opening directory browser:",
             "translation": "opening directory browser:"
+        },
+        {
+            "id": "Saved {App} instance configuration!",
+            "message": "Saved {App} instance configuration!",
+            "translation": "Saved {App} instance configuration!",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "App",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "instance.App"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Added new {App} instance!",
+            "message": "Added new {App} instance!",
+            "translation": "Added new {App} instance!",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "App",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "instance.App"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Provided {StarrApp} instance {Idx} does not exist",
+            "message": "Provided {StarrApp} instance {Idx} does not exist",
+            "translation": "Provided {StarrApp} instance {Idx} does not exist",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "StarrApp",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "starrApp"
+                },
+                {
+                    "id": "Idx",
+                    "string": "%[2]d",
+                    "type": "int",
+                    "underlyingType": "int",
+                    "argNum": 2,
+                    "expr": "idx"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Really delete {StarrApp} instance? Name: {Name}",
+            "message": "Really delete {StarrApp} instance? Name: {Name}",
+            "translation": "Really delete {StarrApp} instance? Name: {Name}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "StarrApp",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "starrApp"
+                },
+                {
+                    "id": "Name",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "app[idx].Name"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Remove Instance",
+            "message": "Remove Instance",
+            "translation": "Remove Instance",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Removed {StarrApp} Instance",
+            "message": "Removed {StarrApp} Instance",
+            "translation": "Removed {StarrApp} Instance",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "StarrApp",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "starrApp"
+                }
+            ],
+            "fuzzy": true
         },
         {
             "id": "Config Problem",
