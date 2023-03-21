@@ -1,4 +1,6 @@
 <script>
+  export let hidden = false
+
   import { 
     Button,
     Container,
@@ -35,7 +37,7 @@
   }
 </script>
 
-<BGLogo url="golift">
+<BGLogo {hidden} url="golift">
   <Container>
     <Row>
       <p>{$_("main_application_settings")}</p>

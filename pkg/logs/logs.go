@@ -82,7 +82,7 @@ func New() *Logger {
 		debug:   log.New(os.Stdout, "", log.LstdFlags),
 		trace:   log.New(os.Stdout, "", log.LstdFlags),
 		config:  &LogConfig{},
-		printer: message.NewPrinter(language.AmericanEnglish),
+		printer: message.NewPrinter(language.English),
 	}
 	logger.Wails = &wailsInterface{log: logger}
 
@@ -96,7 +96,7 @@ func (l *Logger) Setup(ctx context.Context, config LogConfig) {
 	defer l.mu.Unlock()
 
 	l.config = &config
-	l.printer = message.NewPrinter(message.MatchLanguage(language.AmericanEnglish.String(), config.Lang))
+	l.printer = message.NewPrinter(message.MatchLanguage(language.English.String(), config.Lang))
 
 	wailsRuntime.LogSetLogLevel(ctx, map[Level]logger.LogLevel{
 		LogLevelDebug:  logger.DEBUG,

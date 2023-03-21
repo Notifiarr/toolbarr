@@ -1,6 +1,6 @@
 <script>
-	export let app
+	export let starrApp
 </script>
 
-<h3>{app} Database Tools</h3>
-<p>This is where we check sqlite files. Migrate paths. Update other settings you cannot control in {app}'s interface.</p>
+<h3>{starrApp} Database Tools</h3>
+<p>This is where we check sqlite files. Migrate paths. Update other settings you cannot control in {starrApp}'s interface.</p>

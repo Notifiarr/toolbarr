@@ -4,6 +4,7 @@
   import notifiarr from "../assets/images/notifiarr.png"
 
   export let url = golift
+  export let hidden = false
 
   switch (url) {
     case "starr":     url = starr;     break
@@ -12,7 +13,7 @@
   }
 </script>
 
-<div id="container">
+<div id="container" style={hidden?"display:none":""}>
   <div id="background" style="background-image:url({url});">
     <slot></slot>
   </div>

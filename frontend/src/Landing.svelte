@@ -1,11 +1,12 @@
 <script>
+  export let hidden = false
   import mainLogo from "./assets/images/notifiarr.png"
   import { Container, Row } from "sveltestrap"
   import BGLogo from "./libs/BackgroundLogo.svelte"
   import { _ } from "./libs/Translate.svelte"
 </script>
 
-<BGLogo>
+<BGLogo {hidden}>
   <Container>
     <Row>
         <img alt="{$_("words.Main")} {$_("words.Logo")}" id="logo" src="{mainLogo}" />
