@@ -4,7 +4,7 @@
         {
             "id": "Writing config: decoding '{Name}' value '{Value}' error: {Err}",
             "message": "Writing config: decoding '{Name}' value '{Value}' error: {Err}",
-            "translation": "",
+            "translation": "Scrittura della configurazione: decodifica del valore '{Name}' '{Value}' errore: {Err}",
             "placeholders": [
                 {
                     "id": "Name",
@@ -35,7 +35,7 @@
         {
             "id": "decoding '{Name}' value '{Value}' error:",
             "message": "decoding '{Name}' value '{Value}' error:",
-            "translation": "",
+            "translation": "decodifica '{Name}' valore '{Value}' errore:",
             "placeholders": [
                 {
                     "id": "Name",
@@ -58,7 +58,7 @@
         {
             "id": "Error writing config: {Error}",
             "message": "Error writing config: {Error}",
-            "translation": "",
+            "translation": "Errore nella scrittura della configurazione: {Errore}",
             "placeholders": [
                 {
                     "id": "Error",
@@ -73,12 +73,12 @@
         {
             "id": "writing config:",
             "message": "writing config:",
-            "translation": ""
+            "translation": "scrittura della configurazione:"
         },
         {
             "id": "Saved: '{Name}' Value: {Value}",
             "message": "Saved: '{Name}' Value: {Value}",
-            "translation": "",
+            "translation": "Salvato: '{Name}' Valore: {Value}",
             "placeholders": [
                 {
                     "id": "Name",
@@ -101,7 +101,7 @@
         {
             "id": "Config {Msg}",
             "message": "Config {Msg}",
-            "translation": "",
+            "translation": "Config {Msg}",
             "placeholders": [
                 {
                     "id": "Msg",
@@ -116,22 +116,22 @@
         {
             "id": "Choose Folder",
             "message": "Choose Folder",
-            "translation": ""
+            "translation": "Scegliere la cartella"
         },
         {
             "id": "opening directory browser:",
             "message": "opening directory browser:",
-            "translation": ""
+            "translation": "apertura browser directory:"
         },
         {
             "id": "Config Problem",
             "message": "Config Problem",
-            "translation": ""
+            "translation": "Problema di configurazione"
         },
         {
             "id": "Checking for current {Updates} release: {Err}",
             "message": "Checking for current {Updates} release: {Err}",
-            "translation": "",
+            "translation": "Controllo della release {Updates} attuale: {Err}",
             "placeholders": [
                 {
                     "id": "Updates",
@@ -154,7 +154,7 @@
         {
             "id": "checking for current {Updates} release:",
             "message": "checking for current {Updates} release:",
-            "translation": "",
+            "translation": "Controllo della release {Updates} attuale:",
             "placeholders": [
                 {
                     "id": "Updates",
@@ -169,7 +169,7 @@
         {
             "id": "Checked Current {Updates} release: {Version} ({RelSize})",
             "message": "Checked Current {Updates} release: {Version} ({RelSize})",
-            "translation": "",
+            "translation": "Controllo della release {Updates} attuale: {Version} ({RelSize})",
             "placeholders": [
                 {
                     "id": "Updates",
@@ -200,17 +200,17 @@
         {
             "id": "Downloading File",
             "message": "Downloading File",
-            "translation": ""
+            "translation": "Download del file"
         },
         {
             "id": "missing release, check first?",
             "message": "missing release, check first?",
-            "translation": ""
+            "translation": "release mancante, controllare prima?"
         },
         {
             "id": "Downloading {Updates} update: {Err}",
             "message": "Downloading {Updates} update: {Err}",
-            "translation": "",
+            "translation": "Download dell'aggiornamento {Updates}: {Err}",
             "placeholders": [
                 {
                     "id": "Updates",
@@ -233,12 +233,12 @@
         {
             "id": "downloading failed:",
             "message": "downloading failed:",
-            "translation": ""
+            "translation": "Download fallito:"
         },
         {
             "id": "Downloading {Updates} release from {CurrURL} to {Path} ({Size})",
             "message": "Downloading {Updates} release from {CurrURL} to {Path} ({Size})",
-            "translation": "",
+            "translation": "Download della release {Updates} da {CurrURL} a {Path} ({Size})",
             "placeholders": [
                 {
                     "id": "Updates",
@@ -277,7 +277,7 @@
         {
             "id": "Downloading {Size} to {Path}",
             "message": "Downloading {Size} to {Path}",
-            "translation": "",
+            "translation": "Download di {Size} in {Path}",
             "placeholders": [
                 {
                     "id": "Size",
@@ -300,7 +300,7 @@
         {
             "id": "Launching installer: {Path}: {Err}",
             "message": "Launching installer: {Path}: {Err}",
-            "translation": "",
+            "translation": "Avvio del programma di installazione: {Path}: {Err}",
             "placeholders": [
                 {
                     "id": "Path",
@@ -323,7 +323,7 @@
         {
             "id": "Launching Installer: {Path}",
             "message": "Launching Installer: {Path}",
-            "translation": "",
+            "translation": "Avvio del programma di installazione: {Path}",
             "placeholders": [
                 {
                     "id": "Path",
@@ -338,7 +338,7 @@
         {
             "id": "Opening Folder: {Path}: {Err}",
             "message": "Opening Folder: {Path}: {Err}",
-            "translation": "",
+            "translation": "Apertura cartella: {Path}: {Err}",
             "placeholders": [
                 {
                     "id": "Path",
@@ -361,7 +361,7 @@
         {
             "id": "Opening Path: {Path}",
             "message": "Opening Path: {Path}",
-            "translation": "",
+            "translation": "Apertura del percorso: {Path}",
             "placeholders": [
                 {
                     "id": "Path",
@@ -376,37 +376,37 @@
         {
             "id": "ERROR",
             "message": "ERROR",
-            "translation": ""
+            "translation": "ERRORE"
         },
         {
             "id": "WARN",
             "message": "WARN",
-            "translation": ""
+            "translation": "AVVISO"
         },
         {
             "id": "INFO",
             "message": "INFO",
-            "translation": ""
+            "translation": "INFO"
         },
         {
             "id": "DEBUG",
             "message": "DEBUG",
-            "translation": ""
+            "translation": "DEBUG"
         },
         {
             "id": "TRACE",
             "message": "TRACE",
-            "translation": ""
+            "translation": "TRACE"
         },
         {
             "id": "FATAL",
             "message": "FATAL",
-            "translation": ""
+            "translation": "FATAL"
         },
         {
             "id": "Logger Error: {Err}",
             "message": "Logger Error: {Err}",
-            "translation": "",
+            "translation": "Errore del logger: {Err}",
             "placeholders": [
                 {
                     "id": "Err",
@@ -421,12 +421,12 @@
         {
             "id": "...continuing:",
             "message": "...continuing:",
-            "translation": ""
+            "translation": "...continuo:"
         },
         {
             "id": "Go Panic! This is a bug!\n{Version}-{Revision} {Branch} {R}\n{Stack}",
             "message": "Go Panic! This is a bug!\n{Version}-{Revision} {Branch} {R}\n{Stack}",
-            "translation": "",
+            "translation": "Oddio! Questo e' un bug! \n{Version}-{Revision} {Branch} {R}n{Stack}",
             "placeholders": [
                 {
                     "id": "Version",
@@ -473,12 +473,12 @@
         {
             "id": "Closing Logger",
             "message": "Closing Logger",
-            "translation": ""
+            "translation": "Chiusura del logger"
         },
         {
             "id": "closing log rotator:",
             "message": "closing log rotator:",
-            "translation": ""
+            "translation": "chiusura del log rotator:"
         }
     ]
 }
