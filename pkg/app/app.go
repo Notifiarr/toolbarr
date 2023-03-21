@@ -42,7 +42,7 @@ func (a *App) GetConfig() *config.Settings {
 	return a.config.Settings()
 }
 
-// ConfigSaved sends back the value and a message when a config item changes,
+// ConfigSaved sends back the value and a message when a config item changes.
 type ConfigSaved struct {
 	Msg string
 	Val any
@@ -160,5 +160,5 @@ func (a *App) Languages() map[string]string {
 // CreateShortcut makes a shortcut to the exe on Windows desktop.
 func (a *App) CreateShortcut() (string, error) {
 	a.log.Tracef("Call:CreateShortcut()")
-	return cmds.CreateShortcut()
+	return cmds.CreateShortcut() //nolint:wrapcheck
 }

@@ -32,6 +32,7 @@ func main() {
 	appMenu := menu.NewMenu()
 	fileMenu := appMenu.AddSubmenu("File")
 	appMenu.Append(menu.EditMenu())
+
 	app := app.New(log, configFile)
 
 	if mnd.IsWindows {
