@@ -10,7 +10,7 @@
   import { faFolderOpen, faLock, faUnlock, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons"
   import { PickFolder, SaveInstance, TestInstance, RemoveInstance } from "../../wailsjs/go/app/App.js"
   import { toast } from "../libs/funcs.js"
-  import { onDestroy,onMount,beforeUpdate } from "svelte";
+  import { onDestroy } from "svelte";
 
   let newInstance = false
   if (instance == undefined || Object.keys(instance).length == 0) {
@@ -25,13 +25,12 @@
   let info
   let testOK = false
   let passLocked = true
-  const reset = {...instance}
   let keyLocked = !newInstance
 
-  onDestroy(() => {
-    Object.keys(reset).map((k) =>{instance[k] = reset[k]})
-
-  })
+  const reset = {...instance}
+  onDestroy(() => Object.keys(reset).map((k) => {
+    instance[k] = reset[k]
+  }))
 
   // This func opens a "pick a folder" dialog and populates the Log File Path with the current config file folder.
   function openFolder(event) {
@@ -43,9 +42,9 @@
     e.preventDefault()
     const val = new FormData(e.target)
 
-    if (val.get('Reset')) {
+    if (val.get("Reset")) {
       instance = {...reset}
-    } else if (val.get('Test')) {
+    } else if (val.get("Test")) {
       info = undefined
       TestInstance(instance).then(
         msg => {
@@ -57,7 +56,7 @@
           testOK = false
         },
       )
-    } else if (val.get('Delete')) {
+    } else if (val.get("Delete")) {
       RemoveInstance(index, starrApp).then(
         resp => {
           if (resp.List) $conf.Instances[starrApp] = resp.List
@@ -70,7 +69,7 @@
         resp => {
           if (resp.List) $conf.Instances[starrApp] = resp.List
           if (resp.Msg) toast("success", resp.Msg)
-          Object.keys(instance).map((k) =>{reset[k] = instance[k]})
+          Object.keys(instance).map((k) =>{ reset[k] = instance[k] })
         },
         err => {toast("error", err)},
       )

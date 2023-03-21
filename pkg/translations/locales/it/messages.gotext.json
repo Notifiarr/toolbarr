@@ -58,7 +58,7 @@
         {
             "id": "Error writing config: {Error}",
             "message": "Error writing config: {Error}",
-            "translation": "Errore nella scrittura della configurazione: {Errore}",
+            "translation": "Errore nella scrittura della configurazione: {Error}",
             "placeholders": [
                 {
                     "id": "Error",

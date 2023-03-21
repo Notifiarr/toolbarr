@@ -29,7 +29,7 @@
   import bgVint from "./assets/images/vintage-background.png"
   import bgDark from "./assets/images/dark-background.png"
   import { _, isReady } from "./libs/Translate.svelte"
-    import { toast } from "./libs/funcs";
+  import { toast } from "./libs/funcs"
 
   let isOpen = false // nav open/closer tracker (mobile)
   let app
@@ -48,7 +48,7 @@
   // Sometimes the config changes outside the GUI.
   EventsOn("configChanged", data => {
     $conf = data
-    if ($conf.DevMode) toast("warning", "Config Update", "EVENT (debug)")
+    if ($conf.DevMode) toast("warning", "Config Updated", "EVENT (debug)")
   })
 
   /* Prevent right-click when dev mode is disabled. */
@@ -91,10 +91,10 @@
           <Applogo size="20px" app="Settings" /> <span class="d-md-none">{$_("words.Configuration")}</span>
         </DropdownToggle>
         <DropdownMenu dark={$conf.Dark} end>
-          <DropdownItem on:click={()=>nav("Settings")}><Fa primaryColor="sienna" icon="{faGear}" /> {$_("words.Settings")}</DropdownItem>
+          <DropdownItem on:click={()=>nav("Settings")}><Fa primaryColor="sienna" icon={faGear} /> {$_("words.Settings")}</DropdownItem>
           <DropdownItem on:click={()=>nav("Toolbox")}><Applogo size="19px" app="Toolbox" /> Toolbox</DropdownItem>
-          <DropdownItem on:click={()=>nav("Links")}><Fa primaryColor="dodgerblue" icon="{faLink}" /> {$_("words.Links")}</DropdownItem>
-          <DropdownItem on:click={()=>nav("About")}><Fa primaryColor="mediumpurple" icon="{faBookBible}" /> {$_("words.About")}</DropdownItem>
+          <DropdownItem on:click={()=>nav("Links")}><Fa primaryColor="dodgerblue" icon={faLink} /> {$_("words.Links")}</DropdownItem>
+          <DropdownItem on:click={()=>nav("About")}><Fa primaryColor="mediumpurple" icon={faBookBible} /> {$_("words.About")}</DropdownItem>
         </DropdownMenu>
       </Dropdown>
       {/if}
@@ -104,12 +104,18 @@
 <br />
 
 <main>
-  <About hidden={app != "About"} />
+  <!-- if blocks cause the page to destroy when navigating away, using hidden={false} does not -->
+  {#if app == "About"}
+    <About />
+  {/if}
   <Landing hidden={app != $ver.Title} />
   <Toolbox hidden={app != "Toolbox"} />
   <Links  hidden={app != "Links"} />
-  <Settings hidden={app != "Settings"} />
+  {#if app == "Settings"}
+    <Settings />
+  {/if}
   {#each starrs as starrApp}
+  <!-- the key block forces the page to refresh when the hide method is toggled.-->
     {#key $conf.Hide[starrApp]}
       <Starr hidden={app != starrApp} {starrApp} />
     {/key}
