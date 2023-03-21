@@ -19,7 +19,7 @@
         {
             "id": "Writing config: decoding '{Name}' value '{Value}' error: {Err}",
             "message": "Writing config: decoding '{Name}' value '{Value}' error: {Err}",
-            "translation": "",
+            "translation": "Skrivekonfiguration: afkodning af '{Name}' værdi '{Value}' fejl: {Err}",
             "placeholders": [
                 {
                     "id": "Name",
@@ -50,7 +50,7 @@
         {
             "id": "decoding '{Name}' value '{Value}' error:",
             "message": "decoding '{Name}' value '{Value}' error:",
-            "translation": "",
+            "translation": "fejl ved afkodning af '{Name}' værdi '{Value}':",
             "placeholders": [
                 {
                     "id": "Name",
@@ -73,7 +73,7 @@
         {
             "id": "Error writing config: {Error}",
             "message": "Error writing config: {Error}",
-            "translation": "",
+            "translation": "Fejl ved skrivning af konfiguration: {Error}",
             "placeholders": [
                 {
                     "id": "Error",
@@ -88,12 +88,12 @@
         {
             "id": "writing config:",
             "message": "writing config:",
-            "translation": ""
+            "translation": "skrive konfiguration:"
         },
         {
             "id": "Saved: '{Name}' Value: {Value}",
             "message": "Saved: '{Name}' Value: {Value}",
-            "translation": "",
+            "translation": "Gemt: '{Name}' Værdi: {Value}",
             "placeholders": [
                 {
                     "id": "Name",
@@ -116,7 +116,7 @@
         {
             "id": "Config {Msg}",
             "message": "Config {Msg}",
-            "translation": "",
+            "translation": "Konfiguration {Msg}",
             "placeholders": [
                 {
                     "id": "Msg",
@@ -131,12 +131,12 @@
         {
             "id": "Choose Folder",
             "message": "Choose Folder",
-            "translation": ""
+            "translation": "Vælg Mappe"
         },
         {
             "id": "opening directory browser:",
             "message": "opening directory browser:",
-            "translation": ""
+            "translation": "åbning af mappebrowser:"
         },
         {
             "id": "Saved {App} instance configuration!",
@@ -237,12 +237,12 @@
         {
             "id": "Config Problem",
             "message": "Config Problem",
-            "translation": ""
+            "translation": "Konfigurationsproblem"
         },
         {
             "id": "Checking for current {Updates} release: {Err}",
             "message": "Checking for current {Updates} release: {Err}",
-            "translation": "",
+            "translation": "Søger efter den aktuelle {Updates}-udgivelse: {Err}",
             "placeholders": [
                 {
                     "id": "Updates",
@@ -265,7 +265,7 @@
         {
             "id": "checking for current {Updates} release:",
             "message": "checking for current {Updates} release:",
-            "translation": "",
+            "translation": "søger efter den aktuelle {Updates}-udgivelse:",
             "placeholders": [
                 {
                     "id": "Updates",
@@ -280,7 +280,7 @@
         {
             "id": "Checked Current {Updates} release: {Version} ({RelSize})",
             "message": "Checked Current {Updates} release: {Version} ({RelSize})",
-            "translation": "",
+            "translation": "Afkrydset aktuelle {Updates}-udgivelse: {Version} ({RelSize})",
             "placeholders": [
                 {
                     "id": "Updates",
@@ -311,17 +311,17 @@
         {
             "id": "Downloading File",
             "message": "Downloading File",
-            "translation": ""
+            "translation": "Downloader fil"
         },
         {
             "id": "missing release, check first?",
             "message": "missing release, check first?",
-            "translation": ""
+            "translation": "mangler udgivelse, tjek først?"
         },
         {
             "id": "Downloading {Updates} update: {Err}",
             "message": "Downloading {Updates} update: {Err}",
-            "translation": "",
+            "translation": "Downloader {Updates}-opdatering: {Err}",
             "placeholders": [
                 {
                     "id": "Updates",
@@ -344,12 +344,12 @@
         {
             "id": "downloading failed:",
             "message": "downloading failed:",
-            "translation": ""
+            "translation": "download mislykkedes:"
         },
         {
             "id": "Downloading {Updates} release from {CurrURL} to {Path} ({Size})",
             "message": "Downloading {Updates} release from {CurrURL} to {Path} ({Size})",
-            "translation": "",
+            "translation": "Downloader {Updates}-udgivelsen fra {CurrURL} til {Path} ({Size})",
             "placeholders": [
                 {
                     "id": "Updates",
@@ -388,7 +388,7 @@
         {
             "id": "Downloading {Size} to {Path}",
             "message": "Downloading {Size} to {Path}",
-            "translation": "",
+            "translation": "Downloader {Size} til {Path}",
             "placeholders": [
                 {
                     "id": "Size",
@@ -411,7 +411,7 @@
         {
             "id": "Launching installer: {Path}: {Err}",
             "message": "Launching installer: {Path}: {Err}",
-            "translation": "",
+            "translation": "Starter installationsprogrammet: {Path}: {Err}",
             "placeholders": [
                 {
                     "id": "Path",
@@ -434,7 +434,7 @@
         {
             "id": "Launching Installer: {Path}",
             "message": "Launching Installer: {Path}",
-            "translation": "",
+            "translation": "Starter installationsprogram: {Path}",
             "placeholders": [
                 {
                     "id": "Path",
@@ -449,7 +449,7 @@
         {
             "id": "Opening Folder: {Path}: {Err}",
             "message": "Opening Folder: {Path}: {Err}",
-            "translation": "",
+            "translation": "Åbningsmappe: {Path}: {Err}",
             "placeholders": [
                 {
                     "id": "Path",
@@ -472,7 +472,7 @@
         {
             "id": "Opening Path: {Path}",
             "message": "Opening Path: {Path}",
-            "translation": "",
+            "translation": "Åbningssti: {Path}",
             "placeholders": [
                 {
                     "id": "Path",
@@ -487,37 +487,37 @@
         {
             "id": "ERROR",
             "message": "ERROR",
-            "translation": ""
+            "translation": "FEJL"
         },
         {
             "id": "WARN",
             "message": "WARN",
-            "translation": ""
+            "translation": "ADVARELSE"
         },
         {
             "id": "INFO",
             "message": "INFO",
-            "translation": ""
+            "translation": "INFO"
         },
         {
             "id": "DEBUG",
             "message": "DEBUG",
-            "translation": ""
+            "translation": "FEJLFINDE"
         },
         {
             "id": "TRACE",
             "message": "TRACE",
-            "translation": ""
+            "translation": "SPRE"
         },
         {
             "id": "FATAL",
             "message": "FATAL",
-            "translation": ""
+            "translation": "FATAL"
         },
         {
             "id": "Logger Error: {Err}",
             "message": "Logger Error: {Err}",
-            "translation": "",
+            "translation": "Logger-fejl: {Err}",
             "placeholders": [
                 {
                     "id": "Err",
@@ -532,12 +532,12 @@
         {
             "id": "...continuing:",
             "message": "...continuing:",
-            "translation": ""
+            "translation": "..fortsætter:"
         },
         {
             "id": "Go Panic! This is a bug!\n{Version}-{Revision} {Branch} {R}\n{Stack}",
             "message": "Go Panic! This is a bug!\n{Version}-{Revision} {Branch} {R}\n{Stack}",
-            "translation": "Go Panic! This is a bug!\n{Version}-{Revision} {Branch} {R}\n{Stack}",
+            "translation": "Gå i panik! Dette er en fejl!\n{Version}-{Revision} {Branch} {R}\n{Stack}",
             "placeholders": [
                 {
                     "id": "Version",
@@ -584,12 +584,12 @@
         {
             "id": "Closing Logger",
             "message": "Closing Logger",
-            "translation": ""
+            "translation": "Lukke logger"
         },
         {
             "id": "closing log rotator:",
             "message": "closing log rotator:",
-            "translation": ""
+            "translation": "lukning af log rotation:"
         }
     ]
 }
