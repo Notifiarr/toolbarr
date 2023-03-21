@@ -1,1 +1,51 @@
-{}
+{
+    "words": {
+        "Advanced": "Avanzato",
+        "Branch": "Branch",
+        "by": "da",
+        "Created": "Creato",
+        "About": "Cos'è",
+        "CONFIG": "CONFIGURAZIONE",
+        "Configuration": "Configurazione",
+        "Directions": "Direzioni",
+        "Downloading": "In Download",
+        "Download": "Download",
+        "Links": "Collegamenti",
+        "Current": "Attuale",
+        "General": "Generale",
+        "Logs": "Logging",
+        "Installer": "Installer",
+        "Resources": "Risorse",
+        "Logo": "Logo",
+        "Main": "Principale",
+        "Running": "In esecuzione",
+        "Version": "Versione"
+    },
+    "configinput": {
+        "File": "File di Configurazione",
+        "DevMode": "Dev Mode",
+        "AppPath": "Percorso App"
+    },
+    "customconfig": {
+        "CreateShortcut": "Crea Collegamento",
+        "CustomConfigPath": "Percorso file di configurazione personalizzato",
+        "Withafullpath": "Con un percorso completo",
+        "Makeabashscript": "Crea un alias o uno script di bash che lo fa per te.",
+        "linuxHelp": "{title} cercherà <code>{name}.conf</code> nella stessa cartella del file binario <code>{name}</code>. Se non viene trovato, il file di configurazione viene utilizzato in una posizione all'interno della cartella home. Se si desidera che il file di configurazione si trovi nella stessa posizione del file binario, copiarlo lì, riavviare l'applicazione e verrà utilizzato. Per utilizzare un percorso di file di configurazione personalizzato su Linux, occorre fornirlo come argomento CLI quando si lancia l'eseguibile."
+    },
+    "configtooltip": {
+        "DevMode": "Attivare questa funzione quando lo sviluppatore lo richiede.",
+        "File": "Può essere modificato solo all'avvio dell'applicazione"
+    },
+    "configvalues": {
+        "Enabled": "Abilitato",
+        "Disabled": "Disabilitato",
+        "DebugLogging": "Debug Logging",
+        "Megabyte": "{count} Megabyte{count, plural, =0 {s} uno {} altro{s}}",
+        "CONFIGERROR": "ERRORE DI CONFIGURAZIONE"
+    },
+    "aboutPage": {
+        "AppInfo": "Info App",
+        "Codecookincollaborators": "Collaboratori di Code Cookin."
+    }
+}

@@ -58,7 +58,7 @@
         {
             "id": "Error writing config: {Error}",
             "message": "Error writing config: {Error}",
-            "translation": "Errore nella scrittura della configurazione: {Errore}",
+            "translation": "Errore nella scrittura della configurazione: {Error}",
             "placeholders": [
                 {
                     "id": "Error",
@@ -101,7 +101,7 @@
         {
             "id": "Config {Msg}",
             "message": "Config {Msg}",
-            "translation": "Config {Msg}",
+            "translation": "Configurazione {Msg}",
             "placeholders": [
                 {
                     "id": "Msg",
@@ -426,7 +426,7 @@
         {
             "id": "Go Panic! This is a bug!\n{Version}-{Revision} {Branch} {R}\n{Stack}",
             "message": "Go Panic! This is a bug!\n{Version}-{Revision} {Branch} {R}\n{Stack}",
-            "translation": "Oddio! Questo e' un bug! \n{Version}-{Revision} {Branch} {R}n{Stack}",
+            "translation": "Oddio! Questo è un bug! \n{Version}-{Revision} {Branch} {R}\n{Stack}",
             "placeholders": [
                 {
                     "id": "Version",
