@@ -29,6 +29,7 @@
   import bgVint from "./assets/images/vintage-background.png"
   import bgDark from "./assets/images/dark-background.png"
   import { _, isReady } from "./libs/Translate.svelte"
+    import { toast } from "./libs/funcs";
 
   let isOpen = false // nav open/closer tracker (mobile)
   let app
@@ -45,7 +46,10 @@
   }
 
   // Sometimes the config changes outside the GUI.
-  EventsOn("configChanged", (data) => ($conf = data))
+  EventsOn("configChanged", data => {
+    $conf = data
+    if ($conf.DevMode) toast("warning", "Config Update", "EVENT (debug)")
+  })
 
   /* Prevent right-click when dev mode is disabled. */
   function blockRightClick(e) {if (!$conf.DevMode) e.preventDefault() }

@@ -92,7 +92,7 @@ func (a *App) Quit() {
 
 func (a *App) ErrorDialog(title, msg string) {
 	_, _ = wr.MessageDialog(a.ctx, wr.MessageDialogOptions{
-		Type:    "error",
+		Type:    wr.ErrorDialog,
 		Title:   title,
 		Message: msg,
 	})
