@@ -33,7 +33,7 @@ func main() {
 	fileMenu := appMenu.AddSubmenu("File")
 	appMenu.Append(menu.EditMenu())
 
-	app := app.New(log, configFile)
+	app := app.New(log, configFile, appMenu)
 
 	if mnd.IsWindows {
 		fileMenu.AddText("Exit", keys.OptionOrAlt("f4"), func(a *menu.CallbackData) { app.Quit() })

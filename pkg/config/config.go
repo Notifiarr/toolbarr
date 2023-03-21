@@ -91,6 +91,7 @@ func (i *Input) newConfig(settings *Settings) *Config {
 				Lang:  language.English.String(),
 			},
 			Instances: make(Instances),
+			Hide:      make(map[string]bool),
 			Updates:   "production",
 		}
 	}
@@ -171,6 +172,10 @@ func (i *Input) setDefaults(s *Settings) *Settings { //nolint:varnamelen
 
 	if s.Instances == nil {
 		s.Instances = make(Instances)
+	}
+
+	if s.Hide == nil {
+		s.Hide = make(map[string]bool)
 	}
 
 	if translations.Languages(language.English.String())[s.Lang] == "" {

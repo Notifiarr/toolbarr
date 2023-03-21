@@ -13,6 +13,7 @@
       Styles, 
       Tooltip
   } from "sveltestrap"
+  import { EventsOn } from "../wailsjs/runtime"
   import Fa from "svelte-fa"
   import { faGear, faBookBible, faLink } from "@fortawesome/free-solid-svg-icons"
   import About from "./About.svelte"
@@ -43,6 +44,9 @@
     app = a
   }
 
+  // Sometimes the config changes outside the GUI.
+  EventsOn("configChanged", (data) => ($conf = data))
+
   /* Prevent right-click when dev mode is disabled. */
   function blockRightClick(e) {if (!$conf.DevMode) e.preventDefault() }
   document.removeEventListener("contextmenu", blockRightClick)
@@ -63,16 +67,21 @@
   <NavbarBrand on:click={(e) => (app = $ver.Title,e.preventDefault())}>
     <Applogo size="25px" {app} /> {$_("words."+app) == "words."+app ? app : $_("words."+app)}
   </NavbarBrand>
-  <ConfigInput type="switch" id="Dark" notoast noreload></ConfigInput>
+  {#if $conf.Hide.Dark != true}
+    <ConfigInput type="switch" id="Dark" notoast noreload></ConfigInput>
+  {/if}
   <NavbarToggler on:click={() => (isOpen = !isOpen)} />
   <Collapse {isOpen} navbar expand="md">
     <Nav class="ms-auto" navbar>
       {#each starrs as appLink}
-        <Tooltip target={appLink} class="d-none d-md-block" placement="bottom">{appLink}</Tooltip>
-        <NavLink id={appLink} on:click={()=>nav(appLink)}>
-          <Applogo size="20px" app={appLink} /> <span class="d-md-none">{appLink}</span>
-        </NavLink>
+        {#if $conf.Hide[appLink] != true}
+          <Tooltip target={appLink} class="d-none d-md-block" placement="bottom">{appLink}</Tooltip>
+          <NavLink id={appLink} on:click={()=>nav(appLink)}>
+            <Applogo size="20px" app={appLink} /> <span class="d-md-none">{appLink}</span>
+          </NavLink>
+        {/if}
       {/each}
+      {#if $conf.Hide.Settings != true}
       <Dropdown nav inNavbar>
         <DropdownToggle nav>
           <Applogo size="20px" app="Settings" /> <span class="d-md-none">{$_("words.Configuration")}</span>
@@ -84,6 +93,7 @@
           <DropdownItem on:click={()=>nav("About")}><Fa primaryColor="mediumpurple" icon="{faBookBible}" /> {$_("words.About")}</DropdownItem>
         </DropdownMenu>
       </Dropdown>
+      {/if}
     </Nav>
   </Collapse>
 </Navbar>
@@ -96,7 +106,9 @@
   <Links  hidden={app != "Links"} />
   <Settings hidden={app != "Settings"} />
   {#each starrs as starrApp}
-    <Starr hidden={app != starrApp} {starrApp} />
+    {#key $conf.Hide[starrApp]}
+      <Starr hidden={app != starrApp} {starrApp} />
+    {/key}
   {/each}
 </main>
 {/if}
