@@ -7,22 +7,42 @@ import (
 	"runtime"
 	"time"
 
+	"github.com/Notifiarr/toolbarr/pkg/app/cmds"
 	"github.com/Notifiarr/toolbarr/pkg/config"
 	"github.com/Notifiarr/toolbarr/pkg/mnd"
 	"github.com/Notifiarr/toolbarr/pkg/translations"
 	"github.com/gorilla/schema"
-	wailsRuntime "github.com/wailsapp/wails/v2/pkg/runtime"
+	wr "github.com/wailsapp/wails/v2/pkg/runtime"
 	"golift.io/version"
 )
 
 //nolint:gochecknoglobals // this is supposed to be global.
 var decoder = schema.NewDecoder()
 
+// Ask the user a Yes/No question.
+func (a *App) Ask(title, msg string) bool {
+	resp, err := wr.MessageDialog(a.ctx, wr.MessageDialogOptions{
+		Type:          wr.QuestionDialog,
+		Title:         title,
+		Message:       msg,
+		Buttons:       []string{"Yes", "No"},
+		DefaultButton: "Yes",
+		CancelButton:  "No",
+	})
+	if err != nil {
+		a.log.Errorf("Dialog Failed: %v", err)
+	}
+
+	return resp == "Yes"
+}
+
+// GetConfig returns a copy of the app settings.
 func (a *App) GetConfig() *config.Settings {
 	a.log.Tracef("Call:GetConfig()")
 	return a.config.Settings()
 }
 
+// ConfigSaved sends back the value and a message when a config item changes,
 type ConfigSaved struct {
 	Msg string
 	Val any
@@ -39,7 +59,7 @@ func (a *App) SaveConfigItem(name string, value any, reload bool) (*ConfigSaved,
 		return nil, fmt.Errorf("%s %w", a.log.Translate("decoding '%s' value '%v' error:", name, value), err)
 	}
 
-	if err = a.config.Write(config); err != nil {
+	if _, err = a.config.Write(config); err != nil {
 		a.log.Errorf("Error writing config: %v", err.Error())
 		return nil, fmt.Errorf("%s %w", a.log.Translate("writing config:"), err)
 	}
@@ -63,20 +83,21 @@ func (a *App) PickFolder(path string) (string, error) {
 		path = a.config.Settings().Path
 	}
 
-	dir, err := wailsRuntime.OpenDirectoryDialog(a.ctx, wailsRuntime.OpenDialogOptions{
+	dir, err := wr.OpenDirectoryDialog(a.ctx, wr.OpenDialogOptions{
 		DefaultDirectory:     path,
 		Title:                a.log.Translate("Choose Folder"),
 		CanCreateDirectories: true,
 		ShowHiddenFiles:      true,
 	})
 	if err != nil {
-		wailsRuntime.LogError(a.ctx, err.Error())
+		wr.LogError(a.ctx, err.Error())
 		return "", fmt.Errorf("%s %w", a.log.Translate("opening directory browser:"), err)
 	}
 
 	return dir, nil
 }
 
+// Version lets the frontend know who it is.
 type Version struct {
 	StartTime int64
 	Version   string
@@ -89,6 +110,7 @@ type Version struct {
 	Info
 }
 
+// Info provides additional immutable data to the front end.
 type Info struct {
 	IsWindows bool
 	IsLinux   bool
@@ -100,6 +122,7 @@ type Info struct {
 	Username  string
 }
 
+// Version returns the app version and other immutable info.
 func (a *App) Version() Version {
 	a.log.Tracef("Call:Version()")
 
@@ -128,7 +151,14 @@ func (a *App) Version() Version {
 	}
 }
 
+// Languages returns a list of languages the backend supports.
 func (a *App) Languages() map[string]string {
 	a.log.Tracef("Call:Languages()")
 	return translations.Languages(a.config.Settings().Lang)
+}
+
+// CreateShortcut makes a shortcut to the exe on Windows desktop.
+func (a *App) CreateShortcut() (string, error) {
+	a.log.Tracef("Call:CreateShortcut()")
+	return cmds.CreateShortcut()
 }

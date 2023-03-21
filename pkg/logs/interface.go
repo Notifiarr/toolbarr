@@ -53,7 +53,7 @@ func (l *wailsInterface) Print(msg string) {
 }
 
 func (l *wailsInterface) Info(msg string) {
-	l.Print(msg)
+	l.log.writeMsg("["+l.log.Translate("INFO")+"] "+msg, l.log.logger)
 }
 
 func (l *wailsInterface) Warning(msg string) {

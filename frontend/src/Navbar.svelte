@@ -31,6 +31,8 @@
 
   let isOpen = false // nav open/closer tracker (mobile)
   let app
+  const starrs = ["Lidarr", "Prowlarr", "Radarr", "Readarr", "Sonarr", "Whisparr"]
+
   $: if (app == undefined) app = $ver.Title // start page (landing)
 
   // Keep dark-mode class up to date with dark config setting.
@@ -65,7 +67,7 @@
   <NavbarToggler on:click={() => (isOpen = !isOpen)} />
   <Collapse {isOpen} navbar expand="md">
     <Nav class="ms-auto" navbar>
-      {#each ["Lidarr", "Prowlarr", "Radarr", "Readarr", "Sonarr", "Whisparr"] as appLink}
+      {#each starrs as appLink}
         <Tooltip target={appLink} class="d-none d-md-block" placement="bottom">{appLink}</Tooltip>
         <NavLink id={appLink} on:click={()=>nav(appLink)}>
           <Applogo size="20px" app={appLink} /> <span class="d-md-none">{appLink}</span>
@@ -88,19 +90,14 @@
 <br />
 
 <main>
-  {#if app == $ver.Title }
-  <Landing />
-  {:else if app == "About"}
-  <About />
-  {:else if app == "Toolbox" }
-  <Toolbox />
-  {:else if app == "Links" }
-  <Links />
-  {:else if app == "Settings" }
-  <Settings />
-  {:else}
-  <Starr {app} />
-  {/if}
+  <About hidden={app != "About"} />
+  <Landing hidden={app != $ver.Title} />
+  <Toolbox hidden={app != "Toolbox"} />
+  <Links  hidden={app != "Links"} />
+  <Settings hidden={app != "Settings"} />
+  {#each starrs as starrApp}
+    <Starr hidden={app != starrApp} {starrApp} />
+  {/each}
 </main>
 {/if}
 

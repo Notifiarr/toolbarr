@@ -1,4 +1,4 @@
-package app
+package cmds
 
 import (
 	"bytes"
@@ -43,7 +43,7 @@ func (p *PowerShell) execute(args ...string) (string, error) {
 	return output.String(), cmd.Run()
 }
 
-func (a *App) CreateShortcut() (string, error) {
+func CreateShortcut() (string, error) {
 	shell, err := newPowerShell()
 	if err != nil {
 		return "", err

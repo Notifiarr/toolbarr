@@ -12,10 +12,24 @@ import (
 // Avoid pointers and complex types.
 type Settings struct {
 	logs.LogConfig
-	Dark    bool
-	DevMode bool
-	Updates string
-	File    string // should not be changed.
+	Dark      bool
+	DevMode   bool
+	Updates   string
+	File      string // should not be changed.
+	Instances Instances
+}
+
+type Instances map[string][]Instance
+
+type Instance struct {
+	App    string // Radarr, Sonarr, etc
+	Name   string // Custom name: Radarr2, Radarr4k, etc.
+	URL    string // url to app.
+	User   string // username for app.
+	Pass   string // password for app.
+	Key    string // api key for app.
+	DBPath string // path to database for app.
+	SSL    bool   // verify ssl cert?
 }
 
 func (c *Config) Stop() {
@@ -47,7 +61,7 @@ func (c *Config) Update(settings *Settings) *Settings {
 }
 
 // Write writes the config file and updates the running settings.
-func (c *Config) Write(settings *Settings) error {
+func (c *Config) Write(settings *Settings) (*Settings, error) {
 	if settings == nil {
 		settings = c.Settings()
 	}
@@ -56,17 +70,15 @@ func (c *Config) Write(settings *Settings) error {
 
 	cnfOpen, err := os.Create(c.file)
 	if err != nil {
-		return fmt.Errorf("creating config file: %s: %w", c.file, err)
+		return nil, fmt.Errorf("creating config file: %s: %w", c.file, err)
 	}
 	defer cnfOpen.Close()
 
 	if err = gob.NewEncoder(cnfOpen).Encode(settings); err != nil {
-		return fmt.Errorf("encoding config file: %s: %w", c.file, err)
+		return nil, fmt.Errorf("encoding config file: %s: %w", c.file, err)
 	}
 
-	c.Update(settings)
-
-	return nil
+	return c.Update(settings), nil
 }
 
 // watch for updates and settings requests.
@@ -83,6 +95,17 @@ func (c *Config) watch() {
 		}
 
 		settings := *c.settings
+		settings.Instances = c.settings.Instances.Copy()
 		c.rep <- &settings
 	}
+}
+
+func (i Instances) Copy() Instances {
+	instances := make(Instances)
+	for k := range i {
+		instances[k] = make([]Instance, len(i[k]))
+		copy(instances[k], i[k])
+	}
+
+	return instances
 }

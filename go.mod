@@ -10,6 +10,7 @@ require (
 	golang.org/x/text v0.8.0
 	golift.io/datacounter v1.0.4
 	golift.io/rotatorr v0.0.0-20230317103044-d974d22ee164
+	golift.io/starr v0.14.1-0.20230317102832-731217ae0446
 	golift.io/version v0.0.2
 )
 

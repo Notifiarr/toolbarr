@@ -72,7 +72,9 @@ func (i *Input) load() (*Config, error) {
 
 func (i *Input) defaultConfig() (*Config, error) {
 	c := i.newConfig(nil)
-	return c, c.Write(nil)
+	_, err := c.Write(nil)
+
+	return c, err
 }
 
 // newConfig returns a config with defaults.
@@ -88,7 +90,8 @@ func (i *Input) newConfig(settings *Settings) *Config {
 				Files: 10,
 				Lang:  language.English.String(),
 			},
-			Updates: "production",
+			Instances: make(Instances),
+			Updates:   "production",
 		}
 	}
 
@@ -137,7 +140,9 @@ func (i *Input) openCustomPath() (*Config, error) {
 		return nil, fmt.Errorf("creating config path dir:  %s: %w", configDir, err)
 	}
 
-	return config, config.Write(nil)
+	_, err = config.Write(nil)
+
+	return config, err
 }
 
 func (i *Input) openConfigFile() (*Config, error) {
@@ -162,6 +167,10 @@ func (i *Input) setDefaults(s *Settings) *Settings { //nolint:varnamelen
 
 	if s.Updates == "" {
 		s.Updates = "production"
+	}
+
+	if s.Instances == nil {
+		s.Instances = make(Instances)
 	}
 
 	if translations.Languages(language.English.String())[s.Lang] == "" {

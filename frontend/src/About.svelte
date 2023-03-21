@@ -1,4 +1,6 @@
 <script type="ts">
+  export let hidden = false
+
   import Fa from "svelte-fa"
   import { faGithub, faDiscord } from "@fortawesome/free-brands-svg-icons"
   import { faGear } from "@fortawesome/free-solid-svg-icons"
@@ -94,7 +96,7 @@
         (minutes > 0 ? minutes + "m " : "") + (seconds > 0 ? seconds + "s " : "")
 </script>
 
-<BGLogo url="golift">
+<BGLogo {hidden} url="golift">
   <Container>
     <Row>
       <h1>{$_("words.About")} {$app.Title}</h1>
