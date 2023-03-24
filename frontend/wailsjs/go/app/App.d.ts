@@ -11,6 +11,8 @@ export function CreateShortcut():Promise<string>;
 
 export function DownloadUpdate():Promise<any>;
 
+export function ErrorDialog(arg1:string,arg2:string):Promise<void>;
+
 export function GetConfig():Promise<any>;
 
 export function Languages():Promise<{[key: string]: string}>;

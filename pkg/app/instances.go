@@ -61,7 +61,10 @@ func (a *App) RemoveInstance(idx int, starrApp string) (*SavedInstance, error) {
 		return nil, fmt.Errorf("%s %w", a.log.Translate("writing config:"), err)
 	}
 
-	return &SavedInstance{Msg: "Removed instance", List: settings.Instances[starrApp]}, nil
+	return &SavedInstance{
+		Msg:  a.log.Translate("Removed %s Instance", starrApp),
+		List: settings.Instances[starrApp],
+	}, nil
 }
 
 func (a *App) TestInstance(instance *config.Instance) (string, error) {

@@ -17,6 +17,7 @@ type Settings struct {
 	Updates   string
 	File      string // should not be changed.
 	Instances Instances
+	Hide      map[string]bool
 }
 
 type Instances map[string][]Instance
@@ -91,13 +92,23 @@ func (c *Config) watch() {
 
 	for q := range c.ask {
 		if q != nil {
+			// new settings, replace running values.
 			q.File, c.settings = c.file, q
 		}
-
-		settings := *c.settings
-		settings.Instances = c.settings.Instances.Copy()
-		c.rep <- &settings
+		// send a copy of running values.
+		c.rep <- c.settings.copy()
 	}
+}
+
+func (s *Settings) copy() *Settings {
+	settings := *s
+	settings.Instances = s.Instances.Copy()
+
+	for k, v := range settings.Hide {
+		settings.Hide[k] = v
+	}
+
+	return &settings
 }
 
 func (i Instances) Copy() Instances {

@@ -13,6 +13,7 @@
       Styles, 
       Tooltip
   } from "sveltestrap"
+  import { EventsOn } from "../wailsjs/runtime"
   import Fa from "svelte-fa"
   import { faGear, faBookBible, faLink } from "@fortawesome/free-solid-svg-icons"
   import About from "./About.svelte"
@@ -28,6 +29,7 @@
   import bgVint from "./assets/images/vintage-background.png"
   import bgDark from "./assets/images/dark-background.png"
   import { _, isReady } from "./libs/Translate.svelte"
+  import { toast } from "./libs/funcs"
 
   let isOpen = false // nav open/closer tracker (mobile)
   let app
@@ -42,6 +44,12 @@
     isOpen = false
     app = a
   }
+
+  // Sometimes the config changes outside the GUI.
+  EventsOn("configChanged", data => {
+    $conf = data
+    if ($conf.DevMode) toast("warning", "Config Updated", "EVENT (debug)")
+  })
 
   /* Prevent right-click when dev mode is disabled. */
   function blockRightClick(e) {if (!$conf.DevMode) e.preventDefault() }
@@ -63,40 +71,54 @@
   <NavbarBrand on:click={(e) => (app = $ver.Title,e.preventDefault())}>
     <Applogo size="25px" {app} /> {$_("words."+app) == "words."+app ? app : $_("words."+app)}
   </NavbarBrand>
-  <ConfigInput type="switch" id="Dark" notoast noreload></ConfigInput>
+  {#if $conf.Hide.Dark != true}
+    <ConfigInput type="switch" id="Dark" notoast noreload></ConfigInput>
+  {/if}
   <NavbarToggler on:click={() => (isOpen = !isOpen)} />
   <Collapse {isOpen} navbar expand="md">
     <Nav class="ms-auto" navbar>
       {#each starrs as appLink}
-        <Tooltip target={appLink} class="d-none d-md-block" placement="bottom">{appLink}</Tooltip>
-        <NavLink id={appLink} on:click={()=>nav(appLink)}>
-          <Applogo size="20px" app={appLink} /> <span class="d-md-none">{appLink}</span>
-        </NavLink>
+        {#if $conf.Hide[appLink] != true}
+          <Tooltip target={appLink} class="d-none d-md-block" placement="bottom">{appLink}</Tooltip>
+          <NavLink id={appLink} on:click={()=>nav(appLink)}>
+            <Applogo size="20px" app={appLink} /> <span class="d-md-none">{appLink}</span>
+          </NavLink>
+        {/if}
       {/each}
+      {#if $conf.Hide.Settings != true}
       <Dropdown nav inNavbar>
         <DropdownToggle nav>
           <Applogo size="20px" app="Settings" /> <span class="d-md-none">{$_("words.Configuration")}</span>
         </DropdownToggle>
         <DropdownMenu dark={$conf.Dark} end>
-          <DropdownItem on:click={()=>nav("Settings")}><Fa primaryColor="sienna" icon="{faGear}" /> {$_("words.Settings")}</DropdownItem>
+          <DropdownItem on:click={()=>nav("Settings")}><Fa primaryColor="sienna" icon={faGear} /> {$_("words.Settings")}</DropdownItem>
           <DropdownItem on:click={()=>nav("Toolbox")}><Applogo size="19px" app="Toolbox" /> Toolbox</DropdownItem>
-          <DropdownItem on:click={()=>nav("Links")}><Fa primaryColor="dodgerblue" icon="{faLink}" /> {$_("words.Links")}</DropdownItem>
-          <DropdownItem on:click={()=>nav("About")}><Fa primaryColor="mediumpurple" icon="{faBookBible}" /> {$_("words.About")}</DropdownItem>
+          <DropdownItem on:click={()=>nav("Links")}><Fa primaryColor="dodgerblue" icon={faLink} /> {$_("words.Links")}</DropdownItem>
+          <DropdownItem on:click={()=>nav("About")}><Fa primaryColor="mediumpurple" icon={faBookBible} /> {$_("words.About")}</DropdownItem>
         </DropdownMenu>
       </Dropdown>
+      {/if}
     </Nav>
   </Collapse>
 </Navbar>
 <br />
 
 <main>
-  <About hidden={app != "About"} />
+  <!-- if blocks cause the page to destroy when navigating away, using hidden={false} does not -->
+  {#if app == "About"}
+    <About />
+  {/if}
   <Landing hidden={app != $ver.Title} />
   <Toolbox hidden={app != "Toolbox"} />
   <Links  hidden={app != "Links"} />
-  <Settings hidden={app != "Settings"} />
+  {#if app == "Settings"}
+    <Settings />
+  {/if}
   {#each starrs as starrApp}
-    <Starr hidden={app != starrApp} {starrApp} />
+  <!-- the key block forces the page to refresh when the hide method is toggled.-->
+    {#key $conf.Hide[starrApp]}
+      <Starr hidden={app != starrApp} {starrApp} />
+    {/key}
   {/each}
 </main>
 {/if}

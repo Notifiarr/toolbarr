@@ -2,6 +2,21 @@
     "language": "da",
     "messages": [
         {
+            "id": "Dialog Failed: {Err}",
+            "message": "Dialog Failed: {Err}",
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Err",
+                    "string": "%[1]v",
+                    "type": "error",
+                    "underlyingType": "interface{Error() string}",
+                    "argNum": 1,
+                    "expr": "err"
+                }
+            ]
+        },
+        {
             "id": "Writing config: decoding '{Name}' value '{Value}' error: {Err}",
             "message": "Writing config: decoding '{Name}' value '{Value}' error: {Err}",
             "translation": "Skrivekonfiguration: afkodning af '{Name}' værdi '{Value}' fejl: {Err}",
@@ -122,6 +137,102 @@
             "id": "opening directory browser:",
             "message": "opening directory browser:",
             "translation": "åbning af mappebrowser:"
+        },
+        {
+            "id": "Saved {App} instance configuration!",
+            "message": "Saved {App} instance configuration!",
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "App",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "instance.App"
+                }
+            ]
+        },
+        {
+            "id": "Added new {App} instance!",
+            "message": "Added new {App} instance!",
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "App",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "instance.App"
+                }
+            ]
+        },
+        {
+            "id": "Provided {StarrApp} instance {Idx} does not exist",
+            "message": "Provided {StarrApp} instance {Idx} does not exist",
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "StarrApp",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "starrApp"
+                },
+                {
+                    "id": "Idx",
+                    "string": "%[2]d",
+                    "type": "int",
+                    "underlyingType": "int",
+                    "argNum": 2,
+                    "expr": "idx"
+                }
+            ]
+        },
+        {
+            "id": "Really delete {StarrApp} instance? Name: {Name}",
+            "message": "Really delete {StarrApp} instance? Name: {Name}",
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "StarrApp",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "starrApp"
+                },
+                {
+                    "id": "Name",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "app[idx].Name"
+                }
+            ]
+        },
+        {
+            "id": "Remove Instance",
+            "message": "Remove Instance",
+            "translation": ""
+        },
+        {
+            "id": "Removed {StarrApp} Instance",
+            "message": "Removed {StarrApp} Instance",
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "StarrApp",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "starrApp"
+                }
+            ]
         },
         {
             "id": "Config Problem",

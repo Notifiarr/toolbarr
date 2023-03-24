@@ -6,7 +6,8 @@ import (
 	"github.com/Notifiarr/toolbarr/pkg/config"
 	"github.com/Notifiarr/toolbarr/pkg/logs"
 	"github.com/Notifiarr/toolbarr/pkg/mnd"
-	wailsRuntime "github.com/wailsapp/wails/v2/pkg/runtime"
+	"github.com/wailsapp/wails/v2/pkg/menu"
+	wr "github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
 // App struct.
@@ -16,11 +17,12 @@ type App struct {
 	config     *config.Config
 	configFile string // empty unless passed in from cli
 	updates    updates
+	menu       *menu.Menu
 }
 
 // New creates a new App application struct.
-func New(logger *logs.Logger, configFile string) *App {
-	return &App{log: logger, configFile: configFile}
+func New(logger *logs.Logger, configFile string, appMenu *menu.Menu) *App {
+	return &App{log: logger, configFile: configFile, menu: appMenu}
 }
 
 // Startup is called when the app starts.
@@ -36,12 +38,7 @@ func (a *App) Startup(ctx context.Context) {
 		Dir:  "com.notifiarr." + mnd.Name,
 	})
 	if err != nil {
-		_, _ = wailsRuntime.MessageDialog(a.ctx, wailsRuntime.MessageDialogOptions{
-			Type:    "error",
-			Title:   a.log.Translate("Config Problem"),
-			Message: err.Error(),
-		})
-
+		a.ErrorDialog(a.log.Translate("Config Problem"), err.Error())
 		a.Quit()
 
 		return
@@ -49,9 +46,54 @@ func (a *App) Startup(ctx context.Context) {
 
 	a.config = conf
 	a.log.Setup(ctx, conf.Settings().LogConfig)
+	a.setupMenu()
+}
+
+func (a *App) setupMenu() {
+	hideMenu := a.menu.AddSubmenu("Hide")
+	settings := a.config.Settings()
+	hideMenuItems := []string{
+		"Dark",
+		"Lidarr",
+		"Prowlarr",
+		"Radarr",
+		"Readarr",
+		"Sonarr",
+		"Whisparr",
+		"Settings",
+	}
+
+	for _, arr := range hideMenuItems {
+		hideMenu.AddCheckbox(arr, settings.Hide[arr], nil, func(data *menu.CallbackData) {
+			a.toggleMenuItem(data.MenuItem.Label, data.MenuItem.Checked)
+		})
+	}
+
+	wr.MenuSetApplicationMenu(a.ctx, a.menu)
+	a.menu = hideMenu
+}
+
+func (a *App) toggleMenuItem(item string, checked bool) {
+	settings := a.config.Settings()
+	settings.Hide[item] = checked
+
+	settings, err := a.config.Write(settings)
+	if err != nil {
+		a.ErrorDialog(a.log.Translate("Config Problem"), err.Error())
+	} else {
+		wr.EventsEmit(a.ctx, "configChanged", settings)
+	}
 }
 
 // Quit shuts the app down.
 func (a *App) Quit() {
-	wailsRuntime.Quit(a.ctx)
+	wr.Quit(a.ctx)
+}
+
+func (a *App) ErrorDialog(title, msg string) {
+	_, _ = wr.MessageDialog(a.ctx, wr.MessageDialogOptions{
+		Type:    wr.ErrorDialog,
+		Title:   title,
+		Message: msg,
+	})
 }

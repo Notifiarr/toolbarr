@@ -18,6 +18,10 @@ export function DownloadUpdate() {
   return window['go']['app']['App']['DownloadUpdate']();
 }
 
+export function ErrorDialog(arg1, arg2) {
+  return window['go']['app']['App']['ErrorDialog'](arg1, arg2);
+}
+
 export function GetConfig() {
   return window['go']['app']['App']['GetConfig']();
 }
