@@ -48,7 +48,7 @@ func (a *App) CheckUpdate() (*Release, error) {
 
 	if err != nil {
 		a.log.Errorf("Checking for current %s release: %v", updates, err)
-		return nil, fmt.Errorf(a.log.Translate("Checking for current %s release: %s", updates, err.Error()))
+		return nil, fmt.Errorf(a.log.Translate("Checking for current %s release: %v", updates, err))
 	}
 
 	a.updates.Lock()
@@ -100,8 +100,8 @@ func (a *App) DownloadUpdate() (*UpdateInfo, error) {
 	a.updates.progress, err = update.DownloadURL(
 		a.ctx, a.updates.release.CurrURL, path.Base(a.updates.release.CurrURL), nil)
 	if err != nil {
-		a.log.Errorf("Downloading %s update: %v", updates, err)
-		return nil, fmt.Errorf(a.log.Translate("Downloading failed: %v", err))
+		a.log.Errorf("Downloading %s update failed: %v", updates, err.Error())
+		return nil, fmt.Errorf(a.log.Translate("Downloading %s update failed: %v", updates, err.Error()))
 	}
 
 	size := mnd.FormatBytes(a.updates.progress.Size())

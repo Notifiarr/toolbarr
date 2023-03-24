@@ -335,29 +335,6 @@
             ]
         },
         {
-            "id": "Checking for current {Updates} release: {Error}",
-            "message": "Checking for current {Updates} release: {Error}",
-            "translation": "",
-            "placeholders": [
-                {
-                    "id": "Updates",
-                    "string": "%[1]s",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 1,
-                    "expr": "updates"
-                },
-                {
-                    "id": "Error",
-                    "string": "%[2]s",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 2,
-                    "expr": "err.Error()"
-                }
-            ]
-        },
-        {
             "id": "Checked Current {Updates} release: {Version} ({RelSize})",
             "message": "Checked Current {Updates} release: {Version} ({RelSize})",
             "translation": "Vérifié version actuelle {Updates} : {Version} ({RelSize})",
@@ -399,9 +376,9 @@
             "translation": ""
         },
         {
-            "id": "Downloading {Updates} update: {Err}",
-            "message": "Downloading {Updates} update: {Err}",
-            "translation": "Téléchargement de la mise à jour {Updates} : {Err}",
+            "id": "Downloading {Updates} update failed: {Error}",
+            "message": "Downloading {Updates} update failed: {Error}",
+            "translation": "",
             "placeholders": [
                 {
                     "id": "Updates",
@@ -412,27 +389,12 @@
                     "expr": "updates"
                 },
                 {
-                    "id": "Err",
+                    "id": "Error",
                     "string": "%[2]v",
-                    "type": "error",
-                    "underlyingType": "interface{Error() string}",
+                    "type": "string",
+                    "underlyingType": "string",
                     "argNum": 2,
-                    "expr": "err"
-                }
-            ]
-        },
-        {
-            "id": "Downloading failed: {Err}",
-            "message": "Downloading failed: {Err}",
-            "translation": "",
-            "placeholders": [
-                {
-                    "id": "Err",
-                    "string": "%[1]v",
-                    "type": "error",
-                    "underlyingType": "interface{Error() string}",
-                    "argNum": 1,
-                    "expr": "err"
+                    "expr": "err.Error()"
                 }
             ]
         },
