@@ -11,7 +11,7 @@ import (
 	"runtime"
 )
 
-func modifyCmd(cmd *exec.Cmd) {}
+func modifyCmd(_ *exec.Cmd) {}
 
 // OpenCmd opens anything.
 func OpenCmd(ctx context.Context, cmd ...string) error {

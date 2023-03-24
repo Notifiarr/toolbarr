@@ -88,9 +88,21 @@
             ]
         },
         {
-            "id": "writing config:",
-            "message": "writing config:",
-            "translation": "writing config:"
+            "id": "Writing config: {Err}",
+            "message": "Writing config: {Err}",
+            "translation": "Writing config: {Err}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Err",
+                    "string": "%[1]v",
+                    "type": "error",
+                    "underlyingType": "interface{Error() string}",
+                    "argNum": 1,
+                    "expr": "err"
+                }
+            ],
+            "fuzzy": true
         },
         {
             "id": "Saved: '{Name}' Value: {Value}",
@@ -136,9 +148,21 @@
             "translation": "Choose Folder"
         },
         {
-            "id": "opening directory browser:",
-            "message": "opening directory browser:",
-            "translation": "opening directory browser:"
+            "id": "Opening directory browser: {Err}",
+            "message": "Opening directory browser: {Err}",
+            "translation": "Opening directory browser: {Err}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Err",
+                    "string": "%[1]v",
+                    "type": "error",
+                    "underlyingType": "interface{Error() string}",
+                    "argNum": 1,
+                    "expr": "err"
+                }
+            ],
+            "fuzzy": true
         },
         {
             "id": "Saved {App} instance configuration!",
@@ -170,6 +194,23 @@
                     "underlyingType": "string",
                     "argNum": 1,
                     "expr": "instance.App"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Writing config: {Error}",
+            "message": "Writing config: {Error}",
+            "translation": "Writing config: {Error}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
                 }
             ],
             "fuzzy": true
@@ -249,9 +290,9 @@
             "fuzzy": true
         },
         {
-            "id": "Test Successful! Found {App} with version {Key}",
-            "message": "Test Successful! Found {App} with version {Key}",
-            "translation": "Test Successful! Found {App} with version {Key}",
+            "id": "Test Successful! Found {App} ({Name}) with version {Version}",
+            "message": "Test Successful! Found {App} ({Name}) with version {Version}",
+            "translation": "Test Successful! Found {App} ({Name}) with version {Version}",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
@@ -263,20 +304,28 @@
                     "expr": "test.App"
                 },
                 {
-                    "id": "Key",
+                    "id": "Name",
                     "string": "%[2]s",
                     "type": "string",
                     "underlyingType": "string",
                     "argNum": 2,
-                    "expr": "test.Key"
+                    "expr": "test.Name"
+                },
+                {
+                    "id": "Version",
+                    "string": "%[3]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 3,
+                    "expr": "test.Version"
                 }
             ],
             "fuzzy": true
         },
         {
-            "id": "Test Unsuccessful! Wrong app found. Expected {App} but found {App_1}. App Version: {Version}",
-            "message": "Test Unsuccessful! Wrong app found. Expected {App} but found {App_1}. App Version: {Version}",
-            "translation": "Test Unsuccessful! Wrong app found. Expected {App} but found {App_1}. App Version: {Version}",
+            "id": "Test Failed! Wrong app found. Expected {App} but found {App_1}. App Version: {Version}",
+            "message": "Test Failed! Wrong app found. Expected {App} but found {App_1}. App Version: {Version}",
+            "translation": "Test Failed! Wrong app found. Expected {App} but found {App_1}. App Version: {Version}",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
@@ -312,6 +361,13 @@
             "translation": "Config Problem"
         },
         {
+            "id": "Hide",
+            "message": "Hide",
+            "translation": "Hide",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Checking for current {Updates} release: {Err}",
             "message": "Checking for current {Updates} release: {Err}",
             "translation": "Checking for current {Updates} release: {Err}",
@@ -335,9 +391,10 @@
             ]
         },
         {
-            "id": "checking for current {Updates} release:",
-            "message": "checking for current {Updates} release:",
-            "translation": "checking for current {Updates} release:",
+            "id": "Checking for current {Updates} release: {Error}",
+            "message": "Checking for current {Updates} release: {Error}",
+            "translation": "Checking for current {Updates} release: {Error}",
+            "translatorComment": "Copied from source.",
             "placeholders": [
                 {
                     "id": "Updates",
@@ -346,8 +403,17 @@
                     "underlyingType": "string",
                     "argNum": 1,
                     "expr": "updates"
+                },
+                {
+                    "id": "Error",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "err.Error()"
                 }
-            ]
+            ],
+            "fuzzy": true
         },
         {
             "id": "Checked Current {Updates} release: {Version} ({RelSize})",
@@ -386,9 +452,11 @@
             "translation": "Downloading File"
         },
         {
-            "id": "missing release, check first?",
-            "message": "missing release, check first?",
-            "translation": "missing release, check first?"
+            "id": "Missing release, check first?",
+            "message": "Missing release, check first?",
+            "translation": "Missing release, check first?",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
         },
         {
             "id": "Downloading {Updates} update: {Err}",
@@ -414,9 +482,21 @@
             ]
         },
         {
-            "id": "downloading failed:",
-            "message": "downloading failed:",
-            "translation": "downloading failed:"
+            "id": "Downloading failed: {Err}",
+            "message": "Downloading failed: {Err}",
+            "translation": "Downloading failed: {Err}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Err",
+                    "string": "%[1]v",
+                    "type": "error",
+                    "underlyingType": "interface{Error() string}",
+                    "argNum": 1,
+                    "expr": "err"
+                }
+            ],
+            "fuzzy": true
         },
         {
             "id": "Downloading {Updates} release from {CurrURL} to {Path} ({Size})",
