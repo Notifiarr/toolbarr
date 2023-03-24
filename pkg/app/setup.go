@@ -76,12 +76,19 @@ func (a *App) setupMenu() {
 func (a *App) toggleMenuItem(item string, checked bool) {
 	settings := a.config.Settings()
 	settings.Hide[item] = checked
+	name := "Hide." + item
+	msg := a.log.Translate("Saved: '%s' Value: %v", name, checked)
 
 	settings, err := a.config.Write(settings)
 	if err != nil {
+		a.log.Errorf("Error writing config: %v", err.Error())
 		a.ErrorDialog(a.log.Translate("Config Problem"), err.Error())
 	} else {
-		wr.EventsEmit(a.ctx, "configChanged", settings)
+		a.log.Infof("Config %s", msg)
+		wr.EventsEmit(a.ctx, "configChanged", map[string]any{
+			"Settings": settings,
+			"Msg":      msg,
+		})
 	}
 }
 

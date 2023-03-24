@@ -47,8 +47,8 @@
 
   // Sometimes the config changes outside the GUI.
   EventsOn("configChanged", data => {
-    $conf = data
-    if ($conf.DevMode) toast("warning", "Config Updated", "EVENT (debug)")
+    $conf = data.Settings
+    if ($conf.DevMode) toast("warning", data.Msg, $_("words.CONFIG") + " ("+$_("words.debug")+")")
   })
 
   /* Prevent right-click when dev mode is disabled. */
@@ -92,7 +92,7 @@
         </DropdownToggle>
         <DropdownMenu dark={$conf.Dark} end>
           <DropdownItem on:click={()=>nav("Settings")}><Fa primaryColor="sienna" icon={faGear} /> {$_("words.Settings")}</DropdownItem>
-          <DropdownItem on:click={()=>nav("Toolbox")}><Applogo size="19px" app="Toolbox" /> Toolbox</DropdownItem>
+          <DropdownItem on:click={()=>nav("Toolbox")}><Applogo size="19px" app="Toolbox" /> {$_("words.Toolbox")}</DropdownItem>
           <DropdownItem on:click={()=>nav("Links")}><Fa primaryColor="dodgerblue" icon={faLink} /> {$_("words.Links")}</DropdownItem>
           <DropdownItem on:click={()=>nav("About")}><Fa primaryColor="mediumpurple" icon={faBookBible} /> {$_("words.About")}</DropdownItem>
         </DropdownMenu>

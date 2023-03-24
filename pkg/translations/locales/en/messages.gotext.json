@@ -88,23 +88,6 @@
             ]
         },
         {
-            "id": "Writing config: {Err}",
-            "message": "Writing config: {Err}",
-            "translation": "Writing config: {Err}",
-            "translatorComment": "Copied from source.",
-            "placeholders": [
-                {
-                    "id": "Err",
-                    "string": "%[1]v",
-                    "type": "error",
-                    "underlyingType": "interface{Error() string}",
-                    "argNum": 1,
-                    "expr": "err"
-                }
-            ],
-            "fuzzy": true
-        },
-        {
             "id": "Saved: '{Name}' Value: {Value}",
             "message": "Saved: '{Name}' Value: {Value}",
             "translation": "Saved: '{Name}' Value: {Value}",
@@ -194,23 +177,6 @@
                     "underlyingType": "string",
                     "argNum": 1,
                     "expr": "instance.App"
-                }
-            ],
-            "fuzzy": true
-        },
-        {
-            "id": "Writing config: {Error}",
-            "message": "Writing config: {Error}",
-            "translation": "Writing config: {Error}",
-            "translatorComment": "Copied from source.",
-            "placeholders": [
-                {
-                    "id": "Error",
-                    "string": "%[1]s",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 1,
-                    "expr": "err.Error()"
                 }
             ],
             "fuzzy": true

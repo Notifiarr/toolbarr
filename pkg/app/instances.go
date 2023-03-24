@@ -27,7 +27,7 @@ func (a *App) SaveInstance(idx int, instance starrs.Instance) (*SavedInstance, e
 
 	settings, err := a.config.Write(settings)
 	if err != nil {
-		return nil, fmt.Errorf(a.log.Translate("Writing config: %s", err.Error()))
+		return nil, fmt.Errorf(a.log.Translate("Error writing config: %v", err.Error()))
 	}
 
 	return &SavedInstance{
@@ -58,7 +58,7 @@ func (a *App) RemoveInstance(idx int, starrApp string) (*SavedInstance, error) {
 
 	settings, err := a.config.Write(settings)
 	if err != nil {
-		return nil, fmt.Errorf(a.log.Translate("Writing config: %s", err.Error()))
+		return nil, fmt.Errorf(a.log.Translate("Error writing config: %v", err.Error()))
 	}
 
 	return &SavedInstance{

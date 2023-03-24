@@ -62,7 +62,7 @@ func (a *App) SaveConfigItem(name string, value any, reload bool) (*ConfigSaved,
 
 	if _, err = a.config.Write(config); err != nil {
 		a.log.Errorf("Error writing config: %v", err.Error())
-		return nil, fmt.Errorf(a.log.Translate("Writing config: %v", err))
+		return nil, fmt.Errorf(a.log.Translate("Error writing config: %v", err.Error()))
 	}
 
 	if reload {
