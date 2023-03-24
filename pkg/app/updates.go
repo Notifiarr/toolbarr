@@ -1,3 +1,4 @@
+//nolint:goerr113
 package app
 
 import (
@@ -47,7 +48,7 @@ func (a *App) CheckUpdate() (*Release, error) {
 
 	if err != nil {
 		a.log.Errorf("Checking for current %s release: %v", updates, err)
-		return nil, fmt.Errorf("%s %w", a.log.Translate("checking for current %s release:", updates), err)
+		return nil, fmt.Errorf(a.log.Translate("Checking for current %s release: %s", updates, err.Error()))
 	}
 
 	a.updates.Lock()
@@ -89,7 +90,7 @@ func (a *App) DownloadUpdate() (*UpdateInfo, error) {
 
 	a.log.Infof("Downloading File")
 
-	err := fmt.Errorf("%s %w", a.log.Translate("missing release, check first?"), ErrInvalidInput)
+	err := fmt.Errorf(a.log.Translate("Missing release, check first?"))
 	if a.updates.release == nil {
 		return nil, err
 	}
@@ -100,7 +101,7 @@ func (a *App) DownloadUpdate() (*UpdateInfo, error) {
 		a.ctx, a.updates.release.CurrURL, path.Base(a.updates.release.CurrURL), nil)
 	if err != nil {
 		a.log.Errorf("Downloading %s update: %v", updates, err)
-		return nil, fmt.Errorf("%s %w", a.log.Translate("downloading failed:"), err)
+		return nil, fmt.Errorf(a.log.Translate("Downloading failed: %v", err))
 	}
 
 	size := mnd.FormatBytes(a.updates.progress.Size())

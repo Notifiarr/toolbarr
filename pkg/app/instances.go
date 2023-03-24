@@ -1,18 +1,18 @@
+//nolint:wrapcheck,goerr113
 package app
 
 import (
 	"fmt"
 
-	"github.com/Notifiarr/toolbarr/pkg/config"
-	"golift.io/starr"
+	"github.com/Notifiarr/toolbarr/pkg/starrs"
 )
 
 type SavedInstance struct {
 	Msg  string
-	List []config.Instance
+	List []starrs.Instance
 }
 
-func (a *App) SaveInstance(idx int, instance config.Instance) (*SavedInstance, error) {
+func (a *App) SaveInstance(idx int, instance starrs.Instance) (*SavedInstance, error) {
 	a.log.Tracef("Call:SaveInstance(%d,%s,%s)", idx, instance.App, instance.Name)
 
 	msg := a.log.Translate("Saved %s instance configuration!", instance.App)
@@ -27,7 +27,7 @@ func (a *App) SaveInstance(idx int, instance config.Instance) (*SavedInstance, e
 
 	settings, err := a.config.Write(settings)
 	if err != nil {
-		return nil, fmt.Errorf("%s %w", a.log.Translate("writing config:"), err)
+		return nil, fmt.Errorf(a.log.Translate("Writing config: %s", err.Error()))
 	}
 
 	return &SavedInstance{
@@ -58,7 +58,7 @@ func (a *App) RemoveInstance(idx int, starrApp string) (*SavedInstance, error) {
 
 	settings, err := a.config.Write(settings)
 	if err != nil {
-		return nil, fmt.Errorf("%s %w", a.log.Translate("writing config:"), err)
+		return nil, fmt.Errorf(a.log.Translate("Writing config: %s", err.Error()))
 	}
 
 	return &SavedInstance{
@@ -67,23 +67,21 @@ func (a *App) RemoveInstance(idx int, starrApp string) (*SavedInstance, error) {
 	}, nil
 }
 
-func (a *App) TestInstance(instance *config.Instance) (string, error) {
+func (a *App) TestInstance(instance *starrs.Instance) (string, error) {
 	a.log.Tracef("Call:TestInstance(%s,%s)", instance.App, instance.Name)
 
-	switch starr.App(instance.App) {
-	case starr.Lidarr:
-		return testLidarr(a.ctx, starrConfig(instance))
-	case starr.Prowlarr:
-		return testProwlarr(a.ctx, starrConfig(instance))
-	case starr.Radarr:
-		return testRadarr(a.ctx, starrConfig(instance))
-	case starr.Readarr:
-		return testReadarr(a.ctx, starrConfig(instance))
-	case starr.Sonarr:
-		return testSonarr(a.ctx, starrConfig(instance))
-	case "Whisparr":
-		return testWhisparr(a.ctx, starrConfig(instance))
+	test, err := starrs.TestInstance(a.ctx, a.log, instance)
+	if err != nil {
+		return "", err
 	}
 
-	return "tested! " + instance.Name, nil
+	msg := a.log.Translate("Test Successful! Found %s (%s) with version %s", test.App, test.Name, test.Version)
+
+	if test.App != instance.App {
+		msg = a.log.Translate("Test Failed! Wrong app found. Expected %s but found %s. App Version: %s",
+			instance.App, test.App, test.Version)
+		return "", fmt.Errorf(msg)
+	}
+
+	return msg, nil
 }

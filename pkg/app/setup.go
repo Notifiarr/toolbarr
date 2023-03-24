@@ -50,7 +50,7 @@ func (a *App) Startup(ctx context.Context) {
 }
 
 func (a *App) setupMenu() {
-	hideMenu := a.menu.AddSubmenu("Hide")
+	hideMenu := a.menu.AddSubmenu(a.log.Translate("Hide"))
 	settings := a.config.Settings()
 	hideMenuItems := []string{
 		"Dark",

@@ -10,6 +10,10 @@
     "words": {
         "ERROR": "ERROR",
         "CONFIG": "CONFIG",
+        "Config": "Config",
+        "Activity": "Activity",
+        "Library": "Library",
+        "Actions": "Actions",
         "debug": "debug",
         "Development": "Development",
         "Example": "Example",
@@ -33,7 +37,18 @@
         "Version": "Version",
         "Branch": "Branch",
         "Created": "Created",
-        "by": "by"
+        "Name": "Name",
+        "Browse": "Browse",
+        "URL": "URL",
+        "APIKey": "API Key",
+        "Username": "Username",
+        "Password": "Password",
+        "DBPath": "DB Path",
+        "Test": "Test",
+        "Save": "Save",
+        "Delete": "Delete",
+        "Reset": "Reset"
+
     },
     "customconfig": {
         "CustomConfigPath": "Custom Config Path",
@@ -107,5 +122,9 @@
         "CreatedbyGoLift": "Created by <a href=\"{goLiftURL}\">Go Lift</a> for <a href=\"{notifiarrURL}\">Notifiarr</a>.",
         "Backgroundbyrawpixel": "Backgrounds by <a href=\"{rawPixelURL}\">rawpixel</a> on <a href=\"{freepikURL}\">Freepik</a>.",
         "WritteninSvelte": "Written in <a href=\"{svelteURL}\">Svelte</a> using <a href=\"{wailsURL}\">Wails</a>."
+    },
+    "instances": {
+        "instanceConfig": "API key is optional if a username and password is provided. Instances without passwords only require a local URL. Providing the optional DB Path enables SQLite3 Database management features.",
+        "addNewInstance": "Add New {starrApp} Instance"
     }
 }

@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/Notifiarr/toolbarr/pkg/logs"
+	"github.com/Notifiarr/toolbarr/pkg/starrs"
 )
 
 // Settings is the data read and written to/from the Settings file.
@@ -16,21 +17,8 @@ type Settings struct {
 	DevMode   bool
 	Updates   string
 	File      string // should not be changed.
-	Instances Instances
+	Instances starrs.Instances
 	Hide      map[string]bool
-}
-
-type Instances map[string][]Instance
-
-type Instance struct {
-	App    string // Radarr, Sonarr, etc
-	Name   string // Custom name: Radarr2, Radarr4k, etc.
-	URL    string // url to app.
-	User   string // username for app.
-	Pass   string // password for app.
-	Key    string // api key for app.
-	DBPath string // path to database for app.
-	SSL    bool   // verify ssl cert?
 }
 
 func (c *Config) Stop() {
@@ -109,14 +97,4 @@ func (s *Settings) copy() *Settings {
 	}
 
 	return &settings
-}
-
-func (i Instances) Copy() Instances {
-	instances := make(Instances)
-	for k := range i {
-		instances[k] = make([]Instance, len(i[k]))
-		copy(instances[k], i[k])
-	}
-
-	return instances
 }

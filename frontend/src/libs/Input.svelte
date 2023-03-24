@@ -75,7 +75,7 @@
   {#if $_("configinput."+id) != "configinput."+id}
     <InputGroupText class="setting-name">{$_("configinput."+id)}</InputGroupText>
   {/if}
-  <Input bind:this={input} {type} {id} {disabled} invalid={valid==false} {valid}
+  <Input class="setting-input" bind:this={input} {type} {id} {disabled} invalid={valid==false} {valid}
     readonly={readonly||locked} bind:checked={value} bind:value={value}><slot/>
   </Input>
 {:else}

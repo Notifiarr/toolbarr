@@ -157,7 +157,7 @@ func (l *Logger) openLogFile() {
 }
 
 // This is only for the main log. To deal with stderr.
-func (l *Logger) postLogRotate(fileName, newFile string) {
+func (l *Logger) postLogRotate(_, newFile string) {
 	if l.rotator != nil && l.rotator.File != nil {
 		redirectStderr(l.rotator.File) // Log panics.
 	}
