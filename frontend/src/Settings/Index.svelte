@@ -38,6 +38,7 @@
 </script>
 
 <BGLogo {hidden} url="golift">
+  <div class="settings">
   <Container>
     <Row>
       <p>{$_("main_application_settings")}</p>
@@ -61,6 +62,7 @@
       </Form>
     </Row>
   </Container>
+  </div>
 
   <Offcanvas 
     style="width:50%;min-width:390px;max-width:550px"
@@ -95,8 +97,8 @@
 </BGLogo>
 
 <style>
-  :global(.Settings .setting-name) {
-    min-width:120px;
-    max-width:120px;
+  .settings  :global(.setting-name) {
+    width:43%;
+    max-width:200px;
   }
 </style>

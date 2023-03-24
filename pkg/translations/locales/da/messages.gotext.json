@@ -235,6 +235,60 @@
             ]
         },
         {
+            "id": "Test Successful! Found {App} with version {Key}",
+            "message": "Test Successful! Found {App} with version {Key}",
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "App",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "test.App"
+                },
+                {
+                    "id": "Key",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "test.Key"
+                }
+            ]
+        },
+        {
+            "id": "Test Unsuccessful! Wrong app found. Expected {App} but found {App_1}. App Version: {Version}",
+            "message": "Test Unsuccessful! Wrong app found. Expected {App} but found {App_1}. App Version: {Version}",
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "App",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "instance.App"
+                },
+                {
+                    "id": "App_1",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "test.App"
+                },
+                {
+                    "id": "Version",
+                    "string": "%[3]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 3,
+                    "expr": "test.Version"
+                }
+            ]
+        },
+        {
             "id": "Config Problem",
             "message": "Config Problem",
             "translation": "Konfigurationsproblem"

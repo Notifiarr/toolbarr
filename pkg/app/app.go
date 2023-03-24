@@ -1,3 +1,4 @@
+//nolint:goerr113
 package app
 
 import (
@@ -61,7 +62,7 @@ func (a *App) SaveConfigItem(name string, value any, reload bool) (*ConfigSaved,
 
 	if _, err = a.config.Write(config); err != nil {
 		a.log.Errorf("Error writing config: %v", err.Error())
-		return nil, fmt.Errorf("%s %w", a.log.Translate("writing config:"), err)
+		return nil, fmt.Errorf(a.log.Translate("Writing config: %v", err))
 	}
 
 	if reload {
@@ -91,7 +92,7 @@ func (a *App) PickFolder(path string) (string, error) {
 	})
 	if err != nil {
 		wr.LogError(a.ctx, err.Error())
-		return "", fmt.Errorf("%s %w", a.log.Translate("opening directory browser:"), err)
+		return "", fmt.Errorf(a.log.Translate("Opening directory browser: %v", err))
 	}
 
 	return dir, nil

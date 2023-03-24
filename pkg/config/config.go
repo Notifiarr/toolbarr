@@ -9,6 +9,7 @@ import (
 
 	"github.com/Notifiarr/toolbarr/pkg/logs"
 	"github.com/Notifiarr/toolbarr/pkg/mnd"
+	"github.com/Notifiarr/toolbarr/pkg/starrs"
 	"github.com/Notifiarr/toolbarr/pkg/translations"
 	"golang.org/x/text/language"
 )
@@ -90,7 +91,7 @@ func (i *Input) newConfig(settings *Settings) *Config {
 				Files: 10,
 				Lang:  language.English.String(),
 			},
-			Instances: make(Instances),
+			Instances: make(starrs.Instances),
 			Hide:      make(map[string]bool),
 			Updates:   "production",
 		}
@@ -171,7 +172,7 @@ func (i *Input) setDefaults(s *Settings) *Settings { //nolint:varnamelen
 	}
 
 	if s.Instances == nil {
-		s.Instances = make(Instances)
+		s.Instances = make(starrs.Instances)
 	}
 
 	if s.Hide == nil {

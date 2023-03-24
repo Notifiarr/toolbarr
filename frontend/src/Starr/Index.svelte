@@ -1,10 +1,11 @@
 <script lang="ts">
   export let starrApp
   export let hidden = false
+
   import { Container, TabContent, TabPane } from "sveltestrap"
-  import Instances from "./Instances.svelte"
-  import Database from "./Database.svelte"
-  import Source from "./Source.svelte"
+  import Instances from "./Instances/Index.svelte"
+  import Database from "./Database/Index.svelte"
+  import Source from "./Source/Index.svelte"
   import BGLogo from "../libs/BackgroundLogo.svelte"
 </script>
 
