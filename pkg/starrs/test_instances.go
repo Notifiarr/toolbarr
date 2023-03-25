@@ -1,9 +1,11 @@
-//nolint:wrapcheck
+//nolint:wrapcheck,goerr113
 package starrs
 
 import (
 	"context"
+	"database/sql"
 	"fmt"
+	"os"
 	"time"
 
 	"github.com/Notifiarr/toolbarr/pkg/logs"
@@ -13,6 +15,7 @@ import (
 	"golift.io/starr/radarr"
 	"golift.io/starr/readarr"
 	"golift.io/starr/sonarr"
+	_ "modernc.org/sqlite" // database driver for sqlite3.
 )
 
 /*
@@ -27,6 +30,34 @@ type InstanceTest struct {
 	Key     string
 	Version string
 	Name    string
+}
+
+func TestDBPath(ctx context.Context, logger *logs.Logger, instance *Instance) (*InstanceTest, error) {
+	_, err := os.Stat(instance.DBPath)
+	if err != nil {
+		return nil, fmt.Errorf(logger.Translate("Locating DB file failed: %v", err.Error()))
+	}
+
+	conn, err := sql.Open("sqlite", instance.DBPath)
+	if err != nil {
+		return nil, fmt.Errorf("opening sqlite DB: %w", err)
+	}
+	defer conn.Close()
+
+	// backup := &Info{
+	// 	Name:   filePath,
+	// 	Size:   fileInfo.Size(),
+	// 	Tables: c.getSQLLiteRowInt64(ctx, conn, "SELECT count(*) FROM sqlite_master WHERE type = 'table'"),
+	// }
+	// backup.Ver, _ = c.getSQLLiteRowString(ctx, conn, "select sqlite_version()")
+	// backup.Integ, backup.Rows = c.getSQLLiteRowString(ctx, conn, "PRAGMA integrity_check")
+	// backup.Quick, _ = c.getSQLLiteRowString(ctx, conn, "PRAGMA quick_check")
+
+	return &InstanceTest{
+		Version: "not working yet",
+		App:     "Unknown",
+		Name:    "Unknown",
+	}, nil
 }
 
 func TestInstance(ctx context.Context, logger *logs.Logger, instance *Instance) (*InstanceTest, error) {
