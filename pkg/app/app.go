@@ -57,7 +57,7 @@ func (a *App) SaveConfigItem(name string, value any, reload bool) (*ConfigSaved,
 	err := decoder.Decode(config, map[string][]string{name: {fmt.Sprint(value)}})
 	if err != nil {
 		a.log.Errorf("Writing config: decoding '%s' value '%v' error: %v", name, value, err)
-		return nil, fmt.Errorf("%s %w", a.log.Translate("decoding '%s' value '%v' error:", name, value), err)
+		return nil, fmt.Errorf(a.log.Translate("Writing config: decoding '%s' value '%v' error: %v", name, value, err))
 	}
 
 	if _, err = a.config.Write(config); err != nil {

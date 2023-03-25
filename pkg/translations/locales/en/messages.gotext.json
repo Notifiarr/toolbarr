@@ -50,29 +50,6 @@
             ]
         },
         {
-            "id": "decoding '{Name}' value '{Value}' error:",
-            "message": "decoding '{Name}' value '{Value}' error:",
-            "translation": "decoding '{Name}' value '{Value}' error:",
-            "placeholders": [
-                {
-                    "id": "Name",
-                    "string": "%[1]s",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 1,
-                    "expr": "name"
-                },
-                {
-                    "id": "Value",
-                    "string": "%[2]v",
-                    "type": "any",
-                    "underlyingType": "any",
-                    "argNum": 2,
-                    "expr": "value"
-                }
-            ]
-        },
-        {
             "id": "Error writing config: {Error}",
             "message": "Error writing config: {Error}",
             "translation": "Error writing config: {Error}",
