@@ -100,7 +100,7 @@ func (a *App) PickFolder(path string) (string, error) {
 }
 
 // PickFile opens the file selector.
-func (a *App) PickFile(path, extname, extensions string) (string, error) {
+func (a *App) PickFile(path, extname, extensions string) (string, error) { //nolint:cyclop
 	a.log.Tracef("Call:PickFile(%s)", path)
 
 	if path == "" {

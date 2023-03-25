@@ -6,39 +6,32 @@ import (
 	"fmt"
 )
 
-func getSQLLiteRowStringSlice(
-	ctx context.Context,
-	conn *sql.DB,
-	sql string,
-) ([]string, error) {
+func getSQLLiteRowStringSlice(ctx context.Context, conn *sql.DB, sql string) ([]string, error) {
 	slice := []string{}
 
 	rows, err := conn.QueryContext(ctx, sql)
 	if err != nil {
-		return nil, fmt.Errorf("%s: running DB query: %v", sql, err)
+		return nil, fmt.Errorf("%s: running DB query: %w", sql, err)
 	}
 	defer rows.Close()
 
 	if err := rows.Err(); err != nil {
-		return nil, fmt.Errorf("%s: reading DB rows: %v", sql, err)
+		return nil, fmt.Errorf("%s: reading DB rows: %w", sql, err)
 	}
 
 	for rows.Next() {
 		var text string
 		if err := rows.Scan(&text); err != nil {
-			return nil, fmt.Errorf("%s: reading DB query: %v", sql, err)
+			return nil, fmt.Errorf("%s: reading DB query: %w", sql, err)
 		}
+
 		slice = append(slice, text)
 	}
 
 	return slice, nil
 }
 
-func getSQLLiteRowString(
-	ctx context.Context,
-	conn *sql.DB,
-	sql string,
-) (string, int) {
+func getSQLLiteRowString(ctx context.Context, conn *sql.DB, sql string) (string, int) {
 	text := "<no data returned>"
 	count := 0
 
@@ -63,29 +56,29 @@ func getSQLLiteRowString(
 	return text, count
 }
 
-func getSQLLiteRowInt64(
-	ctx context.Context,
-	conn *sql.DB,
-	sql string,
-) int64 {
-	rows, err := conn.QueryContext(ctx, sql)
-	if err != nil {
-		return 0
-	}
-	defer rows.Close()
+// func getSQLLiteRowInt64(
+// 	ctx context.Context,
+// 	conn *sql.DB,
+// 	sql string,
+// ) int64 {
+// 	rows, err := conn.QueryContext(ctx, sql)
+// 	if err != nil {
+// 		return 0
+// 	}
+// 	defer rows.Close()
 
-	if err := rows.Err(); err != nil {
-		return 0
-	}
+// 	if err := rows.Err(); err != nil {
+// 		return 0
+// 	}
 
-	if rows.Next() {
-		var i int64
-		if err := rows.Scan(&i); err != nil {
-			return 0
-		}
+// 	if rows.Next() {
+// 		var i int64
+// 		if err := rows.Scan(&i); err != nil {
+// 			return 0
+// 		}
 
-		return i
-	}
+// 		return i
+// 	}
 
-	return 0
-}
+// 	return 0
+// }
