@@ -75,7 +75,8 @@ func (a *App) TestInstance(instance *starrs.Instance) (string, error) {
 		return "", err
 	}
 
-	msg := a.log.Translate("Connection test successful! Found %s (%s) with version %s", test.App, test.Name, test.Version)
+	msg := a.log.Translate("<li>Connection test successful! Found %s (%s) with version %s.</li>",
+		test.App, test.Name, test.Version)
 
 	if test.App != instance.App {
 		msg = a.log.Translate("Connection test failed! Wrong app found. Expected %s but found %s. App Version: %s",
@@ -91,7 +92,8 @@ func (a *App) TestInstance(instance *starrs.Instance) (string, error) {
 		return "", err
 	}
 
-	msg += " " + a.log.Translate("Database file test successful! SQLite3 version: %s, App: %s (%s)", test.Version, test.App, test.Name)
+	msg += " " + a.log.Translate("<li>Database file test successful! SQLite3 version: %s, tables: %d</li>",
+		test.Version, test.Count)
 
 	return msg, nil
 }

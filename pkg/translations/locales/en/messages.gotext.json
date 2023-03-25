@@ -233,9 +233,9 @@
             "fuzzy": true
         },
         {
-            "id": "Test Successful! Found {App} ({Name}) with version {Version}",
-            "message": "Test Successful! Found {App} ({Name}) with version {Version}",
-            "translation": "Test Successful! Found {App} ({Name}) with version {Version}",
+            "id": "Connection test successful! Found {App} ({Name}) with version {Version}",
+            "message": "Connection test successful! Found {App} ({Name}) with version {Version}",
+            "translation": "Connection test successful! Found {App} ({Name}) with version {Version}",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
@@ -266,9 +266,9 @@
             "fuzzy": true
         },
         {
-            "id": "Test Failed! Wrong app found. Expected {App} but found {App_1}. App Version: {Version}",
-            "message": "Test Failed! Wrong app found. Expected {App} but found {App_1}. App Version: {Version}",
-            "translation": "Test Failed! Wrong app found. Expected {App} but found {App_1}. App Version: {Version}",
+            "id": "Connection test failed! Wrong app found. Expected {App} but found {App_1}. App Version: {Version}",
+            "message": "Connection test failed! Wrong app found. Expected {App} but found {App_1}. App Version: {Version}",
+            "translation": "Connection test failed! Wrong app found. Expected {App} but found {App_1}. App Version: {Version}",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
@@ -294,6 +294,39 @@
                     "underlyingType": "string",
                     "argNum": 3,
                     "expr": "test.Version"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Database file test successful! SQLite3 version: {Version}, App: {App} ({Name})",
+            "message": "Database file test successful! SQLite3 version: {Version}, App: {App} ({Name})",
+            "translation": "Database file test successful! SQLite3 version: {Version}, App: {App} ({Name})",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Version",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "test.Version"
+                },
+                {
+                    "id": "App",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "test.App"
+                },
+                {
+                    "id": "Name",
+                    "string": "%[3]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 3,
+                    "expr": "test.Name"
                 }
             ],
             "fuzzy": true
@@ -645,6 +678,57 @@
             "id": "closing log rotator:",
             "message": "closing log rotator:",
             "translation": "closing log rotator:"
+        },
+        {
+            "id": "Locating DB file failed: {Error}",
+            "message": "Locating DB file failed: {Error}",
+            "translation": "Locating DB file failed: {Error}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Querying Sqlite3 DB: {Err}",
+            "message": "Querying Sqlite3 DB: {Err}",
+            "translation": "Querying Sqlite3 DB: {Err}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Err",
+                    "string": "%[1]v",
+                    "type": "error",
+                    "underlyingType": "interface{Error() string}",
+                    "argNum": 1,
+                    "expr": "err"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Login (username/password) failed: {Error}",
+            "message": "Login (username/password) failed: {Error}",
+            "translation": "Login (username/password) failed: {Error}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ],
+            "fuzzy": true
         }
     ]
 }

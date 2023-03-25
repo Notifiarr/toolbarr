@@ -30,6 +30,8 @@
   import bgDark from "./assets/images/dark-background.png"
   import { _, isReady } from "./libs/Translate.svelte"
   import { toast } from "./libs/funcs"
+  import darkCSS from "./assets/bootstrap.min.darkly.css?url"
+  import liteCSS from "./assets/bootstrap.min.flatly.css?url"
 
   let isOpen = false // nav open/closer tracker (mobile)
   let app
@@ -57,10 +59,13 @@
   document.addEventListener("contextmenu", blockRightClick)
 </script> 
 
-<!-- Preload these to prevent a white page for a moment when switching dark on/off. -->
-<link rel="preload" as="image" href={bgVint}>
-<link rel="preload" as="image" href={bgDark}>
-<Styles />
+
+<svelte:head>
+  <!-- Preload these to prevent a white page for a moment when switching dark on/off. -->
+  <link rel="preload" as="image" href={bgVint}>
+  <link rel="preload" as="image" href={bgDark}>
+  <link rel="stylesheet" href={$conf.Dark?darkCSS:liteCSS} />
+</svelte:head>
 
 <!-- This gets used by any toast from any page. -->
 <ToastContainer placement="bottom-right" let:data={data}><FlatToast {data} /></ToastContainer>

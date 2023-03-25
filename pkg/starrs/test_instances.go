@@ -30,11 +30,11 @@ type InstanceTest struct {
 	Key     string
 	Version string
 	Name    string
+	Count   int // for whatever, but table count for now.
 }
 
 func TestDBPath(ctx context.Context, logger *logs.Logger, instance *Instance) (*InstanceTest, error) {
-	_, err := os.Stat(instance.DBPath)
-	if err != nil {
+	if _, err := os.Stat(instance.DBPath); err != nil {
 		return nil, fmt.Errorf(logger.Translate("Locating DB file failed: %v", err.Error()))
 	}
 
@@ -44,19 +44,16 @@ func TestDBPath(ctx context.Context, logger *logs.Logger, instance *Instance) (*
 	}
 	defer conn.Close()
 
-	// backup := &Info{
-	// 	Name:   filePath,
-	// 	Size:   fileInfo.Size(),
-	// 	Tables: c.getSQLLiteRowInt64(ctx, conn, "SELECT count(*) FROM sqlite_master WHERE type = 'table'"),
-	// }
-	// backup.Ver, _ = c.getSQLLiteRowString(ctx, conn, "select sqlite_version()")
-	// backup.Integ, backup.Rows = c.getSQLLiteRowString(ctx, conn, "PRAGMA integrity_check")
-	// backup.Quick, _ = c.getSQLLiteRowString(ctx, conn, "PRAGMA quick_check")
+	tables, err := getSQLLiteRowStringSlice(ctx, conn, "SELECT name FROM sqlite_schema WHERE type='table'")
+	if err != nil {
+		return nil, fmt.Errorf(logger.Translate("Querying Sqlite3 DB: %v", err))
+	}
+
+	version, _ := getSQLLiteRowString(ctx, conn, "select sqlite_version()")
 
 	return &InstanceTest{
-		Version: "not working yet",
-		App:     "Unknown",
-		Name:    "Unknown",
+		Count:   len(tables),
+		Version: version,
 	}, nil
 }
 
@@ -64,7 +61,7 @@ func TestInstance(ctx context.Context, logger *logs.Logger, instance *Instance) 
 	starrConfig := starrConfig(logger, instance)
 
 	if starrConfig.APIKey == "" {
-		return starrConfig.testWithoutKey(ctx)
+		return starrConfig.testWithoutKey(ctx, logger)
 	}
 
 	switch starr.App(instance.App) {
@@ -85,10 +82,10 @@ func TestInstance(ctx context.Context, logger *logs.Logger, instance *Instance) 
 	}
 }
 
-func (s *StarrConfig) testWithoutKey(ctx context.Context) (*InstanceTest, error) {
+func (s *StarrConfig) testWithoutKey(ctx context.Context, logger *logs.Logger) (*InstanceTest, error) {
 	if s.Username != "" {
 		if err := s.Login(ctx); err != nil {
-			return nil, fmt.Errorf("login (username/password) failed: %w", err)
+			return nil, fmt.Errorf(logger.Translate("Login (username/password) failed: %v", err.Error()))
 		}
 	}
 
