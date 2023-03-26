@@ -37,7 +37,7 @@ func (a *App) SaveInstance(idx int, instance starrs.Instance) (*SavedInstance, e
 }
 
 func (a *App) RemoveInstance(idx int, starrApp string) (*SavedInstance, error) {
-	a.log.Tracef("Call:RemoveInstance(%d,%s)", idx, starrApp)
+	a.log.Tracef("Call:RemoveInstance(%d, %s)", idx, starrApp)
 
 	settings := a.config.Settings()
 	app := settings.Instances[starrApp]
@@ -68,7 +68,7 @@ func (a *App) RemoveInstance(idx int, starrApp string) (*SavedInstance, error) {
 }
 
 func (a *App) TestInstance(instance *starrs.Instance) (string, error) {
-	a.log.Tracef("Call:TestInstance(%s,%s)", instance.App, instance.Name)
+	a.log.Tracef("Call:TestInstance(%s, %s)", instance.App, instance.Name)
 
 	test, err := starrs.TestInstance(a.ctx, a.log, instance)
 	if err != nil {

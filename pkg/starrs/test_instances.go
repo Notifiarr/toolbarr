@@ -35,18 +35,18 @@ type InstanceTest struct {
 
 func TestDBPath(ctx context.Context, logger *logs.Logger, instance *Instance) (*InstanceTest, error) {
 	if _, err := os.Stat(instance.DBPath); err != nil {
-		return nil, fmt.Errorf(logger.Translate("Locating DB file failed: %v", err.Error()))
+		return nil, fmt.Errorf(logger.Translate("Connection test failed! Locating DB file: %v", err.Error()))
 	}
 
 	conn, err := sql.Open("sqlite", instance.DBPath)
 	if err != nil {
-		return nil, fmt.Errorf("opening sqlite DB: %w", err)
+		return nil, fmt.Errorf(logger.Translate("Connection test failed! Opening Sqlite3 DB: %v", err))
 	}
 	defer conn.Close()
 
 	tables, err := getSQLLiteRowStringSlice(ctx, conn, "SELECT name FROM sqlite_schema WHERE type='table'")
 	if err != nil {
-		return nil, fmt.Errorf(logger.Translate("Querying Sqlite3 DB: %v", err))
+		return nil, fmt.Errorf(logger.Translate("Connection test failed! Querying Sqlite3 DB: %v", err.Error()))
 	}
 
 	version, _ := getSQLLiteRowString(ctx, conn, "select sqlite_version()")

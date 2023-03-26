@@ -23,6 +23,8 @@ var decoder = schema.NewDecoder()
 
 // Ask the user a Yes/No question.
 func (a *App) Ask(title, msg string) bool {
+	a.log.Tracef("Call:Ask(%s,%s)", title, msg)
+
 	resp, err := wr.MessageDialog(a.ctx, wr.MessageDialogOptions{
 		Type:          wr.QuestionDialog,
 		Title:         title,
@@ -101,7 +103,7 @@ func (a *App) PickFolder(path string) (string, error) {
 
 // PickFile opens the file selector.
 func (a *App) PickFile(path, extname, extensions string) (string, error) { //nolint:cyclop
-	a.log.Tracef("Call:PickFile(%s)", path)
+	a.log.Tracef("Call:PickFile(%s,%s,%s)", path, extname, extensions)
 
 	if path == "" {
 		path = a.config.Settings().Path

@@ -696,9 +696,9 @@
             "translation": "closing log rotator:"
         },
         {
-            "id": "Locating DB file failed: {Error}",
-            "message": "Locating DB file failed: {Error}",
-            "translation": "Locating DB file failed: {Error}",
+            "id": "Connection test failed! Locating DB file: {Error}",
+            "message": "Connection test failed! Locating DB file: {Error}",
+            "translation": "Connection test failed! Locating DB file: {Error}",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
@@ -713,9 +713,9 @@
             "fuzzy": true
         },
         {
-            "id": "Querying Sqlite3 DB: {Err}",
-            "message": "Querying Sqlite3 DB: {Err}",
-            "translation": "Querying Sqlite3 DB: {Err}",
+            "id": "Connection test failed! Opening Sqlite3 DB: {Err}",
+            "message": "Connection test failed! Opening Sqlite3 DB: {Err}",
+            "translation": "Connection test failed! Opening Sqlite3 DB: {Err}",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
@@ -725,6 +725,23 @@
                     "underlyingType": "interface{Error() string}",
                     "argNum": 1,
                     "expr": "err"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Connection test failed! Querying Sqlite3 DB: {Error}",
+            "message": "Connection test failed! Querying Sqlite3 DB: {Error}",
+            "translation": "Connection test failed! Querying Sqlite3 DB: {Error}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
                 }
             ],
             "fuzzy": true
