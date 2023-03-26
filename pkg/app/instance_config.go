@@ -1,4 +1,3 @@
-//nolint:wrapcheck,goerr113
 package app
 
 import (

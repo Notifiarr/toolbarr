@@ -23,7 +23,7 @@
 </script>
 
 <Accordion>
-  <!-- This is the page title. It's collapsable. -->
+  <!-- This is the page title. It's collapsible. -->
   <AccordionItem active on:toggle={()=>showTitle=!showTitle}>
     <span slot="header" style="width:95%;">
       <Applogo style="float:right" size="25px" app={starrApp} />

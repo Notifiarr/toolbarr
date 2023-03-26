@@ -13,6 +13,8 @@ linters:
     - varcheck
     - ifshort
     # unused
+    - wrapcheck
+    - goerr113
     - exhaustruct
     - exhaustive
     - containedctx

@@ -1,4 +1,3 @@
-//nolint:wrapcheck,goerr113
 package app
 
 func (a *App) GetDBTables(dbPath string) ([]string, error) {
