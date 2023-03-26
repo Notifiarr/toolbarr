@@ -15,6 +15,10 @@ export function ErrorDialog(arg1:string,arg2:string):Promise<void>;
 
 export function GetConfig():Promise<any>;
 
+export function GetDBTables(arg1:string):Promise<Array<string>>;
+
+export function GetTableSchema(arg1:string,arg2:string):Promise<string>;
+
 export function Languages():Promise<{[key: string]: string}>;
 
 export function LaunchInstaller(arg1:string):Promise<string>;

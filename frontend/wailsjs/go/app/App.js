@@ -26,6 +26,14 @@ export function GetConfig() {
   return window['go']['app']['App']['GetConfig']();
 }
 
+export function GetDBTables(arg1) {
+  return window['go']['app']['App']['GetDBTables'](arg1);
+}
+
+export function GetTableSchema(arg1, arg2) {
+  return window['go']['app']['App']['GetTableSchema'](arg1, arg2);
+}
+
 export function Languages() {
   return window['go']['app']['App']['Languages']();
 }

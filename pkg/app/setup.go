@@ -73,6 +73,7 @@ func (a *App) setupMenu() {
 	a.menu = hideMenu
 }
 
+// toggleMenuItem powers the app 'Hide' menu.
 func (a *App) toggleMenuItem(item string, checked bool) {
 	settings := a.config.Settings()
 	settings.Hide[item] = checked
