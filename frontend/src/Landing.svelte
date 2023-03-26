@@ -1,30 +1,20 @@
 <script>
   export let hidden = false
-  import mainLogo from "./assets/images/notifiarr.png"
-  import { Container, Row } from "sveltestrap"
+  import mainLogo from "./assets/images/logo.png"
   import BGLogo from "./libs/BackgroundLogo.svelte"
   import { _ } from "./libs/Translate.svelte"
 </script>
 
 <BGLogo {hidden}>
-  <Container>
-    <Row>
-        <img alt="{$_("words.Main")} {$_("words.Logo")}" id="logo" src="{mainLogo}" />
-        <p class="main">{$_("theStarroftheshow")}</p>
-    </Row>
-  </Container>
+  <center>
+    <img alt="{$_("words.Main")} {$_("words.Logo")}" id="logo" src={mainLogo} />
+    <p>{$_("theStarroftheshow")}</p>
+  </center>
 </BGLogo>
 
 <style>
-  .main {
-    text-align: center;
-  }
-
   #logo {
-    display: block;
-    margin: auto;
-    padding: 50px 0 0;
-    width:75%;
-    max-width:512px;
+    max-width:100%;
+    max-height:calc(100vh - 100px);
   }
 </style>
