@@ -125,6 +125,30 @@
             "fuzzy": true
         },
         {
+            "id": "Choose File",
+            "message": "Choose File",
+            "translation": "Choose File",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Opening file browser: {Err}",
+            "message": "Opening file browser: {Err}",
+            "translation": "Opening file browser: {Err}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Err",
+                    "string": "%[1]v",
+                    "type": "error",
+                    "underlyingType": "interface{Error() string}",
+                    "argNum": 1,
+                    "expr": "err"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
             "id": "Saved {App} instance configuration!",
             "message": "Saved {App} instance configuration!",
             "translation": "Saved {App} instance configuration!",
@@ -233,9 +257,9 @@
             "fuzzy": true
         },
         {
-            "id": "Connection test successful! Found {App} ({Name}) with version {Version}",
-            "message": "Connection test successful! Found {App} ({Name}) with version {Version}",
-            "translation": "Connection test successful! Found {App} ({Name}) with version {Version}",
+            "id": "\u003cli\u003eConnection test successful! Found {App} ({Name}) with version {Version}.\u003c/li\u003e",
+            "message": "\u003cli\u003eConnection test successful! Found {App} ({Name}) with version {Version}.\u003c/li\u003e",
+            "translation": "\u003cli\u003eConnection test successful! Found {App} ({Name}) with version {Version}.\u003c/li\u003e",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
@@ -299,9 +323,9 @@
             "fuzzy": true
         },
         {
-            "id": "Database file test successful! SQLite3 version: {Version}, App: {App} ({Name})",
-            "message": "Database file test successful! SQLite3 version: {Version}, App: {App} ({Name})",
-            "translation": "Database file test successful! SQLite3 version: {Version}, App: {App} ({Name})",
+            "id": "\u003cli\u003eDatabase file test successful! SQLite3 version: {Version}, tables: {Count}\u003c/li\u003e",
+            "message": "\u003cli\u003eDatabase file test successful! SQLite3 version: {Version}, tables: {Count}\u003c/li\u003e",
+            "translation": "\u003cli\u003eDatabase file test successful! SQLite3 version: {Version}, tables: {Count}\u003c/li\u003e",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
@@ -313,20 +337,12 @@
                     "expr": "test.Version"
                 },
                 {
-                    "id": "App",
-                    "string": "%[2]s",
-                    "type": "string",
-                    "underlyingType": "string",
+                    "id": "Count",
+                    "string": "%[2]d",
+                    "type": "int",
+                    "underlyingType": "int",
                     "argNum": 2,
-                    "expr": "test.App"
-                },
-                {
-                    "id": "Name",
-                    "string": "%[3]s",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 3,
-                    "expr": "test.Name"
+                    "expr": "test.Count"
                 }
             ],
             "fuzzy": true
