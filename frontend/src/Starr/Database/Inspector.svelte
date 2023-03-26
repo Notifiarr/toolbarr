@@ -2,7 +2,7 @@
     export let instance
     export let showTitle
 
-    import { Card, CardBody, CardFooter, CardHeader, CardTitle } from "sveltestrap"
+    import { Alert, Card, CardBody, CardFooter, CardHeader, CardTitle } from "sveltestrap"
     import T, { _ } from "../../libs/Translate.svelte"
 </script>
 
@@ -13,8 +13,9 @@
     </CardHeader>
   </span>
   <CardBody>
+    <Alert color="danger">{$_("incompletePage")}</Alert>
     <p>
-      This tool allows you to browse your {instance.App} database.
+      This tool allows you to browse your {instance.App} database. 
     </p>
 
     {#if instance.DBPath == ""}
