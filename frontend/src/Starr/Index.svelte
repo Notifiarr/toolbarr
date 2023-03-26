@@ -20,15 +20,15 @@
 <BackgroundLogo {hidden} url="starr">
   <div class="container">
     <TabContent vertical={width>767} pills={width>767}>
-      {#if width>767}
-        <TabPane disabled><span slot="tab" style="text-decoration:underline">MENU</span></TabPane>
-      {/if}
-      <TabPane tabId="Config" tab="{$_("words.Config")}" active><Config {starrApp}/></TabPane>
-      <TabPane tabId="Source" tab="{$_("words.Source")}"><Source {starrApp}/></TabPane>
-      <TabPane tabId="Activity" tab="{$_("words.Activity")}"><Activity {starrApp}/></TabPane>
-      <TabPane tabId="Library" tab="{$_("words.Library")}"><Library {starrApp}/></TabPane>
-      <TabPane tabId="Actions" tab="{$_("words.Actions")}"><Actions {starrApp}/></TabPane>
-      <TabPane tabId="DBTools" tab="DB&nbsp;Tools"><Database {starrApp}/></TabPane>
+      <!-- {#if width>767}
+        <TabPane disabled><span slot="tab" style="text-decoration:underline;color:gray">MENU</span></TabPane>
+      {/if} -->
+      <TabPane tabId="Config" tab={$_("words.Config")} active><Config {starrApp}/></TabPane>
+      <TabPane tabId="Source" tab={$_("words.Source")}><Source {starrApp}/></TabPane>
+      <TabPane tabId="Activity" tab={$_("words.Activity")}><Activity {starrApp}/></TabPane>
+      <TabPane tabId="Library" tab={$_("words.Library")}><Library {starrApp}/></TabPane>
+      <TabPane tabId="Actions" tab={$_("words.Actions")}><Actions {starrApp}/></TabPane>
+      <TabPane tabId="DBTools"><span slot="tab">{@html $_("instances.DBTools")}</span><Database {starrApp}/></TabPane>
     </TabContent>
   </div>
 </BackgroundLogo>

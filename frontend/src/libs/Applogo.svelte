@@ -1,6 +1,7 @@
 <script>
   export let app
   export let size
+  export let style = ""
   import logo from "../assets/images/logo.png"
   import toolboxLogo from "../assets/images/Toolbox.png"
   import settingsLogo from "../assets/images/settings.png"
@@ -16,25 +17,25 @@
 </script>
 
 {#if app == "Lidarr"}
-  <img alt="{app} {$_("words.Logo")}" height={size} src={lidarrLogo} />
+  <img alt="{app} {$_("words.Logo")}" height={size} src={lidarrLogo} {style}/>
 {:else if app == "Prowlarr"}
-  <img alt="{app} {$_("words.Logo")}" height={size} src={prowlarrLogo} />
+  <img alt="{app} {$_("words.Logo")}" height={size} src={prowlarrLogo} {style}/>
 {:else if app == "Radarr"}
-  <img alt="{app} {$_("words.Logo")}" height={size} src={radarrLogo} />
+  <img alt="{app} {$_("words.Logo")}" height={size} src={radarrLogo} {style}/>
 {:else if app == "Readarr"}
-  <img alt="{app} {$_("words.Logo")}" height={size} src={readarrLogo} />
+  <img alt="{app} {$_("words.Logo")}" height={size} src={readarrLogo} {style}/>
 {:else if app == "Sonarr"}
-  <img alt="{app} {$_("Lwords.ogo")}" height={size} src={sonarrLogo} />
+  <img alt="{app} {$_("Lwords.ogo")}" height={size} src={sonarrLogo} {style}/>
 {:else if app == "Whisparr"}
-  <img alt="{app} {$_("words.Logo")}" height={size} src={whisparrLogo} />
+  <img alt="{app} {$_("words.Logo")}" height={size} src={whisparrLogo} {style}/>
 {:else if app == "Toolbox"}
-  <img alt="{app} {$_("words.Logo")}" height={size} src={toolboxLogo} />
+  <img alt="{app} {$_("words.Logo")}" height={size} src={toolboxLogo} {style}/>
 {:else if app == "Settings"}
-  <img alt="{app} {$_("words.Logo")}" height={size} src={settingsLogo} />
+  <img alt="{app} {$_("words.Logo")}" height={size} src={settingsLogo} {style}/>
 {:else if app == "Links"}
-  <Fa primaryColor="dodgerblue" icon="{faLink}" />
+  <Fa primaryColor="dodgerblue" icon="{faLink}" {style}/>
 {:else if app == "About"}
-  <Fa primaryColor="mediumpurple" icon="{faBookBible}" />
+  <Fa primaryColor="mediumpurple" icon="{faBookBible}" {style}/>
 {:else}
-  <img alt="{app} {$_("words.Logo")}" height={size} src={logo} />
+  <img alt="{app} {$_("words.Logo")}" height={size} src={logo} {style}/>
 {/if}

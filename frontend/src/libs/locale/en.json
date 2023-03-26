@@ -130,7 +130,15 @@
         "WritteninSvelte": "Written in <a href=\"{svelteURL}\">Svelte</a> using <a href=\"{wailsURL}\">Wails</a>."
     },
     "instances": {
+        "DBTools": "DB&nbsp;Tools",
+        "DBTool": "DB Tool",
         "instanceConfig": "API key is optional if a username and password is provided. Instances without passwords only require a local URL. Providing the optional DB Path enables SQLite3 Database management features.",
-        "addNewInstance": "Add New {starrApp} Instance"
+        "addNewInstance": "Add New {starrApp} Instance",
+        "FilesystemPathsMigrator": "Filesystem Paths Migrator",
+        "MigratorDescription": "This tool allows you to update the paths for the media in your {starrApp} library. Use this before moving your library from one server to another if the media content paths are changing.",
+        "SQLite3DatabaseInspector": "SQLite3 Database Inspector",
+        "DBToolsSelector": "Select a tool and an instance to get started. <span class=\"text-danger\">The database file must not be in use.</span> Either work on a copy, or exit {starrApp} before proceeding.",
+        "NoDatabasePathConfigured": "The selected {starrApp} instance ({name}) has no SQLite3 database file path configured.",
+        "noInstancesConfigured": "No instances configured."
     }
 }
