@@ -1,37 +1,49 @@
 <script>
   export let starrApp
 
-  import { Input, InputGroup, InputGroupText, Button, Form, Alert, FormGroup, Badge, TabContent, TabPane } from "sveltestrap"
-  import { app, conf } from "../../libs/config.js"
-  import { port } from "../../libs/info.js"
-  import Fa from "svelte-fa"
-  import { faFolderOpen, faLock, faUnlock, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons"
-  import { PickFile, SaveInstance, TestInstance, RemoveInstance } from "../../../wailsjs/go/app/App.js"
-  import { toast } from "../../libs/funcs.js"
-  import { onDestroy } from "svelte"
+  import { Input, InputGroup, InputGroupText } from "sveltestrap"
+  import { conf } from "../../libs/config.js"
   import { _ } from "../../libs/Translate.svelte"
-  import Menu from "./Menu.svelte"
+  import Inspector from "./Inspector.svelte"
+  import Migrate from "./Migrate.svelte"
 
-  let width
+  let instance
+  let activeTab=Migrate
+
+  $: if ($conf.Instances[starrApp] != undefined && instance == undefined) {
+    instance = $conf.Instances[starrApp][0]
+  }
 </script>
 
-<svelte:window bind:innerWidth={width}/>
+<h3>{starrApp} Database Tools</h3>
+<p>
+  Select a tool and an instance to get started. 
+  <span class="text-danger">The database file must not be in use. </span>
+  Either work on a copy, or exit {starrApp} before proceeding.
+</p>
 
-<div class="container">
-  <TabContent vertical={width>767} pills>
-    {#if $conf.Instances[starrApp] != undefined}
-    {#each $conf.Instances[starrApp] as instance}
-      {#if instance.DBPath != ""}
-        <TabPane tabId="Config" tab={instance.Name} active><Menu {instance} /></TabPane>
+<InputGroup>
+  <InputGroupText class="setting-name">Tool</InputGroupText>
+  <Input type="select" bind:value={activeTab}>
+    <option value={Migrate}>Migrate Filesystem Paths</option>
+    <option value={Inspector}>SQLite3 Database Inspector</option>
+  </Input>
+</InputGroup>
+<InputGroup>
+  <InputGroupText class="setting-name">Instance</InputGroupText>
+  <Input type="select" id="instance" bind:value={instance}>
+    {#if $conf.Instances[starrApp] != null}
+      {#each $conf.Instances[starrApp] as instance}
+        <option value={instance}>{instance.Name}</option>
+      {/each}
+      {#if $conf.Instances[starrApp].length == 0}
+        <option disabled>- no instances configured -</option>
       {/if}
-    {/each}
     {/if}
-  </TabContent>
-</div>
+  </Input>
+</InputGroup>
 
-<style>
-  .container {
-    margin-top: 5px;
-  }
-</style>
-
+<hr>
+{#if instance}
+  <svelte:component this={activeTab} {instance}/>
+{/if}
