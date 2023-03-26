@@ -4,14 +4,14 @@
   export let instance = undefined
 
   import { Input, InputGroup, InputGroupText, Button, Form, Alert, FormGroup, Badge } from "sveltestrap"
-  import { app, conf } from "../../../libs/config.js"
-  import { port } from "../../../libs/info.js"
+  import { app, conf } from "../../libs/config.js"
+  import { port } from "../../libs/info.js"
   import Fa from "svelte-fa"
   import { faFolderOpen, faLock, faUnlock, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons"
-  import { PickFile, SaveInstance, TestInstance, RemoveInstance } from "../../../../wailsjs/go/app/App.js"
-  import { toast } from "../../../libs/funcs.js"
+  import { PickFile, SaveInstance, TestInstance, RemoveInstance } from "../../../wailsjs/go/app/App.js"
+  import { toast } from "../../libs/funcs.js"
   import { onDestroy } from "svelte"
-  import { _ } from "../../../libs/Translate.svelte"
+  import { _ } from "../../libs/Translate.svelte"
 
   let newInstance = false
   if (instance == undefined || Object.keys(instance).length == 0) {
@@ -94,7 +94,7 @@
       <div class="text-danger input-label" slot="label" style="display:{reset.Name != instance.Name?"block":"none"}">{$_("words.Unsaved")}</div>
       <InputGroup>
         <InputGroupText class="setting-name">{$_("words.Name")}</InputGroupText>
-        <Input invalid={reset.Name != instance.Name} type="text" placeholder={$_("17charactermax")} maxlength={17} id="Name" bind:value={instance.Name} />
+        <Input invalid={reset.Name != instance.Name} type="text" placeholder={$_("20charactermax")} maxlength={20} id="Name" bind:value={instance.Name} />
       </InputGroup>
     </FormGroup>
     <!-- URL -->
@@ -141,7 +141,9 @@
         <Button class="setting-name" color="secondary" on:click={(e) => {e.preventDefault(); pickDbFile(instance.DBPath)}}>
           <Fa icon="{faFolderOpen}" /> {$_("words.DBPath")}
         </Button>
-        <Input feedback={$_("words.Unsaved")} invalid={reset.DBPath != instance.DBPath} type="text" id="DBPath" bind:value={instance.DBPath} placeholder="{$app.IsWindows?"C:\\some\\path\\"+instance.App+"\\db":"/some/path/"+instance.App+".db"}" />
+        <Input feedback={$_("words.Unsaved")} invalid={reset.DBPath != instance.DBPath} 
+          type="text" id="DBPath" bind:value={instance.DBPath} 
+          placeholder="{($app.IsWindows?"C:\\some\\path\\":"/some/path/")+instance.App.toLowerCase()+".db"}" />
       </InputGroup>
     </FormGroup>
     <!-- action buttons -->

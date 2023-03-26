@@ -8,8 +8,9 @@
     "TranslationInformation": "Translation Information",
     "LanguageHelpText": "While this application supports many languages, there are not many translations available. If you can translate text, please help us out at <a href=\"{url}\">Notifiarr Translations</a>.",
     "32characterhash": "32 character hash",
-    "17charactermax": "17 character maximum",
+    "20charactermax": "20 character maximum",
     "words": {
+        "Source": "Source",
         "by": "by",
         "ERROR": "ERROR",
         "CONFIG": "CONFIG",
