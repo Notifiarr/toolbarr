@@ -49,8 +49,7 @@ body.dark-mode .navbar {
   --bs-nav-tabs-border-radius: 0.775rem;
   --bs-nav-tabs-border-color: #334858;
   --bs-nav-tabs-link-hover-border-color: #334858 #334858 #334858;
-  --bs-nav-tabs-link-active-color: #495057;
-  --bs-nav-tabs-link-active-bg: #dee2e6;
+
   --bs-nav-tabs-link-active-border-color: #495057 #495057 #495057;
 }
 

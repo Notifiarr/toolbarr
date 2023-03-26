@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"os/user"
+	"path/filepath"
 	"runtime"
 	"time"
 
@@ -93,6 +94,42 @@ func (a *App) PickFolder(path string) (string, error) {
 	if err != nil {
 		wr.LogError(a.ctx, err.Error())
 		return "", fmt.Errorf(a.log.Translate("Opening directory browser: %v", err))
+	}
+
+	return dir, nil
+}
+
+// PickFile opens the file selector.
+func (a *App) PickFile(path, extname, extensions string) (string, error) { //nolint:cyclop
+	a.log.Tracef("Call:PickFile(%s)", path)
+
+	if path == "" {
+		path = a.config.Settings().Path
+	}
+
+	if stat, err := os.Stat(path); err != nil || !stat.IsDir() {
+		// Work up the tree until we find a folder to start in.
+		for {
+			path = filepath.Dir(path)
+			if _, err := os.Stat(path); err == nil ||
+				path == "/" || path == `\` || path == `:\` || path == `\\` ||
+				(len(path) == 3 && path[1:3] == `:\`) {
+				break
+			}
+		}
+	}
+
+	dir, err := wr.OpenFileDialog(a.ctx, wr.OpenDialogOptions{
+		DefaultDirectory: path,
+		Title:            a.log.Translate("Choose File"),
+		Filters: []wr.FileFilter{{
+			DisplayName: extname,
+			Pattern:     extensions,
+		}},
+	})
+	if err != nil {
+		wr.LogError(a.ctx, err.Error())
+		return "", fmt.Errorf(a.log.Translate("Opening file browser: %v", err))
 	}
 
 	return dir, nil

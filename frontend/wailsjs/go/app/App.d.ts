@@ -21,6 +21,8 @@ export function LaunchInstaller(arg1:string):Promise<string>;
 
 export function OpenFolder(arg1:string):Promise<string>;
 
+export function PickFile(arg1:string,arg2:string,arg3:string):Promise<string>;
+
 export function PickFolder(arg1:string):Promise<string>;
 
 export function Quit():Promise<void>;

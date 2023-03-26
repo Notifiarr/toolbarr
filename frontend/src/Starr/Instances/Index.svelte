@@ -29,7 +29,7 @@
   }
 
   .container {
-    margin-top: 2px;
+    margin-top: 5px;
   }
 
   .container :global(.setting-name) {

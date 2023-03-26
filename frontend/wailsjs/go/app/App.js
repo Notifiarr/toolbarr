@@ -38,6 +38,10 @@ export function OpenFolder(arg1) {
   return window['go']['app']['App']['OpenFolder'](arg1);
 }
 
+export function PickFile(arg1, arg2, arg3) {
+  return window['go']['app']['App']['PickFile'](arg1, arg2, arg3);
+}
+
 export function PickFolder(arg1) {
   return window['go']['app']['App']['PickFolder'](arg1);
 }
