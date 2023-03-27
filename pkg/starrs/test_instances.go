@@ -3,9 +3,7 @@ package starrs
 
 import (
 	"context"
-	"database/sql"
 	"fmt"
-	"os"
 	"time"
 
 	"github.com/Notifiarr/toolbarr/pkg/logs"
@@ -34,22 +32,18 @@ type InstanceTest struct {
 }
 
 func TestDBPath(ctx context.Context, logger *logs.Logger, instance *Instance) (*InstanceTest, error) {
-	if _, err := os.Stat(instance.DBPath); err != nil {
-		return nil, fmt.Errorf(logger.Translate("Connection test failed! Locating DB file: %v", err.Error()))
-	}
-
-	conn, err := sql.Open("sqlite", instance.DBPath)
+	sql, err := NewSQL(logger, instance)
 	if err != nil {
-		return nil, fmt.Errorf(logger.Translate("Connection test failed! Opening Sqlite3 DB: %v", err))
+		return nil, fmt.Errorf(logger.Translate("Connection test failed! %v", err.Error()))
 	}
-	defer conn.Close()
+	defer sql.Close()
 
-	tables, err := getSQLLiteRowStringSlice(ctx, conn, "SELECT name FROM sqlite_schema WHERE type='table'")
+	tables, err := sql.RowsStringSlice(ctx, "SELECT name FROM sqlite_schema WHERE type='table'")
 	if err != nil {
 		return nil, fmt.Errorf(logger.Translate("Connection test failed! Querying Sqlite3 DB: %v", err.Error()))
 	}
 
-	version, _ := getSQLLiteRowString(ctx, conn, "select sqlite_version()")
+	version, _ := sql.RowString(ctx, "select sqlite_version()")
 
 	return &InstanceTest{
 		Count:   len(tables),

@@ -12,14 +12,16 @@
   import { _ } from "../libs/Translate.svelte"
   import BackgroundLogo from "../libs/BackgroundLogo.svelte"
   // Move things around when screen width changes.
-  let width 
+  let width
+  // Keep track of the active tab.
+  let tab
 </script>
 
 <svelte:window bind:innerWidth={width}/>
 
 <BackgroundLogo {hidden} url="starr">
   <div class="container">
-    <TabContent vertical={width>767} pills={width>767}>
+    <TabContent vertical={width>767} pills={width>767} on:tab={(e) => (tab = e.detail)}>
       <!-- {#if width>767}
         <TabPane disabled><span slot="tab" style="text-decoration:underline;color:gray">MENU</span></TabPane>
       {/if} -->
@@ -28,7 +30,10 @@
       <TabPane tabId="Activity" tab={$_("words.Activity")}><Activity {starrApp}/></TabPane>
       <TabPane tabId="Library" tab={$_("words.Library")}><Library {starrApp}/></TabPane>
       <TabPane tabId="Actions" tab={$_("words.Actions")}><Actions {starrApp}/></TabPane>
-      <TabPane tabId="DBTools"><span slot="tab">{@html $_("instances.DBTools")}</span><Database {starrApp}/></TabPane>
+      <TabPane tabId="Database">
+        <span slot="tab">{@html $_("instances.DBTools")}</span>
+        <Database hidden={tab!="Database"} {starrApp}/>
+      </TabPane>
     </TabContent>
   </div>
 </BackgroundLogo>

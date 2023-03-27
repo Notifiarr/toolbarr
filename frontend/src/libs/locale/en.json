@@ -12,6 +12,9 @@
     "incompletePage": "This tool or page is incomplete.",
     "words": {
         "Source": "Source",
+        "Updating": "Updating",
+        "Loading": "Loading",
+        "Instance": "Instance",
         "by": "by",
         "ERROR": "ERROR",
         "CONFIG": "CONFIG",
@@ -54,8 +57,10 @@
         "Save": "Save",
         "Delete": "Delete",
         "Reset": "Reset",
-        "Unsaved": "Unsaved"
-
+        "Unsaved": "Unsaved",
+        "Files": "Files",
+        "Cancel": "Cancel",
+        "Change": "Change"
     },
     "customconfig": {
         "CustomConfigPath": "Custom Config Path",
@@ -140,6 +145,8 @@
         "SQLite3DatabaseInspector": "SQLite3 Database Inspector",
         "DBToolsSelector": "Select a tool and an instance to get started. <span class=\"text-danger\">The database file must not be in use.</span> Either work on a copy, or exit {starrApp} before proceeding.",
         "NoDatabasePathConfigured": "The selected {starrApp} instance ({name}) has no SQLite3 database file path configured.",
-        "noInstancesConfigured": "No instances configured."
+        "noInstancesConfigured": "No instances configured.",
+        "RootFolder": "Root Folder",
+        "EnterNewRootFolder": "Enter new root folder path. It must end with a slash. All {files} and {items} will be updated when save is clicked."
     }
 }
