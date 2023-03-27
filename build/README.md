@@ -10,6 +10,8 @@ The structure is:
 
 ## Mac
 
+- `icon.icns` - App bundle icon file.
+
 The `darwin` directory holds files specific to Mac builds.
 These may be customised and used as part of the build. 
 To return these files to the default state, simply delete them and build with `wails build`.
