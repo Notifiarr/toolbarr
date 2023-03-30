@@ -39,6 +39,10 @@ export function SaveInstance(arg1:number,arg2:starrs.Instance):Promise<any>;
 
 export function TestInstance(arg1:any):Promise<string>;
 
+export function UpdateDBInvalidItems(arg1:any,arg2:string,arg3:string,arg4:{[key: number]: boolean}):Promise<any>;
+
+export function UpdateDBRecycleBin(arg1:any,arg2:string):Promise<any>;
+
 export function UpdateDBRootFolder(arg1:any,arg2:string,arg3:string):Promise<any>;
 
 export function Version():Promise<app.Version>;

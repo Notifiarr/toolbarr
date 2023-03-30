@@ -41,7 +41,7 @@
 
     <!-- Instance selector menu. -->
     <InputGroup>
-      <InputGroupText class="setting-name">{$_("word.Instance")}</InputGroupText>
+      <InputGroupText class="setting-name">{$_("words.Instance")}</InputGroupText>
       <Input type="select" id="instance" bind:value={instance}>
         {#if $conf.Instances[starrApp] != null}
           {#each $conf.Instances[starrApp] as instance}

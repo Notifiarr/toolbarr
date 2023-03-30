@@ -414,6 +414,96 @@
             "fuzzy": true
         },
         {
+            "id": "No path provided.",
+            "message": "No path provided.",
+            "translation": "No path provided.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Updated {Rows} rows in table {Table}.",
+            "message": "Updated {Rows} rows in table {Table}.",
+            "translation": "Updated {Rows} rows in table {Table}.",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Rows",
+                    "string": "%[1]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 1,
+                    "expr": "rows"
+                },
+                {
+                    "id": "Table",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "column.Table"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Really unset {Name} recycle bin?",
+            "message": "Really unset {Name} recycle bin?",
+            "translation": "Really unset {Name} recycle bin?",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "instance.Name"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Unset Recycle Bin",
+            "message": "Unset Recycle Bin",
+            "translation": "Unset Recycle Bin",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Changed recycle bin path! Rows Updated: {Count}",
+            "message": "Changed recycle bin path! Rows Updated: {Count}",
+            "translation": "Changed recycle bin path! Rows Updated: {Count}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Count",
+                    "string": "%[1]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 1,
+                    "expr": "count"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Unset recycle bin path! Rows Updated: {Count}",
+            "message": "Unset recycle bin path! Rows Updated: {Count}",
+            "translation": "Unset recycle bin path! Rows Updated: {Count}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Count",
+                    "string": "%[1]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 1,
+                    "expr": "count"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
             "id": "Success! Changed Root Folder from '{OldPath}' to '{NewPath}'.",
             "message": "Success! Changed Root Folder from '{OldPath}' to '{NewPath}'.",
             "translation": "Success! Changed Root Folder from '{OldPath}' to '{NewPath}'.",
@@ -434,31 +524,6 @@
                     "underlyingType": "string",
                     "argNum": 2,
                     "expr": "newPath"
-                }
-            ],
-            "fuzzy": true
-        },
-        {
-            "id": "Updated {Count} rows in table {TableName}.",
-            "message": "Updated {Count} rows in table {TableName}.",
-            "translation": "Updated {Count} rows in table {TableName}.",
-            "translatorComment": "Copied from source.",
-            "placeholders": [
-                {
-                    "id": "Count",
-                    "string": "%[1]d",
-                    "type": "int64",
-                    "underlyingType": "int64",
-                    "argNum": 1,
-                    "expr": "count"
-                },
-                {
-                    "id": "TableName",
-                    "string": "%[2]s",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 2,
-                    "expr": "tableName"
                 }
             ],
             "fuzzy": true

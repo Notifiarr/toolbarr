@@ -64,5 +64,6 @@ body.dark-mode .navbar {
 
 /* Make bootstrap card backgrounds slightly transparent. */
 .card {
+  margin-top: 3px;
   --bs-bg-opacity: 0.5 !important;
 }

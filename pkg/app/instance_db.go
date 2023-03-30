@@ -2,39 +2,59 @@ package app
 
 import (
 	"fmt"
+	"path"
 	"strings"
 
 	"github.com/Notifiarr/toolbarr/pkg/starrs"
 	wr "github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
+// TableFileMap is a map of table name => item ID => item Path
+// Used to display info or update paths on a table.
+type TableFileMap map[starrs.TableColumn][]*starrs.Entry
+
+// TableCountMap is a map of table name => root folder => count.
+// Used to count items mapped to a root folder from a specific table.
+type TableCountMap map[string]map[string]int
+
 // MigratorInfo is full of info about the current root folders.
 type MigratorInfo struct {
-	Table       AppTable         // Names of main and sub tables.
-	RootFolders []string         // Configured Root Folders.
-	Items       map[int64]string // Main table, ID=>Path
-	Files       map[int64]string // Sub table, ID=>Path
-	InvalidI    map[int64]string // Derived from items not located in root folders.
-	InvalidF    map[int64]string // Derived from files not located in root folders.
-	FoldersI    map[string]int   // Derived from both tables.
-	FoldersF    map[string]int   // Derived from both tables.
-	Recycle     string           // Recycle Bin
+	Table       AppTable                   // Names of main and sub tables.
+	RootFolders []string                   // Configured Root Folders.
+	Invalid     map[string][]*starrs.Entry // Derived from items not located in root folders.
+	Folders     TableCountMap              // Derived from both tables.
+	Recycle     string                     // Recycle Bin
 }
 
 // AppTable is a simple name map.
-type AppTable struct { //nolint:revive
-	Items string
-	Files string
-}
+type AppTable map[string]starrs.TableColumn //nolint:revive
 
 // AppTables returns the primary item table for an app.
 func AppTables(app string) AppTable { //nolint:revive
 	return map[string]AppTable{
-		"Lidarr":   {Items: "Artists", Files: "TrackFiles"},
-		"Radarr":   {Items: "Movies", Files: "MovieFiles"},
-		"Readarr":  {Items: "Authors", Files: "BookFiles"},
-		"Sonarr":   {Items: "Series", Files: "EpisodeFiles"},
-		"Whisparr": {Items: "Series", Files: "EpisodeFiles"},
+		"Lidarr": {
+			"Artists":     {Table: "Artists", Column: "Path", Name: `""`},
+			"TrackFiles":  {Table: "TrackFiles", Column: "Path", Name: "OriginalFilePath"},
+			"ImportLists": {Table: "ImportLists", Column: "RootFolderPath", Name: "Name"},
+		},
+		"Radarr": {
+			"Movies":      {Table: "Movies", Column: "Path", Name: `""`},
+			"ImportLists": {Table: "ImportLists", Column: "RootFolderPath", Name: "Name"},
+			"Collections": {Table: "Collections", Column: "RootFolderPath", Name: "Title"},
+		},
+		"Readarr": {
+			"Authors":     {Table: "Authors", Column: "Path", Name: `""`},
+			"BookFiles":   {Table: "BookFiles", Column: "Path", Name: "OriginalFilePath"},
+			"ImportLists": {Table: "ImportLists", Column: "RootFolderPath", Name: "Name"},
+		},
+		"Sonarr": {
+			"Series":      {Table: "Series", Column: "Path", Name: `""`},
+			"ImportLists": {Table: "ImportLists", Column: "RootFolderPath", Name: "Name"},
+		},
+		"Whisparr": {
+			"Series":      {Table: "Series", Column: "Path", Name: `""`},
+			"ImportLists": {Table: "ImportLists", Column: "RootFolderPath", Name: "Name"},
+		},
 	}[app]
 }
 
@@ -46,7 +66,7 @@ type UpdateRootFolders struct {
 
 // DeleteDBRootFolder removes a root folder.
 func (a *App) DeleteDBRootFolder(instance *starrs.Instance, folder string) (*UpdateRootFolders, error) {
-	a.log.Tracef("Call:DeleteDBRootFolder(%s)", folder)
+	a.log.Tracef("Call:DeleteDBRootFolder(%s,%s)", instance.Name, folder)
 
 	question := a.log.Translate(
 		"Really delete %s root folder?\nPath: %s\nThis Action cannot be undone, and this application does not make backups.",
@@ -66,17 +86,12 @@ func (a *App) DeleteDBRootFolder(instance *starrs.Instance, folder string) (*Upd
 		return nil, fmt.Errorf(a.log.Translate("Querying Sqlite3 DB: %v", err.Error()))
 	}
 
-	info, err := a.getMigratorInfo(instance)
-	if err != nil {
-		return nil, fmt.Errorf(a.log.Translate("Querying Sqlite3 DB: %v", err.Error()))
-	}
-
-	return &UpdateRootFolders{Msg: a.log.Translate("Success! Deleted root folder: %s", folder), Info: info}, nil
+	return a.returnMessage(sql, instance, a.log.Translate("Success! Deleted root folder: %s", folder))
 }
 
 // UpdateDBRootFolder changes the path for a root folder. It updates all the item with the folder.
 func (a *App) UpdateDBRootFolder(instance *starrs.Instance, oldPath, newPath string) (*UpdateRootFolders, error) {
-	a.log.Tracef("Call:UpdateDBRootFolder(%s,%s)", oldPath, newPath)
+	a.log.Tracef("Call:UpdateDBRootFolder(%s,%s,%s)", instance.Name, oldPath, newPath)
 
 	sql, err := starrs.NewSQL(a.log, instance)
 	if err != nil {
@@ -89,7 +104,117 @@ func (a *App) UpdateDBRootFolder(instance *starrs.Instance, oldPath, newPath str
 		return nil, fmt.Errorf(a.log.Translate("Querying Sqlite3 DB: %v", err.Error()))
 	}
 
-	info, err := a.getMigratorInfo(instance)
+	return a.returnMessage(sql, instance, msg)
+}
+
+func (a *App) UpdateDBInvalidItems(
+	instance *starrs.Instance,
+	table string,
+	newPath string,
+	ids map[int64]bool,
+) (*UpdateRootFolders, error) {
+	a.log.Tracef("Call:UpdateDBInvalidItems(%s,%s,%d)", instance.Name, table, len(ids))
+
+	if newPath == "" {
+		return nil, fmt.Errorf(a.log.Translate("No path provided."))
+	}
+
+	sql, err := starrs.NewSQL(a.log, instance)
+	if err != nil {
+		return nil, fmt.Errorf(a.log.Translate("Querying Sqlite3 DB: %v", err.Error()))
+	}
+	defer sql.Close()
+
+	counts := map[string]int{table: 0}
+
+	for _, v := range ids {
+		if v {
+			counts[table]++
+		}
+	}
+
+	wr.EventsEmit(a.ctx, "DBitemTotals", counts)
+
+	column := AppTables(instance.App)[table]
+
+	fn := a.updateDBInvalidBasePath // column.Column == "Path"
+	if column.Column == "RootFolderPath" {
+		fn = a.updateDBInvalidRootFolder
+	}
+
+	msg, err := fn(sql, &column, newPath, ids)
+	if err != nil {
+		return nil, fmt.Errorf(a.log.Translate("Querying Sqlite3 DB: %v", err.Error()))
+	}
+
+	return a.returnMessage(sql, instance, msg)
+}
+
+func (a *App) updateDBInvalidBasePath(
+	sql *starrs.SQLConn,
+	column *starrs.TableColumn,
+	newPath string,
+	ids map[int64]bool,
+) (string, error) {
+	current, err := sql.GetEntries(a.ctx, column)
+	if err != nil {
+		return "", err
+	}
+
+	counter := 0
+	rows := int64(0)
+
+	for _, entry := range current {
+		if !ids[int64(entry.ID)] {
+			continue
+		}
+
+		counter++
+		wr.EventsEmit(a.ctx, "DBfileCount", map[string]int{column.Table: counter})
+
+		res, err := sql.Update(column.Table, column.Column, newPath+path.Base(entry.Path), fmt.Sprint("Id=", entry.ID))
+		if err != nil {
+			return "", err
+		}
+
+		r, _ := res.RowsAffected()
+		rows += r
+	}
+
+	return a.log.Translate("Updated %d rows in table %s.", rows, column.Table), nil
+}
+
+func (a *App) updateDBInvalidRootFolder(
+	sql *starrs.SQLConn,
+	column *starrs.TableColumn,
+	newPath string,
+	ids map[int64]bool,
+) (string, error) {
+	counter := 0
+	rows := int64(0)
+
+	for rowID, ok := range ids {
+		if !ok {
+			continue
+		}
+
+		counter++
+		wr.EventsEmit(a.ctx, "DBfileCount", map[string]int{column.Table: counter})
+
+		res, err := sql.Update(column.Table, column.Column, newPath, fmt.Sprint("Id=", rowID))
+		if err != nil {
+			return "", err
+		}
+
+		r, _ := res.RowsAffected()
+		rows += r
+	}
+
+	return a.log.Translate("Updated %d rows in table %s.", rows, column.Table), nil
+}
+
+func (a *App) returnMessage(sql *starrs.SQLConn, instance *starrs.Instance, msg string) (*UpdateRootFolders, error) {
+	info, err := a.getMigratorInfo(sql, instance)
 	if err != nil {
 		return nil, fmt.Errorf(a.log.Translate("Querying Sqlite3 DB: %v", err.Error()))
 	}
@@ -97,68 +222,107 @@ func (a *App) UpdateDBRootFolder(instance *starrs.Instance, oldPath, newPath str
 	return &UpdateRootFolders{Msg: msg, Info: info}, nil
 }
 
-func (a *App) updateDBRootFolder(table AppTable, sql *starrs.SQLConn, oldPath, newPath string) (string, error) {
-	items, err := sql.ItemPaths(a.ctx, table.Items)
+func (a *App) UpdateDBRecycleBin(instance *starrs.Instance, newPath string) (*UpdateRootFolders, error) {
+	a.log.Tracef("Call:UpdateDBRecycleBin(%s,%s)", instance.Name, newPath)
+
+	if newPath == "" {
+		question := a.log.Translate("Really unset %s recycle bin?\n", instance.Name)
+		if !a.Ask(a.log.Translate("Unset Recycle Bin"), question) {
+			return &UpdateRootFolders{}, nil
+		}
+	}
+
+	sql, err := starrs.NewSQL(a.log, instance)
+	if err != nil {
+		return nil, fmt.Errorf(a.log.Translate("Querying Sqlite3 DB: %v", err.Error()))
+	}
+	defer sql.Close()
+
+	count, err := sql.UpdateRecyclebin(a.ctx, newPath)
+	if err != nil {
+		return nil, fmt.Errorf(a.log.Translate("Querying Sqlite3 DB: %v", err.Error()))
+	}
+
+	msg := a.log.Translate("Changed recycle bin path! Rows Updated: %d", count)
+	if newPath == "" {
+		msg = a.log.Translate("Unset recycle bin path! Rows Updated: %d", count)
+	}
+
+	return a.returnMessage(sql, instance, msg)
+}
+
+func (a *App) updateDBRootFolder(appTable AppTable, sql *starrs.SQLConn, oldPath, newPath string) (string, error) {
+	counts, tables, err := a.getDBCounts(appTable, sql)
 	if err != nil {
 		return "", err
 	}
 
-	files, err := sql.ItemPaths(a.ctx, table.Files)
-	if err != nil {
-		return "", err
-	}
-
-	wr.EventsEmit(a.ctx, "DBitemTotals", map[string]int{
-		table.Items: len(items),
-		table.Files: len(files),
-	})
+	wr.EventsEmit(a.ctx, "DBitemTotals", counts)
 
 	_, err = sql.Update("RootFolders", "Path", newPath, fmt.Sprintf("Path=%q", oldPath))
 	if err != nil {
 		return "", err
 	}
 
-	count, err := a.updateDBFilesRootFolder(sql, items, table.Items, oldPath, newPath)
-	if err != nil {
-		return "", err
+	msg := a.log.Translate("Success! Changed Root Folder from '%s' to '%s'.", oldPath, newPath)
+
+	for table, items := range tables {
+		rows, err := a.updateDBFilesRootFolder(sql, items, table, oldPath, newPath)
+		if err != nil {
+			return "", err
+		}
+
+		msg += " " + a.log.Translate("Updated %d rows in table %s.", rows, table.Table)
 	}
-
-	tableName := table.Items
-	msg := a.log.Translate("Success! Changed Root Folder from '%s' to '%s'.", oldPath, newPath) +
-		" " + a.log.Translate("Updated %d rows in table %s.", count, tableName)
-
-	count, err = a.updateDBFilesRootFolder(sql, files, table.Files, oldPath, newPath)
-	if err != nil {
-		return "", err
-	}
-
-	tableName = table.Files
-	msg += " " + a.log.Translate("Updated %d rows in table %s.", count, tableName)
 
 	return msg, nil
 }
 
+// getDBCounts returns "totals" to the UI so it can display progress bars.
+// It also returns an item list so the calling function may loop the items to update them.
+func (a *App) getDBCounts(table AppTable, sql *starrs.SQLConn) (map[string]int, TableFileMap, error) {
+	output := make(TableFileMap)
+	counts := map[string]int{}
+
+	for name := range table {
+		column := table[name]
+		counts[name] = 0
+		output[column] = []*starrs.Entry{}
+
+		items, err := sql.GetEntries(a.ctx, &column)
+		if err != nil {
+			return nil, nil, err
+		}
+
+		output[column] = items
+		counts[name] = len(items)
+	}
+
+	return counts, output, nil
+}
+
 func (a *App) updateDBFilesRootFolder(
 	sql *starrs.SQLConn,
-	files map[int64]string,
-	table, oldPath, newPath string,
+	files []*starrs.Entry,
+	table starrs.TableColumn,
+	oldPath, newPath string,
 ) (int64, error) {
 	var (
 		counter      int64
 		rowsAffected int64
 	)
 
-	for pathID, path := range files {
+	for _, entry := range files {
 		counter++
-		wr.EventsEmit(a.ctx, "DBfileCount", map[string]int64{table: counter})
+		wr.EventsEmit(a.ctx, "DBfileCount", map[string]int64{table.Table: counter})
 
-		if !strings.HasPrefix(path, oldPath) {
+		if !strings.HasPrefix(entry.Path, oldPath) {
 			continue
 		}
 
-		update := strings.Replace(path, oldPath, newPath, 1)
+		update := strings.Replace(entry.Path, oldPath, newPath, 1)
 
-		rep, err := sql.Update(table, "Path", update, "Id="+fmt.Sprint(pathID))
+		rep, err := sql.Update(table.Table, table.Column, update, "Id="+fmt.Sprint(entry.ID))
 		if err != nil {
 			return 0, err
 		}
@@ -174,7 +338,13 @@ func (a *App) updateDBFilesRootFolder(
 func (a *App) GetMigratorInfo(instance *starrs.Instance) (*MigratorInfo, error) {
 	a.log.Tracef("Call:GetMigratorInfo(%s)", instance.DBPath)
 
-	info, err := a.getMigratorInfo(instance)
+	sql, err := starrs.NewSQL(a.log, instance)
+	if err != nil {
+		return nil, fmt.Errorf(a.log.Translate("Querying Sqlite3 DB: %v", err.Error()))
+	}
+	defer sql.Close()
+
+	info, err := a.getMigratorInfo(sql, instance)
 	if err != nil {
 		return nil, fmt.Errorf(a.log.Translate("Querying Sqlite3 DB: %v", err.Error()))
 	}
@@ -182,27 +352,25 @@ func (a *App) GetMigratorInfo(instance *starrs.Instance) (*MigratorInfo, error) 
 	return info, nil
 }
 
-func (a *App) getMigratorInfo(instance *starrs.Instance) (*MigratorInfo, error) {
-	sql, err := starrs.NewSQL(a.log, instance)
-	if err != nil {
-		return nil, err
-	}
-	defer sql.Close()
-
+func (a *App) getMigratorInfo(sql *starrs.SQLConn, instance *starrs.Instance) (*MigratorInfo, error) {
+	table := AppTables(instance.App)
 	info := &MigratorInfo{
-		Table:    AppTables(instance.App),
-		FoldersI: make(map[string]int),
-		FoldersF: make(map[string]int),
-		InvalidI: make(map[int64]string),
-		InvalidF: make(map[int64]string),
+		Table:   table,
+		Folders: make(TableCountMap),
+		Invalid: make(map[string][]*starrs.Entry),
 	}
 
-	if info.Items, err = sql.ItemPaths(a.ctx, info.Table.Items); err != nil {
-		return nil, err
-	}
+	var err error
 
-	if info.Files, err = sql.ItemPaths(a.ctx, info.Table.Files); err != nil {
-		return nil, err
+	files := make(TableFileMap)
+
+	for name := range table {
+		column := table[name]
+
+		files[column], err = sql.GetEntries(a.ctx, &column)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	if info.RootFolders, err = sql.RootFolders(a.ctx); err != nil {
@@ -213,26 +381,23 @@ func (a *App) getMigratorInfo(instance *starrs.Instance) (*MigratorInfo, error) 
 		return nil, err
 	}
 
-	return info.derive(), nil
+	return info.derive(files), nil
 }
 
-func (i *MigratorInfo) derive() *MigratorInfo {
-	for k, v := range i.Items {
-		if dirs, found := itemInRoot(v, i.RootFolders); !found {
-			i.InvalidI[k] = v
-		} else {
-			for _, dir := range dirs {
-				i.FoldersI[dir]++
-			}
+func (i *MigratorInfo) derive(files TableFileMap) *MigratorInfo {
+	for table, items := range files {
+		if i.Folders[table.Table] == nil {
+			i.Folders[table.Table] = make(map[string]int)
 		}
-	}
 
-	for k, v := range i.Files {
-		if dirs, found := itemInRoot(v, i.RootFolders); !found {
-			i.InvalidF[k] = v
-		} else {
+		for _, entry := range items {
+			dirs, found := itemInRoot(entry.Path, i.RootFolders)
+			if !found {
+				i.Invalid[table.Table] = append(i.Invalid[table.Table], entry)
+			}
+
 			for _, dir := range dirs {
-				i.FoldersF[dir]++
+				i.Folders[table.Table][dir]++
 			}
 		}
 	}

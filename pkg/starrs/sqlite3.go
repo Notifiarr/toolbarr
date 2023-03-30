@@ -6,13 +6,14 @@ import (
 	"fmt"
 
 	"github.com/Notifiarr/toolbarr/pkg/logs"
+	"github.com/jmoiron/sqlx"
 )
 
 // SQLConn is used to query a sqllite3 db.
 type SQLConn struct {
 	logger   *logs.Logger
 	instance *Instance
-	conn     *sql.DB
+	conn     *sqlx.DB
 }
 
 // Close must called when you're done with the sql.
@@ -20,10 +21,22 @@ func (s *SQLConn) Close() {
 	_ = s.conn.Close()
 }
 
+type TableColumn struct {
+	Table  string
+	Column string
+	Name   string
+}
+
+type Entry struct {
+	ID   uint64
+	Name *string
+	Path string
+}
+
 // NewSQL provides a sql connection to make queries.
 // Must call Close() when finished.
 func NewSQL(logger *logs.Logger, instance *Instance) (*SQLConn, error) {
-	conn, err := sql.Open("sqlite", instance.DBPath)
+	conn, err := sqlx.Open("sqlite", instance.DBPath)
 	if err != nil {
 		return nil, err
 	}
@@ -61,9 +74,54 @@ func (s *SQLConn) Recyclebin(ctx context.Context) (string, error) {
 	return s.RowString(ctx, "SELECT Value FROM Config WHERE Key = 'recyclebin'")
 }
 
+func (s *SQLConn) UpdateRecyclebin(ctx context.Context, path string) (int64, error) {
+	query := fmt.Sprintf("INSERT INTO Config (Key, Value) VALUES ('recyclebin', %[1]q)"+
+		" ON CONFLICT(Key) DO UPDATE SET Value = %[1]q", Escape(path))
+
+	if path == "" {
+		query = "DELETE FROM Config WHERE Key='recyclebin'"
+	}
+
+	s.logger.Debugf("Running Query: %s", query)
+
+	rows, err := s.conn.ExecContext(ctx, query)
+	if err != nil {
+		return 0, fmt.Errorf("%s: %w", query, err)
+	}
+
+	count, _ := rows.RowsAffected()
+
+	return count, nil
+}
+
 // ItemPaths returns the ID=>Path mapping from any table.
-func (s *SQLConn) ItemPaths(ctx context.Context, table string) (map[int64]string, error) {
-	return s.RowsIDString(ctx, "SELECT Id, Path FROM "+table)
+func (s *SQLConn) ItemPaths(ctx context.Context, table, column string) (map[int64]string, error) {
+	return s.RowsIDString(ctx, "SELECT Id, "+column+" FROM "+table)
+}
+
+// ItemPaths returns the ID=>Path mapping from any table.
+func (s *SQLConn) GetEntries(ctx context.Context, tcd *TableColumn) ([]*Entry, error) {
+	sql := fmt.Sprintf("SELECT Id AS id, %s AS name, %s As path FROM %s", tcd.Name, tcd.Column, tcd.Table)
+	s.logger.Debugf("Running Query: %s", sql)
+
+	rows, err := s.conn.QueryxContext(ctx, sql)
+	if err != nil {
+		return nil, fmt.Errorf("%s: %w", sql, err)
+	}
+	defer rows.Close()
+
+	output := []*Entry{}
+
+	for rows.Next() {
+		var row Entry
+		if err = rows.StructScan(&row); err != nil {
+			return nil, fmt.Errorf("%s: %w", sql, err)
+		}
+
+		output = append(output, &row)
+	}
+
+	return output, nil
 }
 
 // TableCount returns the row count for a table.
@@ -147,7 +205,7 @@ func (s *SQLConn) RowString(ctx context.Context, sql string) (string, error) {
 		return text, nil
 	}
 
-	return "<no data returned>", nil
+	return "", nil
 }
 
 // RowInt64 returns 1 column from 1 row as an Int64.

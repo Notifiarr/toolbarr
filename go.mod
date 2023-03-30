@@ -4,6 +4,7 @@ go 1.20
 
 require (
 	github.com/gorilla/schema v1.2.0
+	github.com/jmoiron/sqlx v1.3.5
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/wailsapp/wails/v2 v2.4.1
 	golang.org/x/mod v0.9.0

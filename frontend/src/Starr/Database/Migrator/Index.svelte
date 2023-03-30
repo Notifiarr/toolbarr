@@ -18,7 +18,7 @@
   }
 </script>
 
-<Card outline class="mt-2">
+<Card outline color="dark" class="mt-2">
   <span class={showTitle?"":"d-none"}>
     <CardHeader>
       <CardTitle class="mb-0">{$_("instances.FilesystemPathsMigrator")}</CardTitle>
