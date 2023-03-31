@@ -26,7 +26,34 @@
         "Resources": "Middelen",
         "Running": "Running",
         "Settings": "Instellingen",
-        "Example": "Voorbeeld"
+        "Example": "Voorbeeld",
+        "Cancel": "Annuleren",
+        "Actions": "Acties",
+        "Activity": "Activiteit",
+        "Config": "Configuratie",
+        "Library": "Bibliotheek",
+        "DBPath": "DB pad",
+        "Delete": "Verwijder",
+        "Password": "Wachtwoord",
+        "Reset": "Reset",
+        "Save": "Opslaan",
+        "Test": "Test",
+        "Version": "Versie",
+        "APIKey": "API sleutel",
+        "Browse": "Bladeren",
+        "Name": "Naam",
+        "Toolbox": "Gereedschapskist",
+        "URL": "URL",
+        "Username": "Gebruikersnaam",
+        "Source": "Bron",
+        "Unset": "Niet ingesteld",
+        "Change": "Wijzig",
+        "Files": "Bestanden",
+        "Loading": "Laden",
+        "Path": "Pad",
+        "Unsaved": "Niet opgeslagen",
+        "Updating": "Bijwerken",
+        "Instance": "Instantie"
     },
     "general_application_settings": "Algemene toepassingsinstellingen.",
     "OtherTools": "Ander gereedschap",
@@ -51,7 +78,12 @@
         "RunningSince": "Lopend sinds",
         "Backgroundbyrawpixel": "Achtergronden van <a href=\"{rawPixelURL}\">rawpixel</a> op <a href=\"{freepikURL}\">Freepik</a>.",
         "Codecookincollaborators": "Code cookin' medewerkers.",
-        "toolbarDescription": "Toolbarr lost problemen op met Starr-apps. Het komt met een vijf sterren beoordeling van <a href=\"{url}\">Toys Arr Us</a>."
+        "toolbarDescription": "Toolbarr lost problemen op met Starr-apps. Het komt met een vijf sterren beoordeling van <a href=\"{url}\">Toys Arr Us</a>.",
+        "UpdateAvailable": "Update beschikbaar!",
+        "Useyourpackagemanager": "Gebruik uw pakket manager om de update te installeren.",
+        "Up-to-date": "Actueel!",
+        "Visitthesausagefactory": "Bezoek de worstfabriek.",
+        "WritteninSvelte": "Geschreven in <a href=\"{svelteURL}\">Svelte</a> met <a href=\"{wailsURL}\">Wails</a>."
     },
     "configinput": {
         "Lang": "Taal",
@@ -61,8 +93,9 @@
         "Path": "Log Bestand Pad",
         "Files": "Log Bestand Pad",
         "Size": "Log Bestandsgrootte",
-        "Level": "",
-        "AppPath": "App Pad"
+        "Level": "Log Niveau",
+        "AppPath": "App Pad",
+        "Updates": "Updates"
     },
     "configvalues": {
         "CONFIGERROR": "CONFIG FOUT",
@@ -73,7 +106,9 @@
         "Enabled": "Ingeschakeld",
         "NormalLogging": "Normaal loggen",
         "Production": "Productie",
-        "File": "{count} Bestand{count, plural, =0 {s} one {} other {s}}"
+        "File": "{count} Bestand{count, plural, =0 {s} one {} other {s}}",
+        "TraceLogging": "Trace Logging",
+        "Unstable": "Onstabiel"
     },
     "customconfig": {
         "CreateShortcut": "Snelkoppeling maken",
@@ -84,7 +119,8 @@
         "Makeabashscript": "Maak een bash alias of script om dit voor je te doen.",
         "macHelp": "{title} zal zoeken naar <code>{name}.conf</code> in dezelfde map als <code>{title}.app</code>. Als het niet wordt gevonden, dan wordt een locatie in uw thuismap gebruikt voor het configuratiebestand. Als u wilt dat het configuratiebestand naast de app leeft: kopieer het daarheen, herstart deze app, en het zal worden gebruikt. Het is moeilijk om een aangepaste config locatie te gebruiken op een mac en wordt niet aanbevolen.",
         "winHelp": "{title} zoekt naar <code>{name}.conf</code> in dezelfde map als <code>{title}.exe</code>. Als die niet wordt gevonden, wordt een locatie in uw thuismap gebruikt voor het configuratiebestand. Als u wilt dat het configuratiebestand naast het exe bestand staat: kopieer het daarheen, herstart deze app, en het zal worden gebruikt. Als u een aangepaste locatie voor het configuratiebestand wilt, volg dan de onderstaande instructies.",
-        "linuxHelp": "{title} zal zoeken naar <code>{naam}.conf</code> in dezelfde map als de <code>{naam}</code> binary. Als die niet wordt gevonden, dan wordt een locatie in uw thuismap gebruikt voor het configuratiebestand. Als u wilt dat het configuratiebestand naast de binary staat: kopieer het daarheen, herstart deze app, en het zal worden gebruikt. Om op Linux een aangepast config bestandspad te gebruiken, geef het als een cli argument wanneer u de executable start."
+        "linuxHelp": "{title} zal zoeken naar <code>{naam}.conf</code> in dezelfde map als de <code>{naam}</code> binary. Als die niet wordt gevonden, dan wordt een locatie in uw thuismap gebruikt voor het configuratiebestand. Als u wilt dat het configuratiebestand naast de binary staat: kopieer het daarheen, herstart deze app, en het zal worden gebruikt. Om op Linux een aangepast config bestandspad te gebruiken, geef het als een cli argument wanneer u de executable start.",
+        "Withafullpath": "Met een volledig pad"
     },
     "configtooltip": {
         "Path": "Moet een directory zijn",
@@ -94,5 +130,35 @@
         "File": "Kan alleen worden gewijzigd bij het starten van de applicatie",
         "Files": "Hoeveel back-up bestanden moeten worden bewaard bij roteren",
         "DevMode": "Schakel dit in wanneer een ontwikkelaar u dat vraagt."
-    }
+    },
+    "20charactermax": "Maximaal 20 tekens",
+    "instances": {
+        "EnterNewRecycleBin": "Voer een nieuw prullenbakpad in. Het moet eindigen met een slash.",
+        "EnterNewRootFolder": "Voer een nieuwe hoofdmap in. Het moet eindigen met een slash. Alle databasetabellen worden bijgewerkt wanneer op opslaan wordt geklikt.",
+        "FilesystemPathsMigrator": "Systeempaden migrator",
+        "MigratorDescription": "Met deze tool kunt u de paden voor de media in uw {starrApp} bibliotheek bijwerken. Gebruik dit voordat u uw bibliotheek van de ene naar de andere server verplaatst als de paden voor de media-inhoud veranderen.",
+        "DBToolsSelector": "Selecteer gereedschap en Instantie om te beginnen. <span class=\"text-danger\">Het databasebestand mag niet in gebruik zijn.</span> Werk aan een kopie, of sluit {starrApp} af voor verder te gaan.",
+        "instanceConfig": "De API-sleutel is optioneel als een gebruikersnaam en wachtwoord zijn opgegeven. Instanties zonder wachtwoord hebben alleen een lokale URL nodig. Het opgeven van het optionele DB Pad maakt SQLite3 Database beheerfuncties mogelijk.",
+        "addNewInstance": "Voeg nieuwe {starrApp} Instantie toe",
+        "DBTools": "DB&nbsp;Gereedschap",
+        "DBTool": "DB Gereedschap",
+        "SQLite3DatabaseInspector": "SQLite3 Databank Inspecteur",
+        "noInstancesConfigured": "Geen Instanties geconfigureerd.",
+        "NoDatabasePathConfigured": "De geselecteerde {starrApp} Instantie ({naam}) heeft geen SQLite3 database pad geconfigureerd.",
+        "InvalidPaths": "Ongeldige paden",
+        "Invalidpathsintable": "Ongeldige paden in tabel {table}",
+        "NewRoot": "Nieuwe hoofdmap",
+        "NoPathSet": "geen pad ingesteld",
+        "RecycleBin": "Prullenbak",
+        "RootFolders": "Hoofdmappen",
+        "SaveSelected": "Selectie opslaan",
+        "SelectAll": "Selecteer alle",
+        "SelectNone": "Selecteer geen",
+        "unsupportedColumn": "Deze kolom kan op dit moment niet worden hersteld met dit gereedschap."
+    },
+    "advanced_application_settings": "Deze instellingen regelen geavanceerde aspecten van deze toepassing, en moeten waarschijnlijk niet worden gewijzigd.",
+    "TranslationInformation": "Vertaalinformatie",
+    "LanguageHelpText": "Hoewel deze applicatie veel talen ondersteunt, zijn er niet veel vertalingen beschikbaar. Als u tekst kunt vertalen, help ons dan op <a href=\"{url}\">Notifiarr Translations</a>.",
+    "32characterhash": "32 karakters hash",
+    "incompletePage": "Deze tool of pagina is onvolledig."
 }

@@ -4,7 +4,7 @@
         {
             "id": "Dialog Failed: {Err}",
             "message": "Dialog Failed: {Err}",
-            "translation": "",
+            "translation": "Dialoog mislukt: {Err}",
             "placeholders": [
                 {
                     "id": "Err",
@@ -111,7 +111,7 @@
         {
             "id": "Config {Msg}",
             "message": "Config {Msg}",
-            "translation": "Config {Msg}",
+            "translation": "Configuratie {Msg}",
             "placeholders": [
                 {
                     "id": "Msg",
@@ -131,7 +131,7 @@
         {
             "id": "Opening directory browser: {Err}",
             "message": "Opening directory browser: {Err}",
-            "translation": "",
+            "translation": "Directorybrowser openen: {Err}",
             "placeholders": [
                 {
                     "id": "Err",
@@ -146,7 +146,7 @@
         {
             "id": "Saved {App} instance configuration!",
             "message": "Saved {App} instance configuration!",
-            "translation": "",
+            "translation": "Configuratie {App} instantie opgeslagen!",
             "placeholders": [
                 {
                     "id": "App",
@@ -161,7 +161,7 @@
         {
             "id": "Added new {App} instance!",
             "message": "Added new {App} instance!",
-            "translation": "",
+            "translation": "Nieuwe {App} instantie toegevoegd!",
             "placeholders": [
                 {
                     "id": "App",
@@ -176,7 +176,7 @@
         {
             "id": "Provided {StarrApp} instance {Idx} does not exist",
             "message": "Provided {StarrApp} instance {Idx} does not exist",
-            "translation": "",
+            "translation": "Opgegeven {StarrApp} instantie {Idx} niet bestaat",
             "placeholders": [
                 {
                     "id": "StarrApp",
@@ -199,7 +199,7 @@
         {
             "id": "Really delete {StarrApp} instance? Name: {Name}",
             "message": "Really delete {StarrApp} instance? Name: {Name}",
-            "translation": "",
+            "translation": "{StarrApp} instantie echt verwijderen? Naam: {Name}",
             "placeholders": [
                 {
                     "id": "StarrApp",
@@ -222,12 +222,12 @@
         {
             "id": "Remove Instance",
             "message": "Remove Instance",
-            "translation": ""
+            "translation": "Instantie verwijderen"
         },
         {
             "id": "Removed {StarrApp} Instance",
             "message": "Removed {StarrApp} Instance",
-            "translation": "",
+            "translation": "Instantie {StarrApp} verwijderd",
             "placeholders": [
                 {
                     "id": "StarrApp",
@@ -309,7 +309,7 @@
         {
             "id": "Hide",
             "message": "Hide",
-            "translation": ""
+            "translation": "Verberg"
         },
         {
             "id": "Checking for current {Updates} release: {Err}",
@@ -373,12 +373,12 @@
         {
             "id": "Missing release, check first?",
             "message": "Missing release, check first?",
-            "translation": ""
+            "translation": "Ontbrekende release, eerst controleren?"
         },
         {
             "id": "Downloading {Updates} update failed: {Error}",
             "message": "Downloading {Updates} update failed: {Error}",
-            "translation": "",
+            "translation": "Downloaden van {Updates} update mislukt: {Error}",
             "placeholders": [
                 {
                     "id": "Updates",
@@ -401,7 +401,7 @@
         {
             "id": "Downloading {Updates} release from {CurrURL} to {Path} ({Size})",
             "message": "Downloading {Updates} release from {CurrURL} to {Path} ({Size})",
-            "translation": "Downloaden {Updates} versie  {CurrURL} naar {Path} ({Size})",
+            "translation": "Downloaden {Updates} versie {CurrURL} naar {Path} ({Size})",
             "placeholders": [
                 {
                     "id": "Updates",
@@ -642,6 +642,370 @@
             "id": "closing log rotator:",
             "message": "closing log rotator:",
             "translation": "sluiten log rotator:"
+        },
+        {
+            "id": "Connection test failed! Wrong app found. Expected {App} but found {App_1}. App Version: {Version}",
+            "message": "Connection test failed! Wrong app found. Expected {App} but found {App_1}. App Version: {Version}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Verbindingstest mislukt! Verkeerde app gevonden. {App} verwacht maar {App_1} gevonden. App-versie: {{Version}}",
+            "placeholders": [
+                {
+                    "id": "App",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "instance.App"
+                },
+                {
+                    "id": "App_1",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "test.App"
+                },
+                {
+                    "id": "Version",
+                    "string": "%[3]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 3,
+                    "expr": "test.Version"
+                }
+            ]
+        },
+        {
+            "id": "Unset recycle bin path! Rows Updated: {Count}",
+            "message": "Unset recycle bin path! Rows Updated: {Count}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Pad naar prullenbak verwijderd! Rijen bijgewerkt: {Count}",
+            "placeholders": [
+                {
+                    "id": "Count",
+                    "string": "%[1]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 1,
+                    "expr": "count"
+                }
+            ]
+        },
+        {
+            "id": "Really delete {Name} root folder?\nPath: {Folder}\nThis Action cannot be undone, and this application does not make backups.",
+            "message": "Really delete {Name} root folder?\nPath: {Folder}\nThis Action cannot be undone, and this application does not make backups.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Hoofdmap {Name} echt verwijderen?\nPad: {Folder}\nDeze actie kan niet ongedaan worden gemaakt, deze applicatie maakt geen back-ups.",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "instance.Name"
+                },
+                {
+                    "id": "Folder",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "folder"
+                }
+            ]
+        },
+        {
+            "id": "Choose File",
+            "message": "Choose File",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Kies bestand"
+        },
+        {
+            "id": "Opening file browser: {Err}",
+            "message": "Opening file browser: {Err}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Bestandsbrowser openen: {Err}",
+            "placeholders": [
+                {
+                    "id": "Err",
+                    "string": "%[1]v",
+                    "type": "error",
+                    "underlyingType": "interface{Error() string}",
+                    "argNum": 1,
+                    "expr": "err"
+                }
+            ]
+        },
+        {
+            "id": "<li>Connection test successful! Found {App} ({Name}) with version {Version}.</li>",
+            "message": "<li>Connection test successful! Found {App} ({Name}) with version {Version}.</li>",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "<li>Verbindingstest geslaagd! {App} ({Name}) gevonden met versie {Version}.</li>",
+            "placeholders": [
+                {
+                    "id": "App",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "test.App"
+                },
+                {
+                    "id": "Name",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "test.Name"
+                },
+                {
+                    "id": "Version",
+                    "string": "%[3]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 3,
+                    "expr": "test.Version"
+                }
+            ]
+        },
+        {
+            "id": "<li>Database file test successful! SQLite3 version: {Version}, tables: {Count}</li>",
+            "message": "<li>Database file test successful! SQLite3 version: {Version}, tables: {Count}</li>",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "<li>Test databasebestand geslaagd! SQLite3-versie: {Version}, tabellen: {Count}</li>",
+            "placeholders": [
+                {
+                    "id": "Version",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "test.Version"
+                },
+                {
+                    "id": "Count",
+                    "string": "%[2]d",
+                    "type": "int",
+                    "underlyingType": "int",
+                    "argNum": 2,
+                    "expr": "test.Count"
+                }
+            ]
+        },
+        {
+            "id": "Delete Root Folder",
+            "message": "Delete Root Folder",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Hoofdmap verwijderen"
+        },
+        {
+            "id": "Success! Deleted root folder: {Folder}",
+            "message": "Success! Deleted root folder: {Folder}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Succes! Verwijderde hoofdmap: {Folder}",
+            "placeholders": [
+                {
+                    "id": "Folder",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "folder"
+                }
+            ]
+        },
+        {
+            "id": "No path provided.",
+            "message": "No path provided.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Geen pad opgegeven."
+        },
+        {
+            "id": "Updated {Rows} rows in table {Table}.",
+            "message": "Updated {Rows} rows in table {Table}.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "{Rows} rijen in tabel {Table} bijgewerkt.",
+            "placeholders": [
+                {
+                    "id": "Rows",
+                    "string": "%[1]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 1,
+                    "expr": "rows"
+                },
+                {
+                    "id": "Table",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "column.Table"
+                }
+            ]
+        },
+        {
+            "id": "Really unset {Name} recycle bin?",
+            "message": "Really unset {Name} recycle bin?",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Prullenbak {Name} echt uitschakelen?",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "instance.Name"
+                }
+            ]
+        },
+        {
+            "id": "Unset Recycle Bin",
+            "message": "Unset Recycle Bin",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Prullenbak uitschakelen"
+        },
+        {
+            "id": "Changed recycle bin path! Rows Updated: {Count}",
+            "message": "Changed recycle bin path! Rows Updated: {Count}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Gewijzigd prullenbakpad! Rijen bijgewerkt: {Count}",
+            "placeholders": [
+                {
+                    "id": "Count",
+                    "string": "%[1]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 1,
+                    "expr": "count"
+                }
+            ]
+        },
+        {
+            "id": "Success! Changed Root Folder from '{OldPath}' to '{NewPath}'.",
+            "message": "Success! Changed Root Folder from '{OldPath}' to '{NewPath}'.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Succes! Hoofdmap gewijzigd van '{OldPath}' naar '{NewPath}'.",
+            "placeholders": [
+                {
+                    "id": "OldPath",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "oldPath"
+                },
+                {
+                    "id": "NewPath",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "newPath"
+                }
+            ]
+        },
+        {
+            "id": "Running Query: {Query}",
+            "message": "Running Query: {Query}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Lopende zoekopdracht: {Query}",
+            "placeholders": [
+                {
+                    "id": "Query",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "query"
+                }
+            ]
+        },
+        {
+            "id": "Connection test failed! {Error}",
+            "message": "Connection test failed! {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Verbindingstest mislukt! {Error}",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Connection test failed! Querying Sqlite3 DB: {Error}",
+            "message": "Connection test failed! Querying Sqlite3 DB: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Verbindingstest mislukt! Sqlite3 DB opvragen: {Error}",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Login (username/password) failed: {Error}",
+            "message": "Login (username/password) failed: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Inloggen (gebruikersnaam/wachtwoord) mislukt: {Error}",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Querying Sqlite3 DB: {Error}",
+            "message": "Querying Sqlite3 DB: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Sqlite3 DB opvragen: {Error}",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
         }
     ]
 }
