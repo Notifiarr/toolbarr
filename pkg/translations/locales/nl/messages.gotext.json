@@ -648,7 +648,7 @@
             "message": "Connection test failed! Wrong app found. Expected {App} but found {App_1}. App Version: {Version}",
             "translatorComment": "Copied from source.",
             "fuzzy": true,
-            "translation": "Verbindingstest mislukt! Verkeerde app gevonden. {App} verwacht maar {App_1} gevonden. App-versie: {{Version}}",
+            "translation": "Verbindingstest mislukt! Verkeerde app gevonden. {App} verwacht maar {App_1} gevonden. App-versie: {Version}",
             "placeholders": [
                 {
                     "id": "App",
