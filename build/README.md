@@ -7,6 +7,7 @@ The structure is:
 * bin - Output directory (not committed)
 * darwin - macOS specific build files
 * windows - Windows specific build files
+* appicon.png - Used for menu dialogs and whatnot.
 
 ## Mac
 
