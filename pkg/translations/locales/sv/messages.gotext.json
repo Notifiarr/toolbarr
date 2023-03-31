@@ -4,7 +4,7 @@
         {
             "id": "Dialog Failed: {Err}",
             "message": "Dialog Failed: {Err}",
-            "translation": "",
+            "translation": "Dialogen misslyckades: {Err}",
             "placeholders": [
                 {
                     "id": "Err",
@@ -19,7 +19,7 @@
         {
             "id": "Writing config: decoding '{Name}' value '{Value}' error: {Err}",
             "message": "Writing config: decoding '{Name}' value '{Value}' error: {Err}",
-            "translation": "",
+            "translation": "Skrivkonfiguration: avkodning av '{Name}' värde '{Value}' fel: {Err}",
             "placeholders": [
                 {
                     "id": "Name",
@@ -73,7 +73,7 @@
         {
             "id": "Error writing config: {Error}",
             "message": "Error writing config: {Error}",
-            "translation": "",
+            "translation": "Fel vid skrivning av konfiguration: {Error}",
             "placeholders": [
                 {
                     "id": "Error",
@@ -88,7 +88,7 @@
         {
             "id": "Saved: '{Name}' Value: {Value}",
             "message": "Saved: '{Name}' Value: {Value}",
-            "translation": "",
+            "translation": "Sparat: '{Name}' Värde: {Value}",
             "placeholders": [
                 {
                     "id": "Name",
@@ -111,7 +111,7 @@
         {
             "id": "Config {Msg}",
             "message": "Config {Msg}",
-            "translation": "",
+            "translation": "Konfigurera {Msg}",
             "placeholders": [
                 {
                     "id": "Msg",
@@ -126,12 +126,12 @@
         {
             "id": "Choose Folder",
             "message": "Choose Folder",
-            "translation": ""
+            "translation": "Välj Mapp"
         },
         {
             "id": "Opening directory browser: {Err}",
             "message": "Opening directory browser: {Err}",
-            "translation": "",
+            "translation": "Öppnar katalogwebbläsaren: {Err}",
             "placeholders": [
                 {
                     "id": "Err",
@@ -146,7 +146,7 @@
         {
             "id": "Saved {App} instance configuration!",
             "message": "Saved {App} instance configuration!",
-            "translation": "",
+            "translation": "Sparad {App}-instanskonfiguration!",
             "placeholders": [
                 {
                     "id": "App",
@@ -161,7 +161,7 @@
         {
             "id": "Added new {App} instance!",
             "message": "Added new {App} instance!",
-            "translation": "",
+            "translation": "Lade till ny {App}-instans!",
             "placeholders": [
                 {
                     "id": "App",
@@ -176,7 +176,7 @@
         {
             "id": "Provided {StarrApp} instance {Idx} does not exist",
             "message": "Provided {StarrApp} instance {Idx} does not exist",
-            "translation": "",
+            "translation": "Förutsatt att {StarrApp}-instansen {Idx} inte existerar",
             "placeholders": [
                 {
                     "id": "StarrApp",
@@ -199,7 +199,7 @@
         {
             "id": "Really delete {StarrApp} instance? Name: {Name}",
             "message": "Really delete {StarrApp} instance? Name: {Name}",
-            "translation": "",
+            "translation": "Vill du verkligen ta bort {StarrApp}-instansen? Namn: {Name}",
             "placeholders": [
                 {
                     "id": "StarrApp",
@@ -222,12 +222,12 @@
         {
             "id": "Remove Instance",
             "message": "Remove Instance",
-            "translation": ""
+            "translation": "Ta bort instans"
         },
         {
             "id": "Removed {StarrApp} Instance",
             "message": "Removed {StarrApp} Instance",
-            "translation": "",
+            "translation": "Tog bort {StarrApp}-instansen",
             "placeholders": [
                 {
                     "id": "StarrApp",
@@ -304,17 +304,17 @@
         {
             "id": "Config Problem",
             "message": "Config Problem",
-            "translation": ""
+            "translation": "Konfigurationsproblem"
         },
         {
             "id": "Hide",
             "message": "Hide",
-            "translation": ""
+            "translation": "Dölj"
         },
         {
             "id": "Checking for current {Updates} release: {Err}",
             "message": "Checking for current {Updates} release: {Err}",
-            "translation": "",
+            "translation": "Söker efter aktuell version av {Updates}: {Err}",
             "placeholders": [
                 {
                     "id": "Updates",
@@ -337,7 +337,7 @@
         {
             "id": "Checked Current {Updates} release: {Version} ({RelSize})",
             "message": "Checked Current {Updates} release: {Version} ({RelSize})",
-            "translation": "",
+            "translation": "Markerade aktuell version av {Updates}: {Version} ({RelSize})",
             "placeholders": [
                 {
                     "id": "Updates",
@@ -368,17 +368,17 @@
         {
             "id": "Downloading File",
             "message": "Downloading File",
-            "translation": ""
+            "translation": "Laddar ned fil"
         },
         {
             "id": "Missing release, check first?",
             "message": "Missing release, check first?",
-            "translation": ""
+            "translation": "Saknas release, kolla först?"
         },
         {
             "id": "Downloading {Updates} update failed: {Error}",
             "message": "Downloading {Updates} update failed: {Error}",
-            "translation": "",
+            "translation": "Det gick inte att ladda ned {Updates}-uppdateringen: {Error}",
             "placeholders": [
                 {
                     "id": "Updates",
@@ -401,7 +401,7 @@
         {
             "id": "Downloading {Updates} release from {CurrURL} to {Path} ({Size})",
             "message": "Downloading {Updates} release from {CurrURL} to {Path} ({Size})",
-            "translation": "",
+            "translation": "Laddar ned {Updates} version från {CurrURL} till {Path} ({Size})",
             "placeholders": [
                 {
                     "id": "Updates",
@@ -440,7 +440,7 @@
         {
             "id": "Downloading {Size} to {Path}",
             "message": "Downloading {Size} to {Path}",
-            "translation": "",
+            "translation": "Laddar ned {Size} till {Path}",
             "placeholders": [
                 {
                     "id": "Size",
@@ -463,7 +463,7 @@
         {
             "id": "Launching installer: {Path}: {Err}",
             "message": "Launching installer: {Path}: {Err}",
-            "translation": "",
+            "translation": "Startar installationsprogrammet: {Path}: {Err}",
             "placeholders": [
                 {
                     "id": "Path",
@@ -486,7 +486,7 @@
         {
             "id": "Launching Installer: {Path}",
             "message": "Launching Installer: {Path}",
-            "translation": "",
+            "translation": "Startar installationsprogrammet: {Path}",
             "placeholders": [
                 {
                     "id": "Path",
@@ -501,7 +501,7 @@
         {
             "id": "Opening Folder: {Path}: {Err}",
             "message": "Opening Folder: {Path}: {Err}",
-            "translation": "",
+            "translation": "Öppnande mapp: {Path}: {Err}",
             "placeholders": [
                 {
                     "id": "Path",
@@ -524,7 +524,7 @@
         {
             "id": "Opening Path: {Path}",
             "message": "Opening Path: {Path}",
-            "translation": "",
+            "translation": "Öppningsväg: {Path}",
             "placeholders": [
                 {
                     "id": "Path",
@@ -539,37 +539,37 @@
         {
             "id": "ERROR",
             "message": "ERROR",
-            "translation": ""
+            "translation": "FEL"
         },
         {
             "id": "WARN",
             "message": "WARN",
-            "translation": ""
+            "translation": "VARNING"
         },
         {
             "id": "INFO",
             "message": "INFO",
-            "translation": ""
+            "translation": "INFO"
         },
         {
             "id": "DEBUG",
             "message": "DEBUG",
-            "translation": ""
+            "translation": "DEBUGA"
         },
         {
             "id": "TRACE",
             "message": "TRACE",
-            "translation": ""
+            "translation": "SPÅRA"
         },
         {
             "id": "FATAL",
             "message": "FATAL",
-            "translation": ""
+            "translation": "DÖDLIG"
         },
         {
             "id": "Logger Error: {Err}",
             "message": "Logger Error: {Err}",
-            "translation": "",
+            "translation": "Loggerfel: {Err}",
             "placeholders": [
                 {
                     "id": "Err",
@@ -584,12 +584,12 @@
         {
             "id": "...continuing:",
             "message": "...continuing:",
-            "translation": ""
+            "translation": "..fortlöpande:"
         },
         {
             "id": "Go Panic! This is a bug!\n{Version}-{Revision} {Branch} {R}\n{Stack}",
             "message": "Go Panic! This is a bug!\n{Version}-{Revision} {Branch} {R}\n{Stack}",
-            "translation": "",
+            "translation": "Gå i panik! Det här är en bugg!\n{Version}-{Revision} {Branch} {R}\n{Stack}",
             "placeholders": [
                 {
                     "id": "Version",
@@ -636,12 +636,376 @@
         {
             "id": "Closing Logger",
             "message": "Closing Logger",
-            "translation": ""
+            "translation": "Stänger Logger"
         },
         {
             "id": "closing log rotator:",
             "message": "closing log rotator:",
-            "translation": ""
+            "translation": "stängande stockrotator:"
+        },
+        {
+            "id": "Really delete {Name} root folder?\nPath: {Folder}\nThis Action cannot be undone, and this application does not make backups.",
+            "message": "Really delete {Name} root folder?\nPath: {Folder}\nThis Action cannot be undone, and this application does not make backups.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Vill du verkligen ta bort {Name} rotmapp?\nSökväg: {Folder}\nDen här åtgärden kan inte ångras och det här programmet gör inga säkerhetskopior.",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "instance.Name"
+                },
+                {
+                    "id": "Folder",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "folder"
+                }
+            ]
+        },
+        {
+            "id": "Choose File",
+            "message": "Choose File",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Välj Fil"
+        },
+        {
+            "id": "Opening file browser: {Err}",
+            "message": "Opening file browser: {Err}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Öppnar filläsaren: {Err}",
+            "placeholders": [
+                {
+                    "id": "Err",
+                    "string": "%[1]v",
+                    "type": "error",
+                    "underlyingType": "interface{Error() string}",
+                    "argNum": 1,
+                    "expr": "err"
+                }
+            ]
+        },
+        {
+            "id": "<li>Connection test successful! Found {App} ({Name}) with version {Version}.</li>",
+            "message": "<li>Connection test successful! Found {App} ({Name}) with version {Version}.</li>",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "<li>Anslutningstestet lyckades! Hittade {App} ({Name}) med version {Version}.</li>",
+            "placeholders": [
+                {
+                    "id": "App",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "test.App"
+                },
+                {
+                    "id": "Name",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "test.Name"
+                },
+                {
+                    "id": "Version",
+                    "string": "%[3]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 3,
+                    "expr": "test.Version"
+                }
+            ]
+        },
+        {
+            "id": "Connection test failed! Wrong app found. Expected {App} but found {App_1}. App Version: {Version}",
+            "message": "Connection test failed! Wrong app found. Expected {App} but found {App_1}. App Version: {Version}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Anslutningstest misslyckades! Fel app hittades. Förväntade {App} men hittade {App_1}. Appversion: {Version}",
+            "placeholders": [
+                {
+                    "id": "App",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "instance.App"
+                },
+                {
+                    "id": "App_1",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "test.App"
+                },
+                {
+                    "id": "Version",
+                    "string": "%[3]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 3,
+                    "expr": "test.Version"
+                }
+            ]
+        },
+        {
+            "id": "<li>Database file test successful! SQLite3 version: {Version}, tables: {Count}</li>",
+            "message": "<li>Database file test successful! SQLite3 version: {Version}, tables: {Count}</li>",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "<li>Databasfiltestet lyckades! SQLite3 version: {Version}, tabeller: {Count}</li>",
+            "placeholders": [
+                {
+                    "id": "Version",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "test.Version"
+                },
+                {
+                    "id": "Count",
+                    "string": "%[2]d",
+                    "type": "int",
+                    "underlyingType": "int",
+                    "argNum": 2,
+                    "expr": "test.Count"
+                }
+            ]
+        },
+        {
+            "id": "Delete Root Folder",
+            "message": "Delete Root Folder",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Ta bort rotmapp"
+        },
+        {
+            "id": "Querying Sqlite3 DB: {Error}",
+            "message": "Querying Sqlite3 DB: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Frågar Sqlite3 DB: {Error}",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Success! Deleted root folder: {Folder}",
+            "message": "Success! Deleted root folder: {Folder}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Framgång! Raderad rotmapp: {Folder}",
+            "placeholders": [
+                {
+                    "id": "Folder",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "folder"
+                }
+            ]
+        },
+        {
+            "id": "No path provided.",
+            "message": "No path provided.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Ingen sökväg tillhandahålls."
+        },
+        {
+            "id": "Updated {Rows} rows in table {Table}.",
+            "message": "Updated {Rows} rows in table {Table}.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Uppdaterade {Rows} rader i tabell {Table}.",
+            "placeholders": [
+                {
+                    "id": "Rows",
+                    "string": "%[1]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 1,
+                    "expr": "rows"
+                },
+                {
+                    "id": "Table",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "column.Table"
+                }
+            ]
+        },
+        {
+            "id": "Really unset {Name} recycle bin?",
+            "message": "Really unset {Name} recycle bin?",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Stänger du verkligen av papperskorgen från {Name}?",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "instance.Name"
+                }
+            ]
+        },
+        {
+            "id": "Unset Recycle Bin",
+            "message": "Unset Recycle Bin",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Avaktivera papperskorgen"
+        },
+        {
+            "id": "Changed recycle bin path! Rows Updated: {Count}",
+            "message": "Changed recycle bin path! Rows Updated: {Count}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Ändrad papperskorgsbana! Rader uppdaterade: {Count}",
+            "placeholders": [
+                {
+                    "id": "Count",
+                    "string": "%[1]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 1,
+                    "expr": "count"
+                }
+            ]
+        },
+        {
+            "id": "Unset recycle bin path! Rows Updated: {Count}",
+            "message": "Unset recycle bin path! Rows Updated: {Count}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Avmarkera papperskorgen! Rader uppdaterade: {Count}",
+            "placeholders": [
+                {
+                    "id": "Count",
+                    "string": "%[1]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 1,
+                    "expr": "count"
+                }
+            ]
+        },
+        {
+            "id": "Success! Changed Root Folder from '{OldPath}' to '{NewPath}'.",
+            "message": "Success! Changed Root Folder from '{OldPath}' to '{NewPath}'.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Framgång! Ändrade rotmapp från '{OldPath}' till '{NewPath}'.",
+            "placeholders": [
+                {
+                    "id": "OldPath",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "oldPath"
+                },
+                {
+                    "id": "NewPath",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "newPath"
+                }
+            ]
+        },
+        {
+            "id": "Running Query: {Query}",
+            "message": "Running Query: {Query}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Kör fråga: {Query}",
+            "placeholders": [
+                {
+                    "id": "Query",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "query"
+                }
+            ]
+        },
+        {
+            "id": "Connection test failed! {Error}",
+            "message": "Connection test failed! {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Anslutningstest misslyckades! {Error}",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Connection test failed! Querying Sqlite3 DB: {Error}",
+            "message": "Connection test failed! Querying Sqlite3 DB: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Anslutningstest misslyckades! Frågar Sqlite3 DB: {Error}",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Login (username/password) failed: {Error}",
+            "message": "Login (username/password) failed: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Inloggning (användarnamn/lösenord) misslyckades: {Error}",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
         }
     ]
 }
