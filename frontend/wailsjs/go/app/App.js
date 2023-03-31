@@ -14,6 +14,10 @@ export function CreateShortcut() {
   return window['go']['app']['App']['CreateShortcut']();
 }
 
+export function DeleteDBRootFolder(arg1, arg2) {
+  return window['go']['app']['App']['DeleteDBRootFolder'](arg1, arg2);
+}
+
 export function DownloadUpdate() {
   return window['go']['app']['App']['DownloadUpdate']();
 }
@@ -24,6 +28,10 @@ export function ErrorDialog(arg1, arg2) {
 
 export function GetConfig() {
   return window['go']['app']['App']['GetConfig']();
+}
+
+export function GetMigratorInfo(arg1) {
+  return window['go']['app']['App']['GetMigratorInfo'](arg1);
 }
 
 export function Languages() {
@@ -64,6 +72,18 @@ export function SaveInstance(arg1, arg2) {
 
 export function TestInstance(arg1) {
   return window['go']['app']['App']['TestInstance'](arg1);
+}
+
+export function UpdateDBInvalidItems(arg1, arg2, arg3, arg4) {
+  return window['go']['app']['App']['UpdateDBInvalidItems'](arg1, arg2, arg3, arg4);
+}
+
+export function UpdateDBRecycleBin(arg1, arg2) {
+  return window['go']['app']['App']['UpdateDBRecycleBin'](arg1, arg2);
+}
+
+export function UpdateDBRootFolder(arg1, arg2, arg3) {
+  return window['go']['app']['App']['UpdateDBRootFolder'](arg1, arg2, arg3);
 }
 
 export function Version() {

@@ -1,22 +1,32 @@
 <script>
-    export let instance
-    // import { Alert, Card, Input, InputGroup, InputGroupText,} from "sveltestrap"
-    // import { app, conf } from "../../libs/config.js"
-    // import { port } from "../../libs/info.js"
-    // import Fa from "svelte-fa"
-    // import { faFolderOpen, faLock, faUnlock, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons"
-    // import { PickFile, SaveInstance, TestInstance, RemoveInstance } from "../../../wailsjs/go/app/App.js"
-    // import { toast } from "../../libs/funcs.js"
-    // import { onDestroy } from "svelte"
-    import { Card } from "sveltestrap"
-    import { _ } from "../../libs/Translate.svelte"
+  export let starrApp
+  export let instance
+  export let showTitle
+
+  import { Alert, Card, CardBody, CardFooter, CardHeader, CardTitle } from "sveltestrap"
+  import T, { _ } from "../../libs/Translate.svelte"
 </script>
 
-<h4>{instance.App} DB Inspector</h4>
-{#if instance.DBPath == ""}
-  <Card body color="danger">
-    The selected {instance.App} instance ({instance.Name}) has no SQLite3 database file path configured.
-  </Card>
-{:else}
-  DB explorer for {instance.Name} with DB Path {instance.DBPath} goes here....
-{/if}
+<Card outline class="mt-2">
+  <span class={showTitle?"":"d-none"}>
+    <CardHeader>
+      <CardTitle class="mb-0">{$_("instances.SQLite3DatabaseInspector")}</CardTitle>
+    </CardHeader>
+  </span>
+
+  <CardBody>
+    <Alert fade={false} color="danger">{$_("incompletePage")}</Alert>
+    <p>This tool allows you to browse your {starrApp} database.</p>
+    {#if instance}
+      {#if instance && instance.DBPath == ""}
+        <Card body color="danger"><T id="instances.NoDatabasePathConfigured" starrApp={instance.App} name={instance.Name}/></Card>
+      {:else}
+        <Card body color="info">DB explorer for {instance.Name} goes here.</Card>
+      {/if}
+    {/if}
+  </CardBody>
+
+  {#if instance && instance.DBPath}
+    <CardFooter><code>{instance.DBPath}</code></CardFooter>
+  {/if}
+</Card>

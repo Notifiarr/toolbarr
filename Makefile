@@ -18,7 +18,7 @@ VERSION_LDFLAGS:= -X \"golift.io/version.Branch=$(BRANCH) ($(COMMIT))\" \
 .PHONY: all wailsjson build windows dev lint test
 
 all: 
-	echo "Use 'make build', 'make dev' or 'make windows'"
+	@echo "Use 'make build', 'make dev' or 'make windows'"
 
 wailsjson:
 	jq ".info.productVersion = \"$(VERSION)\"" wails.json > wails.json.new

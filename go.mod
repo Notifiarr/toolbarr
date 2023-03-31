@@ -4,6 +4,7 @@ go 1.20
 
 require (
 	github.com/gorilla/schema v1.2.0
+	github.com/jmoiron/sqlx v1.3.5
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/wailsapp/wails/v2 v2.4.1
 	golang.org/x/mod v0.9.0
@@ -12,7 +13,7 @@ require (
 	golift.io/rotatorr v0.0.0-20230317103044-d974d22ee164
 	golift.io/starr v0.14.1-0.20230317102832-731217ae0446
 	golift.io/version v0.0.2
-	modernc.org/sqlite v1.21.0
+	modernc.org/sqlite v1.21.1
 )
 
 require (

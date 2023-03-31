@@ -103,7 +103,7 @@
       <p><T id="aboutPage.toolbarDescription" url="https://toys-arr.us"/></p>
       <Col md="6">
         <h3>{$_("words.Development")}</h3>
-        <Table dark={$conf.Dark} responsive>
+        <Table responsive>
           <tr>
             <td style="width:180px;"><open-browser href="https://github.com/Notifiarr/toolbarr"><Fa icon={faGithub} /> {$app.Title} GitHub</open-browser></td>
             <td>{$_("aboutPage.Visitthesausagefactory")}</td>

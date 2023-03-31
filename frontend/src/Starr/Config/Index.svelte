@@ -21,7 +21,7 @@
       <AccordionItem active={id==i} on:toggle={(e) => {id = i;open = e.detail}}>
         <span slot="header">
           <Badge class="superbadge" color={id==i&&open?"success":"secondary"}>{i}</Badge>
-          <h4 class="d-inline-block">{instance.Name}</h4>
+          <h4 class="d-inline-block accordian-header">{instance.Name}</h4>
           <Badge color="primary">{instance.URL}</Badge>
         </span> 
         <Instance index={i} {starrApp} {instance} />
@@ -31,10 +31,19 @@
   
   <!-- add new instance option -->
   <AccordionItem active={id==count} on:toggle={(e) => {id = count;open = e.detail}}>
-    <h5 slot="header">
-      <Fa primaryColor={id==count&&open?"green":"orange"} icon={faPlus} />
-      <T id="instances.addNewInstance" {starrApp}/>
-    </h5>
+    <span slot="header">
+      <h5 class="accordian-header">
+        <Fa primaryColor={id==count&&open?"green":"orange"} icon={faPlus} />
+        <T id="instances.addNewInstance" {starrApp}/>
+      </h5>
+    </span>
     <Instance index={count} {starrApp} />
   </AccordionItem>
 </Accordion>
+
+
+<style>
+  .accordian-header {
+    margin-bottom: 0 !important;
+  }
+</style>

@@ -23,9 +23,12 @@
   // Optional tooptip to bind to input. Derived automatically from language file.
   export let tooltip = $_("configtooltip."+id)
   // Where the tooltip goes.
-  export let placement = "top"
+  export let placement = undefined
   // Optional value. Should only be used for binding.
   export let value = undefined
+
+  // Set this here to avoid a type-warning.
+  placement = placement ? placement : "top"
 
   let valid // Controls the green/red on success/error of a change.
   let timer // Allows clearing the green/red marks after an interval.

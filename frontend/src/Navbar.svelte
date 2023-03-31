@@ -10,7 +10,6 @@
       NavbarBrand, 
       NavbarToggler,
       NavLink, 
-      Styles, 
       Tooltip
   } from "sveltestrap"
   import { EventsOn } from "../wailsjs/runtime"
@@ -59,7 +58,6 @@
   document.addEventListener("contextmenu", blockRightClick)
 </script> 
 
-
 <svelte:head>
   <!-- Preload these to prevent a white page for a moment when switching dark on/off. -->
   <link rel="preload" as="image" href={bgVint}>
@@ -91,15 +89,23 @@
         {/if}
       {/each}
       {#if $conf.Hide.Settings != true}
-      <Dropdown nav inNavbar>
+      <Dropdown nav inNavbar autoClose>
         <DropdownToggle nav>
           <Applogo size="20px" app="Settings" /> <span class="d-md-none">{$_("words.Configuration")}</span>
         </DropdownToggle>
         <DropdownMenu dark={$conf.Dark} end>
-          <DropdownItem on:click={()=>nav("Settings")}><Fa primaryColor="sienna" icon={faGear} /> {$_("words.Settings")}</DropdownItem>
-          <DropdownItem on:click={()=>nav("Toolbox")}><Applogo size="19px" app="Toolbox" /> {$_("words.Toolbox")}</DropdownItem>
-          <DropdownItem on:click={()=>nav("Links")}><Fa primaryColor="dodgerblue" icon={faLink} /> {$_("words.Links")}</DropdownItem>
-          <DropdownItem on:click={()=>nav("About")}><Fa primaryColor="mediumpurple" icon={faBookBible} /> {$_("words.About")}</DropdownItem>
+          <DropdownItem active={app=="Settings"} on:click={()=>nav("Settings")}>
+            <Fa primaryColor="sienna" icon={faGear} /> {$_("words.Settings")}
+          </DropdownItem>
+          <DropdownItem active={app=="Toolbox"} on:click={()=>nav("Toolbox")}>
+            <Applogo size="19px" app="Toolbox" /> {$_("words.Toolbox")}
+          </DropdownItem>
+          <DropdownItem active={app=="Links"} on:click={()=>nav("Links")}>
+            <Fa primaryColor="dodgerblue" icon={faLink} /> {$_("words.Links")}
+          </DropdownItem>
+          <DropdownItem active={app=="About"} on:click={()=>nav("About")}>
+            <Fa primaryColor="mediumpurple" icon={faBookBible} /> {$_("words.About")}
+          </DropdownItem>
         </DropdownMenu>
       </Dropdown>
       {/if}
@@ -126,7 +132,7 @@
     {/key}
   {/each}
 </main>
-{/if}
+{/if}<!-- $isReady -->
 
 <style>
   main {
