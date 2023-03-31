@@ -81,7 +81,7 @@ func (a *App) DeleteDBRootFolder(instance *starrs.Instance, folder string) (*Upd
 	}
 	defer sql.Close()
 
-	_, err = sql.Delete("RootFolders", fmt.Sprintf("Path=%q", folder))
+	_, err = sql.Delete("RootFolders", fmt.Sprintf("Path='%s'", folder))
 	if err != nil {
 		return nil, fmt.Errorf(a.log.Translate("Querying Sqlite3 DB: %v", err.Error()))
 	}
@@ -259,7 +259,7 @@ func (a *App) updateDBRootFolder(appTable AppTable, sql *starrs.SQLConn, oldPath
 
 	wr.EventsEmit(a.ctx, "DBitemTotals", counts)
 
-	_, err = sql.Update("RootFolders", "Path", newPath, fmt.Sprintf("Path=%q", oldPath))
+	_, err = sql.Update("RootFolders", "Path", newPath, fmt.Sprintf("Path='%s'", oldPath))
 	if err != nil {
 		return "", err
 	}

@@ -75,8 +75,8 @@ func (s *SQLConn) Recyclebin(ctx context.Context) (string, error) {
 }
 
 func (s *SQLConn) UpdateRecyclebin(ctx context.Context, path string) (int64, error) {
-	query := fmt.Sprintf("INSERT INTO Config (Key, Value) VALUES ('recyclebin', %[1]q)"+
-		" ON CONFLICT(Key) DO UPDATE SET Value = %[1]q", Escape(path))
+	query := fmt.Sprintf("INSERT INTO Config (Key, Value) VALUES ('recyclebin', '%[1]s')"+
+		" ON CONFLICT(Key) DO UPDATE SET Value = '%[1]s'", Escape(path))
 
 	if path == "" {
 		query = "DELETE FROM Config WHERE Key='recyclebin'"
@@ -244,8 +244,6 @@ func Escape(sql string) string {
 			dest = append(dest, '\\', '\n')
 		case '\r':
 			dest = append(dest, '\\', '\r')
-		case '\\':
-			dest = append(dest, '\\', '\\')
 		case '\'':
 			dest = append(dest, '\'', '\'')
 		case '"': /* Better safe than sorry */
