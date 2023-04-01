@@ -8,8 +8,8 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/Notifiarr/toolbarr/pkg/app/cmds"
 	"github.com/Notifiarr/toolbarr/pkg/config"
+	"github.com/Notifiarr/toolbarr/pkg/local"
 	"github.com/Notifiarr/toolbarr/pkg/mnd"
 	"github.com/Notifiarr/toolbarr/pkg/translations"
 	"github.com/gorilla/schema"
@@ -19,6 +19,60 @@ import (
 
 //nolint:gochecknoglobals // this is supposed to be global.
 var decoder = schema.NewDecoder()
+
+// Version lets the frontend know who it is.
+type Version struct {
+	StartTime int64
+	Version   string
+	Revision  string
+	Branch    string
+	BuildUser string
+	BuildDate string
+	GoVersion string
+	Started   string
+	Info
+}
+
+// Info provides additional immutable data to the front end.
+type Info struct {
+	IsWindows bool
+	IsLinux   bool
+	IsMac     bool
+	Name      string
+	Title     string
+	Exe       string
+	Home      string
+	Username  string
+}
+
+// Version returns the app version and other immutable info.
+func (a *App) Version() Version {
+	a.log.Tracef("Call:Version()")
+
+	user, _ := user.Current()
+	exec, _ := os.Executable()
+
+	return Version{
+		StartTime: version.Started.Unix(),
+		Version:   version.Version,
+		Revision:  version.Revision,
+		Branch:    version.Branch,
+		BuildUser: version.BuildUser,
+		BuildDate: version.BuildDate,
+		GoVersion: runtime.Version(),
+		Started:   version.Started.Round(time.Second).String(),
+		Info: Info{
+			Title:     mnd.Title,
+			Name:      mnd.Name,
+			IsWindows: mnd.IsWindows,
+			IsLinux:   mnd.IsLinux,
+			IsMac:     mnd.IsMac,
+			Exe:       exec,
+			Home:      user.HomeDir,
+			Username:  user.Name,
+		},
+	}
+}
 
 // Ask the user a Yes/No question.
 func (a *App) Ask(title, msg string) bool {
@@ -136,60 +190,6 @@ func (a *App) PickFile(path, extname, extensions string) (string, error) { //nol
 	return dir, nil
 }
 
-// Version lets the frontend know who it is.
-type Version struct {
-	StartTime int64
-	Version   string
-	Revision  string
-	Branch    string
-	BuildUser string
-	BuildDate string
-	GoVersion string
-	Started   string
-	Info
-}
-
-// Info provides additional immutable data to the front end.
-type Info struct {
-	IsWindows bool
-	IsLinux   bool
-	IsMac     bool
-	Name      string
-	Title     string
-	Exe       string
-	Home      string
-	Username  string
-}
-
-// Version returns the app version and other immutable info.
-func (a *App) Version() Version {
-	a.log.Tracef("Call:Version()")
-
-	user, _ := user.Current()
-	exec, _ := os.Executable()
-
-	return Version{
-		StartTime: version.Started.Unix(),
-		Version:   version.Version,
-		Revision:  version.Revision,
-		Branch:    version.Branch,
-		BuildUser: version.BuildUser,
-		BuildDate: version.BuildDate,
-		GoVersion: runtime.Version(),
-		Started:   version.Started.Round(time.Second).String(),
-		Info: Info{
-			Title:     mnd.Title,
-			Name:      mnd.Name,
-			IsWindows: mnd.IsWindows,
-			IsLinux:   mnd.IsLinux,
-			IsMac:     mnd.IsMac,
-			Exe:       exec,
-			Home:      user.HomeDir,
-			Username:  user.Name,
-		},
-	}
-}
-
 // Languages returns a list of languages the backend supports.
 func (a *App) Languages() map[string]string {
 	a.log.Tracef("Call:Languages()")
@@ -199,5 +199,5 @@ func (a *App) Languages() map[string]string {
 // CreateShortcut makes a shortcut to the exe on Windows desktop.
 func (a *App) CreateShortcut() (string, error) {
 	a.log.Tracef("Call:CreateShortcut()")
-	return cmds.CreateShortcut() //nolint:wrapcheck
+	return local.CreateShortcut() //nolint:wrapcheck
 }

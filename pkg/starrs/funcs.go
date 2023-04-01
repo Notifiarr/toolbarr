@@ -2,27 +2,25 @@ package starrs
 
 import (
 	"bufio"
-	"context"
 	"io"
 	"net/http"
 	"strings"
 
-	"github.com/Notifiarr/toolbarr/pkg/logs"
 	"golift.io/starr"
 )
 
-func starrConfig(logger *logs.Logger, instance *Instance) *StarrConfig {
-	return &StarrConfig{
-		Logger:   logger,
-		instance: instance,
+func (s *Starrs) newInstance(config *StarrConfig) *instance {
+	return &instance{
+		Starrs: s,
+		config: config,
 		Config: &starr.Config{
-			APIKey: instance.Key,
-			URL:    strings.TrimSuffix(instance.URL, "/") + "/",
+			APIKey: config.Key,
+			URL:    strings.TrimSuffix(config.URL, "/") + "/",
 			// HTTPPass: instance.Pass,
 			// HTTPUser: instance.User,
-			Username: instance.User,
-			Password: instance.Pass,
-			Client:   starr.Client(timeout, instance.SSL),
+			Username: config.User,
+			Password: config.Pass,
+			Client:   starr.Client(timeout, config.SSL),
 		},
 	}
 }
@@ -49,13 +47,13 @@ type InitializeJS struct {
 	Name    string
 }
 
-func (s *StarrConfig) getInitializeJS(ctx context.Context) (*InstanceTest, error) {
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, s.Config.URL+"initialize.js", nil)
+func (i *instance) getInitializeJS() (*InstanceTest, error) {
+	req, err := http.NewRequestWithContext(i.ctx, http.MethodGet, i.Config.URL+"initialize.js", nil)
 	if err != nil {
 		return nil, err //nolint:wrapcheck
 	}
 
-	resp, err := s.Client.Do(req)
+	resp, err := i.Client.Do(req)
 	if err != nil {
 		return nil, err //nolint:wrapcheck
 	}

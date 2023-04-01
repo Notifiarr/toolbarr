@@ -6,12 +6,14 @@ import (
 	"github.com/Notifiarr/toolbarr/pkg/starrs"
 )
 
+// SavedInstance is the response to the frontend after instances changes.
 type SavedInstance struct {
 	Msg  string
-	List []starrs.Instance
+	List []starrs.StarrConfig
 }
 
-func (a *App) SaveInstance(idx int, instance starrs.Instance) (*SavedInstance, error) {
+// SaveInstance saves the configuration for an instance.
+func (a *App) SaveInstance(idx int, instance starrs.StarrConfig) (*SavedInstance, error) {
 	a.log.Tracef("Call:SaveInstance(%d,%s,%s)", idx, instance.App, instance.Name)
 
 	msg := a.log.Translate("Saved %s instance configuration!", instance.App)
@@ -35,6 +37,7 @@ func (a *App) SaveInstance(idx int, instance starrs.Instance) (*SavedInstance, e
 	}, nil
 }
 
+// RemoveInstance deletes an instance from the configuration.
 func (a *App) RemoveInstance(idx int, starrApp string) (*SavedInstance, error) {
 	a.log.Tracef("Call:RemoveInstance(%d, %s)", idx, starrApp)
 
@@ -64,35 +67,4 @@ func (a *App) RemoveInstance(idx int, starrApp string) (*SavedInstance, error) {
 		Msg:  a.log.Translate("Removed %s Instance", starrApp),
 		List: settings.Instances[starrApp],
 	}, nil
-}
-
-func (a *App) TestInstance(instance *starrs.Instance) (string, error) {
-	a.log.Tracef("Call:TestInstance(%s, %s)", instance.App, instance.Name)
-
-	test, err := starrs.TestInstance(a.ctx, a.log, instance)
-	if err != nil {
-		return "", err
-	}
-
-	msg := a.log.Translate("<li>Connection test successful! Found %s (%s) with version %s.</li>",
-		test.App, test.Name, test.Version)
-
-	if test.App != instance.App {
-		msg = a.log.Translate("Connection test failed! Wrong app found. Expected %s but found %s. App Version: %s",
-			instance.App, test.App, test.Version)
-		return "", fmt.Errorf(msg)
-	}
-
-	if instance.DBPath == "" {
-		return msg, nil
-	}
-
-	if test, err = starrs.TestDBPath(a.ctx, a.log, instance); err != nil {
-		return "", err
-	}
-
-	msg += " " + a.log.Translate("<li>Database file test successful! SQLite3 version: %s, tables: %d</li>",
-		test.Version, test.Count)
-
-	return msg, nil
 }

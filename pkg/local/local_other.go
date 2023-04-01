@@ -1,29 +1,29 @@
-package ui
+//go:build !windows && !darwin
+
+package local
 
 import (
 	"context"
+	"fmt"
 	"os"
 	"os/exec"
 	"path/filepath"
-	"syscall"
+	"runtime"
 )
 
-func modifyCmd(cmd *exec.Cmd) {
-	cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
-}
+func modifyCmd(_ *exec.Cmd) {}
 
 // OpenCmd opens anything.
 func OpenCmd(ctx context.Context, cmd ...string) error {
-	return StartCmd(ctx, "cmd", append([]string{"/c", "start"}, cmd...)...)
+	return StartCmd(ctx, "xdg-open", cmd...)
 }
 
 // OpenLog opens Log Files.
-func OpenLog(ctx context.Context, logFile string) error {
-	return OpenCmd(
-		ctx, "PowerShell", "Get-Content", "-Tail", "1000", "-Wait", "-Encoding", "utf8", "-Path", "'"+logFile+"'")
+func OpenLog(_ context.Context, _ string) error {
+	return fmt.Errorf("%w: %s", ErrUnsupported, runtime.GOOS)
 }
 
-// OpenFile open files and folders.
+// OpenFile open Config Files.
 func OpenFile(ctx context.Context, filePath string) error {
 	return OpenCmd(ctx, "file://"+filePath)
 }
@@ -35,4 +35,8 @@ func OpenFolder(ctx context.Context, filePath string) error {
 	}
 
 	return OpenCmd(ctx, "file://"+filePath)
+}
+
+func CreateShortcut() (string, error) {
+	return "Shortcuts are not supported on Linux!", nil
 }

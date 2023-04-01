@@ -5,7 +5,7 @@
 
   import { Card, CardBody, CardFooter, CardHeader, CardTitle, Spinner } from "sveltestrap"
   import T, { _ } from "../../../libs/Translate.svelte"
-  import { GetMigratorInfo } from "../../../../wailsjs/go/app/App.js"
+  import { GetMigratorInfo } from "../../../../wailsjs/go/starrs/Starrs.js"
   import { toast } from "../../../libs/funcs"
   import Form from "./Form.svelte"
 

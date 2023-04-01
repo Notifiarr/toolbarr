@@ -7,6 +7,7 @@ import (
 	"github.com/Notifiarr/toolbarr/pkg/app"
 	logs "github.com/Notifiarr/toolbarr/pkg/logs"
 	"github.com/Notifiarr/toolbarr/pkg/mnd"
+	"github.com/Notifiarr/toolbarr/pkg/starrs"
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/logger"
 	"github.com/wailsapp/wails/v2/pkg/menu"
@@ -33,7 +34,12 @@ func main() {
 	fileMenu := appMenu.AddSubmenu("File")
 	appMenu.Append(menu.EditMenu())
 
-	app := app.New(log, configFile, appMenu)
+	app := app.New(log, &app.Config{
+		Logger:     log,
+		ConfigFile: configFile,
+		AppMenu:    appMenu,
+		Starrs:     &starrs.Starrs{},
+	})
 
 	if mnd.IsWindows {
 		fileMenu.AddText("Exit", keys.OptionOrAlt("f4"), func(a *menu.CallbackData) { app.Quit() })
@@ -54,7 +60,7 @@ func main() {
 		AssetServer:        &assetserver.Options{Assets: assets},
 		OnStartup:          app.Startup,
 		Menu:               appMenu,
-		Bind:               []interface{}{app},
+		Bind:               []interface{}{app, app.Starrs},
 		Logger:             log.Wails,
 		LogLevel:           logger.DEBUG,
 		LogLevelProduction: logger.INFO,

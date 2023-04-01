@@ -1,29 +1,29 @@
-//go:build !windows && !darwin
-
-package ui
+package local
 
 import (
 	"context"
-	"fmt"
 	"os"
 	"os/exec"
 	"path/filepath"
-	"runtime"
+	"syscall"
 )
 
-func modifyCmd(_ *exec.Cmd) {}
+func modifyCmd(cmd *exec.Cmd) {
+	cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
+}
 
 // OpenCmd opens anything.
 func OpenCmd(ctx context.Context, cmd ...string) error {
-	return StartCmd(ctx, "xdg-open", cmd...)
+	return StartCmd(ctx, "cmd", append([]string{"/c", "start"}, cmd...)...)
 }
 
 // OpenLog opens Log Files.
-func OpenLog(_ context.Context, _ string) error {
-	return fmt.Errorf("%w: %s", ErrUnsupported, runtime.GOOS)
+func OpenLog(ctx context.Context, logFile string) error {
+	return OpenCmd(
+		ctx, "PowerShell", "Get-Content", "-Tail", "1000", "-Wait", "-Encoding", "utf8", "-Path", "'"+logFile+"'")
 }
 
-// OpenFile open Config Files.
+// OpenFile open files and folders.
 func OpenFile(ctx context.Context, filePath string) error {
 	return OpenCmd(ctx, "file://"+filePath)
 }

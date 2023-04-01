@@ -2,11 +2,9 @@
 package starrs
 
 import (
-	"context"
 	"fmt"
 	"time"
 
-	"github.com/Notifiarr/toolbarr/pkg/logs"
 	"golift.io/starr"
 	"golift.io/starr/lidarr"
 	"golift.io/starr/prowlarr"
@@ -21,8 +19,10 @@ import (
  * Testing, as in, making a request to see if it's up and the API key works.
  */
 
+// timeout is how long to wait for an instance to respond.
 const timeout = 10 * time.Second
 
+// InstanceTest is the data returned the front end after an instances is tested.
 type InstanceTest struct {
 	App     string
 	Key     string
@@ -31,19 +31,19 @@ type InstanceTest struct {
 	Count   int // for whatever, but table count for now.
 }
 
-func TestDBPath(ctx context.Context, logger *logs.Logger, instance *Instance) (*InstanceTest, error) {
-	sql, err := NewSQL(logger, instance)
+func (s *Starrs) testDBPath(config *StarrConfig) (*InstanceTest, error) {
+	sql, err := s.newSQL(config)
 	if err != nil {
-		return nil, fmt.Errorf(logger.Translate("Connection test failed! %v", err.Error()))
+		return nil, fmt.Errorf(s.log.Translate("Connection test failed! %v", err.Error()))
 	}
 	defer sql.Close()
 
-	tables, err := sql.RowsStringSlice(ctx, "SELECT name FROM sqlite_schema WHERE type='table'")
+	tables, err := sql.RowsStringSlice(s.ctx, "SELECT name FROM sqlite_schema WHERE type='table'")
 	if err != nil {
-		return nil, fmt.Errorf(logger.Translate("Connection test failed! Querying Sqlite3 DB: %v", err.Error()))
+		return nil, fmt.Errorf(s.log.Translate("Connection test failed! Querying Sqlite3 DB: %v", err.Error()))
 	}
 
-	version, _ := sql.RowString(ctx, "select sqlite_version()")
+	version, _ := sql.RowString(s.ctx, "select sqlite_version()")
 
 	return &InstanceTest{
 		Count:   len(tables),
@@ -51,120 +51,151 @@ func TestDBPath(ctx context.Context, logger *logs.Logger, instance *Instance) (*
 	}, nil
 }
 
-func TestInstance(ctx context.Context, logger *logs.Logger, instance *Instance) (*InstanceTest, error) {
-	starrConfig := starrConfig(logger, instance)
+func (s *Starrs) TestInstance(config *StarrConfig) (string, error) {
+	s.log.Tracef("Call:TestInstance(%s, %s)", config.App, config.Name)
 
-	if starrConfig.APIKey == "" {
-		return starrConfig.testWithoutKey(ctx, logger)
+	test, err := s.testInstance(config)
+	if err != nil {
+		return "", err
 	}
 
-	switch starr.App(instance.App) {
+	msg := s.log.Translate("<li>Connection test successful! Found %s (%s) with version %s.</li>",
+		test.App, test.Name, test.Version)
+
+	if test.App != config.App {
+		msg = s.log.Translate("Connection test failed! Wrong app found. Expected %s but found %s. App Version: %s",
+			config.App, test.App, test.Version)
+		return "", fmt.Errorf(msg)
+	}
+
+	if config.DBPath == "" {
+		return msg, nil
+	}
+
+	if test, err = s.testDBPath(config); err != nil {
+		return "", err
+	}
+
+	msg += " " + s.log.Translate("<li>Database file test successful! SQLite3 version: %s, tables: %d</li>",
+		test.Version, test.Count)
+
+	return msg, nil
+}
+
+func (s *Starrs) testInstance(config *StarrConfig) (*InstanceTest, error) {
+	instance := s.newInstance(config)
+
+	if instance.APIKey == "" {
+		return instance.testWithoutKey()
+	}
+
+	switch starr.App(config.App) {
 	case starr.Lidarr:
-		return starrConfig.testLidarr(ctx)
+		return instance.testLidarr()
 	case starr.Prowlarr:
-		return starrConfig.testProwlarr(ctx)
+		return instance.testProwlarr()
 	case starr.Radarr:
-		return starrConfig.testRadarr(ctx)
+		return instance.testRadarr()
 	case starr.Readarr:
-		return starrConfig.testReadarr(ctx)
+		return instance.testReadarr()
 	case starr.Sonarr:
-		return starrConfig.testSonarr(ctx)
+		return instance.testSonarr()
 	case "Whisparr":
-		return starrConfig.testWhisparr(ctx)
+		return instance.testWhisparr()
 	default:
 		return nil, fmt.Errorf("%w: missing app", starr.ErrRequestError)
 	}
 }
 
-func (s *StarrConfig) testWithoutKey(ctx context.Context, logger *logs.Logger) (*InstanceTest, error) {
-	if s.Username != "" {
-		if err := s.Login(ctx); err != nil {
-			return nil, fmt.Errorf(logger.Translate("Login (username/password) failed: %v", err.Error()))
+func (i *instance) testWithoutKey() (*InstanceTest, error) {
+	if i.Username != "" {
+		if err := i.Login(i.ctx); err != nil {
+			return nil, fmt.Errorf(i.log.Translate("Login (username/password) failed: %v", err.Error()))
 		}
 	}
 
-	return s.getInitializeJS(ctx)
+	return i.getInitializeJS()
 }
 
-func (s *StarrConfig) testLidarr(ctx context.Context) (*InstanceTest, error) {
-	status, err := lidarr.New(s.Config).GetSystemStatusContext(ctx)
+func (i *instance) testLidarr() (*InstanceTest, error) {
+	status, err := lidarr.New(i.Config).GetSystemStatusContext(i.ctx)
 	if err != nil {
 		return nil, err
 	}
 
 	return &InstanceTest{
 		App:     status.AppName,
-		Key:     s.APIKey,
+		Key:     i.APIKey,
 		Version: status.Version,
 		Name:    status.InstanceName,
 	}, err
 }
 
-func (s *StarrConfig) testProwlarr(ctx context.Context) (*InstanceTest, error) {
-	status, err := prowlarr.New(s.Config).GetSystemStatusContext(ctx)
+func (i *instance) testProwlarr() (*InstanceTest, error) {
+	status, err := prowlarr.New(i.Config).GetSystemStatusContext(i.ctx)
 	if err != nil {
 		return nil, err
 	}
 
 	return &InstanceTest{
 		App:     status.AppName,
-		Key:     s.APIKey,
+		Key:     i.APIKey,
 		Version: status.Version,
 		Name:    status.InstanceName,
 	}, err
 }
 
-func (s *StarrConfig) testRadarr(ctx context.Context) (*InstanceTest, error) {
-	status, err := radarr.New(s.Config).GetSystemStatusContext(ctx)
+func (i *instance) testRadarr() (*InstanceTest, error) {
+	status, err := radarr.New(i.Config).GetSystemStatusContext(i.ctx)
 	if err != nil {
 		return nil, err
 	}
 
 	return &InstanceTest{
 		App:     status.AppName,
-		Key:     s.APIKey,
+		Key:     i.APIKey,
 		Version: status.Version,
 		Name:    status.InstanceName,
 	}, err
 }
 
-func (s *StarrConfig) testReadarr(ctx context.Context) (*InstanceTest, error) {
-	status, err := readarr.New(s.Config).GetSystemStatusContext(ctx)
+func (i *instance) testReadarr() (*InstanceTest, error) {
+	status, err := readarr.New(i.Config).GetSystemStatusContext(i.ctx)
 	if err != nil {
 		return nil, err
 	}
 
 	return &InstanceTest{
 		App:     status.AppName,
-		Key:     s.APIKey,
+		Key:     i.APIKey,
 		Version: status.Version,
 		Name:    status.InstanceName,
 	}, err
 }
 
-func (s *StarrConfig) testSonarr(ctx context.Context) (*InstanceTest, error) {
-	status, err := sonarr.New(s.Config).GetSystemStatusContext(ctx)
+func (i *instance) testSonarr() (*InstanceTest, error) {
+	status, err := sonarr.New(i.Config).GetSystemStatusContext(i.ctx)
 	if err != nil {
 		return nil, err
 	}
 
 	return &InstanceTest{
 		App:     status.AppName,
-		Key:     s.APIKey,
+		Key:     i.APIKey,
 		Version: status.Version,
 		Name:    status.InstanceName,
 	}, err
 }
 
-func (s *StarrConfig) testWhisparr(ctx context.Context) (*InstanceTest, error) {
-	status, err := radarr.New(s.Config).GetSystemStatusContext(ctx)
+func (i *instance) testWhisparr() (*InstanceTest, error) {
+	status, err := radarr.New(i.Config).GetSystemStatusContext(i.ctx)
 	if err != nil {
 		return nil, err
 	}
 
 	return &InstanceTest{
 		App:     status.AppName,
-		Key:     s.APIKey,
+		Key:     i.APIKey,
 		Version: status.Version,
 		Name:    status.InstanceName,
 	}, err

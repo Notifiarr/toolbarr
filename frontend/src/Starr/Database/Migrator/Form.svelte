@@ -16,12 +16,12 @@
     Table,
   } from "sveltestrap"
   import {
-    PickFolder,
     UpdateDBRootFolder,
     DeleteDBRootFolder,
     UpdateDBRecycleBin,
     UpdateDBInvalidItems,
-  } from "../../../../wailsjs/go/app/App.js"
+  } from "../../../../wailsjs/go/starrs/Starrs.js"
+  import { PickFolder } from "../../../../wailsjs/go/app/App.js"
   import T, { _ } from "../../../libs/Translate.svelte"
   import { faClose, faFolderOpen } from "@fortawesome/free-solid-svg-icons"
   import Fa from "svelte-fa"
