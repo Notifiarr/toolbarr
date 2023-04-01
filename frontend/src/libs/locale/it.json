@@ -41,7 +41,7 @@
         "Enabled": "Abilitato",
         "Disabled": "Disabilitato",
         "DebugLogging": "Debug Logging",
-        "Megabyte": "{count} Megabyte{count, plural, =0 {s} uno {} altro{s}}",
+        "Megabyte": "{count} Megabyte{count, plural, =0 {s} one {} other {s}}",
         "CONFIGERROR": "ERRORE DI CONFIGURAZIONE"
     },
     "aboutPage": {

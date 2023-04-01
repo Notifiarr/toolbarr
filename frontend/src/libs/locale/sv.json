@@ -33,8 +33,8 @@
     },
     "configvalues": {
         "CONFIGERROR": "KONFIGERINGSFEL",
-        "File": "{count} Fil{count, plural, =0 {s} en {} annan {s}}",
-        "Megabyte": "{count} Megabyte{count, plural, =0 {s} en {} annan {s}}"
+        "File": "{count} Fil{count, plural, =0 {s} one {} other {s}}",
+        "Megabyte": "{count} Megabyte{count, plural, =0 {s} one {} other {s}}"
     },
     "instances": {
         "addNewInstance": "Lägg till ny {starrApp}-instans",

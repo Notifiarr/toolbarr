@@ -32,7 +32,7 @@
       <TabPane tabId="Actions" tab={$_("words.Actions")}><Actions {starrApp}/></TabPane>
       <TabPane tabId="Database">
         <span slot="tab">{@html $_("instances.DBTools")}</span>
-        <Database hidden={tab!="Database"} {starrApp}/>
+        {#if tab == "Database"} <Database {starrApp}/> {/if}
       </TabPane>
     </TabContent>
   </div>
@@ -52,5 +52,9 @@
   .container :global(.tab-pane) {
     margin-top: 3px;
     width:100%;
+  }
+
+  :global(.setting-name) {
+    max-width:180px !important;
   }
 </style>

@@ -115,11 +115,11 @@
         "screenshotofshortcutwindow": "screenshot van snelkoppelingsvenster",
         "winCustom": "Om een aangepast configuratiebestand op Windows te gebruiken, moet u een snelkoppeling maken en bewerken. Wanneer u het installatieprogramma gebruikt, wordt een snelkoppeling geplaatst in uw startmenu, en optioneel op uw bureaublad. U kunt een van deze bestanden gebruiken, of een nieuwe maken. Klik op de knop Snelkoppeling maken hieronder om nu een nieuwe snelkoppeling op uw bureaublad te maken.",
         "CustomConfigPath": "Aangepast configuratiepad",
-        "winDirectionList": "<li>Rechtsklik op de snelkoppeling en klik op Eigenschappen.</li><li>Klik op het tabblad Snelkoppeling als dat er nog niet is.</li><li>Voeg bij Doel het volgende toe:</li><li><code>-c \"C:^path{naam}.conf\"</code></li><li>Vervang het opgegeven pad met uw eigen pad.</li>",
+        "winDirectionList": "<li>Rechtsklik op de snelkoppeling en klik op Eigenschappen.</li><li>Klik op het tabblad Snelkoppeling als dat er nog niet is.</li><li>Voeg bij Doel het volgende toe:</li><li><code>-c \"C:^path{name}.conf\"</code></li><li>Vervang het opgegeven pad met uw eigen pad.</li>",
         "Makeabashscript": "Maak een bash alias of script om dit voor je te doen.",
         "macHelp": "{title} zal zoeken naar <code>{name}.conf</code> in dezelfde map als <code>{title}.app</code>. Als het niet wordt gevonden, dan wordt een locatie in uw thuismap gebruikt voor het configuratiebestand. Als u wilt dat het configuratiebestand naast de app leeft: kopieer het daarheen, herstart deze app, en het zal worden gebruikt. Het is moeilijk om een aangepaste config locatie te gebruiken op een mac en wordt niet aanbevolen.",
         "winHelp": "{title} zoekt naar <code>{name}.conf</code> in dezelfde map als <code>{title}.exe</code>. Als die niet wordt gevonden, wordt een locatie in uw thuismap gebruikt voor het configuratiebestand. Als u wilt dat het configuratiebestand naast het exe bestand staat: kopieer het daarheen, herstart deze app, en het zal worden gebruikt. Als u een aangepaste locatie voor het configuratiebestand wilt, volg dan de onderstaande instructies.",
-        "linuxHelp": "{title} zal zoeken naar <code>{naam}.conf</code> in dezelfde map als de <code>{naam}</code> binary. Als die niet wordt gevonden, dan wordt een locatie in uw thuismap gebruikt voor het configuratiebestand. Als u wilt dat het configuratiebestand naast de binary staat: kopieer het daarheen, herstart deze app, en het zal worden gebruikt. Om op Linux een aangepast config bestandspad te gebruiken, geef het als een cli argument wanneer u de executable start.",
+        "linuxHelp": "{title} zal zoeken naar <code>{name}.conf</code> in dezelfde map als de <code>{name}</code> binary. Als die niet wordt gevonden, dan wordt een locatie in uw thuismap gebruikt voor het configuratiebestand. Als u wilt dat het configuratiebestand naast de binary staat: kopieer het daarheen, herstart deze app, en het zal worden gebruikt. Om op Linux een aangepast config bestandspad te gebruiken, geef het als een cli argument wanneer u de executable start.",
         "Withafullpath": "Met een volledig pad"
     },
     "configtooltip": {
@@ -144,7 +144,7 @@
         "DBTool": "DB Gereedschap",
         "SQLite3DatabaseInspector": "SQLite3 Databank Inspecteur",
         "noInstancesConfigured": "Geen Instanties geconfigureerd.",
-        "NoDatabasePathConfigured": "De geselecteerde {starrApp} Instantie ({naam}) heeft geen SQLite3 database pad geconfigureerd.",
+        "NoDatabasePathConfigured": "De geselecteerde {starrApp} Instantie ({name}) heeft geen SQLite3 database pad geconfigureerd.",
         "InvalidPaths": "Ongeldige paden",
         "Invalidpathsintable": "Ongeldige paden in tabel {table}",
         "NewRoot": "Nieuwe hoofdmap",

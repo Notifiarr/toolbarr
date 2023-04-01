@@ -1,6 +1,5 @@
 <script>
   export let starrApp
-  export let hidden = true
 
   import Applogo from "../../libs/Applogo.svelte"
   import { Accordion, AccordionItem, Badge, Input, InputGroup, InputGroupText } from "sveltestrap"
@@ -10,13 +9,11 @@
   import Migrator from "./Migrator/Index.svelte"
 
   const tabs = []
+  $: instance = $conf.Instances[starrApp] ? $conf.Instances[starrApp][0] : undefined
   if (starrApp != "Prowlarr") tabs.push({title: $_("instances.FilesystemPathsMigrator"), target: Migrator})
   tabs.push({title: $_("instances.SQLite3DatabaseInspector"), target: Inspector})
-
   let activeTab = tabs[0]
   let showTitle = true
-
-  $: instance = $conf.Instances[starrApp] ? $conf.Instances[starrApp][0] : undefined
 </script>
 
 <Accordion>
@@ -58,8 +55,8 @@
   </AccordionItem>
 </Accordion>
 
-<!-- Display the selected tool, pass in selected instance. -->
-{#if !hidden && activeTab}
+{#if activeTab}
+  <!-- Display the selected tool, pass in selected instance. -->
   <svelte:component this={activeTab.target} {instance} {starrApp} {showTitle}/>
 {/if}
 
