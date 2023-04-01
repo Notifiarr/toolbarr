@@ -9,15 +9,11 @@ export function CheckUpdate():Promise<any>;
 
 export function CreateShortcut():Promise<string>;
 
-export function DeleteDBRootFolder(arg1:any,arg2:string):Promise<any>;
-
 export function DownloadUpdate():Promise<any>;
 
 export function ErrorDialog(arg1:string,arg2:string):Promise<void>;
 
 export function GetConfig():Promise<any>;
-
-export function GetMigratorInfo(arg1:any):Promise<any>;
 
 export function Languages():Promise<{[key: string]: string}>;
 
@@ -35,14 +31,6 @@ export function RemoveInstance(arg1:number,arg2:string):Promise<any>;
 
 export function SaveConfigItem(arg1:string,arg2:any,arg3:boolean):Promise<any>;
 
-export function SaveInstance(arg1:number,arg2:starrs.Instance):Promise<any>;
-
-export function TestInstance(arg1:any):Promise<string>;
-
-export function UpdateDBInvalidItems(arg1:any,arg2:string,arg3:string,arg4:{[key: number]: boolean}):Promise<any>;
-
-export function UpdateDBRecycleBin(arg1:any,arg2:string):Promise<any>;
-
-export function UpdateDBRootFolder(arg1:any,arg2:string,arg3:string):Promise<any>;
+export function SaveInstance(arg1:number,arg2:starrs.AppConfig):Promise<any>;
 
 export function Version():Promise<app.Version>;

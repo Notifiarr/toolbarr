@@ -6,23 +6,31 @@ import (
 	"github.com/Notifiarr/toolbarr/pkg/config"
 	"github.com/Notifiarr/toolbarr/pkg/logs"
 	"github.com/Notifiarr/toolbarr/pkg/mnd"
+	"github.com/Notifiarr/toolbarr/pkg/starrs"
 	"github.com/wailsapp/wails/v2/pkg/menu"
 	wr "github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
 // App struct.
 type App struct {
-	ctx        context.Context
-	log        *logs.Logger
-	config     *config.Config
-	configFile string // empty unless passed in from cli
-	updates    updates
-	menu       *menu.Menu
+	ctx     context.Context
+	log     *logs.Logger
+	config  *config.Config
+	updates updates
+	*Config
+}
+
+// Config is the input data passed in from main.go.
+type Config struct {
+	Logger     *logs.Logger
+	ConfigFile string // empty unless passed in from cli
+	AppMenu    *menu.Menu
+	Starrs     *starrs.Starrs
 }
 
 // New creates a new App application struct.
-func New(logger *logs.Logger, configFile string, appMenu *menu.Menu) *App {
-	return &App{log: logger, configFile: configFile, menu: appMenu}
+func New(logger *logs.Logger, config *Config) *App {
+	return &App{log: logger, Config: config}
 }
 
 // Startup is called when the app starts.
@@ -33,7 +41,7 @@ func (a *App) Startup(ctx context.Context) {
 	defer a.log.CapturePanic()
 
 	conf, err := config.Get(&config.Input{
-		File: a.configFile,
+		File: a.ConfigFile,
 		Name: mnd.Name,
 		Dir:  "com.notifiarr." + mnd.Name,
 	})
@@ -46,11 +54,13 @@ func (a *App) Startup(ctx context.Context) {
 
 	a.config = conf
 	a.log.Setup(ctx, conf.Settings().LogConfig)
+	starrs.Startup(ctx, a.Starrs, a.log, a)
 	a.setupMenu()
 }
 
+// setupMenu configures the menu bar at the top of the application.
 func (a *App) setupMenu() {
-	hideMenu := a.menu.AddSubmenu(a.log.Translate("Hide"))
+	hideMenu := a.AppMenu.AddSubmenu(a.log.Translate("Hide"))
 	settings := a.config.Settings()
 	hideMenuItems := []string{
 		"Dark",
@@ -69,8 +79,8 @@ func (a *App) setupMenu() {
 		})
 	}
 
-	wr.MenuSetApplicationMenu(a.ctx, a.menu)
-	a.menu = hideMenu
+	wr.MenuSetApplicationMenu(a.ctx, a.AppMenu)
+	a.AppMenu = hideMenu
 }
 
 // toggleMenuItem powers the app 'Hide' menu.
@@ -98,6 +108,7 @@ func (a *App) Quit() {
 	wr.Quit(a.ctx)
 }
 
+// ErrorDialog displays an error on screen.
 func (a *App) ErrorDialog(title, msg string) {
 	_, _ = wr.MessageDialog(a.ctx, wr.MessageDialogOptions{
 		Type:    wr.ErrorDialog,

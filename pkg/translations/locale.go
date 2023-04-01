@@ -1,7 +1,8 @@
 //go:generate /usr/bin/env bash build.sh
 //
-// https://www.alexedwards.net/blog/i18n-managing-translations
 
+// Package translations provides all the backend translations for Toolbarr.
+// Based loosely on this article https://www.alexedwards.net/blog/i18n-managing-translations
 package translations
 
 import (

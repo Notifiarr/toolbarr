@@ -1,4 +1,4 @@
-package ui
+package local
 
 import (
 	"context"
@@ -30,4 +30,8 @@ func OpenFolder(ctx context.Context, filePath string) error {
 	}
 
 	return OpenCmd(ctx, filePath)
+}
+
+func CreateShortcut() (string, error) {
+	return "Shortcuts are not supported on MacOS!", nil
 }

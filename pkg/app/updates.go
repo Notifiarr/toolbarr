@@ -6,8 +6,8 @@ import (
 	"sync"
 	"time"
 
+	"github.com/Notifiarr/toolbarr/pkg/local"
 	"github.com/Notifiarr/toolbarr/pkg/mnd"
-	"github.com/Notifiarr/toolbarr/pkg/ui"
 	"github.com/Notifiarr/toolbarr/pkg/update"
 	"golift.io/version"
 )
@@ -121,9 +121,9 @@ func (a *App) LaunchInstaller(path string) (string, error) {
 
 	go func() {
 		if mnd.IsMac {
-			err = ui.OpenFolder(a.ctx, path)
+			err = local.OpenFolder(a.ctx, path)
 		} else {
-			err = ui.OpenCmd(a.ctx, path)
+			err = local.OpenCmd(a.ctx, path)
 		}
 
 		if err != nil {
@@ -143,7 +143,7 @@ func (a *App) OpenFolder(path string) string {
 	a.log.Tracef("Call:OpenFolder(%s)", path)
 
 	go func() {
-		err := ui.OpenFolder(a.ctx, path)
+		err := local.OpenFolder(a.ctx, path)
 		if err != nil {
 			a.log.Errorf("Opening Folder: %s: %v", path, err)
 		}

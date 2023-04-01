@@ -9,72 +9,67 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
-// SQLConn is used to query a sqllite3 db.
-type SQLConn struct {
-	logger   *logs.Logger
-	instance *Instance
-	conn     *sqlx.DB
+// sqlConn is used to query a sqllite3 db.
+type sqlConn struct {
+	log    *logs.Logger
+	config *AppConfig
+	conn   *sqlx.DB
 }
 
 // Close must called when you're done with the sql.
-func (s *SQLConn) Close() {
+func (s *sqlConn) Close() {
 	_ = s.conn.Close()
 }
 
-type TableColumn struct {
-	Table  string
-	Column string
-	Name   string
-}
-
+// Entry is used as a return value for tables with paths.
 type Entry struct {
 	ID   uint64
 	Name *string
 	Path string
 }
 
-// NewSQL provides a sql connection to make queries.
+// newSQL provides a sql connection to make queries.
 // Must call Close() when finished.
-func NewSQL(logger *logs.Logger, instance *Instance) (*SQLConn, error) {
-	conn, err := sqlx.Open("sqlite", instance.DBPath)
+func (s *Starrs) newSQL(config *AppConfig) (*sqlConn, error) {
+	conn, err := sqlx.Open("sqlite", config.DBPath)
 	if err != nil {
 		return nil, err
 	}
 
-	return &SQLConn{
-		logger:   logger,
-		instance: instance,
-		conn:     conn,
+	return &sqlConn{
+		log:    s.log,
+		config: config,
+		conn:   conn,
 	}, nil
 }
 
 // Close must called when you're done with the sql.
-func (s *SQLConn) Update(table, name, val, where string) (sql.Result, error) {
+func (s *sqlConn) Update(table, name, val, where string) (sql.Result, error) {
 	query := fmt.Sprintf("UPDATE %s SET %s='%s' WHERE %s", table, name, Escape(val), where)
-	s.logger.Debugf("Running Query: %s", query)
+	s.log.Debugf("Running Query: %s", query)
 
 	return s.conn.Exec(query)
 }
 
 // Delete rows from a database table.
-func (s *SQLConn) Delete(table, where string) (sql.Result, error) {
+func (s *sqlConn) Delete(table, where string) (sql.Result, error) {
 	query := fmt.Sprintf("DELETE FROM %s WHERE %s", table, where)
-	s.logger.Debugf("Running Query: %s", query)
+	s.log.Debugf("Running Query: %s", query)
 
 	return s.conn.Exec(query)
 }
 
 // RootFolders returns the root folders.
-func (s *SQLConn) RootFolders(ctx context.Context) ([]string, error) {
+func (s *sqlConn) RootFolders(ctx context.Context) ([]string, error) {
 	return s.RowsStringSlice(ctx, "SELECT Path FROM RootFolders")
 }
 
 // Recyclebin returns the recycle bin.
-func (s *SQLConn) Recyclebin(ctx context.Context) (string, error) {
+func (s *sqlConn) Recyclebin(ctx context.Context) (string, error) {
 	return s.RowString(ctx, "SELECT Value FROM Config WHERE Key = 'recyclebin'")
 }
 
-func (s *SQLConn) UpdateRecyclebin(ctx context.Context, path string) (int64, error) {
+func (s *sqlConn) UpdateRecyclebin(ctx context.Context, path string) (int64, error) {
 	query := fmt.Sprintf("INSERT INTO Config (Key, Value) VALUES ('recyclebin', '%[1]s')"+
 		" ON CONFLICT(Key) DO UPDATE SET Value = '%[1]s'", Escape(path))
 
@@ -82,7 +77,7 @@ func (s *SQLConn) UpdateRecyclebin(ctx context.Context, path string) (int64, err
 		query = "DELETE FROM Config WHERE Key='recyclebin'"
 	}
 
-	s.logger.Debugf("Running Query: %s", query)
+	s.log.Debugf("Running Query: %s", query)
 
 	rows, err := s.conn.ExecContext(ctx, query)
 	if err != nil {
@@ -95,14 +90,14 @@ func (s *SQLConn) UpdateRecyclebin(ctx context.Context, path string) (int64, err
 }
 
 // ItemPaths returns the ID=>Path mapping from any table.
-func (s *SQLConn) ItemPaths(ctx context.Context, table, column string) (map[int64]string, error) {
+func (s *sqlConn) ItemPaths(ctx context.Context, table, column string) (map[int64]string, error) {
 	return s.RowsIDString(ctx, "SELECT Id, "+column+" FROM "+table)
 }
 
 // ItemPaths returns the ID=>Path mapping from any table.
-func (s *SQLConn) GetEntries(ctx context.Context, tcd *TableColumn) ([]*Entry, error) {
+func (s *sqlConn) GetEntries(ctx context.Context, tcd *TableColumn) ([]*Entry, error) {
 	sql := fmt.Sprintf("SELECT Id AS id, %s AS name, %s As path FROM %s", tcd.Name, tcd.Column, tcd.Table)
-	s.logger.Debugf("Running Query: %s", sql)
+	s.log.Debugf("Running Query: %s", sql)
 
 	rows, err := s.conn.QueryxContext(ctx, sql)
 	if err != nil {
@@ -125,12 +120,12 @@ func (s *SQLConn) GetEntries(ctx context.Context, tcd *TableColumn) ([]*Entry, e
 }
 
 // TableCount returns the row count for a table.
-func (s *SQLConn) TableCount(ctx context.Context, table string) (int64, error) {
+func (s *sqlConn) TableCount(ctx context.Context, table string) (int64, error) {
 	return s.RowInt64(ctx, "SELECT count(1) FROM "+table)
 }
 
 // RowsIDString returns 2 columns from N rows as a map of ID (int64) => item (string).
-func (s *SQLConn) RowsIDString(ctx context.Context, sql string) (map[int64]string, error) {
+func (s *sqlConn) RowsIDString(ctx context.Context, sql string) (map[int64]string, error) {
 	output := make(map[int64]string)
 
 	rows, err := s.conn.QueryContext(ctx, sql)
@@ -159,7 +154,7 @@ func (s *SQLConn) RowsIDString(ctx context.Context, sql string) (map[int64]strin
 }
 
 // RowsStringSlice returns 1 column from N rows as a string slice.
-func (s *SQLConn) RowsStringSlice(ctx context.Context, sql string) ([]string, error) {
+func (s *sqlConn) RowsStringSlice(ctx context.Context, sql string) ([]string, error) {
 	slice := []string{}
 
 	rows, err := s.conn.QueryContext(ctx, sql)
@@ -185,7 +180,7 @@ func (s *SQLConn) RowsStringSlice(ctx context.Context, sql string) ([]string, er
 }
 
 // RowString returns 1 column from 1 row as a string.
-func (s *SQLConn) RowString(ctx context.Context, sql string) (string, error) {
+func (s *sqlConn) RowString(ctx context.Context, sql string) (string, error) {
 	rows, err := s.conn.QueryContext(ctx, sql)
 	if err != nil {
 		return "", fmt.Errorf("%s: %w", sql, err)
@@ -209,7 +204,7 @@ func (s *SQLConn) RowString(ctx context.Context, sql string) (string, error) {
 }
 
 // RowInt64 returns 1 column from 1 row as an Int64.
-func (s *SQLConn) RowInt64(ctx context.Context, sql string) (int64, error) {
+func (s *sqlConn) RowInt64(ctx context.Context, sql string) (int64, error) {
 	rows, err := s.conn.QueryContext(ctx, sql)
 	if err != nil {
 		return 0, fmt.Errorf("%s: %w", sql, err)

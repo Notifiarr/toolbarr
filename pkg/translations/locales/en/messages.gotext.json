@@ -257,278 +257,6 @@
             "fuzzy": true
         },
         {
-            "id": "\u003cli\u003eConnection test successful! Found {App} ({Name}) with version {Version}.\u003c/li\u003e",
-            "message": "\u003cli\u003eConnection test successful! Found {App} ({Name}) with version {Version}.\u003c/li\u003e",
-            "translation": "\u003cli\u003eConnection test successful! Found {App} ({Name}) with version {Version}.\u003c/li\u003e",
-            "translatorComment": "Copied from source.",
-            "placeholders": [
-                {
-                    "id": "App",
-                    "string": "%[1]s",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 1,
-                    "expr": "test.App"
-                },
-                {
-                    "id": "Name",
-                    "string": "%[2]s",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 2,
-                    "expr": "test.Name"
-                },
-                {
-                    "id": "Version",
-                    "string": "%[3]s",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 3,
-                    "expr": "test.Version"
-                }
-            ],
-            "fuzzy": true
-        },
-        {
-            "id": "Connection test failed! Wrong app found. Expected {App} but found {App_1}. App Version: {Version}",
-            "message": "Connection test failed! Wrong app found. Expected {App} but found {App_1}. App Version: {Version}",
-            "translation": "Connection test failed! Wrong app found. Expected {App} but found {App_1}. App Version: {Version}",
-            "translatorComment": "Copied from source.",
-            "placeholders": [
-                {
-                    "id": "App",
-                    "string": "%[1]s",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 1,
-                    "expr": "instance.App"
-                },
-                {
-                    "id": "App_1",
-                    "string": "%[2]s",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 2,
-                    "expr": "test.App"
-                },
-                {
-                    "id": "Version",
-                    "string": "%[3]s",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 3,
-                    "expr": "test.Version"
-                }
-            ],
-            "fuzzy": true
-        },
-        {
-            "id": "\u003cli\u003eDatabase file test successful! SQLite3 version: {Version}, tables: {Count}\u003c/li\u003e",
-            "message": "\u003cli\u003eDatabase file test successful! SQLite3 version: {Version}, tables: {Count}\u003c/li\u003e",
-            "translation": "\u003cli\u003eDatabase file test successful! SQLite3 version: {Version}, tables: {Count}\u003c/li\u003e",
-            "translatorComment": "Copied from source.",
-            "placeholders": [
-                {
-                    "id": "Version",
-                    "string": "%[1]s",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 1,
-                    "expr": "test.Version"
-                },
-                {
-                    "id": "Count",
-                    "string": "%[2]d",
-                    "type": "int",
-                    "underlyingType": "int",
-                    "argNum": 2,
-                    "expr": "test.Count"
-                }
-            ],
-            "fuzzy": true
-        },
-        {
-            "id": "Really delete {Name} root folder?\nPath: {Folder}\nThis Action cannot be undone, and this application does not make backups.",
-            "message": "Really delete {Name} root folder?\nPath: {Folder}\nThis Action cannot be undone, and this application does not make backups.",
-            "translation": "Really delete {Name} root folder?\nPath: {Folder}\nThis Action cannot be undone, and this application does not make backups.",
-            "translatorComment": "Copied from source.",
-            "placeholders": [
-                {
-                    "id": "Name",
-                    "string": "%[1]s",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 1,
-                    "expr": "instance.Name"
-                },
-                {
-                    "id": "Folder",
-                    "string": "%[2]s",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 2,
-                    "expr": "folder"
-                }
-            ],
-            "fuzzy": true
-        },
-        {
-            "id": "Delete Root Folder",
-            "message": "Delete Root Folder",
-            "translation": "Delete Root Folder",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "Querying Sqlite3 DB: {Error}",
-            "message": "Querying Sqlite3 DB: {Error}",
-            "translation": "Querying Sqlite3 DB: {Error}",
-            "translatorComment": "Copied from source.",
-            "placeholders": [
-                {
-                    "id": "Error",
-                    "string": "%[1]v",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 1,
-                    "expr": "err.Error()"
-                }
-            ],
-            "fuzzy": true
-        },
-        {
-            "id": "Success! Deleted root folder: {Folder}",
-            "message": "Success! Deleted root folder: {Folder}",
-            "translation": "Success! Deleted root folder: {Folder}",
-            "translatorComment": "Copied from source.",
-            "placeholders": [
-                {
-                    "id": "Folder",
-                    "string": "%[1]s",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 1,
-                    "expr": "folder"
-                }
-            ],
-            "fuzzy": true
-        },
-        {
-            "id": "No path provided.",
-            "message": "No path provided.",
-            "translation": "No path provided.",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "Updated {Rows} rows in table {Table}.",
-            "message": "Updated {Rows} rows in table {Table}.",
-            "translation": "Updated {Rows} rows in table {Table}.",
-            "translatorComment": "Copied from source.",
-            "placeholders": [
-                {
-                    "id": "Rows",
-                    "string": "%[1]d",
-                    "type": "int64",
-                    "underlyingType": "int64",
-                    "argNum": 1,
-                    "expr": "rows"
-                },
-                {
-                    "id": "Table",
-                    "string": "%[2]s",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 2,
-                    "expr": "column.Table"
-                }
-            ],
-            "fuzzy": true
-        },
-        {
-            "id": "Really unset {Name} recycle bin?",
-            "message": "Really unset {Name} recycle bin?",
-            "translation": "Really unset {Name} recycle bin?",
-            "translatorComment": "Copied from source.",
-            "placeholders": [
-                {
-                    "id": "Name",
-                    "string": "%[1]s",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 1,
-                    "expr": "instance.Name"
-                }
-            ],
-            "fuzzy": true
-        },
-        {
-            "id": "Unset Recycle Bin",
-            "message": "Unset Recycle Bin",
-            "translation": "Unset Recycle Bin",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "Changed recycle bin path! Rows Updated: {Count}",
-            "message": "Changed recycle bin path! Rows Updated: {Count}",
-            "translation": "Changed recycle bin path! Rows Updated: {Count}",
-            "translatorComment": "Copied from source.",
-            "placeholders": [
-                {
-                    "id": "Count",
-                    "string": "%[1]d",
-                    "type": "int64",
-                    "underlyingType": "int64",
-                    "argNum": 1,
-                    "expr": "count"
-                }
-            ],
-            "fuzzy": true
-        },
-        {
-            "id": "Unset recycle bin path! Rows Updated: {Count}",
-            "message": "Unset recycle bin path! Rows Updated: {Count}",
-            "translation": "Unset recycle bin path! Rows Updated: {Count}",
-            "translatorComment": "Copied from source.",
-            "placeholders": [
-                {
-                    "id": "Count",
-                    "string": "%[1]d",
-                    "type": "int64",
-                    "underlyingType": "int64",
-                    "argNum": 1,
-                    "expr": "count"
-                }
-            ],
-            "fuzzy": true
-        },
-        {
-            "id": "Success! Changed Root Folder from '{OldPath}' to '{NewPath}'.",
-            "message": "Success! Changed Root Folder from '{OldPath}' to '{NewPath}'.",
-            "translation": "Success! Changed Root Folder from '{OldPath}' to '{NewPath}'.",
-            "translatorComment": "Copied from source.",
-            "placeholders": [
-                {
-                    "id": "OldPath",
-                    "string": "%[1]s",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 1,
-                    "expr": "oldPath"
-                },
-                {
-                    "id": "NewPath",
-                    "string": "%[2]s",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 2,
-                    "expr": "newPath"
-                }
-            ],
-            "fuzzy": true
-        },
-        {
             "id": "Config Problem",
             "message": "Config Problem",
             "translation": "Config Problem"
@@ -877,6 +605,187 @@
             "translation": "closing log rotator:"
         },
         {
+            "id": "Querying Sqlite3 DB: {Error}",
+            "message": "Querying Sqlite3 DB: {Error}",
+            "translation": "Querying Sqlite3 DB: {Error}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Really delete {Name} root folder?\nPath: {Folder}\nThis Action cannot be undone, and this application does not make backups.",
+            "message": "Really delete {Name} root folder?\nPath: {Folder}\nThis Action cannot be undone, and this application does not make backups.",
+            "translation": "Really delete {Name} root folder?\nPath: {Folder}\nThis Action cannot be undone, and this application does not make backups.",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "Folder",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "folder"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Delete Root Folder",
+            "message": "Delete Root Folder",
+            "translation": "Delete Root Folder",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Success! Deleted root folder: {Folder}",
+            "message": "Success! Deleted root folder: {Folder}",
+            "translation": "Success! Deleted root folder: {Folder}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Folder",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "folder"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Really unset {Name} recycle bin?",
+            "message": "Really unset {Name} recycle bin?",
+            "translation": "Really unset {Name} recycle bin?",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Unset Recycle Bin",
+            "message": "Unset Recycle Bin",
+            "translation": "Unset Recycle Bin",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Changed recycle bin path! Rows Updated: {Count}",
+            "message": "Changed recycle bin path! Rows Updated: {Count}",
+            "translation": "Changed recycle bin path! Rows Updated: {Count}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Count",
+                    "string": "%[1]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 1,
+                    "expr": "count"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Unset recycle bin path! Rows Updated: {Count}",
+            "message": "Unset recycle bin path! Rows Updated: {Count}",
+            "translation": "Unset recycle bin path! Rows Updated: {Count}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Count",
+                    "string": "%[1]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 1,
+                    "expr": "count"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "No path provided.",
+            "message": "No path provided.",
+            "translation": "No path provided.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Updated {Rows} rows in table {Table}.",
+            "message": "Updated {Rows} rows in table {Table}.",
+            "translation": "Updated {Rows} rows in table {Table}.",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Rows",
+                    "string": "%[1]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 1,
+                    "expr": "rows"
+                },
+                {
+                    "id": "Table",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "column.Table"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Success! Changed Root Folder from '{OldPath}' to '{NewPath}'.",
+            "message": "Success! Changed Root Folder from '{OldPath}' to '{NewPath}'.",
+            "translation": "Success! Changed Root Folder from '{OldPath}' to '{NewPath}'.",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "OldPath",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "oldPath"
+                },
+                {
+                    "id": "NewPath",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "newPath"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
             "id": "Running Query: {Query}",
             "message": "Running Query: {Query}",
             "translation": "Running Query: {Query}",
@@ -889,6 +798,97 @@
                     "underlyingType": "string",
                     "argNum": 1,
                     "expr": "query"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "\u003cli\u003eConnection test successful! Found {App} ({Name}) with version {Version}.\u003c/li\u003e",
+            "message": "\u003cli\u003eConnection test successful! Found {App} ({Name}) with version {Version}.\u003c/li\u003e",
+            "translation": "\u003cli\u003eConnection test successful! Found {App} ({Name}) with version {Version}.\u003c/li\u003e",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "App",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "test.App"
+                },
+                {
+                    "id": "Name",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "test.Name"
+                },
+                {
+                    "id": "Version",
+                    "string": "%[3]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 3,
+                    "expr": "test.Version"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Connection test failed! Wrong app found. Expected {App} but found {App_1}. App Version: {Version}",
+            "message": "Connection test failed! Wrong app found. Expected {App} but found {App_1}. App Version: {Version}",
+            "translation": "Connection test failed! Wrong app found. Expected {App} but found {App_1}. App Version: {Version}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "App",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.App"
+                },
+                {
+                    "id": "App_1",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "test.App"
+                },
+                {
+                    "id": "Version",
+                    "string": "%[3]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 3,
+                    "expr": "test.Version"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "\u003cli\u003eDatabase file test successful! SQLite3 version: {Version}, tables: {Count}\u003c/li\u003e",
+            "message": "\u003cli\u003eDatabase file test successful! SQLite3 version: {Version}, tables: {Count}\u003c/li\u003e",
+            "translation": "\u003cli\u003eDatabase file test successful! SQLite3 version: {Version}, tables: {Count}\u003c/li\u003e",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Version",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "test.Version"
+                },
+                {
+                    "id": "Count",
+                    "string": "%[2]d",
+                    "type": "int",
+                    "underlyingType": "int",
+                    "argNum": 2,
+                    "expr": "test.Count"
                 }
             ],
             "fuzzy": true

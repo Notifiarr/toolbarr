@@ -1,4 +1,5 @@
-package ui
+// Package local provides procedures to run commands and do things on the local system.
+package local
 
 import (
 	"context"

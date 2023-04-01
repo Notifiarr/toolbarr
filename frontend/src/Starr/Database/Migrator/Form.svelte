@@ -16,12 +16,12 @@
     Table,
   } from "sveltestrap"
   import {
-    PickFolder,
-    UpdateDBRootFolder,
-    DeleteDBRootFolder,
-    UpdateDBRecycleBin,
-    UpdateDBInvalidItems,
-  } from "../../../../wailsjs/go/app/App.js"
+    UpdateRootFolder,
+    DeleteRootFolder,
+    UpdateRecycleBin,
+    UpdateInvalidItems,
+  } from "../../../../wailsjs/go/starrs/Starrs.js"
+  import { PickFolder } from "../../../../wailsjs/go/app/App.js"
   import T, { _ } from "../../../libs/Translate.svelte"
   import { faClose, faFolderOpen } from "@fortawesome/free-solid-svg-icons"
   import Fa from "svelte-fa"
@@ -102,7 +102,7 @@
 
   function updateInvalid(table) {
     startEvents()
-    UpdateDBInvalidItems(instance, table, newPath, invalidIDs[table]).then(
+    UpdateInvalidItems(instance, table, newPath, invalidIDs[table]).then(
       resp => {
         success(resp) // handle response
         onOnce(() => { invalidModals[table] = false }, 1) // close modal after 1s
@@ -116,7 +116,7 @@
 
   function updateRoot() { // changes a root folder path
     startEvents()
-    UpdateDBRootFolder(instance, oldPath, newPath).then(success, error)
+    UpdateRootFolder(instance, oldPath, newPath).then(success, error)
   }
 
   function pickFolder(e) {
@@ -130,13 +130,13 @@
   function updateRecycleBin(e) {
     e.preventDefault()
     updating = true
-    UpdateDBRecycleBin(instance, newPath).then(success, error)
+    UpdateRecycleBin(instance, newPath).then(success, error)
   }
 
   function unsetReycleBin(e) {
     e.preventDefault()
     updating = true
-    UpdateDBRecycleBin(instance, "").then(success, error)
+    UpdateRecycleBin(instance, "").then(success, error)
   }
 
   function openRecycleChanger(e) {
@@ -147,7 +147,7 @@
 
   function deleteFolder(rf) {
     updating = true
-    DeleteDBRootFolder(instance, rf).then(success, error)
+    DeleteRootFolder(instance, rf).then(success, error)
   }
 
   function selectAll(table, all) {
