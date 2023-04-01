@@ -9,11 +9,11 @@ import (
 // SavedInstance is the response to the frontend after instances changes.
 type SavedInstance struct {
 	Msg  string
-	List []starrs.StarrConfig
+	List []starrs.AppConfig
 }
 
 // SaveInstance saves the configuration for an instance.
-func (a *App) SaveInstance(idx int, instance starrs.StarrConfig) (*SavedInstance, error) {
+func (a *App) SaveInstance(idx int, instance starrs.AppConfig) (*SavedInstance, error) {
 	a.log.Tracef("Call:SaveInstance(%d,%s,%s)", idx, instance.App, instance.Name)
 
 	msg := a.log.Translate("Saved %s instance configuration!", instance.App)

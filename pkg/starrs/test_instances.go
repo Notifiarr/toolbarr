@@ -22,36 +22,7 @@ import (
 // timeout is how long to wait for an instance to respond.
 const timeout = 10 * time.Second
 
-// InstanceTest is the data returned the front end after an instances is tested.
-type InstanceTest struct {
-	App     string
-	Key     string
-	Version string
-	Name    string
-	Count   int // for whatever, but table count for now.
-}
-
-func (s *Starrs) testDBPath(config *StarrConfig) (*InstanceTest, error) {
-	sql, err := s.newSQL(config)
-	if err != nil {
-		return nil, fmt.Errorf(s.log.Translate("Connection test failed! %v", err.Error()))
-	}
-	defer sql.Close()
-
-	tables, err := sql.RowsStringSlice(s.ctx, "SELECT name FROM sqlite_schema WHERE type='table'")
-	if err != nil {
-		return nil, fmt.Errorf(s.log.Translate("Connection test failed! Querying Sqlite3 DB: %v", err.Error()))
-	}
-
-	version, _ := sql.RowString(s.ctx, "select sqlite_version()")
-
-	return &InstanceTest{
-		Count:   len(tables),
-		Version: version,
-	}, nil
-}
-
-func (s *Starrs) TestInstance(config *StarrConfig) (string, error) {
+func (s *Starrs) TestInstance(config *AppConfig) (string, error) {
 	s.log.Tracef("Call:TestInstance(%s, %s)", config.App, config.Name)
 
 	test, err := s.testInstance(config)
@@ -82,7 +53,35 @@ func (s *Starrs) TestInstance(config *StarrConfig) (string, error) {
 	return msg, nil
 }
 
-func (s *Starrs) testInstance(config *StarrConfig) (*InstanceTest, error) {
+type instanceTest struct {
+	App     string
+	Key     string
+	Version string
+	Name    string
+	Count   int // for whatever, but table count for now.
+}
+
+func (s *Starrs) testDBPath(config *AppConfig) (*instanceTest, error) {
+	sql, err := s.newSQL(config)
+	if err != nil {
+		return nil, fmt.Errorf(s.log.Translate("Connection test failed! %v", err.Error()))
+	}
+	defer sql.Close()
+
+	tables, err := sql.RowsStringSlice(s.ctx, "SELECT name FROM sqlite_schema WHERE type='table'")
+	if err != nil {
+		return nil, fmt.Errorf(s.log.Translate("Connection test failed! Querying Sqlite3 DB: %v", err.Error()))
+	}
+
+	version, _ := sql.RowString(s.ctx, "select sqlite_version()")
+
+	return &instanceTest{
+		Count:   len(tables),
+		Version: version,
+	}, nil
+}
+
+func (s *Starrs) testInstance(config *AppConfig) (*instanceTest, error) {
 	instance := s.newInstance(config)
 
 	if instance.APIKey == "" {
@@ -107,7 +106,7 @@ func (s *Starrs) testInstance(config *StarrConfig) (*InstanceTest, error) {
 	}
 }
 
-func (i *instance) testWithoutKey() (*InstanceTest, error) {
+func (i *instance) testWithoutKey() (*instanceTest, error) {
 	if i.Username != "" {
 		if err := i.Login(i.ctx); err != nil {
 			return nil, fmt.Errorf(i.log.Translate("Login (username/password) failed: %v", err.Error()))
@@ -117,13 +116,13 @@ func (i *instance) testWithoutKey() (*InstanceTest, error) {
 	return i.getInitializeJS()
 }
 
-func (i *instance) testLidarr() (*InstanceTest, error) {
+func (i *instance) testLidarr() (*instanceTest, error) {
 	status, err := lidarr.New(i.Config).GetSystemStatusContext(i.ctx)
 	if err != nil {
 		return nil, err
 	}
 
-	return &InstanceTest{
+	return &instanceTest{
 		App:     status.AppName,
 		Key:     i.APIKey,
 		Version: status.Version,
@@ -131,13 +130,13 @@ func (i *instance) testLidarr() (*InstanceTest, error) {
 	}, err
 }
 
-func (i *instance) testProwlarr() (*InstanceTest, error) {
+func (i *instance) testProwlarr() (*instanceTest, error) {
 	status, err := prowlarr.New(i.Config).GetSystemStatusContext(i.ctx)
 	if err != nil {
 		return nil, err
 	}
 
-	return &InstanceTest{
+	return &instanceTest{
 		App:     status.AppName,
 		Key:     i.APIKey,
 		Version: status.Version,
@@ -145,13 +144,13 @@ func (i *instance) testProwlarr() (*InstanceTest, error) {
 	}, err
 }
 
-func (i *instance) testRadarr() (*InstanceTest, error) {
+func (i *instance) testRadarr() (*instanceTest, error) {
 	status, err := radarr.New(i.Config).GetSystemStatusContext(i.ctx)
 	if err != nil {
 		return nil, err
 	}
 
-	return &InstanceTest{
+	return &instanceTest{
 		App:     status.AppName,
 		Key:     i.APIKey,
 		Version: status.Version,
@@ -159,13 +158,13 @@ func (i *instance) testRadarr() (*InstanceTest, error) {
 	}, err
 }
 
-func (i *instance) testReadarr() (*InstanceTest, error) {
+func (i *instance) testReadarr() (*instanceTest, error) {
 	status, err := readarr.New(i.Config).GetSystemStatusContext(i.ctx)
 	if err != nil {
 		return nil, err
 	}
 
-	return &InstanceTest{
+	return &instanceTest{
 		App:     status.AppName,
 		Key:     i.APIKey,
 		Version: status.Version,
@@ -173,13 +172,13 @@ func (i *instance) testReadarr() (*InstanceTest, error) {
 	}, err
 }
 
-func (i *instance) testSonarr() (*InstanceTest, error) {
+func (i *instance) testSonarr() (*instanceTest, error) {
 	status, err := sonarr.New(i.Config).GetSystemStatusContext(i.ctx)
 	if err != nil {
 		return nil, err
 	}
 
-	return &InstanceTest{
+	return &instanceTest{
 		App:     status.AppName,
 		Key:     i.APIKey,
 		Version: status.Version,
@@ -187,13 +186,13 @@ func (i *instance) testSonarr() (*InstanceTest, error) {
 	}, err
 }
 
-func (i *instance) testWhisparr() (*InstanceTest, error) {
+func (i *instance) testWhisparr() (*instanceTest, error) {
 	status, err := radarr.New(i.Config).GetSystemStatusContext(i.ctx)
 	if err != nil {
 		return nil, err
 	}
 
-	return &InstanceTest{
+	return &instanceTest{
 		App:     status.AppName,
 		Key:     i.APIKey,
 		Version: status.Version,

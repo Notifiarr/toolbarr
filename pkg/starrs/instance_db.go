@@ -72,7 +72,7 @@ type UpdateRootFolders struct {
 }
 
 // DeleteDBRootFolder removes a root folder.
-func (s *Starrs) DeleteDBRootFolder(config *StarrConfig, folder string) (*UpdateRootFolders, error) {
+func (s *Starrs) DeleteDBRootFolder(config *AppConfig, folder string) (*UpdateRootFolders, error) {
 	s.log.Tracef("Call:DeleteDBRootFolder(%s,%s)", config.Name, folder)
 
 	question := s.log.Translate(
@@ -97,7 +97,7 @@ func (s *Starrs) DeleteDBRootFolder(config *StarrConfig, folder string) (*Update
 }
 
 // UpdateDBRootFolder changes the path for a root folder. It updates all the item with the folder.
-func (s *Starrs) UpdateDBRootFolder(config *StarrConfig, oldPath, newPath string) (*UpdateRootFolders, error) {
+func (s *Starrs) UpdateDBRootFolder(config *AppConfig, oldPath, newPath string) (*UpdateRootFolders, error) {
 	s.log.Tracef("Call:UpdateDBRootFolder(%s,%s,%s)", config.Name, oldPath, newPath)
 
 	sql, err := s.newSQL(config)
@@ -115,7 +115,7 @@ func (s *Starrs) UpdateDBRootFolder(config *StarrConfig, oldPath, newPath string
 }
 
 func (s *Starrs) UpdateDBInvalidItems(
-	config *StarrConfig,
+	config *AppConfig,
 	table string,
 	newPath string,
 	ids map[int64]bool,
@@ -220,7 +220,7 @@ func (s *Starrs) updateDBInvalidRootFolder(
 	return s.log.Translate("Updated %d rows in table %s.", rows, column.Table), nil
 }
 
-func (s *Starrs) returnMessage(sql *sqlConn, config *StarrConfig, msg string) (*UpdateRootFolders, error) {
+func (s *Starrs) returnMessage(sql *sqlConn, config *AppConfig, msg string) (*UpdateRootFolders, error) {
 	info, err := s.getMigratorInfo(sql, config)
 	if err != nil {
 		return nil, fmt.Errorf(s.log.Translate("Querying Sqlite3 DB: %v", err.Error()))
@@ -229,7 +229,7 @@ func (s *Starrs) returnMessage(sql *sqlConn, config *StarrConfig, msg string) (*
 	return &UpdateRootFolders{Msg: msg, Info: info}, nil
 }
 
-func (s *Starrs) UpdateDBRecycleBin(config *StarrConfig, newPath string) (*UpdateRootFolders, error) {
+func (s *Starrs) UpdateDBRecycleBin(config *AppConfig, newPath string) (*UpdateRootFolders, error) {
 	s.log.Tracef("Call:UpdateDBRecycleBin(%s,%s)", config.Name, newPath)
 
 	if newPath == "" {
@@ -342,7 +342,7 @@ func (s *Starrs) updateDBFilesRootFolder(
 }
 
 // GetMigratorInfo returns the current info about root folders.
-func (s *Starrs) GetMigratorInfo(config *StarrConfig) (*MigratorInfo, error) {
+func (s *Starrs) GetMigratorInfo(config *AppConfig) (*MigratorInfo, error) {
 	s.log.Tracef("Call:GetMigratorInfo(%s)", config.DBPath)
 
 	sql, err := s.newSQL(config)
@@ -359,7 +359,7 @@ func (s *Starrs) GetMigratorInfo(config *StarrConfig) (*MigratorInfo, error) {
 	return info, nil
 }
 
-func (s *Starrs) getMigratorInfo(sql *sqlConn, config *StarrConfig) (*MigratorInfo, error) {
+func (s *Starrs) getMigratorInfo(sql *sqlConn, config *AppConfig) (*MigratorInfo, error) {
 	table := AppTables(config.App)
 	info := &MigratorInfo{
 		Table:   table,

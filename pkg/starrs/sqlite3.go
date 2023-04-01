@@ -11,9 +11,9 @@ import (
 
 // sqlConn is used to query a sqllite3 db.
 type sqlConn struct {
-	log      *logs.Logger
-	instance *StarrConfig
-	conn     *sqlx.DB
+	log    *logs.Logger
+	config *AppConfig
+	conn   *sqlx.DB
 }
 
 // Close must called when you're done with the sql.
@@ -30,16 +30,16 @@ type Entry struct {
 
 // newSQL provides a sql connection to make queries.
 // Must call Close() when finished.
-func (s *Starrs) newSQL(config *StarrConfig) (*sqlConn, error) {
+func (s *Starrs) newSQL(config *AppConfig) (*sqlConn, error) {
 	conn, err := sqlx.Open("sqlite", config.DBPath)
 	if err != nil {
 		return nil, err
 	}
 
 	return &sqlConn{
-		log:      s.log,
-		instance: config,
-		conn:     conn,
+		log:    s.log,
+		config: config,
+		conn:   conn,
 	}, nil
 }
 

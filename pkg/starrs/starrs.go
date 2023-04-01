@@ -19,15 +19,15 @@ type Starrs struct {
 // instance allows interacting with the instances via HTTP API using a standard interface.
 type instance struct {
 	*Starrs
-	config *StarrConfig
+	config *AppConfig
 	*starr.Config
 }
 
 // Instances is the configured list of instances. The map key is the instance type, e.g. Lidarr.
-type Instances map[string][]StarrConfig
+type Instances map[string][]AppConfig
 
-// StarrConfig is the configuration for an instance.
-type StarrConfig struct {
+// AppConfig is the configuration for an instance.
+type AppConfig struct {
 	App    string // Radarr, Sonarr, etc
 	Name   string // Custom name: Radarr2, Radarr4k, etc.
 	URL    string // url to app.
@@ -49,7 +49,7 @@ func Startup(ctx context.Context, starrs *Starrs, log *logs.Logger, app mnd.App)
 func (i Instances) Copy() Instances {
 	instances := make(Instances)
 	for k := range i {
-		instances[k] = make([]StarrConfig, len(i[k]))
+		instances[k] = make([]AppConfig, len(i[k]))
 		copy(instances[k], i[k])
 	}
 
