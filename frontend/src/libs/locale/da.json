@@ -144,8 +144,8 @@
         "NormalLogging": "Normal logning",
         "DebugLogging": "Debug logning",
         "TraceLogging": "Spor logning",
-        "Megabyte": "{count} Megabyte{count, plural, =0 {s} en {} anden {s}}",
-        "File": "{count} Fil{count, plural, =0 {s} en {} anden {s}}",
+        "Megabyte": "{count} Megabyte{count, plural, =0 {s} one {} other {s}}",
+        "File": "{count} Fil{count, plural, =0 {s} one {} other {s}}",
         "DisableRotation": "Deaktiver rotation",
         "CONFIGERROR": "KONFIG FEJL",
         "Unstable": "Ustabil"

@@ -1,1 +1,54 @@
-{}
+{
+    "words": {
+        "Advanced": "Avancerad",
+        "Actions": "Handlingar",
+        "Activity": "Aktivitet",
+        "Config": "Konfig",
+        "APIKey": "API-nyckel",
+        "CONFIG": "KONFIG",
+        "About": "Om",
+        "Attribution": "Tillskrivning",
+        "Configuration": "Konfiguration",
+        "Branch": "Gren",
+        "Browse": "Bläddra",
+        "by": "av",
+        "Cancel": "Avbryt",
+        "Change": "Ändra",
+        "Created": "Skapad",
+        "Current": "Nuvarande",
+        "DBPath": "DB-väg"
+    },
+    "configtooltip": {
+        "File": "Kan endast ändras vid applikationsstart"
+    },
+    "aboutPage": {
+        "Checkingforupdate": "Söker efter uppdatering...",
+        "Clickthebuttontouseit": "Klicka på knappen för att ladda ner den.",
+        "Checkforupdate": "Sök efter uppdatering",
+        "Clickabuttontouseit": "Klicka på en knapp för att använda den.",
+        "AppInfo": "App info",
+        "Backgroundbyrawpixel": "Bakgrunder av <a href=\"{rawPixelURL}\">rawpixel</a> på <a href=\"{freepikURL}\">Freepik</a>.",
+        "Codecookincollaborators": "Koda samarbetspartners.",
+        "CreatedbyGoLift": "Skapad av <a href=\"{goLiftURL}\">Go Lift</a> för <a href=\"{notifiarrURL}\">Notifiarr</a>."
+    },
+    "configvalues": {
+        "CONFIGERROR": "KONFIGERINGSFEL",
+        "File": "{count} Fil{count, plural, =0 {s} en {} annan {s}}",
+        "Megabyte": "{count} Megabyte{count, plural, =0 {s} en {} annan {s}}"
+    },
+    "instances": {
+        "addNewInstance": "Lägg till ny {starrApp}-instans",
+        "instanceConfig": "API-nyckel är valfri om ett användarnamn och lösenord tillhandahålls. Förekomster utan lösenord kräver bara en lokal URL. Genom att tillhandahålla den valfria DB-sökvägen aktiveras SQLite3-databashanteringsfunktioner.",
+        "DBTools": "DB&nbsp;verktyg"
+    },
+    "customconfig": {
+        "CreateShortcut": "Skapa genväg",
+        "CustomConfigPath": "Anpassad konfigurationssökväg"
+    },
+    "20charactermax": "Max 20 tecken",
+    "32characterhash": "32 tecken hash",
+    "configinput": {
+        "AppPath": "Appsökväg",
+        "File": "Konfigurationsfil"
+    }
+}
