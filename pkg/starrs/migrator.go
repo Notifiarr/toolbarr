@@ -25,6 +25,7 @@ type TableFileMap map[TableColumn][]*Entry
 type TableCountMap map[string]map[string]int
 
 // MigratorInfo is full of info about the current root folders.
+// This data gets sent to the front end any time there is a change.
 type MigratorInfo struct {
 	Table       AppTable            // Names of main and sub tables.
 	RootFolders []string            // Configured Root Folders.
@@ -65,21 +66,39 @@ func AppTables(app string) AppTable {
 	}[app]
 }
 
-// UpdateRootFolders is the response when changing or deleting root folders.
-type UpdateRootFolders struct {
+// RootFolders is the response to the front end when changing or deleting root folders.
+type RootFolders struct {
 	Msg  string
 	Info *MigratorInfo
 }
 
-// DeleteDBRootFolder removes a root folder.
-func (s *Starrs) DeleteDBRootFolder(config *AppConfig, folder string) (*UpdateRootFolders, error) {
+// MigratorInfo returns the current info about root folders.
+func (s *Starrs) MigratorInfo(config *AppConfig) (*MigratorInfo, error) {
+	s.log.Tracef("Call:GetMigratorInfo(%s)", config.DBPath)
+
+	sql, err := s.newSQL(config)
+	if err != nil {
+		return nil, fmt.Errorf(s.log.Translate("Querying Sqlite3 DB: %v", err.Error()))
+	}
+	defer sql.Close()
+
+	info, err := s.migratorInfo(sql, config)
+	if err != nil {
+		return nil, fmt.Errorf(s.log.Translate("Querying Sqlite3 DB: %v", err.Error()))
+	}
+
+	return info, nil
+}
+
+// DeleteRootFolder removes a root folder.
+func (s *Starrs) DeleteRootFolder(config *AppConfig, folder string) (*RootFolders, error) {
 	s.log.Tracef("Call:DeleteDBRootFolder(%s,%s)", config.Name, folder)
 
 	question := s.log.Translate(
 		"Really delete %s root folder?\nPath: %s\nThis Action cannot be undone, and this application does not make backups.",
 		config.Name, folder)
 	if !s.app.Ask(s.log.Translate("Delete Root Folder"), question) {
-		return &UpdateRootFolders{}, nil
+		return &RootFolders{}, nil
 	}
 
 	sql, err := s.newSQL(config)
@@ -96,8 +115,8 @@ func (s *Starrs) DeleteDBRootFolder(config *AppConfig, folder string) (*UpdateRo
 	return s.returnMessage(sql, config, s.log.Translate("Success! Deleted root folder: %s", folder))
 }
 
-// UpdateDBRootFolder changes the path for a root folder. It updates all the item with the folder.
-func (s *Starrs) UpdateDBRootFolder(config *AppConfig, oldPath, newPath string) (*UpdateRootFolders, error) {
+// UpdateRootFolder changes the path for a root folder. It updates all the item with the folder.
+func (s *Starrs) UpdateRootFolder(config *AppConfig, oldPath, newPath string) (*RootFolders, error) {
 	s.log.Tracef("Call:UpdateDBRootFolder(%s,%s,%s)", config.Name, oldPath, newPath)
 
 	sql, err := s.newSQL(config)
@@ -106,7 +125,7 @@ func (s *Starrs) UpdateDBRootFolder(config *AppConfig, oldPath, newPath string) 
 	}
 	defer sql.Close()
 
-	msg, err := s.updateDBRootFolder(AppTables(config.App), sql, oldPath, newPath)
+	msg, err := s.updateRootFolder(AppTables(config.App), sql, oldPath, newPath)
 	if err != nil {
 		return nil, fmt.Errorf(s.log.Translate("Querying Sqlite3 DB: %v", err.Error()))
 	}
@@ -114,12 +133,41 @@ func (s *Starrs) UpdateDBRootFolder(config *AppConfig, oldPath, newPath string) 
 	return s.returnMessage(sql, config, msg)
 }
 
-func (s *Starrs) UpdateDBInvalidItems(
+func (s *Starrs) UpdateRecycleBin(config *AppConfig, newPath string) (*RootFolders, error) {
+	s.log.Tracef("Call:UpdateDBRecycleBin(%s,%s)", config.Name, newPath)
+
+	if newPath == "" {
+		question := s.log.Translate("Really unset %s recycle bin?\n", config.Name)
+		if !s.app.Ask(s.log.Translate("Unset Recycle Bin"), question) {
+			return &RootFolders{}, nil
+		}
+	}
+
+	sql, err := s.newSQL(config)
+	if err != nil {
+		return nil, fmt.Errorf(s.log.Translate("Querying Sqlite3 DB: %v", err.Error()))
+	}
+	defer sql.Close()
+
+	count, err := sql.UpdateRecyclebin(s.ctx, newPath)
+	if err != nil {
+		return nil, fmt.Errorf(s.log.Translate("Querying Sqlite3 DB: %v", err.Error()))
+	}
+
+	msg := s.log.Translate("Changed recycle bin path! Rows Updated: %d", count)
+	if newPath == "" {
+		msg = s.log.Translate("Unset recycle bin path! Rows Updated: %d", count)
+	}
+
+	return s.returnMessage(sql, config, msg)
+}
+
+func (s *Starrs) UpdateInvalidItems(
 	config *AppConfig,
 	table string,
 	newPath string,
 	ids map[int64]bool,
-) (*UpdateRootFolders, error) {
+) (*RootFolders, error) {
 	s.log.Tracef("Call:UpdateDBInvalidItems(%s,%s,%d)", config.Name, table, len(ids))
 
 	if newPath == "" {
@@ -144,9 +192,9 @@ func (s *Starrs) UpdateDBInvalidItems(
 
 	column := AppTables(config.App)[table]
 
-	fn := s.updateDBInvalidBasePath // column.Column == "Path"
+	fn := s.updateInvalidBasePath // column.Column == "Path"
 	if column.Column == "RootFolderPath" {
-		fn = s.updateDBInvalidRootFolder
+		fn = s.updateInvalidRootFolders
 	}
 
 	msg, err := fn(sql, &column, newPath, ids)
@@ -157,7 +205,17 @@ func (s *Starrs) UpdateDBInvalidItems(
 	return s.returnMessage(sql, config, msg)
 }
 
-func (s *Starrs) updateDBInvalidBasePath(
+func (s *Starrs) returnMessage(sql *sqlConn, config *AppConfig, msg string) (*RootFolders, error) {
+	info, err := s.migratorInfo(sql, config)
+	if err != nil {
+		return nil, fmt.Errorf(s.log.Translate("Querying Sqlite3 DB: %v", err.Error()))
+	}
+
+	return &RootFolders{Msg: msg, Info: info}, nil
+}
+
+// updateInvalidBasePath handles one column type (Path).
+func (s *Starrs) updateInvalidBasePath(
 	sql *sqlConn,
 	column *TableColumn,
 	newPath string,
@@ -191,7 +249,8 @@ func (s *Starrs) updateDBInvalidBasePath(
 	return s.log.Translate("Updated %d rows in table %s.", rows, column.Table), nil
 }
 
-func (s *Starrs) updateDBInvalidRootFolder(
+// updateInvalidRootFolders handles the other column type (RootFolderPath).
+func (s *Starrs) updateInvalidRootFolders(
 	sql *sqlConn,
 	column *TableColumn,
 	newPath string,
@@ -220,45 +279,7 @@ func (s *Starrs) updateDBInvalidRootFolder(
 	return s.log.Translate("Updated %d rows in table %s.", rows, column.Table), nil
 }
 
-func (s *Starrs) returnMessage(sql *sqlConn, config *AppConfig, msg string) (*UpdateRootFolders, error) {
-	info, err := s.getMigratorInfo(sql, config)
-	if err != nil {
-		return nil, fmt.Errorf(s.log.Translate("Querying Sqlite3 DB: %v", err.Error()))
-	}
-
-	return &UpdateRootFolders{Msg: msg, Info: info}, nil
-}
-
-func (s *Starrs) UpdateDBRecycleBin(config *AppConfig, newPath string) (*UpdateRootFolders, error) {
-	s.log.Tracef("Call:UpdateDBRecycleBin(%s,%s)", config.Name, newPath)
-
-	if newPath == "" {
-		question := s.log.Translate("Really unset %s recycle bin?\n", config.Name)
-		if !s.app.Ask(s.log.Translate("Unset Recycle Bin"), question) {
-			return &UpdateRootFolders{}, nil
-		}
-	}
-
-	sql, err := s.newSQL(config)
-	if err != nil {
-		return nil, fmt.Errorf(s.log.Translate("Querying Sqlite3 DB: %v", err.Error()))
-	}
-	defer sql.Close()
-
-	count, err := sql.UpdateRecyclebin(s.ctx, newPath)
-	if err != nil {
-		return nil, fmt.Errorf(s.log.Translate("Querying Sqlite3 DB: %v", err.Error()))
-	}
-
-	msg := s.log.Translate("Changed recycle bin path! Rows Updated: %d", count)
-	if newPath == "" {
-		msg = s.log.Translate("Unset recycle bin path! Rows Updated: %d", count)
-	}
-
-	return s.returnMessage(sql, config, msg)
-}
-
-func (s *Starrs) updateDBRootFolder(appTable AppTable, sql *sqlConn, oldPath, newPath string) (string, error) {
+func (s *Starrs) updateRootFolder(appTable AppTable, sql *sqlConn, oldPath, newPath string) (string, error) {
 	counts, tables, err := s.getDBCounts(appTable, sql)
 	if err != nil {
 		return "", err
@@ -274,7 +295,7 @@ func (s *Starrs) updateDBRootFolder(appTable AppTable, sql *sqlConn, oldPath, ne
 	msg := s.log.Translate("Success! Changed Root Folder from '%s' to '%s'.", oldPath, newPath)
 
 	for table, items := range tables {
-		rows, err := s.updateDBFilesRootFolder(sql, items, table, oldPath, newPath)
+		rows, err := s.updateFilesRootFolder(sql, items, table, oldPath, newPath)
 		if err != nil {
 			return "", err
 		}
@@ -308,7 +329,7 @@ func (s *Starrs) getDBCounts(table AppTable, sql *sqlConn) (map[string]int, Tabl
 	return counts, output, nil
 }
 
-func (s *Starrs) updateDBFilesRootFolder(
+func (s *Starrs) updateFilesRootFolder(
 	sql *sqlConn,
 	files []*Entry,
 	table TableColumn,
@@ -341,25 +362,7 @@ func (s *Starrs) updateDBFilesRootFolder(
 	return rowsAffected, nil
 }
 
-// GetMigratorInfo returns the current info about root folders.
-func (s *Starrs) GetMigratorInfo(config *AppConfig) (*MigratorInfo, error) {
-	s.log.Tracef("Call:GetMigratorInfo(%s)", config.DBPath)
-
-	sql, err := s.newSQL(config)
-	if err != nil {
-		return nil, fmt.Errorf(s.log.Translate("Querying Sqlite3 DB: %v", err.Error()))
-	}
-	defer sql.Close()
-
-	info, err := s.getMigratorInfo(sql, config)
-	if err != nil {
-		return nil, fmt.Errorf(s.log.Translate("Querying Sqlite3 DB: %v", err.Error()))
-	}
-
-	return info, nil
-}
-
-func (s *Starrs) getMigratorInfo(sql *sqlConn, config *AppConfig) (*MigratorInfo, error) {
+func (s *Starrs) migratorInfo(sql *sqlConn, config *AppConfig) (*MigratorInfo, error) {
 	table := AppTables(config.App)
 	info := &MigratorInfo{
 		Table:   table,

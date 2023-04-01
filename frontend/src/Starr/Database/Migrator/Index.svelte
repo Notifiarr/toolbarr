@@ -5,13 +5,13 @@
 
   import { Card, CardBody, CardFooter, CardHeader, CardTitle, Spinner } from "sveltestrap"
   import T, { _ } from "../../../libs/Translate.svelte"
-  import { GetMigratorInfo } from "../../../../wailsjs/go/starrs/Starrs.js"
+  import { MigratorInfo } from "../../../../wailsjs/go/starrs/Starrs.js"
   import { toast } from "../../../libs/funcs"
   import Form from "./Form.svelte"
 
   let info
   if (instance && instance.DBPath) {
-    GetMigratorInfo(instance).then(
+    MigratorInfo(instance).then(
       rep => info = rep,
       err => toast("error", err),
     )

@@ -605,6 +605,23 @@
             "translation": "closing log rotator:"
         },
         {
+            "id": "Querying Sqlite3 DB: {Error}",
+            "message": "Querying Sqlite3 DB: {Error}",
+            "translation": "Querying Sqlite3 DB: {Error}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
             "id": "Really delete {Name} root folder?\nPath: {Folder}\nThis Action cannot be undone, and this application does not make backups.",
             "message": "Really delete {Name} root folder?\nPath: {Folder}\nThis Action cannot be undone, and this application does not make backups.",
             "translation": "Really delete {Name} root folder?\nPath: {Folder}\nThis Action cannot be undone, and this application does not make backups.",
@@ -637,23 +654,6 @@
             "fuzzy": true
         },
         {
-            "id": "Querying Sqlite3 DB: {Error}",
-            "message": "Querying Sqlite3 DB: {Error}",
-            "translation": "Querying Sqlite3 DB: {Error}",
-            "translatorComment": "Copied from source.",
-            "placeholders": [
-                {
-                    "id": "Error",
-                    "string": "%[1]v",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 1,
-                    "expr": "err.Error()"
-                }
-            ],
-            "fuzzy": true
-        },
-        {
             "id": "Success! Deleted root folder: {Folder}",
             "message": "Success! Deleted root folder: {Folder}",
             "translation": "Success! Deleted root folder: {Folder}",
@@ -666,38 +666,6 @@
                     "underlyingType": "string",
                     "argNum": 1,
                     "expr": "folder"
-                }
-            ],
-            "fuzzy": true
-        },
-        {
-            "id": "No path provided.",
-            "message": "No path provided.",
-            "translation": "No path provided.",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "Updated {Rows} rows in table {Table}.",
-            "message": "Updated {Rows} rows in table {Table}.",
-            "translation": "Updated {Rows} rows in table {Table}.",
-            "translatorComment": "Copied from source.",
-            "placeholders": [
-                {
-                    "id": "Rows",
-                    "string": "%[1]d",
-                    "type": "int64",
-                    "underlyingType": "int64",
-                    "argNum": 1,
-                    "expr": "rows"
-                },
-                {
-                    "id": "Table",
-                    "string": "%[2]s",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 2,
-                    "expr": "column.Table"
                 }
             ],
             "fuzzy": true
@@ -761,6 +729,38 @@
             "fuzzy": true
         },
         {
+            "id": "No path provided.",
+            "message": "No path provided.",
+            "translation": "No path provided.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Updated {Rows} rows in table {Table}.",
+            "message": "Updated {Rows} rows in table {Table}.",
+            "translation": "Updated {Rows} rows in table {Table}.",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Rows",
+                    "string": "%[1]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 1,
+                    "expr": "rows"
+                },
+                {
+                    "id": "Table",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "column.Table"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
             "id": "Success! Changed Root Folder from '{OldPath}' to '{NewPath}'.",
             "message": "Success! Changed Root Folder from '{OldPath}' to '{NewPath}'.",
             "translation": "Success! Changed Root Folder from '{OldPath}' to '{NewPath}'.",
@@ -798,40 +798,6 @@
                     "underlyingType": "string",
                     "argNum": 1,
                     "expr": "query"
-                }
-            ],
-            "fuzzy": true
-        },
-        {
-            "id": "Connection test failed! {Error}",
-            "message": "Connection test failed! {Error}",
-            "translation": "Connection test failed! {Error}",
-            "translatorComment": "Copied from source.",
-            "placeholders": [
-                {
-                    "id": "Error",
-                    "string": "%[1]v",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 1,
-                    "expr": "err.Error()"
-                }
-            ],
-            "fuzzy": true
-        },
-        {
-            "id": "Connection test failed! Querying Sqlite3 DB: {Error}",
-            "message": "Connection test failed! Querying Sqlite3 DB: {Error}",
-            "translation": "Connection test failed! Querying Sqlite3 DB: {Error}",
-            "translatorComment": "Copied from source.",
-            "placeholders": [
-                {
-                    "id": "Error",
-                    "string": "%[1]v",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 1,
-                    "expr": "err.Error()"
                 }
             ],
             "fuzzy": true
@@ -923,6 +889,40 @@
                     "underlyingType": "int",
                     "argNum": 2,
                     "expr": "test.Count"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Connection test failed! {Error}",
+            "message": "Connection test failed! {Error}",
+            "translation": "Connection test failed! {Error}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Connection test failed! Querying Sqlite3 DB: {Error}",
+            "message": "Connection test failed! Querying Sqlite3 DB: {Error}",
+            "translation": "Connection test failed! Querying Sqlite3 DB: {Error}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
                 }
             ],
             "fuzzy": true

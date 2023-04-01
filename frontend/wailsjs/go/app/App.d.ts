@@ -31,6 +31,6 @@ export function RemoveInstance(arg1:number,arg2:string):Promise<any>;
 
 export function SaveConfigItem(arg1:string,arg2:any,arg3:boolean):Promise<any>;
 
-export function SaveInstance(arg1:number,arg2:starrs.StarrConfig):Promise<any>;
+export function SaveInstance(arg1:number,arg2:starrs.AppConfig):Promise<any>;
 
 export function Version():Promise<app.Version>;
