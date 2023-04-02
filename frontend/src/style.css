@@ -16,7 +16,6 @@ body.dark-mode {
   transition: background-image 0.4s;
   background-image: url(assets/images/dark-background.png);
   background-color: #1d3040;
-  color: #fffeee;
 }
 
 /* These need to be 100% so their contents can fill the page. */
@@ -42,7 +41,7 @@ body.dark-mode .navbar {
 }
 
 /* Make the nav tabs look better. */
-#app .nav-tabs {
+body .nav-tabs {
   border-color: #334858;
   border-width: 2px;
   --bs-nav-tabs-border-width: 2px;
@@ -50,6 +49,12 @@ body.dark-mode .navbar {
   --bs-nav-tabs-border-color: #334858;
   --bs-nav-tabs-link-hover-border-color: #334858 #334858 #334858;
   --bs-nav-tabs-link-active-border-color: #495057 #495057 #495057;
+}
+body.dark-mode .nav-link.active {
+  color: #fff !important;
+ }
+body.dark-mode .nav-link:hover {
+ color: #13967d;
 }
 
 /* Make tooltips a bit wider. */
