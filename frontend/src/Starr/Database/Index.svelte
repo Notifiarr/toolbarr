@@ -1,5 +1,6 @@
 <script>
   export let starrApp
+  export let hidden = false
 
   import Applogo from "../../libs/Applogo.svelte"
   import { Accordion, AccordionItem, Badge, Input, InputGroup, InputGroupText } from "sveltestrap"
@@ -9,9 +10,9 @@
   import Migrator from "./Migrator/Index.svelte"
 
   const tabs = []
-  $: instance = $conf.Instances[starrApp] ? $conf.Instances[starrApp][0] : undefined
-  if (starrApp != "Prowlarr") tabs.push({title: $_("instances.FilesystemPathsMigrator"), target: Migrator})
-  tabs.push({title: $_("instances.SQLite3DatabaseInspector"), target: Inspector})
+  if (starrApp != "Prowlarr") tabs.push({title: "instances.FilesystemPathsMigrator", target: Migrator})
+  tabs.push({title: "instances.SQLite3DatabaseInspector", target: Inspector})
+  let instance = $conf.Instances[starrApp] ? $conf.Instances[starrApp][0] : undefined
   let activeTab = tabs[0]
   let showTitle = true
 </script>
@@ -22,7 +23,7 @@
     <span slot="header" style="width:95%;">
       <Applogo style="float:right" size="25px" app={starrApp} />
       <h4 class="d-inline-block accordian-header">{@html $_("instances.DBTools")}</h4>
-      {#if activeTab}<Badge color="primary">{activeTab.title}</Badge>{/if}
+      {#if activeTab}<Badge color="primary">{$_(activeTab.title)}</Badge>{/if}
     </span>
     <p><T id="instances.DBToolsSelector" {starrApp}/></p>
 
@@ -31,7 +32,7 @@
       <InputGroupText class="setting-name">{$_("instances.DBTool")}</InputGroupText>
       <Input type="select" bind:value={activeTab}>
         {#each tabs as tab}
-          <option value={tab}>{tab.title}</option>
+          <option value={tab}>{$_(tab.title)}</option>
         {/each}
       </Input>
     </InputGroup>
@@ -39,7 +40,7 @@
     <!-- Instance selector menu. -->
     <InputGroup>
       <InputGroupText class="setting-name">{$_("words.Instance")}</InputGroupText>
-      <Input type="select" id="instance" bind:value={instance}>
+      <Input type="select" id="instance" invalid={!instance} bind:value={instance}>
         {#if $conf.Instances[starrApp] != null}
           {#each $conf.Instances[starrApp] as instance}
             <option value={instance}>{instance.Name}: {instance.URL}</option>
@@ -55,7 +56,7 @@
   </AccordionItem>
 </Accordion>
 
-{#if activeTab}
+{#if activeTab && !hidden}
   <!-- Display the selected tool, pass in selected instance. -->
   <svelte:component this={activeTab.target} {instance} {starrApp} {showTitle}/>
 {/if}

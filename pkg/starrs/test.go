@@ -83,7 +83,6 @@ func (s *Starrs) testDBPath(config *AppConfig) (*instanceTest, error) {
 
 func (s *Starrs) testInstance(config *AppConfig) (*instanceTest, error) {
 	instance := s.newInstance(config)
-
 	if instance.APIKey == "" {
 		return instance.testWithoutKey()
 	}

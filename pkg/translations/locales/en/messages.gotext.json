@@ -605,6 +605,23 @@
             "translation": "closing log rotator:"
         },
         {
+            "id": "Getting Import List: {Error}",
+            "message": "Getting Import List: {Error}",
+            "translation": "Getting Import List: {Error}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
             "id": "Querying Sqlite3 DB: {Error}",
             "message": "Querying Sqlite3 DB: {Error}",
             "translation": "Querying Sqlite3 DB: {Error}",

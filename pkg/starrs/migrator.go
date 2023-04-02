@@ -8,6 +8,8 @@ import (
 	wr "github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
+/* Root Folders filesystem paths migrator for sqlite3 db. */
+
 // TableColumn is used to pull paths from specific columns in specific tables.
 type TableColumn struct {
 	Table  string
