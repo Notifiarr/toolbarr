@@ -7,6 +7,8 @@ export function BlockList(arg1:any):Promise<any>;
 
 export function CustomFilters(arg1:any):Promise<any>;
 
+export function DeleteBlockLists(arg1:any,arg2:Array<number>):Promise<any>;
+
 export function DeleteRootFolder(arg1:any,arg2:string):Promise<any>;
 
 export function Downloaders(arg1:any):Promise<any>;

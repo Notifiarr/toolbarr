@@ -14,6 +14,10 @@ export function CustomFilters(arg1) {
   return window['go']['starrs']['Starrs']['CustomFilters'](arg1);
 }
 
+export function DeleteBlockLists(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['DeleteBlockLists'](arg1, arg2);
+}
+
 export function DeleteRootFolder(arg1, arg2) {
   return window['go']['starrs']['Starrs']['DeleteRootFolder'](arg1, arg2);
 }

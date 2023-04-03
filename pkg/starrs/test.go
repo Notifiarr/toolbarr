@@ -98,7 +98,7 @@ func (s *Starrs) testInstance(config *AppConfig) (*instanceTest, error) {
 		return instance.testReadarr()
 	case starr.Sonarr:
 		return instance.testSonarr()
-	case "Whisparr":
+	case starr.Whisparr:
 		return instance.testWhisparr()
 	default:
 		return nil, fmt.Errorf("%w: missing app", starr.ErrRequestError)

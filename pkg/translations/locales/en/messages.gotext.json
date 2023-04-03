@@ -605,6 +605,23 @@
             "translation": "closing log rotator:"
         },
         {
+            "id": "Deleted {Count} block list items.",
+            "message": "Deleted {Count} block list items.",
+            "translation": "Deleted {Count} block list items.",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Count",
+                    "string": "%[1]d",
+                    "type": "int",
+                    "underlyingType": "int",
+                    "argNum": 1,
+                    "expr": "count"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
             "id": "Getting Import List: {Error}",
             "message": "Getting Import List: {Error}",
             "translation": "Getting Import List: {Error}",

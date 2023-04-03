@@ -34,7 +34,7 @@ func (s *Starrs) importList(config *AppConfig) (any, error) {
 		return nil, fmt.Errorf("readarr import lists do not work yet")
 	case starr.Sonarr:
 		return sonarr.New(instance.Config).GetImportListsContext(s.ctx)
-	case "Whisparr":
+	case starr.Whisparr:
 		return sonarr.New(instance.Config).GetImportListsContext(s.ctx)
 	default:
 		return nil, fmt.Errorf("%w: missing app", starr.ErrRequestError)

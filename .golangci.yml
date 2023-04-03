@@ -23,5 +23,6 @@ linters:
     # # unneeded (broken because of generics)
     - rowserrcheck
     - wastedassign
+    - gomoddirectives # broken
 run:
   timeout: 5m

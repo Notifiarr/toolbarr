@@ -1,3 +1,4 @@
+//nolint:dupl
 package starrs
 
 import (
@@ -30,7 +31,7 @@ func (s *Starrs) Downloaders(config *AppConfig) (any, error) {
 		return readarr.New(instance.Config).GetDownloadClientsContext(s.ctx)
 	case starr.Sonarr:
 		return sonarr.New(instance.Config).GetDownloadClientsContext(s.ctx)
-	case "Whisparr":
+	case starr.Whisparr:
 		return sonarr.New(instance.Config).GetDownloadClientsContext(s.ctx)
 	default:
 		return nil, fmt.Errorf("%w: missing app", starr.ErrRequestError)

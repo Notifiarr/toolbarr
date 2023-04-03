@@ -27,7 +27,7 @@ func (s *Starrs) QualityProfiles(config *AppConfig) (any, error) {
 		return readarr.New(instance.Config).GetQualityProfilesContext(s.ctx)
 	case starr.Sonarr:
 		return sonarr.New(instance.Config).GetQualityProfilesContext(s.ctx)
-	case "Whisparr":
+	case starr.Whisparr:
 		return sonarr.New(instance.Config).GetQualityProfilesContext(s.ctx)
 	default:
 		return nil, fmt.Errorf("%w: missing app", starr.ErrRequestError)

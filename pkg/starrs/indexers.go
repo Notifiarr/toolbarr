@@ -1,3 +1,4 @@
+//nolint:dupl
 package starrs
 
 import (
@@ -30,7 +31,7 @@ func (s *Starrs) Indexers(config *AppConfig) (any, error) {
 		return readarr.New(instance.Config).GetIndexersContext(s.ctx)
 	case starr.Sonarr:
 		return sonarr.New(instance.Config).GetIndexersContext(s.ctx)
-	case "Whisparr":
+	case starr.Whisparr:
 		return sonarr.New(instance.Config).GetIndexersContext(s.ctx)
 	default:
 		return nil, fmt.Errorf("%w: missing app", starr.ErrRequestError)

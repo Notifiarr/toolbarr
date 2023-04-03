@@ -14,14 +14,13 @@
   $: if (activeTab == undefined) {
     info = undefined
     activeTab = tab
-
-    if (instance && instance.URL) {
-      activeTab.fn(instance).then(
-        rep => info = rep,
-        err => toast("error", err),
-      )
-    }
+    if (instance && instance.URL) update()
   }
+
+  const update = () => tab.fn(instance).then(
+    rep => info = rep,
+    err => toast("error", err),
+  )
 </script>
 
 <Card outline color="dark" class="mt-2">
@@ -43,7 +42,7 @@
       </Card>
     {:else if info}
       <!-- We have all the pieces we need. Load the form component. -->
-      <svelte:component this={tab.lib} {instance} {info} {starrApp}/>
+      <svelte:component this={tab.lib} {instance} {info} {starrApp} on:update={update}/>
     {:else}
       <Card body color="secondary">
         <span>
