@@ -9,25 +9,26 @@
   import { toast } from "../../libs/funcs"
 
   let info
-  let activeTab = tab
+  $: activeTab = (tab != activeTab || info == undefined) ? undefined : tab
 
-  $: if (tab != activeTab) activeTab = undefined // grab new data. 
-  $: if (instance && instance.URL && (activeTab == undefined || info == undefined)) {
+  $: if (activeTab == undefined) {
     info = undefined
     activeTab = tab
 
-    activeTab.fn(instance).then(
-      rep => info = rep,
-      err => toast("error", err),
-    )
+    if (instance && instance.URL) {
+      activeTab.fn(instance).then(
+        rep => info = rep,
+        err => toast("error", err),
+      )
+    }
   }
 </script>
 
 <Card outline color="dark" class="mt-2">
   {#if showTitle}
-    <CardHeader>
-      <CardTitle class="mb-0">{$_("instances."+tab.link)}</CardTitle>
-    </CardHeader>
+  <CardHeader>
+    <CardTitle class="mb-0">{$_("instances."+tab.link)}</CardTitle>
+  </CardHeader>
   {/if}
 
   <CardBody>

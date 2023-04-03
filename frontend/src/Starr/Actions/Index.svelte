@@ -6,7 +6,7 @@
   import { conf } from "../../libs/config.js"
   import T, { _ } from "../../libs/Translate.svelte"
   import Action from "./action.svelte"
-  import Tabs, { activeTab } from "./tabs.svelte"
+  import Tabs, { startTab } from "./tabs.svelte"
   import {
     Accordion,
     AccordionItem,
@@ -20,9 +20,13 @@
   } from "sveltestrap"
 
   let showTitle = true
-  let instance = $conf.Instances[starrApp] ? $conf.Instances[starrApp][0] : undefined
+  let selected = $conf.Instances[starrApp] ? $conf.Instances[starrApp][0] : undefined
+  let instance = selected
+  // This trick is to avoid reloading the instance data when expanding the header.
+  $: if (selected != instance && selected != undefined) instance = selected
+
   let width
-  let tab = activeTab
+  let tab = startTab
   $: small = width < 1200
 </script>
 
@@ -43,7 +47,7 @@
      <FormGroup>
       <InputGroup>
         <InputGroupText class="setting-name">{$_("words.Instance")}</InputGroupText>
-        <Input invalid={!instance} type="select" id="instance" bind:value={instance}>
+        <Input invalid={!instance} type="select" bind:value={selected}>
         {#if $conf.Instances[starrApp] != null}
           {#each $conf.Instances[starrApp] as instance}
             <option value={instance}>{instance.Name}: {instance.URL}</option>

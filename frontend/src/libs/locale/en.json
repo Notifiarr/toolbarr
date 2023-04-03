@@ -140,7 +140,7 @@
     },
     "instances": {
         "Indexers": "Indexers",
-        "AppProfiles": "Application Profiles",
+        "AppProfiles": "App Profiles",
         "DownloadClients": "Download Clients",
         "CustomFilters": "Custom Filters",
         "ImportLists": "Import Lists",
