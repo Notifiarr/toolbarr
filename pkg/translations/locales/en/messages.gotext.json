@@ -125,6 +125,23 @@
             "fuzzy": true
         },
         {
+            "id": "Getting user data: {Error}",
+            "message": "Getting user data: {Error}",
+            "translation": "Getting user data: {Error}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
             "id": "Choose File",
             "message": "Choose File",
             "translation": "Choose File",
@@ -603,6 +620,40 @@
             "id": "closing log rotator:",
             "message": "closing log rotator:",
             "translation": "closing log rotator:"
+        },
+        {
+            "id": "Deleted {Count} block list items.",
+            "message": "Deleted {Count} block list items.",
+            "translation": "Deleted {Count} block list items.",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Count",
+                    "string": "%[1]d",
+                    "type": "int",
+                    "underlyingType": "int",
+                    "argNum": 1,
+                    "expr": "count"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Getting Import List: {Error}",
+            "message": "Getting Import List: {Error}",
+            "translation": "Getting Import List: {Error}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ],
+            "fuzzy": true
         },
         {
             "id": "Querying Sqlite3 DB: {Error}",

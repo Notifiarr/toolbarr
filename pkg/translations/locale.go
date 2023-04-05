@@ -14,7 +14,7 @@ import (
 	"golang.org/x/text/message"
 )
 
-// Languages should match the languages in the generate command above.
+// Languages returns all the configured backend languages.
 func Languages(current string) map[string]string {
 	langs := make(map[string]string)
 	curTag := language.MustParse(current)

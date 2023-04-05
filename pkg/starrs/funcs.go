@@ -25,6 +25,20 @@ func (s *Starrs) newInstance(config *AppConfig) *instance {
 	}
 }
 
+func (s *Starrs) newAPIinstance(config *AppConfig) (*instance, error) {
+	instance := s.newInstance(config)
+	if instance.APIKey == "" {
+		data, err := instance.testWithoutKey()
+		if err != nil {
+			return nil, err
+		}
+
+		instance.Config.APIKey = data.Key
+	}
+
+	return instance, nil
+}
+
 func (i *instance) getInitializeJS() (*instanceTest, error) {
 	req, err := http.NewRequestWithContext(i.ctx, http.MethodGet, i.Config.URL+"initialize.js", nil)
 	if err != nil {

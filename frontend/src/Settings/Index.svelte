@@ -97,8 +97,9 @@
 </BGLogo>
 
 <style>
-  .settings  :global(.setting-name) {
-    width:43%;
+  .settings :global(.setting-name) {
+    min-width: max-content;
+    width: 25%;
     max-width:200px;
   }
 </style>

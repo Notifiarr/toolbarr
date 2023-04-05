@@ -29,8 +29,8 @@
   import bgDark from "./assets/images/dark-background.png"
   import { _, isReady } from "./libs/Translate.svelte"
   import { toast } from "./libs/funcs"
-  import darkCSS from "./assets/bootstrap.min.darkly.css?url"
-  import liteCSS from "./assets/bootstrap.min.flatly.css?url"
+  import darkCSS from "./assets/bootstrap.darkly.css?url"
+  import liteCSS from "./assets/bootstrap.flatly.css?url"
 
   let isOpen = false // nav open/closer tracker (mobile)
   let app
