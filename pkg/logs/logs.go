@@ -6,10 +6,9 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-	"runtime"
 	"sync"
 
-	homedir "github.com/mitchellh/go-homedir"
+	"github.com/Notifiarr/toolbarr/pkg/mnd"
 	"github.com/wailsapp/wails/v2/pkg/logger"
 	wailsRuntime "github.com/wailsapp/wails/v2/pkg/runtime"
 	"golang.org/x/text/language"
@@ -17,8 +16,6 @@ import (
 	"golift.io/rotatorr"
 	"golift.io/rotatorr/timerotator"
 )
-
-const defaultName = "app"
 
 // Log Levels.
 const (
@@ -112,24 +109,15 @@ func (l *Logger) Setup(ctx context.Context, config LogConfig) {
 // setLogPaths sets the log paths for app and http logs.
 func (l *Logger) setLogPaths() {
 	if l.config.Name == "" {
-		l.config.Name = defaultName
+		l.config.Name = mnd.Name
 	}
 
 	// Regular log file.
 	if l.config.Path == "" {
-		l.config.Path = filepath.Join("~", "."+l.config.Name)
-	}
-
-	if f, err := homedir.Expand(l.config.Path); err == nil {
-		l.config.Path = f
-	} else if runtime.GOOS == "windows" {
-		l.config.Path = `C:\`
-	} else {
 		l.config.Path = "/tmp"
-	}
-
-	if f, err := filepath.Abs(l.config.Path); err == nil {
-		l.config.Path = f
+		if mnd.IsWindows {
+			l.config.Path = `C:\`
+		}
 	}
 }
 

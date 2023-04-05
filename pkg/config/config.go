@@ -11,6 +11,7 @@ import (
 	"github.com/Notifiarr/toolbarr/pkg/mnd"
 	"github.com/Notifiarr/toolbarr/pkg/starrs"
 	"github.com/Notifiarr/toolbarr/pkg/translations"
+	"github.com/mitchellh/go-homedir"
 	"golang.org/x/text/language"
 )
 
@@ -80,12 +81,20 @@ func (i *Input) defaultConfig() (*Config, error) {
 
 // newConfig returns a config with defaults.
 func (i *Input) newConfig(settings *Settings) *Config {
+	home, _ := os.UserHomeDir()
+	if home == "" {
+		home = "/tmp"
+		if mnd.IsWindows {
+			home = `C:\`
+		}
+	}
+
 	if settings == nil {
 		settings = &Settings{
 			File: i.File,
 			LogConfig: logs.LogConfig{
 				Name:  i.Name,
-				Path:  filepath.Join("~", "."+i.Name),
+				Path:  filepath.Join(home, "."+i.Name),
 				Size:  4,
 				Mode:  "0640",
 				Files: 10,
@@ -166,6 +175,7 @@ func (i *Input) openConfigFile() (*Config, error) {
 func (i *Input) setDefaults(s *Settings) *Settings { //nolint:varnamelen
 	s.Name = i.Name
 	s.File = i.File
+	s.LogConfig.Path, _ = homedir.Expand(s.LogConfig.Path)
 
 	if s.Updates == "" {
 		s.Updates = "production"

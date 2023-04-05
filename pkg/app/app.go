@@ -49,7 +49,11 @@ type Info struct {
 func (a *App) Version() Version {
 	a.log.Tracef("Call:Version()")
 
-	user, _ := user.Current()
+	user, err := user.Current()
+	if err != nil {
+		a.log.Warnf("Getting user data: %v", err.Error())
+	}
+
 	exec, _ := os.Executable()
 
 	return Version{
@@ -136,12 +140,8 @@ func (a *App) SaveConfigItem(name string, value any, reload bool) (*ConfigSaved,
 func (a *App) PickFolder(path string) (string, error) {
 	a.log.Tracef("Call:PickFolder(%s)", path)
 
-	if path == "" {
-		path = a.config.Settings().Path
-	}
-
 	dir, err := wr.OpenDirectoryDialog(a.ctx, wr.OpenDialogOptions{
-		DefaultDirectory:     path,
+		DefaultDirectory:     a.fixFolderPath(path),
 		Title:                a.log.Translate("Choose Folder"),
 		CanCreateDirectories: true,
 		ShowHiddenFiles:      true,
@@ -155,28 +155,13 @@ func (a *App) PickFolder(path string) (string, error) {
 }
 
 // PickFile opens the file selector.
-func (a *App) PickFile(path, extname, extensions string) (string, error) { //nolint:cyclop
+func (a *App) PickFile(path, extname, extensions string) (string, error) {
 	a.log.Tracef("Call:PickFile(%s,%s,%s)", path, extname, extensions)
 
-	if path == "" {
-		path = a.config.Settings().Path
-	}
-
-	if stat, err := os.Stat(path); err != nil || !stat.IsDir() {
-		// Work up the tree until we find a folder to start in.
-		for {
-			path = filepath.Dir(path)
-			if _, err := os.Stat(path); err == nil ||
-				path == "/" || path == `\` || path == `:\` || path == `\\` ||
-				(len(path) == 3 && path[1:3] == `:\`) {
-				break
-			}
-		}
-	}
-
 	dir, err := wr.OpenFileDialog(a.ctx, wr.OpenDialogOptions{
-		DefaultDirectory: path,
+		DefaultDirectory: a.fixFolderPath(path),
 		Title:            a.log.Translate("Choose File"),
+		ShowHiddenFiles:  true,
 		Filters: []wr.FileFilter{{
 			DisplayName: extname,
 			Pattern:     extensions,
@@ -200,4 +185,28 @@ func (a *App) Languages() map[string]string {
 func (a *App) CreateShortcut() (string, error) {
 	a.log.Tracef("Call:CreateShortcut()")
 	return local.CreateShortcut() //nolint:wrapcheck
+}
+
+// fixFolderPath returns an existing folder path.
+func (a *App) fixFolderPath(path string) string {
+	if path == "" {
+		path = a.config.Settings().Path
+	}
+
+	stat, err := os.Stat(path)
+	if err == nil && stat.IsDir() {
+		return path
+	}
+
+	// Work up the tree until we find a folder to start in.
+	for {
+		path = filepath.Dir(path)
+
+		_, err = os.Stat(path)
+		if err == nil || path == "/" || (mnd.IsWindows && len(path) < 4) {
+			break
+		}
+	}
+
+	return path
 }
