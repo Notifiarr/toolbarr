@@ -139,6 +139,13 @@
         "WritteninSvelte": "Written in <a href=\"{svelteURL}\">Svelte</a> using <a href=\"{wailsURL}\">Wails</a>."
     },
     "instances": {
+        "Indexers": "Indexers",
+        "AppProfiles": "App Profiles",
+        "DownloadClients": "Download Clients",
+        "CustomFilters": "Custom Filters",
+        "ImportLists": "Import Lists",
+        "QualityProfiles": "Quality Profiles",
+        "BlockList": "Block List",
         "DBTools": "DB&nbsp;Tools",
         "DBTool": "DB Tool",
         "instanceConfig": "API key is optional if a username and password is provided. Instances without passwords only require a local URL. Providing the optional DB Path enables SQLite3 Database management features.",
@@ -147,6 +154,8 @@
         "MigratorDescription": "This tool allows you to update the paths for the media in your {starrApp} library. Use this before moving your library from one server to another if the media content paths are changing.",
         "SQLite3DatabaseInspector": "SQLite3 Database Inspector",
         "DBToolsSelector": "Select a tool and an instance to get started. <span class=\"text-danger\">The database file must not be in use.</span> Either work on a copy, or exit {starrApp} before proceeding.",
+        "ToolsSelector": "Select an instance and a tool to get started.",
+        "NoURLConfigured": "The selected {starrApp} instance ({name}) has no URL configured.",
         "NoDatabasePathConfigured": "The selected {starrApp} instance ({name}) has no SQLite3 database file path configured.",
         "noInstancesConfigured": "No instances configured.",
         "RootFolders": "Root Folders",
@@ -160,6 +169,13 @@
         "SaveSelected": "Save Selected",
         "SelectAll": "Select All",
         "SelectNone": "Select None",
-        "NewRoot": "New Root"
+        "NewRoot": "New Root",
+        "IndexersDescription": "This tool allows bulk editing indexer configurations.",
+        "BlockListDescription": "This tool allows bulk editing block list configurations.",
+        "CustomFiltersDescription": "<span class=\"text-danger\">This Prowlarr tool does not work yet.</span>",
+        "DownloadClientsDescription": "This tool allows bulk editing download client configurations.",
+        "ImportListsDescription": "This tool allows bulk editing import list configurations.",
+        "AppProfilesDescription": "<span class=\"text-danger\">This Prowlarr tool does not work yet.</span>",
+        "QualityProfilesDescription": "This tool allows bulk editing quality profile configurations."
     }
 }

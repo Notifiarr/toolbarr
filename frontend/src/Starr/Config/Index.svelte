@@ -41,7 +41,6 @@
   </AccordionItem>
 </Accordion>
 
-
 <style>
   .accordian-header {
     margin-bottom: 0 !important;

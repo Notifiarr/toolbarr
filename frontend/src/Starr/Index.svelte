@@ -2,7 +2,7 @@
   export let starrApp
   export let hidden = true
 
-  import { TabContent, TabPane } from "sveltestrap"
+  import { Container, TabContent, TabPane } from "sveltestrap"
   import Activity from "./Actvity/Index.svelte"
   import Library from "./Library/Index.svelte"
   import Actions from "./Actions/Index.svelte"
@@ -11,28 +11,23 @@
   import Source from "./Source/Index.svelte"
   import { _ } from "../libs/Translate.svelte"
   import BackgroundLogo from "../libs/BackgroundLogo.svelte"
-  // Move things around when screen width changes.
-  let width
+
   // Keep track of the active tab.
   let tab
 </script>
 
-<svelte:window bind:innerWidth={width}/>
 
-<BackgroundLogo {hidden} url="starr">
-  <div class="container">
-    <TabContent vertical={width>767} pills={width>767} on:tab={(e) => (tab = e.detail)}>
-      <!-- {#if width>767}
-        <TabPane disabled><span slot="tab" style="text-decoration:underline;color:gray">MENU</span></TabPane>
-      {/if} -->
+  <BackgroundLogo {hidden} url="starr">
+    <div class="container">
+      <TabContent on:tab={(e) => (tab = e.detail)}>
       <TabPane tabId="Config" tab={$_("words.Config")} active><Config {starrApp}/></TabPane>
-      <TabPane tabId="Source" tab={$_("words.Source")}><Source {starrApp}/></TabPane>
+      <!-- <TabPane tabId="Source" tab={$_("words.Source")}><Source {starrApp}/></TabPane>
       <TabPane tabId="Activity" tab={$_("words.Activity")}><Activity {starrApp}/></TabPane>
-      <TabPane tabId="Library" tab={$_("words.Library")}><Library {starrApp}/></TabPane>
-      <TabPane tabId="Actions" tab={$_("words.Actions")}><Actions {starrApp}/></TabPane>
+      <TabPane tabId="Library" tab={$_("words.Library")}><Library {starrApp}/></TabPane> -->
+      <TabPane tabId="Actions" tab={$_("words.Actions")}><Actions hidden={tab != "Actions"} {starrApp}/></TabPane>
       <TabPane tabId="Database">
         <span slot="tab">{@html $_("instances.DBTools")}</span>
-        {#if tab == "Database"} <Database {starrApp}/> {/if}
+        <Database hidden={tab != "Database"} {starrApp}/>
       </TabPane>
     </TabContent>
   </div>
@@ -45,16 +40,13 @@
   }
 
   .container :global(.setting-name) {
-    min-width:120px;
-    max-width:120px;
+    min-width: max-content;
+    width: 25%;
+    max-width:160px;
   }
 
   .container :global(.tab-pane) {
     margin-top: 3px;
     width:100%;
-  }
-
-  :global(.setting-name) {
-    max-width:180px !important;
   }
 </style>

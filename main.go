@@ -56,7 +56,6 @@ func main() {
 		MinHeight:          600,
 		MaxWidth:           1500,
 		Fullscreen:         false,
-		MaxHeight:          1200,
 		AssetServer:        &assetserver.Options{Assets: assets},
 		OnStartup:          app.Startup,
 		Menu:               appMenu,
