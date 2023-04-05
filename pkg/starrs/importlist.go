@@ -4,7 +4,9 @@ import (
 	"fmt"
 
 	"golift.io/starr"
+	"golift.io/starr/lidarr"
 	"golift.io/starr/radarr"
+	"golift.io/starr/readarr"
 	"golift.io/starr/sonarr"
 )
 
@@ -27,11 +29,11 @@ func (s *Starrs) importList(config *AppConfig) (any, error) {
 
 	switch starr.App(config.App) {
 	case starr.Lidarr:
-		return nil, fmt.Errorf("lidarr import lists do not work yet")
+		return lidarr.New(instance.Config).GetImportListsContext(s.ctx)
 	case starr.Radarr:
 		return radarr.New(instance.Config).GetImportListsContext(s.ctx)
 	case starr.Readarr:
-		return nil, fmt.Errorf("readarr import lists do not work yet")
+		return readarr.New(instance.Config).GetImportListsContext(s.ctx)
 	case starr.Sonarr:
 		return sonarr.New(instance.Config).GetImportListsContext(s.ctx)
 	case starr.Whisparr:
