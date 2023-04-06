@@ -622,6 +622,40 @@
             "translation": "closing log rotator:"
         },
         {
+            "id": "Getting Downloaders: {Error}",
+            "message": "Getting Downloaders: {Error}",
+            "translation": "Getting Downloaders: {Error}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Deleting Blocklists: {Error}",
+            "message": "Deleting Blocklists: {Error}",
+            "translation": "Deleting Blocklists: {Error}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
             "id": "Deleted {Count} block list items.",
             "message": "Deleted {Count} block list items.",
             "translation": "Deleted {Count} block list items.",
@@ -642,6 +676,40 @@
             "id": "Getting Import List: {Error}",
             "message": "Getting Import List: {Error}",
             "translation": "Getting Import List: {Error}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Getting Exclusions: {Error}",
+            "message": "Getting Exclusions: {Error}",
+            "translation": "Getting Exclusions: {Error}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Getting Indexers: {Error}",
+            "message": "Getting Indexers: {Error}",
+            "translation": "Getting Indexers: {Error}",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
@@ -832,6 +900,23 @@
                     "underlyingType": "string",
                     "argNum": 2,
                     "expr": "newPath"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Getting Quality Profiles: {Error}",
+            "message": "Getting Quality Profiles: {Error}",
+            "translation": "Getting Quality Profiles: {Error}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
                 }
             ],
             "fuzzy": true

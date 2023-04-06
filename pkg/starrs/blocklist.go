@@ -21,6 +21,15 @@ type DataReply struct {
 func (s *Starrs) BlockList(config *AppConfig) (any, error) {
 	s.log.Tracef("Call:BlockList(%s, %s)", config.App, config.Name)
 
+	list, err := s.blockList(config)
+	if err != nil {
+		return "", fmt.Errorf(s.log.Translate("Getting Downloaders: %v", err.Error()))
+	}
+
+	return list, nil
+}
+
+func (s *Starrs) blockList(config *AppConfig) (any, error) {
 	instance, err := s.newAPIinstance(config)
 	if err != nil {
 		return nil, err
@@ -45,6 +54,15 @@ func (s *Starrs) BlockList(config *AppConfig) (any, error) {
 func (s *Starrs) DeleteBlockLists(config *AppConfig, ids []int64) (any, error) {
 	s.log.Tracef("Call:DeleteBlockLists(%s, %s, %+v)", config.App, config.Name, ids)
 
+	output, err := s.deleteBlockLists(config, ids)
+	if err != nil {
+		return "", fmt.Errorf(s.log.Translate("Deleting Blocklists: %v", err.Error()))
+	}
+
+	return output, nil
+}
+
+func (s *Starrs) deleteBlockLists(config *AppConfig, ids []int64) (any, error) {
 	instance, err := s.newAPIinstance(config)
 	if err != nil {
 		return nil, err

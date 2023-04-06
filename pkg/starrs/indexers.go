@@ -14,7 +14,15 @@ import (
 
 func (s *Starrs) Indexers(config *AppConfig) (any, error) {
 	s.log.Tracef("Call:Indexers(%s, %s)", config.App, config.Name)
+	indexers, err := s.indexers(config)
+	if err != nil {
+		return "", fmt.Errorf(s.log.Translate("Getting Indexers: %v", err.Error()))
+	}
 
+	return indexers, nil
+}
+
+func (s *Starrs) indexers(config *AppConfig) (any, error) {
 	instance, err := s.newAPIinstance(config)
 	if err != nil {
 		return nil, err

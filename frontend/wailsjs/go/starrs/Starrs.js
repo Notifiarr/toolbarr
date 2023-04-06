@@ -26,6 +26,10 @@ export function Downloaders(arg1) {
   return window['go']['starrs']['Starrs']['Downloaders'](arg1);
 }
 
+export function Exclusions(arg1) {
+  return window['go']['starrs']['Starrs']['Exclusions'](arg1);
+}
+
 export function ImportLists(arg1) {
   return window['go']['starrs']['Starrs']['ImportLists'](arg1);
 }

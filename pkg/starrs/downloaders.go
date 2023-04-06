@@ -15,6 +15,15 @@ import (
 func (s *Starrs) Downloaders(config *AppConfig) (any, error) {
 	s.log.Tracef("Call:Downloaders(%s, %s)", config.App, config.Name)
 
+	downloaders, err := s.downloaders(config)
+	if err != nil {
+		return "", fmt.Errorf(s.log.Translate("Getting Downloaders: %v", err.Error()))
+	}
+
+	return downloaders, nil
+}
+
+func (s *Starrs) downloaders(config *AppConfig) (any, error) {
 	instance, err := s.newAPIinstance(config)
 	if err != nil {
 		return nil, err

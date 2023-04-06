@@ -13,6 +13,8 @@ export function DeleteRootFolder(arg1:any,arg2:string):Promise<any>;
 
 export function Downloaders(arg1:any):Promise<any>;
 
+export function Exclusions(arg1:any):Promise<any>;
+
 export function ImportLists(arg1:any):Promise<any>;
 
 export function Indexers(arg1:any):Promise<any>;
