@@ -168,7 +168,7 @@
   {#each Object.keys(info.Invalid) as table}
     <li><a href="/" on:click={(e)=>{openInvalidModal(e, table)}}>{table}</a>: {info.Invalid[table].length}</li>
     <!-- Each table with invalid paths includes a modal to view/fix them. -->
-    <Modal size="lg" body isOpen={invalidModals[table]}>
+    <Modal scrollable size="lg" body isOpen={invalidModals[table]}>
       <h5>
         <T id="instances.Invalidpathsintable" {table}/>
         <span style="float:right;"><!-- extra close button -->
@@ -263,7 +263,7 @@
 </Card>
 
 <!-- This Modal is used to change root folder or recycle bin paths.-->
-<Modal centered body isOpen={action!=undefined}>
+<Modal scrollable centered body isOpen={action!=undefined}>
   {action==updateRoot?$_("instances.EnterNewRootFolder"):$_("instances.EnterNewRecycleBin")}
   <FormGroup floating>
     <InputGroup>

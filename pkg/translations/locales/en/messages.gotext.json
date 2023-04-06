@@ -2,6 +2,23 @@
     "language": "en",
     "messages": [
         {
+            "id": "Getting user data: {Error}",
+            "message": "Getting user data: {Error}",
+            "translation": "Getting user data: {Error}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
             "id": "Dialog Failed: {Err}",
             "message": "Dialog Failed: {Err}",
             "translation": "Dialog Failed: {Err}",
@@ -120,23 +137,6 @@
                     "underlyingType": "interface{Error() string}",
                     "argNum": 1,
                     "expr": "err"
-                }
-            ],
-            "fuzzy": true
-        },
-        {
-            "id": "Getting user data: {Error}",
-            "message": "Getting user data: {Error}",
-            "translation": "Getting user data: {Error}",
-            "translatorComment": "Copied from source.",
-            "placeholders": [
-                {
-                    "id": "Error",
-                    "string": "%[1]v",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 1,
-                    "expr": "err.Error()"
                 }
             ],
             "fuzzy": true
