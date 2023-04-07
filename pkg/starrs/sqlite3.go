@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	"os"
 
 	"github.com/Notifiarr/toolbarr/pkg/logs"
 	"github.com/jmoiron/sqlx"
@@ -31,9 +32,15 @@ type Entry struct {
 // newSQL provides a sql connection to make queries.
 // Must call Close() when finished.
 func (s *Starrs) newSQL(config *AppConfig) (*sqlConn, error) {
+	if stat, err := os.Stat(config.DBPath); err != nil {
+		return nil, fmt.Errorf(s.log.Translate("Unable to open or read DB file: %v", err.Error()))
+	} else if stat.IsDir() {
+		return nil, fmt.Errorf(s.log.Translate("You picked a folder, but you need to pick a sqlite3 database FILE."))
+	}
+
 	conn, err := sqlx.Open("sqlite", config.DBPath)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf(s.log.Translate("Unable to open or read DB file: %v", err.Error()))
 	}
 
 	return &sqlConn{

@@ -80,7 +80,7 @@ func (s *Starrs) MigratorInfo(config *AppConfig) (*MigratorInfo, error) {
 
 	sql, err := s.newSQL(config)
 	if err != nil {
-		return nil, fmt.Errorf(s.log.Translate("Querying Sqlite3 DB: %v", err.Error()))
+		return nil, err
 	}
 	defer sql.Close()
 
@@ -105,7 +105,7 @@ func (s *Starrs) DeleteRootFolder(config *AppConfig, folder string) (*RootFolder
 
 	sql, err := s.newSQL(config)
 	if err != nil {
-		return nil, fmt.Errorf(s.log.Translate("Querying Sqlite3 DB: %v", err.Error()))
+		return nil, err
 	}
 	defer sql.Close()
 
@@ -123,7 +123,7 @@ func (s *Starrs) UpdateRootFolder(config *AppConfig, oldPath, newPath string) (*
 
 	sql, err := s.newSQL(config)
 	if err != nil {
-		return nil, fmt.Errorf(s.log.Translate("Querying Sqlite3 DB: %v", err.Error()))
+		return nil, err
 	}
 	defer sql.Close()
 
@@ -147,7 +147,7 @@ func (s *Starrs) UpdateRecycleBin(config *AppConfig, newPath string) (*RootFolde
 
 	sql, err := s.newSQL(config)
 	if err != nil {
-		return nil, fmt.Errorf(s.log.Translate("Querying Sqlite3 DB: %v", err.Error()))
+		return nil, err
 	}
 	defer sql.Close()
 
@@ -178,7 +178,7 @@ func (s *Starrs) UpdateInvalidItems(
 
 	sql, err := s.newSQL(config)
 	if err != nil {
-		return nil, fmt.Errorf(s.log.Translate("Querying Sqlite3 DB: %v", err.Error()))
+		return nil, err
 	}
 	defer sql.Close()
 

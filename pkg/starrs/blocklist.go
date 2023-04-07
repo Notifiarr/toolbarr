@@ -23,7 +23,10 @@ func (s *Starrs) BlockList(config *AppConfig) (any, error) {
 
 	list, err := s.blockList(config)
 	if err != nil {
-		return "", fmt.Errorf(s.log.Translate("Getting Downloaders: %v", err.Error()))
+		msg := s.log.Translate("Getting block lists: %v", err.Error())
+		s.log.Wails.Error(msg)
+
+		return nil, fmt.Errorf(msg)
 	}
 
 	return list, nil
@@ -56,7 +59,10 @@ func (s *Starrs) DeleteBlockLists(config *AppConfig, ids []int64) (any, error) {
 
 	output, err := s.deleteBlockLists(config, ids)
 	if err != nil {
-		return "", fmt.Errorf(s.log.Translate("Deleting Blocklists: %v", err.Error()))
+		msg := s.log.Translate("Deleting block lists: %v", err.Error())
+		s.log.Wails.Error(msg)
+
+		return nil, fmt.Errorf(msg)
 	}
 
 	return output, nil
