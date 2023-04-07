@@ -18,6 +18,26 @@ export function DeleteBlockLists(arg1, arg2) {
   return window['go']['starrs']['Starrs']['DeleteBlockLists'](arg1, arg2);
 }
 
+export function DeleteDownloaders(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['DeleteDownloaders'](arg1, arg2);
+}
+
+export function DeleteExclusions(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['DeleteExclusions'](arg1, arg2);
+}
+
+export function DeleteImportLists(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['DeleteImportLists'](arg1, arg2);
+}
+
+export function DeleteIndexers(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['DeleteIndexers'](arg1, arg2);
+}
+
+export function DeleteQualityProfiles(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['DeleteQualityProfiles'](arg1, arg2);
+}
+
 export function DeleteRootFolder(arg1, arg2) {
   return window['go']['starrs']['Starrs']['DeleteRootFolder'](arg1, arg2);
 }
@@ -44,6 +64,10 @@ export function MigratorInfo(arg1) {
 
 export function QualityProfiles(arg1) {
   return window['go']['starrs']['Starrs']['QualityProfiles'](arg1);
+}
+
+export function Tags(arg1) {
+  return window['go']['starrs']['Starrs']['Tags'](arg1);
 }
 
 export function TestInstance(arg1) {

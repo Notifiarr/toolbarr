@@ -54,7 +54,7 @@ func (s *Starrs) DeleteQualityProfiles(config *AppConfig, ids []int64) (any, err
 
 	for _, id := range ids {
 		if err := s.deleteQualityProfile(config, id); err != nil {
-			errs = append(errs, s.log.Translate("Deleting quality profiles: %d: %v", id, err.Error()))
+			errs = append(errs, s.log.Translate("Deleting quality profile: %d: %v", id, err.Error()))
 		}
 	}
 

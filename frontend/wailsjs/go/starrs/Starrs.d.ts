@@ -9,6 +9,16 @@ export function CustomFilters(arg1:any):Promise<any>;
 
 export function DeleteBlockLists(arg1:any,arg2:Array<number>):Promise<any>;
 
+export function DeleteDownloaders(arg1:any,arg2:Array<number>):Promise<any>;
+
+export function DeleteExclusions(arg1:any,arg2:Array<number>):Promise<any>;
+
+export function DeleteImportLists(arg1:any,arg2:Array<number>):Promise<any>;
+
+export function DeleteIndexers(arg1:any,arg2:Array<number>):Promise<any>;
+
+export function DeleteQualityProfiles(arg1:any,arg2:Array<number>):Promise<any>;
+
 export function DeleteRootFolder(arg1:any,arg2:string):Promise<any>;
 
 export function Downloaders(arg1:any):Promise<any>;
@@ -22,6 +32,8 @@ export function Indexers(arg1:any):Promise<any>;
 export function MigratorInfo(arg1:any):Promise<any>;
 
 export function QualityProfiles(arg1:any):Promise<any>;
+
+export function Tags(arg1:any):Promise<{[key: number]: string}>;
 
 export function TestInstance(arg1:any):Promise<string>;
 
