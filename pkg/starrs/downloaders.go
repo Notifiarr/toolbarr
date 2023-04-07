@@ -52,7 +52,7 @@ func (s *Starrs) downloaders(config *AppConfig) (any, error) {
 }
 
 func (s *Starrs) DeleteDownloaders(config *AppConfig, ids []int64) (any, error) {
-	s.log.Tracef("Call:DeleteDownloaders(%s, %s)", config.App, config.Name)
+	s.log.Tracef("Call:DeleteDownloaders(%s, %s, %+v)", config.App, config.Name, ids)
 
 	var errs []string
 

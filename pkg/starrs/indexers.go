@@ -52,7 +52,7 @@ func (s *Starrs) indexers(config *AppConfig) (any, error) {
 }
 
 func (s *Starrs) DeleteIndexers(config *AppConfig, ids []int64) (any, error) {
-	s.log.Tracef("Call:DeleteIndexers(%s, %s)", config.App, config.Name)
+	s.log.Tracef("Call:DeleteIndexers(%s, %s, %+v)", config.App, config.Name, ids)
 
 	var errs []string
 

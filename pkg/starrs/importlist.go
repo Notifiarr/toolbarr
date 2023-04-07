@@ -48,7 +48,7 @@ func (s *Starrs) importList(config *AppConfig) (any, error) {
 }
 
 func (s *Starrs) DeleteImportLists(config *AppConfig, ids []int64) (any, error) {
-	s.log.Tracef("Call:DeleteImportLists(%s, %s)", config.App, config.Name)
+	s.log.Tracef("Call:DeleteImportLists(%s, %s, %+v)", config.App, config.Name, ids)
 
 	var errs []string
 
@@ -130,7 +130,7 @@ func (s *Starrs) exclusions(config *AppConfig) (any, error) {
 }
 
 func (s *Starrs) DeleteExclusions(config *AppConfig, ids []int64) (any, error) {
-	s.log.Tracef("Call:DeleteExclusions(%s, %s)", config.App, config.Name)
+	s.log.Tracef("Call:DeleteExclusions(%s, %s, %+v)", config.App, config.Name, ids)
 
 	var errs []string
 

@@ -48,7 +48,7 @@ func (s *Starrs) qualityProfiles(config *AppConfig) (any, error) {
 }
 
 func (s *Starrs) DeleteQualityProfiles(config *AppConfig, ids []int64) (any, error) {
-	s.log.Tracef("Call:DeleteQualityProfiles(%s, %s)", config.App, config.Name)
+	s.log.Tracef("Call:DeleteQualityProfiles(%s, %s, %+v)", config.App, config.Name, ids)
 
 	var errs []string
 
