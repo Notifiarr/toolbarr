@@ -16,10 +16,9 @@
   let tab
 </script>
 
-
-  <BackgroundLogo {hidden} url="starr">
-    <div class="container">
-      <TabContent on:tab={(e) => (tab = e.detail)}>
+<BackgroundLogo {hidden} url="starr">
+  <div class="container">
+    <TabContent on:tab={(e) => (tab = e.detail)}>
       <TabPane tabId="Config" tab={$_("words.Config")} active><Config {starrApp}/></TabPane>
       <!-- <TabPane tabId="Source" tab={$_("words.Source")}><Source {starrApp}/></TabPane>
       <TabPane tabId="Activity" tab={$_("words.Activity")}><Activity {starrApp}/></TabPane>

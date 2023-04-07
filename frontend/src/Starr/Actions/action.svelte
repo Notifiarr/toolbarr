@@ -42,7 +42,7 @@
       </Card>
     {:else if info}
       <!-- We have all the pieces we need. Load the form component. -->
-      <svelte:component this={tab.lib} {instance} {info} {starrApp} on:update={update}/>
+      <svelte:component this={tab.lib} {instance} {info} on:update={update}/>
     {:else}
       <Card body color="secondary">
         <span>

@@ -1,9 +1,9 @@
 <script>
   export let info
+  export let instance
 
   import { Button, Spinner } from "sveltestrap"
   import T, { _ } from "../../../libs/Translate.svelte"
-  import { toast } from "../../../libs/funcs"
   import { createEventDispatcher } from "svelte"
 
   const dispatch = createEventDispatcher()
@@ -12,6 +12,6 @@
 
 <Button on:click={update}>Update</Button>
 
-{#if !info} <Spinner/> {$_("words.Loading")} ... {:else}
+{#if !info} <Spinner/> {$_("words.Loading")} {instance.Name} ... {:else}
 <code><pre class="code">{JSON.stringify(info, null, 3)}</pre></code>
 {/if}
