@@ -1006,9 +1006,9 @@
             "fuzzy": true
         },
         {
-            "id": "Updated {Name} indexer {IndexerName} ({Id}).",
-            "message": "Updated {Name} indexer {IndexerName} ({Id}).",
-            "translation": "Updated {Name} indexer {IndexerName} ({Id}).",
+            "id": "Updated {Name} indexer {IndexerName} ({IndexerID}).",
+            "message": "Updated {Name} indexer {IndexerName} ({IndexerID}).",
+            "translation": "Updated {Name} indexer {IndexerName} ({IndexerID}).",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
@@ -1028,20 +1028,20 @@
                     "expr": "indexerName"
                 },
                 {
-                    "id": "Id",
+                    "id": "IndexerID",
                     "string": "%[3]d",
                     "type": "int64",
                     "underlyingType": "int64",
                     "argNum": 3,
-                    "expr": "id"
+                    "expr": "indexerID"
                 }
             ],
             "fuzzy": true
         },
         {
-            "id": "Updating {Name} indexer: {IndexerName} ({Id}): {Error}",
-            "message": "Updating {Name} indexer: {IndexerName} ({Id}): {Error}",
-            "translation": "Updating {Name} indexer: {IndexerName} ({Id}): {Error}",
+            "id": "Updating {Name} indexer: {IndexerName} ({IndexerID}): {Error}",
+            "message": "Updating {Name} indexer: {IndexerName} ({IndexerID}): {Error}",
+            "translation": "Updating {Name} indexer: {IndexerName} ({IndexerID}): {Error}",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
@@ -1061,12 +1061,12 @@
                     "expr": "indexerName"
                 },
                 {
-                    "id": "Id",
+                    "id": "IndexerID",
                     "string": "%[3]d",
                     "type": "int64",
                     "underlyingType": "int64",
                     "argNum": 3,
-                    "expr": "id"
+                    "expr": "indexerID"
                 },
                 {
                     "id": "Error",

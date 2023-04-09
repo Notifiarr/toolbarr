@@ -23,8 +23,8 @@
   ]
   // Add some more tabs depending on the app.
   const prowlarrTabs = [
-    {fn: CustomFilters, link: "AppProfiles", lib: appProfiles},
-    {fn: AppProfiles, link: "CustomFilters", lib: customFilters},
+    {fn: AppProfiles, link: "AppProfiles", lib: appProfiles},
+    {fn: CustomFilters, link: "CustomFilters", lib: customFilters},
   ]
 
   const otherTabs = [

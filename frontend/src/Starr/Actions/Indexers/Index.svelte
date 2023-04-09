@@ -4,13 +4,15 @@
 
   import T, { _ } from "../../../libs/Translate.svelte"
   import Fa from "svelte-fa"
-  import { faCircleInfo, faArrowUpRightFromSquare, faTrashAlt, faClose } from "@fortawesome/free-solid-svg-icons"
+  import { faCircleInfo, faArrowUpRightFromSquare, faTrashAlt, faClose, faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons"
   import { toast } from "../../../libs/funcs"
+  import { conf } from "../../../libs/config"
   import {
     Alert,
     Badge,
     Button,
     Card,
+    Collapse,
     Dropdown,
     DropdownItem,
     DropdownMenu,
@@ -38,6 +40,7 @@
   let goodMsg = ""
   let badMsg = ""
   let updating = 0
+  let rawOpen = false
 
   let str = JSON.stringify(info)
   info = JSON.parse(str) // use this to compare for changes
@@ -221,9 +224,11 @@
                 <InputGroupText class="setting-name">{item.label}</InputGroupText>
                 {#if item.type == "select"}
                 <select disabled style="width:calc(99% - 161px)" multiple bind:value={form[idx].fields[itemIdx].value}>
-                  {#each info[idx].fields[itemIdx].value as val}
-                  <option value={val}>{val}</option>
-                  {/each}
+                  {#if typeof info[idx].fields[itemIdx].value == "object"}
+                    {#each info[idx].fields[itemIdx].value as val}
+                    <option value={val}>{val}</option>
+                    {/each}
+                  {/if}
                 </select>
                 {:else if item.type == "checkbox"}
                 <Input
@@ -231,8 +236,8 @@
                           (info[idx].fields[itemIdx].value != undefined ||
                           form[idx].fields[itemIdx].value != "")}
                   type="select" bind:value={form[idx].fields[itemIdx].value}>
-                  <option value={true}>{$_("words.Enabled")}</option>
-                  <option value={false}>{$_("words.Disabled")}</option>
+                  <option value={true}>{$_("configvalues.Enabled")}</option>
+                  <option value={false}>{$_("configvalues.Disabled")}</option>
                 </Input>
                 {:else}
                 <Input
@@ -243,9 +248,13 @@
                 {/if}
               </InputGroup>
             {/each}
-            <Button color="success" on:click={() => update(form[idx].id, false)}>{$_("instances.TestandSave")}</Button>
-            <Tooltip target="forceSave"><T id="instances.ForceSaveDesc" starrApp={instance.App}/></Tooltip>
-            <Button id="forceSave" color="info" on:click={() => update(form[idx].id, true)}>{$_("instances.ForceSave")}</Button>
+            {#if instance.App == "Prowlarr"}
+              This tool does not yet work with Prowlarr.<br>
+            {:else}
+              <Button color="success" on:click={() => update(form[idx].id, false)}>{$_("instances.TestandSave")}</Button>
+              <Tooltip target="forceSave"><T id="instances.ForceSaveDesc" starrApp={instance.App}/></Tooltip>
+              <Button id="forceSave" color="info" on:click={() => update(form[idx].id, true)}>{$_("instances.ForceSave")}</Button>
+            {/if}
             <Button color="danger" on:click={() => reset(idx)}>{$_("words.Cancel")}</Button>
           </Modal>
 
@@ -264,31 +273,40 @@
     {/each}
   </Table>
 
-  {#if goodMsg != ""}
-    <Alert dismissible color="success">{@html goodMsg}</Alert>
-  {/if}
-  {#if badMsg != ""}
-    <Alert dismissible color="danger">{@html badMsg}</Alert>
-  {/if}
-  {#if updating > 0}
-    <Card body color="secondary">
-      <span>
-        <Spinner size="sm" color="info" />
-        <h5 style="display:inline-block">{$_("words.Loading")} ...</h5>
-      </span>
-    </Card>
-  {:else if !modalOpen}
-    {#if unSaved}
-      <Button class="actions" color="success" on:click={() => update(true, false)}>{$_("instances.TestandSave")}</Button>
-      <Tooltip target="forceSave"><T id="instances.ForceSaveDesc" starrApp={instance.App}/></Tooltip>
-      <Button id="forceSave" class="actions" color="info" on:click={() => update(true, true)}>{$_("instances.ForceSave")}</Button>
-    {/if}
-    {#if selectedCount > 0}
-      <Button class="actions delete" color="danger" on:click={deleteIndexers}><T id="instances.DeleteSelected" count={selectedCount}/></Button>
+  {#if goodMsg != ""}<Alert dismissible color="success">{@html goodMsg}</Alert>{/if}
+  {#if badMsg != ""}<Alert dismissible color="danger">{@html badMsg}</Alert>{/if}
+  {#if instance.App != "Prowlarr"}
+    {#if updating > 0}
+      <Card body color="secondary">
+        <span>
+          <Spinner size="sm" color="info" />
+          <h5 style="display:inline-block">{$_("words.Loading")} ...</h5>
+        </span>
+      </Card>
+    {:else if !modalOpen}
+      {#if unSaved}
+        <Button class="actions" color="success" on:click={() => update(true, false)}>{$_("instances.TestandSave")}</Button>
+        <Tooltip target="forceSave"><T id="instances.ForceSaveDesc" starrApp={instance.App}/></Tooltip>
+        <Button id="forceSave" class="actions" color="info" on:click={() => update(true, true)}>{$_("instances.ForceSave")}</Button>
+      {/if}
+      {#if selectedCount > 0}
+        <Button class="actions delete" color="danger" on:click={deleteIndexers}><T id="instances.DeleteSelected" count={selectedCount}/></Button>
+      {/if}
     {/if}
   {/if}
 {/if}
+{#if instance.App == "Prowlarr"}
+  {$_("instances.ProwlarrNotSupported")}
+{/if}
 </div>
+
+{#if $conf.DevMode}
+  <hr>
+  <Button size="sm" on:click={() => (rawOpen = !rawOpen)} class="mb-1">Raw Data <Fa icon={rawOpen?faCaretDown:faCaretUp}/></Button>
+  <Card color="secondary">
+    <Collapse isOpen={rawOpen}><code><pre class="code">{JSON.stringify(info, null, 3)}</pre></code></Collapse>
+  </Card>
+{/if}
 
 <style>
   .switch {
