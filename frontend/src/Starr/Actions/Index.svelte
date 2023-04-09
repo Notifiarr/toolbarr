@@ -32,8 +32,6 @@
 
 <svelte:window bind:innerWidth={width}/>
 
-<span class="text-danger">None of the actions work quite yet. Soon!</span>
-
 <Accordion>
   <AccordionItem active on:toggle={()=>showTitle=!showTitle}>
 

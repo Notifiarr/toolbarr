@@ -2,7 +2,6 @@ package starrs
 
 import (
 	"fmt"
-	"strings"
 
 	"golift.io/starr"
 	"golift.io/starr/lidarr"
@@ -47,28 +46,17 @@ func (s *Starrs) qualityProfiles(config *AppConfig) (any, error) {
 	}
 }
 
-func (s *Starrs) DeleteQualityProfiles(config *AppConfig, ids []int64) (any, error) {
-	s.log.Tracef("Call:DeleteQualityProfiles(%s, %s, %+v)", config.App, config.Name, ids)
+func (s *Starrs) DeleteQualityProfile(config *AppConfig, profileID int64) (any, error) {
+	s.log.Tracef("Call:DeleteQualityProfile(%s, %s, %v)", config.App, config.Name, profileID)
 
-	var errs []string
-
-	for _, id := range ids {
-		if err := s.deleteQualityProfile(config, id); err != nil {
-			errs = append(errs, s.log.Translate("Deleting quality profile: %d: %v", id, err.Error()))
-		}
-	}
-
-	if count := len(errs); count != 0 {
-		errors := strings.Join(errs, ", ")
-		msg := s.log.Translate("%d errors: %s", count, errors)
+	if err := s.deleteQualityProfile(config, profileID); err != nil {
+		msg := s.log.Translate("Deleting %s quality profile: %d: %v", config.Name, profileID, err.Error())
 		s.log.Wails.Error(msg)
 
 		return nil, fmt.Errorf(msg)
 	}
 
-	count := len(ids) // so it says "{Count}" in the translation string.
-
-	return s.log.Translate("Deleted %d quality profiles.", count), nil
+	return s.log.Translate("Deleted %s quality profile with ID %d.", config.Name, profileID), nil
 }
 
 func (s *Starrs) deleteQualityProfile(config *AppConfig, profileID int64) error {

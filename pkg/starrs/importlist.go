@@ -47,28 +47,17 @@ func (s *Starrs) importList(config *AppConfig) (any, error) {
 	}
 }
 
-func (s *Starrs) DeleteImportLists(config *AppConfig, ids []int64) (any, error) {
-	s.log.Tracef("Call:DeleteImportLists(%s, %s, %+v)", config.App, config.Name, ids)
+func (s *Starrs) DeleteImportList(config *AppConfig, listID int64) (any, error) {
+	s.log.Tracef("Call:DeleteImportList(%s, %s, %v)", config.App, config.Name, listID)
 
-	var errs []string
-
-	for _, id := range ids {
-		if err := s.deleteImportList(config, id); err != nil {
-			errs = append(errs, s.log.Translate("Deleting import list: %d: %v", id, err.Error()))
-		}
-	}
-
-	if count := len(errs); count != 0 {
-		errors := strings.Join(errs, ", ")
-		msg := s.log.Translate("%d errors: %s", count, errors)
+	if err := s.deleteImportList(config, listID); err != nil {
+		msg := s.log.Translate("Deleting %s import list: %d: %v", config.Name, listID, err.Error())
 		s.log.Wails.Error(msg)
 
 		return nil, fmt.Errorf(msg)
 	}
 
-	count := len(ids) // so it says "{Count}" in the translation string.
-
-	return s.log.Translate("Deleted %d import lists.", count), nil
+	return s.log.Translate("Deleted %s import list with ID %d.", config.Name, listID), nil
 }
 
 func (s *Starrs) deleteImportList(config *AppConfig, listID int64) error {

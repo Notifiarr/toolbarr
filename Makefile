@@ -35,7 +35,7 @@ dev: wailsjson
 
 # npm?? svelte? hm..
 lint:
-	codespell -S .git,node_modules,dist,catalog.go,*.json
+	codespell -S .git,node_modules,dist,catalog.go,*.json,models.ts
 	GOOS=darwin golangci-lint run
 	GOOS=linux golangci-lint run
 	GOOS=windows golangci-lint run

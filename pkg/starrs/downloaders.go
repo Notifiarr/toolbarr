@@ -3,7 +3,6 @@ package starrs
 
 import (
 	"fmt"
-	"strings"
 
 	"golift.io/starr"
 	"golift.io/starr/lidarr"
@@ -51,28 +50,17 @@ func (s *Starrs) downloaders(config *AppConfig) (any, error) {
 	}
 }
 
-func (s *Starrs) DeleteDownloaders(config *AppConfig, ids []int64) (any, error) {
-	s.log.Tracef("Call:DeleteDownloaders(%s, %s, %+v)", config.App, config.Name, ids)
+func (s *Starrs) DeleteDownloader(config *AppConfig, clientID int64) (any, error) {
+	s.log.Tracef("Call:DeleteDownloader(%s, %s, %v)", config.App, config.Name, clientID)
 
-	var errs []string
-
-	for _, id := range ids {
-		if err := s.deleteDownloader(config, id); err != nil {
-			errs = append(errs, s.log.Translate("Deleting download client: %d: %v", id, err.Error()))
-		}
-	}
-
-	if count := len(errs); count != 0 {
-		errors := strings.Join(errs, ", ")
-		msg := s.log.Translate("%d errors: %s", count, errors)
+	if err := s.deleteDownloader(config, clientID); err != nil {
+		msg := s.log.Translate("Deleting %s download client: %d: %v", config.Name, clientID, err.Error())
 		s.log.Wails.Error(msg)
 
 		return nil, fmt.Errorf(msg)
 	}
 
-	count := len(ids) // so it says "{Count}" in the translation string.
-
-	return s.log.Translate("Deleted %d download clients.", count), nil
+	return s.log.Translate("Deleted %s download client with ID %d.", config.Name, clientID), nil
 }
 
 func (s *Starrs) deleteDownloader(config *AppConfig, clientID int64) error {

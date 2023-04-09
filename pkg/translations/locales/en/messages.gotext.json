@@ -639,35 +639,59 @@
             "fuzzy": true
         },
         {
-            "id": "Deleting block lists: {Error}",
-            "message": "Deleting block lists: {Error}",
-            "translation": "Deleting block lists: {Error}",
+            "id": "Deleting {Name} block list: {ListID}: {Error}",
+            "message": "Deleting {Name} block list: {ListID}: {Error}",
+            "translation": "Deleting {Name} block list: {ListID}: {Error}",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
-                    "id": "Error",
-                    "string": "%[1]v",
+                    "id": "Name",
+                    "string": "%[1]s",
                     "type": "string",
                     "underlyingType": "string",
                     "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "ListID",
+                    "string": "%[2]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 2,
+                    "expr": "listID"
+                },
+                {
+                    "id": "Error",
+                    "string": "%[3]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 3,
                     "expr": "err.Error()"
                 }
             ],
             "fuzzy": true
         },
         {
-            "id": "Deleted {Count} block list items.",
-            "message": "Deleted {Count} block list items.",
-            "translation": "Deleted {Count} block list items.",
+            "id": "Deleted {Name} block list with ID {ListID}.",
+            "message": "Deleted {Name} block list with ID {ListID}.",
+            "translation": "Deleted {Name} block list with ID {ListID}.",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
-                    "id": "Count",
-                    "string": "%[1]d",
-                    "type": "int",
-                    "underlyingType": "int",
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
                     "argNum": 1,
-                    "expr": "count"
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "ListID",
+                    "string": "%[2]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 2,
+                    "expr": "listID"
                 }
             ],
             "fuzzy": true
@@ -690,68 +714,59 @@
             "fuzzy": true
         },
         {
-            "id": "Deleting download client: {Id}: {Error}",
-            "message": "Deleting download client: {Id}: {Error}",
-            "translation": "Deleting download client: {Id}: {Error}",
+            "id": "Deleting {Name} download client: {ClientID}: {Error}",
+            "message": "Deleting {Name} download client: {ClientID}: {Error}",
+            "translation": "Deleting {Name} download client: {ClientID}: {Error}",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
-                    "id": "Id",
-                    "string": "%[1]d",
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "ClientID",
+                    "string": "%[2]d",
                     "type": "int64",
                     "underlyingType": "int64",
-                    "argNum": 1,
-                    "expr": "id"
+                    "argNum": 2,
+                    "expr": "clientID"
                 },
                 {
                     "id": "Error",
-                    "string": "%[2]v",
+                    "string": "%[3]v",
                     "type": "string",
                     "underlyingType": "string",
-                    "argNum": 2,
+                    "argNum": 3,
                     "expr": "err.Error()"
                 }
             ],
             "fuzzy": true
         },
         {
-            "id": "{Count} errors: {Errors}",
-            "message": "{Count} errors: {Errors}",
-            "translation": "{Count} errors: {Errors}",
+            "id": "Deleted {Name} download client with ID {ClientID}.",
+            "message": "Deleted {Name} download client with ID {ClientID}.",
+            "translation": "Deleted {Name} download client with ID {ClientID}.",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
-                    "id": "Count",
-                    "string": "%[1]d",
-                    "type": "int",
-                    "underlyingType": "int",
-                    "argNum": 1,
-                    "expr": "count"
-                },
-                {
-                    "id": "Errors",
-                    "string": "%[2]s",
+                    "id": "Name",
+                    "string": "%[1]s",
                     "type": "string",
                     "underlyingType": "string",
-                    "argNum": 2,
-                    "expr": "errors"
-                }
-            ],
-            "fuzzy": true
-        },
-        {
-            "id": "Deleted {Count} download clients.",
-            "message": "Deleted {Count} download clients.",
-            "translation": "Deleted {Count} download clients.",
-            "translatorComment": "Copied from source.",
-            "placeholders": [
-                {
-                    "id": "Count",
-                    "string": "%[1]d",
-                    "type": "int",
-                    "underlyingType": "int",
                     "argNum": 1,
-                    "expr": "count"
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "ClientID",
+                    "string": "%[2]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 2,
+                    "expr": "clientID"
                 }
             ],
             "fuzzy": true
@@ -774,43 +789,59 @@
             "fuzzy": true
         },
         {
-            "id": "Deleting import list: {Id}: {Error}",
-            "message": "Deleting import list: {Id}: {Error}",
-            "translation": "Deleting import list: {Id}: {Error}",
+            "id": "Deleting {Name} import list: {ListID}: {Error}",
+            "message": "Deleting {Name} import list: {ListID}: {Error}",
+            "translation": "Deleting {Name} import list: {ListID}: {Error}",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
-                    "id": "Id",
-                    "string": "%[1]d",
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "ListID",
+                    "string": "%[2]d",
                     "type": "int64",
                     "underlyingType": "int64",
-                    "argNum": 1,
-                    "expr": "id"
+                    "argNum": 2,
+                    "expr": "listID"
                 },
                 {
                     "id": "Error",
-                    "string": "%[2]v",
+                    "string": "%[3]v",
                     "type": "string",
                     "underlyingType": "string",
-                    "argNum": 2,
+                    "argNum": 3,
                     "expr": "err.Error()"
                 }
             ],
             "fuzzy": true
         },
         {
-            "id": "Deleted {Count} import lists.",
-            "message": "Deleted {Count} import lists.",
-            "translation": "Deleted {Count} import lists.",
+            "id": "Deleted {Name} import list with ID {ListID}.",
+            "message": "Deleted {Name} import list with ID {ListID}.",
+            "translation": "Deleted {Name} import list with ID {ListID}.",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
-                    "id": "Count",
-                    "string": "%[1]d",
-                    "type": "int",
-                    "underlyingType": "int",
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
                     "argNum": 1,
-                    "expr": "count"
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "ListID",
+                    "string": "%[2]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 2,
+                    "expr": "listID"
                 }
             ],
             "fuzzy": true
@@ -858,6 +889,31 @@
             "fuzzy": true
         },
         {
+            "id": "{Count} errors: {Errors}",
+            "message": "{Count} errors: {Errors}",
+            "translation": "{Count} errors: {Errors}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Count",
+                    "string": "%[1]d",
+                    "type": "int",
+                    "underlyingType": "int",
+                    "argNum": 1,
+                    "expr": "count"
+                },
+                {
+                    "id": "Errors",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "errors"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
             "id": "Deleted {Count} import list exclusions.",
             "message": "Deleted {Count} import list exclusions.",
             "translation": "Deleted {Count} import list exclusions.",
@@ -892,43 +948,133 @@
             "fuzzy": true
         },
         {
-            "id": "Deleting indexer: {Id}: {Error}",
-            "message": "Deleting indexer: {Id}: {Error}",
-            "translation": "Deleting indexer: {Id}: {Error}",
+            "id": "Deleting {Name} indexer: {IndexerID}: {Error}",
+            "message": "Deleting {Name} indexer: {IndexerID}: {Error}",
+            "translation": "Deleting {Name} indexer: {IndexerID}: {Error}",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
-                    "id": "Id",
-                    "string": "%[1]d",
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "IndexerID",
+                    "string": "%[2]d",
                     "type": "int64",
                     "underlyingType": "int64",
-                    "argNum": 1,
-                    "expr": "id"
+                    "argNum": 2,
+                    "expr": "indexerID"
                 },
                 {
                     "id": "Error",
-                    "string": "%[2]v",
+                    "string": "%[3]v",
                     "type": "string",
                     "underlyingType": "string",
-                    "argNum": 2,
+                    "argNum": 3,
                     "expr": "err.Error()"
                 }
             ],
             "fuzzy": true
         },
         {
-            "id": "Deleted {Count} indexers.",
-            "message": "Deleted {Count} indexers.",
-            "translation": "Deleted {Count} indexers.",
+            "id": "Deleted {Name} indexer with ID {IndexerID}.",
+            "message": "Deleted {Name} indexer with ID {IndexerID}.",
+            "translation": "Deleted {Name} indexer with ID {IndexerID}.",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
-                    "id": "Count",
-                    "string": "%[1]d",
-                    "type": "int",
-                    "underlyingType": "int",
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
                     "argNum": 1,
-                    "expr": "count"
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "IndexerID",
+                    "string": "%[2]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 2,
+                    "expr": "indexerID"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Updated {Name} indexer {IndexerName} ({Id}).",
+            "message": "Updated {Name} indexer {IndexerName} ({Id}).",
+            "translation": "Updated {Name} indexer {IndexerName} ({Id}).",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "IndexerName",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "indexerName"
+                },
+                {
+                    "id": "Id",
+                    "string": "%[3]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 3,
+                    "expr": "id"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Updating {Name} indexer: {IndexerName} ({Id}): {Error}",
+            "message": "Updating {Name} indexer: {IndexerName} ({Id}): {Error}",
+            "translation": "Updating {Name} indexer: {IndexerName} ({Id}): {Error}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "IndexerName",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "indexerName"
+                },
+                {
+                    "id": "Id",
+                    "string": "%[3]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 3,
+                    "expr": "id"
+                },
+                {
+                    "id": "Error",
+                    "string": "%[4]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 4,
+                    "expr": "err.Error()"
                 }
             ],
             "fuzzy": true
@@ -1132,43 +1278,59 @@
             "fuzzy": true
         },
         {
-            "id": "Deleting quality profile: {Id}: {Error}",
-            "message": "Deleting quality profile: {Id}: {Error}",
-            "translation": "Deleting quality profile: {Id}: {Error}",
+            "id": "Deleting {Name} quality profile: {ProfileID}: {Error}",
+            "message": "Deleting {Name} quality profile: {ProfileID}: {Error}",
+            "translation": "Deleting {Name} quality profile: {ProfileID}: {Error}",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
-                    "id": "Id",
-                    "string": "%[1]d",
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "ProfileID",
+                    "string": "%[2]d",
                     "type": "int64",
                     "underlyingType": "int64",
-                    "argNum": 1,
-                    "expr": "id"
+                    "argNum": 2,
+                    "expr": "profileID"
                 },
                 {
                     "id": "Error",
-                    "string": "%[2]v",
+                    "string": "%[3]v",
                     "type": "string",
                     "underlyingType": "string",
-                    "argNum": 2,
+                    "argNum": 3,
                     "expr": "err.Error()"
                 }
             ],
             "fuzzy": true
         },
         {
-            "id": "Deleted {Count} quality profiles.",
-            "message": "Deleted {Count} quality profiles.",
-            "translation": "Deleted {Count} quality profiles.",
+            "id": "Deleted {Name} quality profile with ID {ProfileID}.",
+            "message": "Deleted {Name} quality profile with ID {ProfileID}.",
+            "translation": "Deleted {Name} quality profile with ID {ProfileID}.",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
-                    "id": "Count",
-                    "string": "%[1]d",
-                    "type": "int",
-                    "underlyingType": "int",
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
                     "argNum": 1,
-                    "expr": "count"
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "ProfileID",
+                    "string": "%[2]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 2,
+                    "expr": "profileID"
                 }
             ],
             "fuzzy": true

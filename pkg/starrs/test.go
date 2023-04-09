@@ -20,7 +20,7 @@ import (
  */
 
 // timeout is how long to wait for an instance to respond.
-const timeout = 10 * time.Second
+const timeout = 30 * time.Second
 
 func (s *Starrs) TestInstance(config *AppConfig) (string, error) {
 	s.log.Tracef("Call:TestInstance(%s, %s)", config.App, config.Name)

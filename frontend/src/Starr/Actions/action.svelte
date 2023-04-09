@@ -31,7 +31,6 @@
   {/if}
 
   <CardBody>
-    <p><T id={"instances."+tab.link+"Description"} starrApp={starrApp}/></p>
     {#if !instance} 
       <Card body color="danger">
         <T id="instances.NoURLConfigured" starrApp={starrApp} name="***"/>

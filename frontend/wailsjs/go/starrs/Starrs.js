@@ -14,28 +14,28 @@ export function CustomFilters(arg1) {
   return window['go']['starrs']['Starrs']['CustomFilters'](arg1);
 }
 
-export function DeleteBlockLists(arg1, arg2) {
-  return window['go']['starrs']['Starrs']['DeleteBlockLists'](arg1, arg2);
+export function DeleteBlockList(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['DeleteBlockList'](arg1, arg2);
 }
 
-export function DeleteDownloaders(arg1, arg2) {
-  return window['go']['starrs']['Starrs']['DeleteDownloaders'](arg1, arg2);
+export function DeleteDownloader(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['DeleteDownloader'](arg1, arg2);
 }
 
 export function DeleteExclusions(arg1, arg2) {
   return window['go']['starrs']['Starrs']['DeleteExclusions'](arg1, arg2);
 }
 
-export function DeleteImportLists(arg1, arg2) {
-  return window['go']['starrs']['Starrs']['DeleteImportLists'](arg1, arg2);
+export function DeleteImportList(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['DeleteImportList'](arg1, arg2);
 }
 
-export function DeleteIndexers(arg1, arg2) {
-  return window['go']['starrs']['Starrs']['DeleteIndexers'](arg1, arg2);
+export function DeleteIndexer(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['DeleteIndexer'](arg1, arg2);
 }
 
-export function DeleteQualityProfiles(arg1, arg2) {
-  return window['go']['starrs']['Starrs']['DeleteQualityProfiles'](arg1, arg2);
+export function DeleteQualityProfile(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['DeleteQualityProfile'](arg1, arg2);
 }
 
 export function DeleteRootFolder(arg1, arg2) {
@@ -78,10 +78,34 @@ export function UpdateInvalidItems(arg1, arg2, arg3, arg4) {
   return window['go']['starrs']['Starrs']['UpdateInvalidItems'](arg1, arg2, arg3, arg4);
 }
 
+export function UpdateLidarrIndexer(arg1, arg2, arg3) {
+  return window['go']['starrs']['Starrs']['UpdateLidarrIndexer'](arg1, arg2, arg3);
+}
+
+export function UpdateProwlarrIndexer(arg1, arg2, arg3) {
+  return window['go']['starrs']['Starrs']['UpdateProwlarrIndexer'](arg1, arg2, arg3);
+}
+
+export function UpdateRadarrIndexer(arg1, arg2, arg3) {
+  return window['go']['starrs']['Starrs']['UpdateRadarrIndexer'](arg1, arg2, arg3);
+}
+
+export function UpdateReadarrIndexer(arg1, arg2, arg3) {
+  return window['go']['starrs']['Starrs']['UpdateReadarrIndexer'](arg1, arg2, arg3);
+}
+
 export function UpdateRecycleBin(arg1, arg2) {
   return window['go']['starrs']['Starrs']['UpdateRecycleBin'](arg1, arg2);
 }
 
 export function UpdateRootFolder(arg1, arg2, arg3) {
   return window['go']['starrs']['Starrs']['UpdateRootFolder'](arg1, arg2, arg3);
+}
+
+export function UpdateSonarrIndexer(arg1, arg2, arg3) {
+  return window['go']['starrs']['Starrs']['UpdateSonarrIndexer'](arg1, arg2, arg3);
+}
+
+export function UpdateWhisparrIndexer(arg1, arg2, arg3) {
+  return window['go']['starrs']['Starrs']['UpdateWhisparrIndexer'](arg1, arg2, arg3);
 }

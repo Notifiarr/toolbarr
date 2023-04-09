@@ -12,6 +12,9 @@
     "incompletePage": "This tool or page is incomplete.",
 
     "words": {
+        "All": "All",
+        "Type": "Type",
+        "Priority": "Priority",
         "Unset": "Unset",
         "Source": "Source",
         "Updating": "Updating",
@@ -139,6 +142,19 @@
         "WritteninSvelte": "Written in <a href=\"{svelteURL}\">Svelte</a> using <a href=\"{wailsURL}\">Wails</a>."
     },
     "instances": {
+        "UpdatingIndexers": "Updating Indexers!",
+        "SuccessMsg": "Success: {msg}",
+        "ErrorMsg": "ERROR: {msg}",
+        "DeletingIndexers": "Deleting {count} Indexer{count, plural, =0 {s} one {} other {s}}!",
+        "DisableAll": "Disable All",
+        "EnableAll": "Enable All",
+        "EnableRSS": "Enable RSS",
+        "EnableInteractiveSearch": "Enable Interactive Search",
+        "EnableAutomaticSearch": "Enable Automatic Search",
+        "DeleteSelected": "Delete {count} Selected",
+        "TestandSave": "Test and Save",
+        "ForceSave": "Force Save",
+        "ForceSaveDesc": "Force saving makes {starrApp} skip testing the configuration.",
         "Indexers": "Indexers",
         "AppProfiles": "App Profiles",
         "DownloadClients": "Download Clients",
@@ -169,13 +185,6 @@
         "SaveSelected": "Save Selected",
         "SelectAll": "Select All",
         "SelectNone": "Select None",
-        "NewRoot": "New Root",
-        "IndexersDescription": "This tool allows bulk editing indexer configurations.",
-        "BlockListDescription": "This tool allows bulk editing block list configurations.",
-        "CustomFiltersDescription": "<span class=\"text-danger\">This Prowlarr tool does not work yet.</span>",
-        "DownloadClientsDescription": "This tool allows bulk editing download client configurations.",
-        "ImportListsDescription": "This tool allows bulk editing import list configurations.",
-        "AppProfilesDescription": "<span class=\"text-danger\">This Prowlarr tool does not work yet.</span>",
-        "QualityProfilesDescription": "This tool allows bulk editing quality profile configurations."
+        "NewRoot": "New Root"
     }
 }
