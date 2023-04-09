@@ -7,6 +7,8 @@
   import T, { _ } from "../../libs/Translate.svelte"
   import Action from "./action.svelte"
   import Tabs, { startTab } from "./tabs.svelte"
+  import Fa from "svelte-fa"
+  import { faCaretLeft, faCaretRight } from "@fortawesome/free-solid-svg-icons"
   import {
     Accordion,
     AccordionItem,
@@ -19,11 +21,13 @@
     Row,
   } from "sveltestrap"
 
+  let menuOpen = true
   let showTitle = true
   let selected = $conf.Instances[starrApp] ? $conf.Instances[starrApp][0] : undefined
   let instance = selected
   // This trick is to avoid reloading the instance data when expanding the header.
   $: if (selected != instance && selected != undefined) instance = selected
+  $: if (small) menuOpen = true
 
   let width
   let tab = startTab
@@ -67,20 +71,46 @@
   </AccordionItem>
 </Accordion>
 
+
 <Row>
-  <!-- Display the nav links in the side bar when the screen is not small. -->
-  {#if !small}
-  <Col xl="2" style="margin-top:8px;">
-    <Tabs on:tab={(e) => {tab = e.detail}} vertical pills {starrApp}/>
-  </Col>
-  {/if}
-  <!-- Display the selected tool, pass in selected instance. -->
-  <Col xl="10">
-    {#if !hidden} <Action {instance} {starrApp} {showTitle} {tab}/> {/if}
-  </Col>
+  <div class="container">
+    <Col xs="12">
+      {#if !small}
+        <a href="/" on:click|preventDefault={()=>{menuOpen=!menuOpen}}>
+          <Fa size="sm" style="margin-right:-3px;" pull="left" icon={menuOpen?faCaretRight:faCaretLeft}/>
+        </a>
+        {#if menuOpen}
+          <div class="left">
+            <!-- Display the nav links in the side bar when the screen is not small. -->
+            <Tabs on:tab={(e) => {tab = e.detail}} vertical pills {starrApp}/>
+          </div>
+        {/if}
+      {/if}
+      {#if !hidden}
+        <div class="right">
+          <!-- Display the selected tool, pass in selected instance. -->
+          <Action {instance} {starrApp} {showTitle} {tab}/>
+        </div>
+      {/if}
+    </Col>
+  </div>
 </Row>
 
 <style>
+  .container {
+    display: flex;
+  }
+
+  .left {
+    margin-top: 9px;
+    float: left;
+    width: max-content;
+  }
+
+  .right {
+    flex-grow: 1;
+  }
+
   .accordian-header {
     margin-bottom: 0 !important;
   }

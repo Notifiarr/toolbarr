@@ -4,9 +4,16 @@
 
   import T, { _ } from "../../../libs/Translate.svelte"
   import Fa from "svelte-fa"
-  import { faCircleInfo, faArrowUpRightFromSquare, faTrashAlt, faClose, faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons"
   import { toast } from "../../../libs/funcs"
   import { conf } from "../../../libs/config"
+  import {
+    faCircleInfo,
+    faArrowUpRightFromSquare,
+    faTrashAlt,
+    faClose,
+    faCaretDown,
+    faCaretUp
+    } from "@fortawesome/free-solid-svg-icons"
   import {
     Alert,
     Badge,
@@ -35,20 +42,22 @@
     DeleteIndexer,
   } from "../../../../wailsjs/go/starrs/Starrs"
 
-  let isOpen = {} // Modal control
-  let modalOpen = false
-  let goodMsg = ""
-  let badMsg = ""
-  let updating = 0
-  let rawOpen = false
+  let isOpen = {}       // Modal toggle control.
+  let modalOpen = false // True if any modal is open.
+  let updating = false  // True while doing updates.
+  let rawOpen = false   // Dev mode toggle button.
+  let all = false       // Toggle for select-all link.
+  let goodMsg = ""      // Card color="success"
+  let badMsg = ""       // Card color="danger"
+  let selected = {}     // Rows selected by key: ID.
 
-  let str = JSON.stringify(info)
-  info = JSON.parse(str) // use this to compare for changes
-  let form = JSON.parse(str) // changes go here.
+  let str = JSON.stringify(info) // Used for equivalence comparison.
+  info = JSON.parse(str)         // Use this to compare for changes.
+  let form = JSON.parse(str)     // Form changes go here.
+  $: unSaved = JSON.stringify(form) !== str // True when something changed.
+  $: selectedCount = count(selected)        // How many items are selected.
 
-  $: unSaved = JSON.stringify(form) !== str
-
-  let updateMethod
+  let updateMethod // Each app has a unique update method.
   switch(instance.App) {
     case "Lidarr":
       updateMethod = UpdateLidarrIndexer; break
@@ -64,34 +73,24 @@
       updateMethod = UpdateWhisparrIndexer; break
   }
 
-  // save id (id=id), save all (id=true), save selected (id=false)
+  // save id (id=id), save all (id=true), save selected (id=false) (not used)
   async function update(id, force) {
     toast("info", $_("instances.UpdatingIndexers"))
     goodMsg = badMsg = ""
+    updating = true
 
-    for (let i = 0; i < form.length; i++) {
-      modalOpen = isOpen[i] = false // close all nodals
-      if (id === false && !selected[form[i].id]) continue
-      if (![true,false,form[i].id].includes(id)) continue
-      if (JSON.stringify(form[i]) == JSON.stringify(info[i])) continue
-      updating++
+    for (var idx = 0; idx < form.length; idx++) {
+      modalOpen = isOpen[idx] = false // close all nodals
+      if (id === false && !selected[form[idx].id]) continue // not selected
+      if (![true,false,form[idx].id].includes(id)) continue // not a save all
+      if (JSON.stringify(form[idx]) == JSON.stringify(info[idx])) continue // not changed
 
-      await updateMethod(instance, force, form[i]).then(
-        (resp) => {
-          const str = JSON.stringify(resp.Data)
-          info[i] = JSON.parse(str)
-          form[i] = JSON.parse(str)
-          goodMsg +=  "<li>" + $_("instances.SuccessMsg", {values:{"msg": resp.Msg}}) + "</li>"
-          updating--
-        },
-        (err) => {
-          reset(i)
-          badMsg +=  "<li>" + $_("instances.ErrorMsg", {values:{"msg": err}}) + "</li>"
-          updating--
-        }
+      await updateMethod(instance, force, form[idx]).then(
+        (resp) => showMsg(idx, resp.Msg, resp.Data), (err) => showError(idx, err)
       )
     }
 
+    updating = false
     str = JSON.stringify(info)
     selected = {}
   }
@@ -99,30 +98,36 @@
   async function deleteIndexers() {
     toast("info", $_("instances.DeletingIndexers", {values:{"count": count(selected)}}))
     goodMsg = badMsg = ""
+    updating = true
 
-    for (let i = form.length-1; i >= 0; i--) {
-      if (!selected[form[i].id]) continue
-      updating++
-
-      await DeleteIndexer(instance, form[i].id).then(
-        (msg) => {
-          delete info[i]
-          delete form[i]
-          str = JSON.stringify(info)
-          info = JSON.parse(str)
-          form = JSON.parse(str)
-          goodMsg +=  "<li>" + $_("instances.SuccessMsg", {values:{"msg": msg}}) + "</li>"
-          updating--
-        },
-        (err) => {
-          reset(i)
-          badMsg +=  "<li>" + $_("instances.ErrorMsg", {values:{"msg": err}}) + "</li>"
-          updating--
-        }
+    for (var idx = form.length-1; idx >= 0; idx--) {
+      if (!selected[form[idx].id]) continue // Not selected.
+      await DeleteIndexer(instance, form[idx].id).then(
+        (msg) => showMsg(idx, msg), (err) => showError(idx, err)
       )
     }
 
+    updating = false
     selected = {}
+  }
+
+  function showMsg(idx, msg, data) {
+    goodMsg += `<li>${$_("instances.SuccessMsg", {values:{"msg": msg}})}</li>`
+    if (data) { // update indexer (repalce in place)
+      const istr = JSON.stringify(data)
+      info[idx] = JSON.parse(istr)
+      form[idx] = JSON.parse(istr)
+    } else { // delete indexer (delete from list)
+      delete form[idx]
+      str = JSON.stringify(form)
+      info = JSON.parse(str)
+      form = JSON.parse(str)
+    }
+  }
+
+  function showError(idx, err) {
+    reset(idx)
+    badMsg += `<li>${$_("instances.ErrorMsg", {values:{"msg": err}})}</li>`
   }
 
   function reset(idx) {
@@ -130,23 +135,19 @@
     form[idx] = JSON.parse(JSON.stringify(info[idx]))
   }
 
-  let selected = {}
-  $: selectedCount = count(selected)
-
   function count(selected) {
     let counter = 0
-    for (var k in selected) if (selected[k]) counter++;
+    for (var k in selected) if (selected[k]) counter++
     return counter
+  }
+
+  function selectAll() {
+    all = !all
+    Object.keys(selected).forEach(k => selected[k] = all)
   }
 
   function toggleAll(key, on) {
     form.forEach((_, i) => {form[i][key] = on})
-  }
-
-  let all = false
-  function selectAll() {
-    all = !all
-    Object.keys(selected).forEach(k => selected[k] = all)
   }
 </script>
 
@@ -200,7 +201,7 @@
           <open-browser href={info[idx].infoLink}>{indexer.implementation}</open-browser>
         </Badge></span></td>
         <td>
-          {#if updating > 0} {indexer.name} {:else}
+          {#if updating} {indexer.name} {:else}
             <a href="/" style="padding-left:0" on:click|preventDefault={() => modalOpen=isOpen[idx]=true}>{indexer.name}</a>
           {/if}
           <Modal class="modal-settings" body size="lg" scrollable isOpen={isOpen[idx]}>
@@ -251,11 +252,11 @@
             {#if instance.App == "Prowlarr"}
               This tool does not yet work with Prowlarr.<br>
             {:else}
-              <Button color="success" on:click={() => update(form[idx].id, false)}>{$_("instances.TestandSave")}</Button>
+              <Button size="sm" color="success" on:click={() => update(form[idx].id, false)}>{$_("instances.TestandSave")}</Button>
               <Tooltip target="forceSave"><T id="instances.ForceSaveDesc" starrApp={instance.App}/></Tooltip>
-              <Button id="forceSave" color="info" on:click={() => update(form[idx].id, true)}>{$_("instances.ForceSave")}</Button>
+              <Button size="sm" id="forceSave" color="info" on:click={() => update(form[idx].id, true)}>{$_("instances.ForceSave")}</Button>
             {/if}
-            <Button color="danger" on:click={() => reset(idx)}>{$_("words.Cancel")}</Button>
+            <Button size="sm" color="danger" on:click={() => reset(idx)}>{$_("words.Cancel")}</Button>
           </Modal>
 
         </td>
@@ -276,7 +277,7 @@
   {#if goodMsg != ""}<Alert dismissible color="success">{@html goodMsg}</Alert>{/if}
   {#if badMsg != ""}<Alert dismissible color="danger">{@html badMsg}</Alert>{/if}
   {#if instance.App != "Prowlarr"}
-    {#if updating > 0}
+    {#if updating}
       <Card body color="secondary">
         <span>
           <Spinner size="sm" color="info" />
@@ -290,7 +291,7 @@
         <Button id="forceSave" class="actions" color="info" on:click={() => update(true, true)}>{$_("instances.ForceSave")}</Button>
       {/if}
       {#if selectedCount > 0}
-        <Button class="actions delete" color="danger" on:click={deleteIndexers}><T id="instances.DeleteSelected" count={selectedCount}/></Button>
+        <Button class="actions" color="danger" on:click={deleteIndexers}><T id="instances.DeleteSelected" count={selectedCount}/></Button>
       {/if}
     {/if}
   {/if}
@@ -301,7 +302,7 @@
 </div>
 
 {#if $conf.DevMode}
-  <hr>
+  {#if !modalOpen && (unSaved || selectedCount > 0)}<hr>{/if}<!-- only add HR if the other buttons are present -->
   <Button size="sm" on:click={() => (rawOpen = !rawOpen)} class="mb-1">Raw Data <Fa icon={rawOpen?faCaretDown:faCaretUp}/></Button>
   <Card color="secondary">
     <Collapse isOpen={rawOpen}><code><pre class="code">{JSON.stringify(info, null, 3)}</pre></code></Collapse>

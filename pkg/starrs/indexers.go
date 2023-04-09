@@ -60,7 +60,10 @@ func (s *Starrs) DeleteIndexer(config *AppConfig, indexerID int64) (any, error) 
 		return nil, fmt.Errorf(msg)
 	}
 
-	return s.log.Translate("Deleted %s indexer with ID %d.", config.Name, indexerID), nil
+	msg := s.log.Translate("Deleted %s indexer with ID %d.", config.Name, indexerID)
+	s.log.Wails.Info(msg)
+
+	return msg, nil
 }
 
 func (s *Starrs) deleteIndexer(config *AppConfig, indexerID int64) error {
@@ -183,6 +186,8 @@ func (s *Starrs) updateIndexerReply(
 ) (*DataReply, error) {
 	if err == nil {
 		msg := s.log.Translate("Updated %s indexer %s (%d).", name, indexerName, indexerID)
+		s.log.Wails.Info(msg)
+
 		return &DataReply{Msg: msg, Data: data}, nil
 	}
 
