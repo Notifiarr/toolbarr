@@ -51,7 +51,10 @@
         "Source": "Source",
         "Unsaved": "Non sauvegardé",
         "Unset": "Non défini",
-        "Updating": "Mise à jour en cours"
+        "Updating": "Mise à jour en cours",
+        "All": "Tout",
+        "Priority": "Priorité",
+        "Type": "Type"
     },
     "configtooltip": {
         "Updates": "La production reçoit les mises à jour de GitHub, instable les reçoit de unstable.golift.io",
@@ -157,7 +160,30 @@
         "FilesystemPathsMigrator": "Migrateur de chemins de système de fichiers",
         "SQLite3DatabaseInspector": "Inspecteur de base de données SQLite3",
         "NoDatabasePathConfigured": "L'instance {starrApp} sélectionnée ({name}) n'a pas de chemin de fichier de base de données SQLite3 configuré.",
-        "unsupportedColumn": "Cette colonne ne peut pas être corrigée par cet outil pour le moment."
+        "unsupportedColumn": "Cette colonne ne peut pas être corrigée par cet outil pour le moment.",
+        "AppProfiles": "Profiles d'application",
+        "BlockList": "Liste de blocage",
+        "CustomFilters": "Filtres personnalisés",
+        "DeleteSelected": "Supprimer {count} sélectionnés",
+        "DeletingIndexers": "Supprimer {count} Indexer{count, plural, =0 {s} one {} other {s}}!",
+        "DisableAll": "Désactiver tout",
+        "DownloadClients": "Clients de téléchargement",
+        "EnableAll": "Activer tout",
+        "EnableAutomaticSearch": "Activer la recherche automatique",
+        "EnableInteractiveSearch": "Activer la recherche interactive",
+        "EnableRSS": "Activer RSS",
+        "ErrorMsg": "ERREUR : {msg}",
+        "ForceSave": "Forcer sauvegarde",
+        "ImportLists": "Listes d'importation",
+        "Indexers": "Indexeurs",
+        "QualityProfiles": "Profils de qualité",
+        "ToolsSelector": "Sélectionnez une instance et un outil pour commencer.",
+        "SuccessMsg": "Succès : {msg}",
+        "TestandSave": "Tester et sauvegarder",
+        "NoURLConfigured": "L'instance {starrApp} sélectionnée ({name}) n'a pas d'URL configurée.",
+        "UpdatingIndexers": "Mise à jour des indexeurs !",
+        "ForceSaveDesc": "Forcer l'enregistrement fait que {starrApp} ignore le test de la configuration.",
+        "ProwlarrNotSupported": "Cet outil ne fonctionne pas encore avec Prowlarr."
     },
     "incompletePage": "Cet outil ou page est incomplet.",
     "32characterhash": "hash de 32 caractères"
