@@ -21,6 +21,18 @@ type DataReply struct {
 func (s *Starrs) BlockList(config *AppConfig) (any, error) {
 	s.log.Tracef("Call:BlockList(%s, %s)", config.App, config.Name)
 
+	list, err := s.blockList(config)
+	if err != nil {
+		msg := s.log.Translate("Getting block lists: %v", err.Error())
+		s.log.Wails.Error(msg)
+
+		return nil, fmt.Errorf(msg)
+	}
+
+	return list, nil
+}
+
+func (s *Starrs) blockList(config *AppConfig) (any, error) {
 	instance, err := s.newAPIinstance(config)
 	if err != nil {
 		return nil, err
@@ -42,29 +54,37 @@ func (s *Starrs) BlockList(config *AppConfig) (any, error) {
 	}
 }
 
-func (s *Starrs) DeleteBlockLists(config *AppConfig, ids []int64) (any, error) {
-	s.log.Tracef("Call:DeleteBlockLists(%s, %s, %+v)", config.App, config.Name, ids)
+func (s *Starrs) DeleteBlockList(config *AppConfig, listID int64) (any, error) {
+	s.log.Tracef("Call:DeleteBlockList(%s, %s, %v)", config.App, config.Name, listID)
 
-	instance, err := s.newAPIinstance(config)
-	if err != nil {
-		return nil, err
+	if err := s.deleteBlockList(config, listID); err != nil {
+		msg := s.log.Translate("Deleting %s block list: %d: %v", config.Name, listID, err.Error())
+		s.log.Wails.Error(msg)
+
+		return nil, fmt.Errorf(msg)
 	}
 
-	count := len(ids)
-	msg := s.log.Translate("Deleted %d block list items.", count)
+	return s.log.Translate("Deleted %s block list with ID %d.", config.Name, listID), nil
+}
+
+func (s *Starrs) deleteBlockList(config *AppConfig, listID int64) error {
+	instance, err := s.newAPIinstance(config)
+	if err != nil {
+		return err
+	}
 
 	switch starr.App(config.App) {
 	case starr.Lidarr:
-		return msg, lidarr.New(instance.Config).DeleteBlockListsContext(s.ctx, ids)
+		return lidarr.New(instance.Config).DeleteBlockListsContext(s.ctx, []int64{listID})
 	case starr.Radarr:
-		return msg, radarr.New(instance.Config).DeleteBlockListsContext(s.ctx, ids)
+		return radarr.New(instance.Config).DeleteBlockListsContext(s.ctx, []int64{listID})
 	case starr.Readarr:
-		return msg, readarr.New(instance.Config).DeleteBlockListsContext(s.ctx, ids)
+		return readarr.New(instance.Config).DeleteBlockListsContext(s.ctx, []int64{listID})
 	case starr.Sonarr:
-		return msg, sonarr.New(instance.Config).DeleteBlockListsContext(s.ctx, ids)
+		return sonarr.New(instance.Config).DeleteBlockListsContext(s.ctx, []int64{listID})
 	case starr.Whisparr:
-		return msg, sonarr.New(instance.Config).DeleteBlockListsContext(s.ctx, ids)
+		return sonarr.New(instance.Config).DeleteBlockListsContext(s.ctx, []int64{listID})
 	default:
-		return nil, fmt.Errorf("%w: missing app", starr.ErrRequestError)
+		return fmt.Errorf("%w: missing app", starr.ErrRequestError)
 	}
 }

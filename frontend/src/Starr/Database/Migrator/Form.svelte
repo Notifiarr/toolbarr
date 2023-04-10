@@ -171,11 +171,7 @@
     <Modal scrollable size="lg" body isOpen={invalidModals[table]}>
       <h5>
         <T id="instances.Invalidpathsintable" {table}/>
-        <span style="float:right;"><!-- extra close button -->
-          <a style="cursor:pointer;" href="/" on:click={(e)=>{e.preventDefault();invalidModals[table]=false}}>
-            <Fa icon={faClose} color="red"/>
-          </a>
-        </span>
+        <a href="/" on:click|preventDefault={()=>invalidModals[table]=false}><Fa pull="right" icon={faClose} color="red"/></a>
       </h5>
       {#if info.Table[table].Column == "Path" && info.Table[table].Name != '""'}
         <p>{$_("instances.unsupportedColumn")}</p>

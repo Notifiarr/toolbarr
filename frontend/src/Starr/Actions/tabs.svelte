@@ -23,8 +23,8 @@
   ]
   // Add some more tabs depending on the app.
   const prowlarrTabs = [
-    {fn: CustomFilters, link: "AppProfiles", lib: appProfiles},
-    {fn: AppProfiles, link: "CustomFilters", lib: customFilters},
+    {fn: AppProfiles, link: "AppProfiles", lib: appProfiles},
+    {fn: CustomFilters, link: "CustomFilters", lib: customFilters},
   ]
 
   const otherTabs = [
@@ -34,7 +34,7 @@
   ]
 
   // This is the active tab; exported, so consumers can find the start page.
-  export const startTab = commonTabs[0]
+  export let startTab = commonTabs[0]
 </script>
 
 <script>
@@ -50,17 +50,26 @@
 
   function changeTab(e, newTab) {
     e.preventDefault()
-    tab = newTab
+    startTab = tab = newTab
     dispatch('tab', tab)
   }
 </script>
 
-<Nav {...$$props}>
-  {#each tabs as thisTab}
-  <NavItem>
-    <NavLink class="f" active={tab==thisTab} on:click={(e) => {changeTab(e,thisTab)}} href="/">
-      {@html $_("instances."+thisTab.link)}
-    </NavLink>
-  </NavItem>
-  {/each}
-</Nav>
+<div class="container">
+  <Nav {...$$props}>
+    {#each tabs as thisTab}
+    <NavItem>
+      <NavLink class="nav-link" active={tab==thisTab} on:click={(e) => {changeTab(e,thisTab)}} href="/">
+        {@html $_("instances."+thisTab.link)}
+      </NavLink>
+    </NavItem>
+    {/each}
+  </Nav>
+</div>
+
+<style>
+  .container :global(.nav-link) {
+    white-space: nowrap;
+    padding: 4px 15px 4px 15px;
+  }
+</style>

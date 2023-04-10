@@ -20,7 +20,7 @@ import (
  */
 
 // timeout is how long to wait for an instance to respond.
-const timeout = 10 * time.Second
+const timeout = 30 * time.Second
 
 func (s *Starrs) TestInstance(config *AppConfig) (string, error) {
 	s.log.Tracef("Call:TestInstance(%s, %s)", config.App, config.Name)
@@ -105,6 +105,7 @@ func (s *Starrs) testInstance(config *AppConfig) (*instanceTest, error) {
 	}
 }
 
+// testWithoutKey logs into an instance and gets the api key.
 func (i *instance) testWithoutKey() (*instanceTest, error) {
 	if i.Username != "" {
 		if err := i.Login(i.ctx); err != nil {
@@ -112,7 +113,17 @@ func (i *instance) testWithoutKey() (*instanceTest, error) {
 		}
 	}
 
-	return i.getInitializeJS()
+	ijs, err := i.GetInitializeJS(i.ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	return &instanceTest{
+		App:     ijs.App,
+		Key:     ijs.APIKey,
+		Version: ijs.Version,
+		Name:    ijs.InstanceName,
+	}, nil
 }
 
 func (i *instance) testLidarr() (*instanceTest, error) {

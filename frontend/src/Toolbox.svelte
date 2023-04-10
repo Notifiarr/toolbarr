@@ -4,14 +4,14 @@
   import { Container, Row } from "sveltestrap"
   import BGLogo from "./libs/BackgroundLogo.svelte"
   import { _ } from "./libs/Translate.svelte"
-  import { Alert } from "sveltestrap"
+  import { Card } from "sveltestrap"
 </script>
 
 <BGLogo {hidden} url="notifiarr">
   <Container>
     <Row>
       <h1>{$_("OtherTools")}</h1>
-      <Alert color="danger">{$_("incompletePage")}</Alert>
+      <Card body color="danger">{$_("incompletePage")}</Card>
       <p>No idea what goes here. <open-browser href="https://github.com/Notifiarr/toolbarr/issues/new">Gimme ideas!</open-browser></p>
     </Row>
   </Container>

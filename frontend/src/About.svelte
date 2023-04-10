@@ -97,7 +97,7 @@
 </script>
 
 <BGLogo {hidden} url="golift">
-  <Container>
+  <Container lg>
     <Row>
       <h1>{$_("words.About")} {$app.Title}</h1>
       <p><T id="aboutPage.toolbarDescription" url="https://toys-arr.us"/></p>
