@@ -1006,6 +1006,597 @@
                     "expr": "err.Error()"
                 }
             ]
+        },
+        {
+            "id": "Getting block lists: {Error}",
+            "message": "Getting block lists: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Blokkeerlijsten ophalen: {Error}",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Deleting {Name} block list: {ListID}: {Error}",
+            "message": "Deleting {Name} block list: {ListID}: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Blokkeerlijst {Name} verwijderen: {ListID}: {Error}",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "ListID",
+                    "string": "%[2]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 2,
+                    "expr": "listID"
+                },
+                {
+                    "id": "Error",
+                    "string": "%[3]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 3,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Deleted {Name} block list with ID {ListID}.",
+            "message": "Deleted {Name} block list with ID {ListID}.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Blokkeerlijst {Name} verwijderd met ID {ListID}.",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "ListID",
+                    "string": "%[2]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 2,
+                    "expr": "listID"
+                }
+            ]
+        },
+        {
+            "id": "Getting download clients: {Error}",
+            "message": "Getting download clients: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Downloadclients ophalen: {Error}",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Deleted {Name} download client with ID {ClientID}.",
+            "message": "Deleted {Name} download client with ID {ClientID}.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Downloadclient {Name} met ID {ClientID} verwijderd.",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "ClientID",
+                    "string": "%[2]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 2,
+                    "expr": "clientID"
+                }
+            ]
+        },
+        {
+            "id": "Getting import list: {Error}",
+            "message": "Getting import list: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Importlijst ophalen: {Error}",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Deleting {Name} import list: {ListID}: {Error}",
+            "message": "Deleting {Name} import list: {ListID}: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Importlijst {Name} verwijderen: {ListID}: {Error}",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "ListID",
+                    "string": "%[2]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 2,
+                    "expr": "listID"
+                },
+                {
+                    "id": "Error",
+                    "string": "%[3]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 3,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Deleted {Name} import list with ID {ListID}.",
+            "message": "Deleted {Name} import list with ID {ListID}.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Importlijst {Name} met ID {ListID} verwijderd.",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "ListID",
+                    "string": "%[2]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 2,
+                    "expr": "listID"
+                }
+            ]
+        },
+        {
+            "id": "Getting exclusions: {Error}",
+            "message": "Getting exclusions: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Uitsluitingen ophalen: {Error}",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Deleting import list exclusion: {Id}: {Error}",
+            "message": "Deleting import list exclusion: {Id}: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Importlijstuitsluiting verwijderen: {Id}: {Error}",
+            "placeholders": [
+                {
+                    "id": "Id",
+                    "string": "%[1]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 1,
+                    "expr": "id"
+                },
+                {
+                    "id": "Error",
+                    "string": "%[2]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "{Count} errors: {Errors}",
+            "message": "{Count} errors: {Errors}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "{Count} fouten: {Errors}",
+            "placeholders": [
+                {
+                    "id": "Count",
+                    "string": "%[1]d",
+                    "type": "int",
+                    "underlyingType": "int",
+                    "argNum": 1,
+                    "expr": "count"
+                },
+                {
+                    "id": "Errors",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "errors"
+                }
+            ]
+        },
+        {
+            "id": "Deleted {Count} import list exclusions.",
+            "message": "Deleted {Count} import list exclusions.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "{Count} importlijstuitsluitingen verwijderd.",
+            "placeholders": [
+                {
+                    "id": "Count",
+                    "string": "%[1]d",
+                    "type": "int",
+                    "underlyingType": "int",
+                    "argNum": 1,
+                    "expr": "count"
+                }
+            ]
+        },
+        {
+            "id": "Getting indexers: {Error}",
+            "message": "Getting indexers: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Indexeerders ophalen: {Error}",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Deleted {Name} indexer with ID {IndexerID}.",
+            "message": "Deleted {Name} indexer with ID {IndexerID}.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Indexeerder {Name} met ID {IndexerID} verwijderd.",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "IndexerID",
+                    "string": "%[2]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 2,
+                    "expr": "indexerID"
+                }
+            ]
+        },
+        {
+            "id": "Updated {Name} indexer {IndexerName} ({IndexerID}).",
+            "message": "Updated {Name} indexer {IndexerName} ({IndexerID}).",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "{Name} indexer {IndexerName} ({IndexerID}) bijgewerkt.",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "IndexerName",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "indexerName"
+                },
+                {
+                    "id": "IndexerID",
+                    "string": "%[3]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 3,
+                    "expr": "indexerID"
+                }
+            ]
+        },
+        {
+            "id": "Getting quality profiles: {Error}",
+            "message": "Getting quality profiles: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Kwaliteitsprofielen ophalen: {Error}",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Deleting {Name} quality profile: {ProfileID}: {Error}",
+            "message": "Deleting {Name} quality profile: {ProfileID}: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Kwaliteitsprofiel {Name} verwijderen: {ProfileID}: {Error}",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "ProfileID",
+                    "string": "%[2]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 2,
+                    "expr": "profileID"
+                },
+                {
+                    "id": "Error",
+                    "string": "%[3]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 3,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Deleted {Name} quality profile with ID {ProfileID}.",
+            "message": "Deleted {Name} quality profile with ID {ProfileID}.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Kwaliteitsprofiel {Name} verwijderd met ID {ProfileID}.",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "ProfileID",
+                    "string": "%[2]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 2,
+                    "expr": "profileID"
+                }
+            ]
+        },
+        {
+            "id": "Unable to open or read DB file: {Error}",
+            "message": "Unable to open or read DB file: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Kan DB-bestand niet openen of lezen: {Error}",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "You picked a folder, but you need to pick a sqlite3 database FILE.",
+            "message": "You picked a folder, but you need to pick a sqlite3 database FILE.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "U hebt een map gekozen, maar u moet een SQLITE3-database bestand kiezen."
+        },
+        {
+            "id": "Getting tags: {Error}",
+            "message": "Getting tags: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Tags ophalen: {Error}",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Getting user data: {Error}",
+            "message": "Getting user data: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Gebruikersgegevens ophalen: {Error}",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Deleting {Name} download client: {ClientID}: {Error}",
+            "message": "Deleting {Name} download client: {ClientID}: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Downloadclient {Name} verwijderen: {ClientID}: {Error}",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "ClientID",
+                    "string": "%[2]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 2,
+                    "expr": "clientID"
+                },
+                {
+                    "id": "Error",
+                    "string": "%[3]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 3,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Deleting {Name} indexer: {IndexerID}: {Error}",
+            "message": "Deleting {Name} indexer: {IndexerID}: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Indexeerder {Name} verwijderen: {IndexerID}: {Error}",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "IndexerID",
+                    "string": "%[2]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 2,
+                    "expr": "indexerID"
+                },
+                {
+                    "id": "Error",
+                    "string": "%[3]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 3,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Updating {Name} indexer: {IndexerName} ({IndexerID}): {Error}",
+            "message": "Updating {Name} indexer: {IndexerName} ({IndexerID}): {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "{Name} indexeerder updaten: {IndexerName} ({IndexerID}): {Error}",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "IndexerName",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "indexerName"
+                },
+                {
+                    "id": "IndexerID",
+                    "string": "%[3]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 3,
+                    "expr": "indexerID"
+                },
+                {
+                    "id": "Error",
+                    "string": "%[4]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 4,
+                    "expr": "err.Error()"
+                }
+            ]
         }
     ]
 }
