@@ -6,14 +6,14 @@
   import Fa from "svelte-fa"
   import { toast } from "../../../libs/funcs"
   import { conf } from "../../../libs/config"
+  import Loading from "../loading.svelte"
   import {
     faCircleInfo,
     faArrowUpRightFromSquare,
     faTrashAlt,
-    faClose,
     faCaretDown,
     faCaretUp
-    } from "@fortawesome/free-solid-svg-icons"
+  } from "@fortawesome/free-solid-svg-icons"
   import {
     Alert,
     Badge,
@@ -24,11 +24,14 @@
     DropdownItem,
     DropdownMenu,
     DropdownToggle,
+    Fade,
     Input,
     InputGroup,
     InputGroupText,
     Modal,
-    Spinner,
+    ModalBody,
+    ModalFooter,
+    ModalHeader,
     Table,
     Tooltip,
   } from "sveltestrap"
@@ -92,7 +95,7 @@
 
     updating = false
     str = JSON.stringify(info)
-    selected = {}
+    Object.keys(selected).forEach(k => selected[k] = false)
   }
 
   async function deleteIndexers() {
@@ -108,7 +111,7 @@
     }
 
     updating = false
-    selected = {}
+    Object.keys(selected).forEach(k => selected[k] = false)
   }
 
   function showMsg(idx, msg, data) {
@@ -142,6 +145,7 @@
   }
 
   function selectAll() {
+    if (updating) return
     all = !all
     Object.keys(selected).forEach(k => selected[k] = all)
   }
@@ -152,10 +156,11 @@
 </script>
 
 <div id="container">
-{#if !info} <Spinner/> {$_("words.Loading")} {instance.Name} ... {:else}
   <Table bordered>
     <tr>
-      <th><span><Fa size="sm" icon={faTrashAlt}/> <span class="link" on:keypress={selectAll} on:click={selectAll}>{$_("words.All")}</span></span></th>
+      <th><span> <Fa size="sm" icon={faTrashAlt}/> 
+        <span class={updating?"":"link"} on:keypress={selectAll} on:click={selectAll}>{$_("words.All")}</span>
+      </span></th>
       <th class="d-none d-md-table-cell">ID</th>
       <th class="d-none d-sm-table-cell"><span>{$_("words.Type")} <Fa size="xs" primaryColor="darkCyan" icon={faArrowUpRightFromSquare}/></span></th>
       <th>{$_("words.Name")}</th>
@@ -164,8 +169,8 @@
           <DropdownToggle tag="span" class="link">RS <Fa primaryColor="darkCyan" icon={faCircleInfo}/></DropdownToggle>
           <DropdownMenu>
             <DropdownItem header>{$_("instances.EnableRSS")}</DropdownItem>
-            <DropdownItem on:click={() => toggleAll("enableRss", false)}>{$_("instances.DisableAll")}</DropdownItem>
-            <DropdownItem on:click={() => toggleAll("enableRss", true)}>{$_("instances.EnableAll")}</DropdownItem>
+            <DropdownItem disabled={updating} on:click={() => toggleAll("enableRss", false)}>{$_("instances.DisableAll")}</DropdownItem>
+            <DropdownItem disabled={updating} on:click={() => toggleAll("enableRss", true)}>{$_("instances.EnableAll")}</DropdownItem>
           </DropdownMenu>
         </Dropdown>
       </th>
@@ -174,8 +179,8 @@
           <DropdownToggle tag="span" class="link">IS <Fa primaryColor="darkCyan" icon={faCircleInfo}/></DropdownToggle>
           <DropdownMenu>
             <DropdownItem header>{$_("instances.EnableInteractiveSearch")}</DropdownItem>
-            <DropdownItem on:click={() => toggleAll("enableInteractiveSearch", false)}>{$_("instances.DisableAll")}</DropdownItem>
-            <DropdownItem on:click={() => toggleAll("enableInteractiveSearch", true)}>{$_("instances.EnableAll")}</DropdownItem>
+            <DropdownItem disabled={updating} on:click={() => toggleAll("enableInteractiveSearch", false)}>{$_("instances.DisableAll")}</DropdownItem>
+            <DropdownItem disabled={updating} on:click={() => toggleAll("enableInteractiveSearch", true)}>{$_("instances.EnableAll")}</DropdownItem>
           </DropdownMenu>
         </Dropdown>
       </th>
@@ -184,8 +189,8 @@
           <DropdownToggle tag="span" class="link">AS <Fa primaryColor="darkCyan" icon={faCircleInfo}/></DropdownToggle>
           <DropdownMenu>
             <DropdownItem header>{$_("instances.EnableAutomaticSearch")}</DropdownItem>
-            <DropdownItem on:click={() => toggleAll("enableAutomaticSearch", false)}>{$_("instances.DisableAll")}</DropdownItem>
-            <DropdownItem on:click={() => toggleAll("enableAutomaticSearch", true)}>{$_("instances.EnableAll")}</DropdownItem>
+            <DropdownItem disabled={updating} on:click={() => toggleAll("enableAutomaticSearch", false)}>{$_("instances.DisableAll")}</DropdownItem>
+            <DropdownItem disabled={updating} on:click={() => toggleAll("enableAutomaticSearch", true)}>{$_("instances.EnableAll")}</DropdownItem>
           </DropdownMenu>
         </Dropdown>
       </th>
@@ -193,121 +198,120 @@
 
     {#each info as indexer, idx}
       {#if indexer} <!-- When deleting an indexer, this protects an error condition. -->
-      <tr class={selected[indexer.id]?" bg-secondary":""}>
-        <td><div class="switch"><Input type="switch" bind:checked={selected[indexer.id]}/></div></td>
+      <tr class={selected[info[idx].id]?" bg-secondary":""}>
+        <td><div class="switch"><Input disabled={updating} type="switch" bind:checked={selected[info[idx].id]}/></div></td>
 
         <td class="d-none d-md-table-cell">{indexer.id}</td>
         <td class="d-none d-sm-table-cell"><span><Badge color="info" class="superbadge">
           <open-browser href={info[idx].infoLink}>{indexer.implementation}</open-browser>
         </Badge></span></td>
         <td>
-          {#if updating} {indexer.name} {:else}
-            <a href="/" style="padding-left:0" on:click|preventDefault={() => modalOpen=isOpen[idx]=true}>{indexer.name}</a>
-          {/if}
+          <a href="/" style="padding-left:0" on:click|preventDefault={() => modalOpen=isOpen[idx]=!updating}>{indexer.name}</a>
           <Modal class="modal-settings" body size="lg" scrollable isOpen={isOpen[idx]}>
-            <h4>
+            <ModalHeader toggle={() => reset(idx)}>
               <Badge color="info">{indexer.id}</Badge> {indexer.implementation}
-              <a href="/" on:click|preventDefault={()=>reset(idx)}><Fa pull="right" icon={faClose} color="red"/></a>
-            </h4>
-            <InputGroup>
-              <InputGroupText class="setting-name">{$_("words.Name")}</InputGroupText>
-              <Input invalid={form[idx].name != info[idx].name} type="text" bind:value={form[idx].name} />
-            </InputGroup>
-            <InputGroup>
-              <InputGroupText class="setting-name">{$_("words.Priority")}</InputGroupText>
-              <Input invalid={form[idx].priority != info[idx].priority} type="number" bind:value={form[idx].priority} />
-            </InputGroup>
-            {#each info[idx].fields as item, itemIdx}
-              {#if item.helpText}
-              <Tooltip target="{item.name.replace(".", "")}{idx}{itemIdx}">{item.helpText}</Tooltip>
-              {/if}
-              <InputGroup id="{item.name.replace(".", "")}{idx}{itemIdx}">
-                <InputGroupText class="setting-name">{item.label}</InputGroupText>
-                {#if item.type == "select"}
-                <select disabled style="width:calc(99% - 161px)" multiple bind:value={form[idx].fields[itemIdx].value}>
-                  {#if typeof info[idx].fields[itemIdx].value == "object"}
-                    {#each info[idx].fields[itemIdx].value as val}
-                    <option value={val}>{val}</option>
-                    {/each}
-                  {/if}
-                </select>
-                {:else if item.type == "checkbox"}
-                <Input
+            </ModalHeader>
+
+            <ModalBody>
+              <InputGroup>
+                <InputGroupText class="setting-name">{$_("words.Name")}</InputGroupText>
+                <Input invalid={form[idx].name != info[idx].name} type="text" bind:value={form[idx].name} />
+              </InputGroup>
+              <InputGroup>
+                <InputGroupText class="setting-name">{$_("words.Priority")}</InputGroupText>
+                <Input invalid={form[idx].priority != info[idx].priority} type="number" bind:value={form[idx].priority} />
+              </InputGroup>
+
+              {#each info[idx].fields as item, itemIdx}
+                {#if item.helpText}
+                <Tooltip target="{item.name.replace(".", "")}{idx}{itemIdx}">{item.helpText}</Tooltip>
+                {/if}
+                <InputGroup id="{item.name.replace(".", "")}{idx}{itemIdx}">
+                  <InputGroupText class="setting-name">{item.label?item.label:item.name}</InputGroupText>
+                  {#if item.type == "select"}
+                  <select disabled style="width:calc(99% - 160px)" multiple bind:value={form[idx].fields[itemIdx].value}>
+                    {#if typeof item.value == "object"}
+                      {#each info[idx].fields[itemIdx].value as val}
+                      <option value={val}>{val}</option>
+                      {/each}
+                    {:else}
+                      <option value={info[idx].fields[itemIdx].value}>{info[idx].fields[itemIdx].value}</option>
+                    {/if}
+                  </select>
+                  {:else if item.type == "checkbox"}
+                  <Input
+                    invalid={info[idx].fields[itemIdx].value != form[idx].fields[itemIdx].value &&
+                            (info[idx].fields[itemIdx].value != undefined ||
+                            form[idx].fields[itemIdx].value != "")}
+                    type="select" bind:value={form[idx].fields[itemIdx].value}>
+                    <option value={true}>{$_("configvalues.Enabled")}</option>
+                    <option value={false}>{$_("configvalues.Disabled")}</option>
+                  </Input>
+                  {:else}
+                  <Input
                   invalid={info[idx].fields[itemIdx].value != form[idx].fields[itemIdx].value &&
                           (info[idx].fields[itemIdx].value != undefined ||
                           form[idx].fields[itemIdx].value != "")}
-                  type="select" bind:value={form[idx].fields[itemIdx].value}>
-                  <option value={true}>{$_("configvalues.Enabled")}</option>
-                  <option value={false}>{$_("configvalues.Disabled")}</option>
-                </Input>
-                {:else}
-                <Input
-                invalid={info[idx].fields[itemIdx].value != form[idx].fields[itemIdx].value &&
-                        (info[idx].fields[itemIdx].value != undefined ||
-                        form[idx].fields[itemIdx].value != "")}
-                type={item.type} bind:value={form[idx].fields[itemIdx].value}/>
-                {/if}
-              </InputGroup>
-            {/each}
-            {#if instance.App == "Prowlarr"}
-              This tool does not yet work with Prowlarr.<br>
-            {:else}
-              <Button size="sm" color="success" on:click={() => update(form[idx].id, false)}>{$_("instances.TestandSave")}</Button>
-              <Tooltip target="forceSave"><T id="instances.ForceSaveDesc" starrApp={instance.App}/></Tooltip>
-              <Button size="sm" id="forceSave" color="info" on:click={() => update(form[idx].id, true)}>{$_("instances.ForceSave")}</Button>
-            {/if}
-            <Button size="sm" color="danger" on:click={() => reset(idx)}>{$_("words.Cancel")}</Button>
+                  type={item.type} bind:value={form[idx].fields[itemIdx].value}/>
+                  {/if}<!-- /if (item.type) -->
+                </InputGroup>
+              {/each}<!-- /each info[idx].fields as item, itemIdx -->
+            </ModalBody>
+
+            <ModalFooter>
+              {#if instance.App == "Prowlarr"}
+                <p>{$_("instances.ProwlarrNotSupported")}</p>
+              {:else}
+                <Button size="sm" color="success" on:click={() => update(form[idx].id, false)}>{$_("instances.TestandSave")}</Button>
+                <Tooltip target="forceSave"><T id="instances.ForceSaveDesc" starrApp={instance.App}/></Tooltip>
+                <Button size="sm" id="forceSave" color="info" on:click={() => update(form[idx].id, true)}>{$_("instances.ForceSave")}</Button>
+              {/if}
+              <Button size="sm" color="danger" on:click={() => reset(idx)}>{$_("words.Cancel")}</Button>
+            </ModalFooter>
           </Modal>
 
         </td>
         <td class={form[idx].enableRss!=info[idx].enableRss?"bg-warning":""}>
-          <div class="switch"><Input type="switch" bind:checked={form[idx].enableRss} /></div>
+          <div class="switch"><Input disabled={updating} type="switch" bind:checked={form[idx].enableRss} /></div>
         </td>
         <td class={form[idx].enableInteractiveSearch!=info[idx].enableInteractiveSearch?"bg-warning":""}>
-          <div class="switch"><Input type="switch" bind:checked={form[idx].enableInteractiveSearch} /></div>
+          <div class="switch"><Input disabled={updating} type="switch" bind:checked={form[idx].enableInteractiveSearch} /></div>
         </td>
         <td class={form[idx].enableAutomaticSearch!=info[idx].enableAutomaticSearch?"bg-warning":""}>
-          <div class="switch"><Input type="switch" bind:checked={form[idx].enableAutomaticSearch} /></div>
+          <div class="switch"><Input disabled={updating} type="switch" bind:checked={form[idx].enableAutomaticSearch} /></div>
         </td>
       </tr>
-      {/if}
-    {/each}
+      {/if}<!-- /if (indexer) -->
+    {/each}<!-- /each info as indexer, idx -->
   </Table>
 
-  {#if goodMsg != ""}<Alert dismissible color="success">{@html goodMsg}</Alert>{/if}
-  {#if badMsg != ""}<Alert dismissible color="danger">{@html badMsg}</Alert>{/if}
-  {#if instance.App != "Prowlarr"}
-    {#if updating}
-      <Card body color="secondary">
-        <span>
-          <Spinner size="sm" color="info" />
-          <h5 style="display:inline-block">{$_("words.Loading")} ...</h5>
-        </span>
-      </Card>
-    {:else if !modalOpen}
-      {#if unSaved}
+  <Alert isOpen={goodMsg != ""} dismissible color="success">{@html goodMsg}</Alert>
+  <Alert isOpen={badMsg != ""} dismissible color="danger">{@html badMsg}</Alert>
+  <Loading isOpen={updating}/>
+
+  {#if instance.App == "Prowlarr"}
+    {$_("instances.ProwlarrNotSupported")}
+  {:else}
+    <Collapse isOpen={!updating && !modalOpen && (unSaved||selectedCount > 0)}>
+      <Fade style="display:inline-block" isOpen={unSaved}>
         <Button class="actions" color="success" on:click={() => update(true, false)}>{$_("instances.TestandSave")}</Button>
         <Tooltip target="forceSave"><T id="instances.ForceSaveDesc" starrApp={instance.App}/></Tooltip>
         <Button id="forceSave" class="actions" color="info" on:click={() => update(true, true)}>{$_("instances.ForceSave")}</Button>
-      {/if}
-      {#if selectedCount > 0}
+      </Fade>
+      <Fade style="display:inline-block" isOpen={selectedCount > 0}>
         <Button class="actions" color="danger" on:click={deleteIndexers}><T id="instances.DeleteSelected" count={selectedCount}/></Button>
-      {/if}
-    {/if}
-  {/if}
-{/if}
-{#if instance.App == "Prowlarr"}
-  {$_("instances.ProwlarrNotSupported")}
-{/if}
-</div>
+      </Fade>
+    </Collapse>
+  {/if}<!-- /if (instance.App) -->
+</div><!-- id="container" -->
 
-{#if $conf.DevMode}
-  {#if !modalOpen && (unSaved || selectedCount > 0)}<hr>{/if}<!-- only add HR if the other buttons are present -->
+<Collapse isOpen={$conf.DevMode}>
+  <Collapse isOpen={!modalOpen && (unSaved||selectedCount > 0)}><hr></Collapse><!-- only add HR if the other buttons are present -->
   <Button size="sm" on:click={() => (rawOpen = !rawOpen)} class="mb-1">Raw Data <Fa icon={rawOpen?faCaretDown:faCaretUp}/></Button>
   <Card color="secondary">
     <Collapse isOpen={rawOpen}><code><pre class="code">{JSON.stringify(info, null, 3)}</pre></code></Collapse>
   </Card>
-{/if}
+</Collapse>
 
 <style>
   .switch {

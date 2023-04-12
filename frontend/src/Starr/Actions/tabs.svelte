@@ -26,7 +26,7 @@
     {fn: AppProfiles, link: "AppProfiles", lib: appProfiles},
     {fn: CustomFilters, link: "CustomFilters", lib: customFilters},
   ]
-
+  // Everything but Prowlarr.
   const otherTabs = [
     {fn: BlockList, link: "BlockList", lib: blockList},
     {fn: QualityProfiles, link: "QualityProfiles", lib: qualityProfiles},
@@ -39,9 +39,10 @@
 
 <script>
   export let starrApp
+  export let showTitle = false
 
-  import { _ } from "../../libs/Translate.svelte"
-  import { Nav, NavItem, NavLink} from "sveltestrap"
+  import T, { _ } from "../../libs/Translate.svelte"
+  import { Fade, Nav, NavItem, NavLink } from "sveltestrap"
   import { createEventDispatcher } from 'svelte';
 
   const dispatch = createEventDispatcher();
@@ -57,9 +58,17 @@
 
 <div class="container">
   <Nav {...$$props}>
+    <Fade isOpen={showTitle}>
+      <NavItem>
+        <NavLink disabled>
+          <h6 class="text-center text-primary"><T id="instances.AppMenu" {starrApp}/></h6>
+        </NavLink>
+      </NavItem>
+    </Fade>
+
     {#each tabs as thisTab}
     <NavItem>
-      <NavLink class="nav-link" active={tab==thisTab} on:click={(e) => {changeTab(e,thisTab)}} href="/">
+      <NavLink class="nav-link" active={tab == thisTab} on:click={(e) => {changeTab(e, thisTab)}} href="/">
         {@html $_("instances."+thisTab.link)}
       </NavLink>
     </NavItem>

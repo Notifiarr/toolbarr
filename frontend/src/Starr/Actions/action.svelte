@@ -7,6 +7,7 @@
   import { Card, CardBody, CardFooter, CardHeader, CardTitle, Spinner } from "sveltestrap"
   import T, { _ } from "../../libs/Translate.svelte"
   import { toast } from "../../libs/funcs"
+  import Loading  from "./loading.svelte"
 
   let info
   $: activeTab = (tab != activeTab || info == undefined) ? undefined : tab
@@ -31,24 +32,15 @@
   {/if}
 
   <CardBody>
-    {#if !instance} 
+    {#if !instance || instance.URL == ""}
       <Card body color="danger">
-        <T id="instances.NoURLConfigured" starrApp={starrApp} name="***"/>
-      </Card>
-    {:else if instance.URL == ""}
-      <Card body color="danger">
-        <T id="instances.NoURLConfigured" starrApp={starrApp} name={instance.Name}/>
+        <T id="instances.NoURLConfigured" starrApp={starrApp} name={instance?instance.Name:"***"}/>
       </Card>
     {:else if info}
-      <!-- We have all the pieces we need. Load the form component. -->
+      <!-- We have all the pieces we need. Load the selected tab's component. -->
       <svelte:component this={tab.lib} {instance} {info} on:update={update}/>
     {:else}
-      <Card body color="secondary">
-        <span>
-          <Spinner size="sm" color="info" />
-          <h5 style="display:inline-block">{$_("words.Loading")} ...</h5>
-        </span>
-      </Card>
+      <Loading/>
     {/if}
   </CardBody>
 

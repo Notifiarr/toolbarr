@@ -142,6 +142,7 @@
         "WritteninSvelte": "Written in <a href=\"{svelteURL}\">Svelte</a> using <a href=\"{wailsURL}\">Wails</a>."
     },
     "instances": {
+        "AppMenu": "{starrApp} Menu",
         "UpdatingIndexers": "Updating Indexers!",
         "SuccessMsg": "Success: {msg}",
         "ErrorMsg": "ERROR: {msg}",

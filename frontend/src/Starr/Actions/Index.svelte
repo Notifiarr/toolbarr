@@ -14,6 +14,7 @@
     AccordionItem,
     Badge,
     Col,
+    Collapse,
     FormGroup,
     Input,
     InputGroup,
@@ -79,12 +80,12 @@
         <a href="/" on:click|preventDefault={()=>{menuOpen=!menuOpen}}>
           <Fa size="sm" style="margin-right:-3px;" pull="left" icon={menuOpen?faCaretRight:faCaretLeft}/>
         </a>
-        {#if menuOpen}
-          <div class="left">
+        <div class="left">
+          <Collapse horizontal isOpen={menuOpen}>
             <!-- Display the nav links in the side bar when the screen is not small. -->
-            <Tabs on:tab={(e) => {tab = e.detail}} vertical pills {starrApp}/>
-          </div>
-        {/if}
+            <Tabs on:tab={(e) => {tab = e.detail}} showTitle vertical pills {starrApp}/>
+          </Collapse>
+        </div>
       {/if}
       {#if !hidden}
         <div class="right">
