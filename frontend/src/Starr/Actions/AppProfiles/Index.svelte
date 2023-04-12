@@ -1,13 +1,11 @@
 <script>
   export let info
-
-  import { Card, Spinner } from "sveltestrap"
+  export let instance
+  import { Card } from "sveltestrap"
   import T, { _ } from "../../../libs/Translate.svelte"
   import { toast } from "../../../libs/funcs"
 </script>
 
 <Card body color="danger">{$_("incompletePage")}</Card>
-
-{#if !info} <Spinner/> {$_("words.Loading")} ... {:else}
-<code><pre class="code">{JSON.stringify(info, null, 3)}</pre></code>
-{/if}
+<br>
+{instance.Name} App Profiles: {info.length}

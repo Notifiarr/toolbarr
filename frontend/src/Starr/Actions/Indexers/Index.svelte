@@ -5,20 +5,12 @@
   import T, { _ } from "../../../libs/Translate.svelte"
   import Fa from "svelte-fa"
   import { toast } from "../../../libs/funcs"
-  import { conf } from "../../../libs/config"
   import Loading from "../loading.svelte"
-  import {
-    faCircleInfo,
-    faArrowUpRightFromSquare,
-    faTrashAlt,
-    faCaretDown,
-    faCaretUp
-  } from "@fortawesome/free-solid-svg-icons"
+  import { faCircleInfo, faArrowUpRightFromSquare, faTrashAlt } from "@fortawesome/free-solid-svg-icons"
   import {
     Alert,
     Badge,
     Button,
-    Card,
     Collapse,
     Dropdown,
     DropdownItem,
@@ -305,14 +297,6 @@
   {/if}<!-- /if (instance.App) -->
 </div><!-- id="container" -->
 
-<Collapse isOpen={$conf.DevMode}>
-  <Collapse isOpen={!modalOpen && (unSaved||selectedCount > 0)}><hr></Collapse><!-- only add HR if the other buttons are present -->
-  <Button size="sm" on:click={() => (rawOpen = !rawOpen)} class="mb-1">Raw Data <Fa icon={rawOpen?faCaretDown:faCaretUp}/></Button>
-  <Card color="secondary">
-    <Collapse isOpen={rawOpen}><code><pre class="code">{JSON.stringify(info, null, 3)}</pre></code></Collapse>
-  </Card>
-</Collapse>
-
 <style>
   .switch {
     height:20px;
@@ -330,7 +314,7 @@
   }
 
   #container :global(.link) {
-    cursor:pointer;
-    text-decoration:underline;
+    cursor: pointer;
+    text-decoration: underline;
   }
 </style>

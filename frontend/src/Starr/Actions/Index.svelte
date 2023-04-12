@@ -13,6 +13,7 @@
     Accordion,
     AccordionItem,
     Badge,
+    Card,
     Col,
     Collapse,
     FormGroup,
@@ -67,23 +68,25 @@
       </InputGroup>
     </FormGroup>
 
-    <!-- Display the nav links in the accordion when the screen is small. -->
+    <!-- Display the nav links in the accordion header when the screen is small. -->
     {#if small} <Tabs on:tab={(e) => {tab = e.detail}} fill pills {starrApp}/> {/if}
   </AccordionItem>
 </Accordion>
-
 
 <Row>
   <div class="container">
     <Col xs="12">
       {#if !small}
+        <!-- this creates a toggler-caret that closes/opens the left side nav link menu -->
         <a href="/" on:click|preventDefault={()=>{menuOpen=!menuOpen}}>
-          <Fa size="sm" style="margin-right:-3px;" pull="left" icon={menuOpen?faCaretRight:faCaretLeft}/>
+          <Fa class="toggle" pull="left" icon={menuOpen?faCaretRight:faCaretLeft}/>
         </a>
+        <!-- Display the nav links in the side bar when the screen is not small. -->
         <div class="left">
           <Collapse horizontal isOpen={menuOpen}>
-            <!-- Display the nav links in the side bar when the screen is not small. -->
-            <Tabs on:tab={(e) => {tab = e.detail}} showTitle vertical pills {starrApp}/>
+            <Card color={$conf.Dark?"dark":"light"}>
+              <Tabs on:tab={(e) => {tab = e.detail}} showTitle vertical pills {starrApp}/>
+            </Card>
           </Collapse>
         </div>
       {/if}
@@ -98,12 +101,19 @@
 </Row>
 
 <style>
+  .container :global(.toggle) {
+    margin-top: -4px;
+    margin-left: -6px;
+    margin-right: -2px;
+  }
+
   .container {
     display: flex;
   }
 
   .left {
-    margin-top: 9px;
+    margin-top: 5px;
+    margin-right: 2px;
     float: left;
     width: max-content;
   }

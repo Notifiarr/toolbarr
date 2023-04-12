@@ -11,10 +11,10 @@
   function update() { info = undefined; dispatch('update') }
 </script>
 
-<Button on:click={update}>Update {instance.Name} Data</Button>
-
 <Card body color="danger">{$_("incompletePage")}</Card>
-<Loading isOpen={!info}/>
+<br>
 {#if info}
-<code><pre class="code">{JSON.stringify(info, null, 3)}</pre></code>
+  {instance.Name} Block Lists: {info.records.length}
 {/if}
+<Button disabled={!info} on:click={update}>Update</Button>
+<Loading isOpen={!info}/>

@@ -56,12 +56,12 @@
   }
 </script>
 
-<div class="container">
+<div id="container">
   <Nav {...$$props}>
     <Fade isOpen={showTitle}>
       <NavItem>
         <NavLink disabled>
-          <h6 class="text-center text-primary"><T id="instances.AppMenu" {starrApp}/></h6>
+          <h6 class="text-center text-primary title"><T id="instances.AppMenu" {starrApp}/></h6>
         </NavLink>
       </NavItem>
     </Fade>
@@ -77,8 +77,12 @@
 </div>
 
 <style>
-  .container :global(.nav-link) {
+  #container :global(.nav-link) {
     white-space: nowrap;
-    padding: 4px 15px 4px 15px;
+    /* padding: 4px 15px 4px 15px; */
+  }
+  .title {
+    white-space: nowrap;
+    text-decoration: underline;
   }
 </style>
