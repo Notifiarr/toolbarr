@@ -39,11 +39,19 @@ export function TestInstance(arg1:any):Promise<string>;
 
 export function UpdateInvalidItems(arg1:any,arg2:string,arg3:string,arg4:{[key: number]: boolean}):Promise<any>;
 
+export function UpdateLidarrDownloadClient(arg1:any,arg2:boolean,arg3:any):Promise<any>;
+
 export function UpdateLidarrIndexer(arg1:any,arg2:boolean,arg3:any):Promise<any>;
+
+export function UpdateProwlarrDownloadClient(arg1:any,arg2:boolean,arg3:any):Promise<any>;
 
 export function UpdateProwlarrIndexer(arg1:any,arg2:boolean,arg3:any):Promise<any>;
 
+export function UpdateRadarrDownloadClient(arg1:any,arg2:boolean,arg3:any):Promise<any>;
+
 export function UpdateRadarrIndexer(arg1:any,arg2:boolean,arg3:any):Promise<any>;
+
+export function UpdateReadarrDownloadClient(arg1:any,arg2:boolean,arg3:any):Promise<any>;
 
 export function UpdateReadarrIndexer(arg1:any,arg2:boolean,arg3:any):Promise<any>;
 
@@ -51,6 +59,10 @@ export function UpdateRecycleBin(arg1:any,arg2:string):Promise<any>;
 
 export function UpdateRootFolder(arg1:any,arg2:string,arg3:string):Promise<any>;
 
+export function UpdateSonarrDownloadClient(arg1:any,arg2:boolean,arg3:any):Promise<any>;
+
 export function UpdateSonarrIndexer(arg1:any,arg2:boolean,arg3:any):Promise<any>;
+
+export function UpdateWhisparrDownloadClient(arg1:any,arg2:boolean,arg3:any):Promise<any>;
 
 export function UpdateWhisparrIndexer(arg1:any,arg2:boolean,arg3:any):Promise<any>;

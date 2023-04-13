@@ -40,7 +40,6 @@
   let isOpen = {}       // Modal toggle control.
   let modalOpen = false // True if any modal is open.
   let updating = false  // True while doing updates.
-  let rawOpen = false   // Dev mode toggle button.
   let all = false       // Toggle for select-all link.
   let goodMsg = ""      // Card color="success"
   let badMsg = ""       // Card color="danger"
@@ -150,7 +149,8 @@
 <div id="container">
   <Table bordered>
     <tr>
-      <th><span> <Fa size="sm" icon={faTrashAlt}/> 
+      <th><span> 
+        <Fa size="sm" icon={faTrashAlt}/>
         <span class={updating?"":"link"} on:keypress={selectAll} on:click={selectAll}>{$_("words.All")}</span>
       </span></th>
       <th class="d-none d-md-table-cell">ID</th>

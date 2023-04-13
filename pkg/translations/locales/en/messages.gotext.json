@@ -772,6 +772,80 @@
             "fuzzy": true
         },
         {
+            "id": "Updated {Name} download client {ClientName} ({ClientID}).",
+            "message": "Updated {Name} download client {ClientName} ({ClientID}).",
+            "translation": "Updated {Name} download client {ClientName} ({ClientID}).",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "ClientName",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "clientName"
+                },
+                {
+                    "id": "ClientID",
+                    "string": "%[3]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 3,
+                    "expr": "clientID"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Updating {Name} download client: {ClientName} ({ClientID}): {Error}",
+            "message": "Updating {Name} download client: {ClientName} ({ClientID}): {Error}",
+            "translation": "Updating {Name} download client: {ClientName} ({ClientID}): {Error}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "ClientName",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "clientName"
+                },
+                {
+                    "id": "ClientID",
+                    "string": "%[3]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 3,
+                    "expr": "clientID"
+                },
+                {
+                    "id": "Error",
+                    "string": "%[4]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 4,
+                    "expr": "err.Error()"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
             "id": "Getting import list: {Error}",
             "message": "Getting import list: {Error}",
             "translation": "Getting import list: {Error}",

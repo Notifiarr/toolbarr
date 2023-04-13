@@ -78,16 +78,32 @@ export function UpdateInvalidItems(arg1, arg2, arg3, arg4) {
   return window['go']['starrs']['Starrs']['UpdateInvalidItems'](arg1, arg2, arg3, arg4);
 }
 
+export function UpdateLidarrDownloadClient(arg1, arg2, arg3) {
+  return window['go']['starrs']['Starrs']['UpdateLidarrDownloadClient'](arg1, arg2, arg3);
+}
+
 export function UpdateLidarrIndexer(arg1, arg2, arg3) {
   return window['go']['starrs']['Starrs']['UpdateLidarrIndexer'](arg1, arg2, arg3);
+}
+
+export function UpdateProwlarrDownloadClient(arg1, arg2, arg3) {
+  return window['go']['starrs']['Starrs']['UpdateProwlarrDownloadClient'](arg1, arg2, arg3);
 }
 
 export function UpdateProwlarrIndexer(arg1, arg2, arg3) {
   return window['go']['starrs']['Starrs']['UpdateProwlarrIndexer'](arg1, arg2, arg3);
 }
 
+export function UpdateRadarrDownloadClient(arg1, arg2, arg3) {
+  return window['go']['starrs']['Starrs']['UpdateRadarrDownloadClient'](arg1, arg2, arg3);
+}
+
 export function UpdateRadarrIndexer(arg1, arg2, arg3) {
   return window['go']['starrs']['Starrs']['UpdateRadarrIndexer'](arg1, arg2, arg3);
+}
+
+export function UpdateReadarrDownloadClient(arg1, arg2, arg3) {
+  return window['go']['starrs']['Starrs']['UpdateReadarrDownloadClient'](arg1, arg2, arg3);
 }
 
 export function UpdateReadarrIndexer(arg1, arg2, arg3) {
@@ -102,8 +118,16 @@ export function UpdateRootFolder(arg1, arg2, arg3) {
   return window['go']['starrs']['Starrs']['UpdateRootFolder'](arg1, arg2, arg3);
 }
 
+export function UpdateSonarrDownloadClient(arg1, arg2, arg3) {
+  return window['go']['starrs']['Starrs']['UpdateSonarrDownloadClient'](arg1, arg2, arg3);
+}
+
 export function UpdateSonarrIndexer(arg1, arg2, arg3) {
   return window['go']['starrs']['Starrs']['UpdateSonarrIndexer'](arg1, arg2, arg3);
+}
+
+export function UpdateWhisparrDownloadClient(arg1, arg2, arg3) {
+  return window['go']['starrs']['Starrs']['UpdateWhisparrDownloadClient'](arg1, arg2, arg3);
 }
 
 export function UpdateWhisparrIndexer(arg1, arg2, arg3) {

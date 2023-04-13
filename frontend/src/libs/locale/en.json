@@ -12,6 +12,7 @@
     "incompletePage": "This tool or page is incomplete.",
 
     "words": {
+        "Protocol": "Protocol",
         "All": "All",
         "Type": "Type",
         "Priority": "Priority",
@@ -187,6 +188,8 @@
         "SelectAll": "Select All",
         "SelectNone": "Select None",
         "NewRoot": "New Root",
-        "ProwlarrNotSupported": "This tool does not yet work with Prowlarr."
+        "ProwlarrNotSupported": "This tool does not yet work with Prowlarr.",
+        "RemoveFailedDownloads": "Remove Failed Downloads",
+        "RemoveCompletedDownloads": "Remove Completed Downloads"
     }
 }
