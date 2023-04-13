@@ -1,11 +1,11 @@
 <script context="module">
-  import importLists from "./ImportLists/Index.svelte"
-  import indexers from "./Indexers/Index.svelte"
   import appProfiles from "./AppProfiles/Index.svelte"
+  import indexers from "./Indexers/Index.svelte"
   import downloadClients from "./DownloadClients/Index.svelte"
-  import qualityProfiles from "./QualityProfiles/Index.svelte"
-  import blockList from "./BlockLists/Index.svelte"
+  import importLists from "./ImportLists/Index.svelte"
   import customFilters from "./CustomFilters/Index.svelte"
+  import blockList from "./BlockLists/Index.svelte"
+  import qualityProfiles from "./QualityProfiles/Index.svelte"
   import {
     AppProfiles,
     Indexers,
@@ -60,8 +60,8 @@
   <Nav {...$$props}>
     <Fade isOpen={showTitle}>
       <NavItem>
-        <NavLink disabled>
-          <h6 class="text-center text-primary title"><T id="instances.AppMenu" {starrApp}/></h6>
+        <NavLink class="nav-link title" disabled>
+          <h6 class="text-center text-primary"><T id="instances.AppMenu" {starrApp}/></h6>
         </NavLink>
       </NavItem>
     </Fade>
@@ -81,8 +81,8 @@
     white-space: nowrap;
     /* padding: 4px 15px 4px 15px; */
   }
-  .title {
-    white-space: nowrap;
+
+  #container :global(.title) {
     text-decoration: underline;
   }
 </style>
