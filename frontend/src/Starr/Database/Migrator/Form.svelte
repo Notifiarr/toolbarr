@@ -28,6 +28,7 @@
   import { app } from "../../../libs/config.js"
   import { EventsOff, EventsOn } from "../../../../wailsjs/runtime/runtime.js"
   import { onOnce } from "../../../libs/funcs.js"
+  import Loading from "../../loading.svelte"
 
   // Used when updating root folder paths.
   let newPath
@@ -159,7 +160,18 @@
     invalidModals[table] = true
     newPath = info.RootFolders[0] ? info.RootFolders[0] : ""
   }
+
+  function onkeydown(e) { if (e.key == "Escape") e.preventDefault() }
+  function onkeyup(e) {
+    if (e.key != "Escape") return
+    e.preventDefault()
+    // Close all modals when escape is pressed.
+    action = undefined
+    Object.keys(invalidModals).forEach(k => invalidModals[k] = false)
+  }
 </script>
+
+<svelte:window on:keyup={onkeyup} on:keydown={onkeydown}/>
 
 <!-- This card shows up if there are any invalid paths found. -->
 {#if Object.keys(info.Invalid).length > 0}
@@ -203,7 +215,7 @@
           </Progress>
         {/each}
       {:else if updating}
-        <Spinner size="sm" color="info" /> {$_("words.Updating")} ...
+        <Loading/>
       {:else}
         <InputGroup>
           <Button color="danger" on:click={() => invalidModals[table]=false}>{$_("words.Cancel")}</Button>

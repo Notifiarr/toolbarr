@@ -1,6 +1,7 @@
 package starrs
 
 import (
+	"errors"
 	"fmt"
 	"strings"
 
@@ -162,4 +163,104 @@ func (s *Starrs) deleteExclusion(config *AppConfig, exclusionID int64) error {
 	default:
 		return fmt.Errorf("%w: missing app", starr.ErrRequestError)
 	}
+}
+
+func (s *Starrs) UpdateLidarrImportList(
+	config *AppConfig,
+	force bool,
+	list *lidarr.ImportListInput,
+) (*DataReply, error) {
+	s.log.Tracef("Call:UpdateLidarrImportList(%s, %s, %d)", config.App, config.Name, list.ID)
+	data, err := s.updateImportList(config, force, list)
+
+	return s.updateImportListReply(config.Name, list.Name, list.ID, data, err)
+}
+
+func (s *Starrs) UpdateRadarrImportList(
+	config *AppConfig,
+	force bool,
+	list *radarr.ImportListInput,
+) (*DataReply, error) {
+	s.log.Tracef("Call:UpdateRadarrImportList(%s, %s, %d)", config.App, config.Name, list.ID)
+	data, err := s.updateImportList(config, force, list)
+
+	return s.updateImportListReply(config.Name, list.Name, list.ID, data, err)
+}
+
+func (s *Starrs) UpdateReadarrImportList(
+	config *AppConfig,
+	force bool,
+	list *readarr.ImportListInput,
+) (*DataReply, error) {
+	s.log.Tracef("Call:UpdateReadarrImportList(%s, %s, %d)", config.App, config.Name, list.ID)
+	data, err := s.updateImportList(config, force, list)
+
+	return s.updateImportListReply(config.Name, list.Name, list.ID, data, err)
+}
+
+func (s *Starrs) UpdateSonarrImportList(
+	config *AppConfig,
+	force bool,
+	list *sonarr.ImportListInput,
+) (*DataReply, error) {
+	s.log.Tracef("Call:UpdateSonarrImportList(%s, %s, %d)", config.App, config.Name, list.ID)
+	data, err := s.updateImportList(config, force, list)
+
+	return s.updateImportListReply(config.Name, list.Name, list.ID, data, err)
+}
+
+func (s *Starrs) UpdateWhisparrImportList(
+	config *AppConfig,
+	force bool,
+	list *sonarr.ImportListInput,
+) (*DataReply, error) {
+	s.log.Tracef("Call:UpdateWhisparrImportList(%s, %s, %d)", config.App, config.Name, list.ID)
+	data, err := s.updateImportList(config, force, list)
+
+	return s.updateImportListReply(config.Name, list.Name, list.ID, data, err)
+}
+
+func (s *Starrs) updateImportList(config *AppConfig, force bool, list any) (any, error) {
+	instance, err := s.newAPIinstance(config)
+	if err != nil {
+		return nil, err
+	}
+
+	switch data := list.(type) {
+	case *lidarr.ImportListInput:
+		return lidarr.New(instance.Config).UpdateImportListContext(s.ctx, data, force)
+	case *radarr.ImportListInput:
+		return radarr.New(instance.Config).UpdateImportListContext(s.ctx, data, force)
+	case *readarr.ImportListInput:
+		return readarr.New(instance.Config).UpdateImportListContext(s.ctx, data, force)
+	case *sonarr.ImportListInput:
+		return sonarr.New(instance.Config).UpdateImportListContext(s.ctx, data, force)
+	default:
+		return nil, fmt.Errorf("%w: missing app", starr.ErrRequestError)
+	}
+}
+
+func (s *Starrs) updateImportListReply(
+	name, listName string,
+	listID int64,
+	data any,
+	err error,
+) (*DataReply, error) {
+	if err == nil {
+		msg := s.log.Translate("Updated %s import list %s (%d).", name, listName, listID)
+		s.log.Wails.Info(msg)
+
+		return &DataReply{Msg: msg, Data: data}, nil
+	}
+
+	reqError := &starr.ReqError{}
+
+	if errors.As(err, &reqError) && reqError.Msg != "" {
+		err = fmt.Errorf("%s: %s", reqError.Name, reqError.Msg)
+	}
+
+	msg := s.log.Translate("Updating %s import list: %s (%d): %s", name, listName, listID, err.Error())
+	s.log.Wails.Error(msg)
+
+	return nil, fmt.Errorf(msg)
 }

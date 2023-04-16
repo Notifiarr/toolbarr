@@ -40,10 +40,11 @@
 <script>
   export let starrApp
   export let showTitle = false
+  export let updating
 
   import T, { _ } from "../../libs/Translate.svelte"
   import { Fade, Nav, NavItem, NavLink } from "sveltestrap"
-  import { createEventDispatcher } from 'svelte';
+  import { createEventDispatcher } from "svelte"
 
   const dispatch = createEventDispatcher();
   let tab = startTab
@@ -51,6 +52,7 @@
 
   function changeTab(e, newTab) {
     e.preventDefault()
+    if (updating) return
     startTab = tab = newTab
     dispatch('tab', tab)
   }

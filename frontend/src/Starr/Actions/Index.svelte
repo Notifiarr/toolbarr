@@ -23,10 +23,11 @@
     Row,
   } from "sveltestrap"
 
+  let updating = false
   let menuOpen = true
   let showTitle = true
-  let selected = $conf.Instances[starrApp] ? $conf.Instances[starrApp][0] : undefined
-  let instance = selected
+  let instance
+  $: selected = $conf.Instances[starrApp] ? $conf.Instances[starrApp][0] : undefined
   // This trick is to avoid reloading the instance data when expanding the header.
   $: if (selected != instance && selected != undefined) instance = selected
   $: if (small) menuOpen = true
@@ -69,7 +70,7 @@
     </FormGroup>
 
     <!-- Display the nav links in the accordion header when the screen is small. -->
-    {#if small} <Tabs on:tab={(e) => {tab = e.detail}} fill pills {starrApp}/> {/if}
+    {#if small} <Tabs on:tab={(e) => {tab = e.detail}} fill pills {starrApp} {updating}/> {/if}
   </AccordionItem>
 </Accordion>
 
@@ -85,7 +86,7 @@
         <div class="left">
           <Collapse horizontal isOpen={menuOpen}>
             <Card color={$conf.Dark?"dark":"light"}>
-              <Tabs on:tab={(e) => {tab = e.detail}} showTitle vertical pills {starrApp}/>
+              <Tabs on:tab={(e) => {tab = e.detail}} showTitle vertical pills {starrApp} {updating}/>
             </Card>
           </Collapse>
         </div>
@@ -93,7 +94,7 @@
       {#if !hidden}
         <div class="right">
           <!-- Display the selected tool, pass in selected instance. -->
-          <Action {instance} {starrApp} {showTitle} {tab}/>
+          <Action bind:updating={updating} {instance} {starrApp} {showTitle} {tab}/>
         </div>
       {/if}
     </Col>

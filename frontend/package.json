@@ -10,6 +10,7 @@
   },
   "devDependencies": {
     "@fortawesome/free-brands-svg-icons": "^6.3.0",
+    "@fortawesome/free-regular-svg-icons": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.3.0",
     "@sveltejs/vite-plugin-svelte": "^2.0.0",
     "svelte": "^3.49.0",
