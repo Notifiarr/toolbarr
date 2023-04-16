@@ -22,7 +22,7 @@
     info = undefined
     if (instance.URL=="") return
 
-    await tab.fn(instance).then(
+    await tab.getData(instance).then(
       rep => info = rep,
       err => toast("error", err),
     )
@@ -41,7 +41,7 @@
     {#if info&&tab&&instance}
     <div id="container">
       <!-- We have all the pieces we need. Load the selected tab's component. -->
-      <svelte:component this={tab.lib} {instance} bind:info={info}/>
+      <svelte:component this={tab.component} {instance} bind:info={info}/>
     </div>
     {/if}
     <!-- show raw data button for dev mode -->

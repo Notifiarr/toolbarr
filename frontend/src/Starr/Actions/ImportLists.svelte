@@ -2,13 +2,13 @@
   export let info
   export let instance
 
-  import { toast } from "../../../libs/funcs"
-  import T, { _ } from "../../../libs/Translate.svelte"
+  import { toast } from "../../libs/funcs"
+  import T, { _ } from "../../libs/Translate.svelte"
   import Fa from "svelte-fa"
-  import Footer from "../footer.svelte"
-  import { fixFieldValues } from "../methods"
+  import Footer from "./footer.svelte"
+  import { fixFieldValues } from "./methods"
   import { faCircleInfo, faArrowUpRightFromSquare, faTrashAlt } from "@fortawesome/free-solid-svg-icons"
-  import { QualityProfiles, MetadataProfiles, RootFolders } from "../../../../wailsjs/go/starrs/Starrs"
+  import { QualityProfiles, MetadataProfiles, RootFolders } from "../../../wailsjs/go/starrs/Starrs"
   import {
     Badge,
     Button,

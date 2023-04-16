@@ -70,7 +70,7 @@
     </FormGroup>
 
     <!-- Display the nav links in the accordion header when the screen is small. -->
-    {#if small} <Tabs on:tab={(e) => {tab = e.detail}} fill pills {starrApp} {updating}/> {/if}
+    {#if small} <Tabs bind:tab={tab} fill pills {starrApp} {updating}/> {/if}
   </AccordionItem>
 </Accordion>
 
@@ -86,7 +86,7 @@
         <div class="left">
           <Collapse horizontal isOpen={menuOpen}>
             <Card color={$conf.Dark?"dark":"light"}>
-              <Tabs on:tab={(e) => {tab = e.detail}} showTitle vertical pills {starrApp} {updating}/>
+              <Tabs bind:tab={tab} showTitle vertical pills {starrApp} {updating}/>
             </Card>
           </Collapse>
         </div>

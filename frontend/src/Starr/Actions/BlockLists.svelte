@@ -2,9 +2,8 @@
   export let info
   export let instance
 
-  import { Card, Button } from "sveltestrap"
-  import T, { _ } from "../../../libs/Translate.svelte"
-  import Loading from "../../loading.svelte"
+  import { Card } from "sveltestrap"
+  import T, { _ } from "../../libs/Translate.svelte"
 
 
 </script>

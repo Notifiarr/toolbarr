@@ -37,13 +37,6 @@ export function fixFieldValues(info) {
   return JSON.stringify(info)
 }
 
-export function count(selected, key) {
-  let counter = 0
-  if (key) for (var k in selected) if (selected[k][key]) counter++
-  if (!key) for (var k in selected) if (selected[k]) counter++
-  return counter
-}
-
 export const remove = {
   "DownloadClients": {
     "Lidarr":   DeleteDownloader,

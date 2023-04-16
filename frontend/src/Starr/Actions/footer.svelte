@@ -11,8 +11,8 @@
   import { Alert, Button, Collapse, Fade, Tooltip, Icon, Card } from "sveltestrap"
   import Loading from "../loading.svelte"
   import T, { _ } from "../../libs/Translate.svelte"
-  import { toast } from "../../libs/funcs"
-  import { update, remove, fixFieldValues, count } from "./methods.js"
+  import { toast, count } from "../../libs/funcs.js"
+  import { update, remove, fixFieldValues } from "./methods.js"
 
   let badMsg = ""
   let goodMsg = ""
@@ -81,8 +81,12 @@
 </script>
 
 <div id="footer">
-  <Alert isOpen={goodMsg != ""} dismissible color="success">{@html goodMsg}</Alert>
-  <Alert isOpen={badMsg != ""} dismissible color="danger">{@html badMsg}</Alert>
+  <Collapse isOpen={goodMsg != ""}>
+    <Alert dismissible color="success" fade={false}>{@html goodMsg}</Alert>
+  </Collapse>
+  <Collapse isOpen={badMsg != ""}>
+    <Alert dismissible color="danger" fade={false}>{@html badMsg}</Alert>
+  </Collapse>
   <Loading isOpen={updating}/>
 
   <Collapse isOpen={!updating && (unSaved||selectedCount > 0)}>

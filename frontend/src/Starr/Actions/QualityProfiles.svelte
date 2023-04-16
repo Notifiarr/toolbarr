@@ -2,11 +2,11 @@
   export let info
   export let instance
 
-  import { _ } from "../../../libs/Translate.svelte"
+  import { _ } from "../../libs/Translate.svelte"
   import Fa from "svelte-fa"
-  import Footer from "../footer.svelte"
+  import Footer from "./footer.svelte"
   import { faCircleInfo, faTrashAlt } from "@fortawesome/free-solid-svg-icons"
-  import { count } from "../methods.js"
+  import { count } from "../../libs/funcs.js"
   import {
     Badge,
     Button,

@@ -2,10 +2,10 @@
   export let info
   export let instance
 
-  import { _ } from "../../../libs/Translate.svelte"
+  import { _ } from "../../libs/Translate.svelte"
   import Fa from "svelte-fa"
-  import Footer from "../footer.svelte"
-  import { fixFieldValues } from "../methods"
+  import Footer from "./footer.svelte"
+  import { fixFieldValues } from "./methods"
   import { faCircleInfo, faArrowUpRightFromSquare, faTrashAlt } from "@fortawesome/free-solid-svg-icons"
   import {
     Badge,
