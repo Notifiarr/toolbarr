@@ -7,7 +7,7 @@
   import Fa from "svelte-fa"
   import Footer from "./footer.svelte"
   import { fixFieldValues } from "./methods"
-  import { faCircleInfo, faArrowUpRightFromSquare, faTrashAlt } from "@fortawesome/free-solid-svg-icons"
+  import { faGroupArrowsRotate, faCircleInfo, faArrowUpRightFromSquare, faTrashAlt } from "@fortawesome/free-solid-svg-icons"
   import { QualityProfiles, MetadataProfiles, RootFolders } from "../../../wailsjs/go/starrs/Starrs"
   import {
     Badge,
@@ -42,7 +42,10 @@
   // Fetch extra data to populate the form.
   $: if (instance && instance.URL != "") {
     QualityProfiles(instance).then(resp => qualityProfiles = resp, err => { toast("error", err) })
-    RootFolders(instance).then(resp => rootFolders = resp, err => { toast("error", err) })
+    RootFolders(instance).then(
+      resp => rootFolders = Object.keys(resp).map((key) => resp[key].path),
+      err  => toast("error", err)
+    )
     if (["Lidarr","Readarr"].includes(instance.App)) // Metadata profiles only exist on Lidarr and Readarr.
       MetadataProfiles(instance).then( resp => metadataProfiles = resp, err => { toast("error", err) })
   }
@@ -60,6 +63,11 @@
     e.preventDefault()
     // Close all modals.
     Object.keys(isOpen).forEach(k => isOpen[k] = false)
+  }
+
+  function applyToAll(field, value) {
+    toast("info", "yup "+field+"="+value)
+    for (const idx in form) { form[idx][field] = value }
   }
 </script>
 
@@ -175,6 +183,10 @@
                     <option value={info[idx].qualityProfileId}>{info[idx].qualityProfileId}</option>
                   {/if}
                 </Input>
+                <Tooltip target="il{instance.App}qualityProfileIdAll">Apply this setting to all import lists in {instance.Name}.</Tooltip>
+                <Button on:click={()=>{applyToAll("qualityProfileId", form[idx].qualityProfileId)}} id="il{instance.App}qualityProfileIdAll">
+                  <Fa primaryColor="darkCyan" icon="{faGroupArrowsRotate}"/>
+                </Button>
               </InputGroup>
               {#if form[idx].metadataProfileId !== undefined} <InputGroup>
                 <InputGroupText class="setting-name">{$_("instances.MetadataProfile")}</InputGroupText>
@@ -188,6 +200,10 @@
                     <option value={info[idx].metadataProfileId}>{info[idx].metadataProfileId}</option>
                   {/if}
                 </Input>
+                <Tooltip target="il{instance.App}metadataProfileIdAll">Apply this setting to all import lists in {instance.Name}.</Tooltip>
+                <Button on:click={()=>{applyToAll("metadataProfileId", form[idx].metadataProfileId)}} id="il{instance.App}metadataProfileIdAll">
+                  <Fa primaryColor="darkCyan" icon="{faGroupArrowsRotate}"/>
+                </Button>
               </InputGroup> {/if}
               <InputGroup>
                 <InputGroupText class="setting-name"><T id="instances.RootFolder"/></InputGroupText>
@@ -195,12 +211,19 @@
                 <Input id="il{instance.App}rootFolderPath" invalid={form[idx].rootFolderPath != info[idx].rootFolderPath} type="select" bind:value={form[idx].rootFolderPath}>
                   {#if rootFolders}
                     {#each rootFolders as dir}
-                      <option value={dir.path}>{dir.path}</option>
+                      <option value={dir}>{dir}</option>
                     {/each}
+                    {#if !rootFolders.includes(info[idx].rootFolderPath)}
+                      <option value={info[idx].rootFolderPath}>{info[idx].rootFolderPath} (invalid)</option>
+                    {/if}
                   {:else}
                     <option value={info[idx].rootFolderPath}>{info[idx].rootFolderPath}</option>
                   {/if}
                 </Input>
+                <Tooltip target="il{instance.App}selectallRFAll">Apply this setting to all import lists in {instance.Name}.</Tooltip>
+                <Button on:click={()=>{applyToAll("rootFolderPath", form[idx].rootFolderPath)}} id="il{instance.App}selectallRFAll">
+                  <Fa primaryColor="darkCyan" icon="{faGroupArrowsRotate}"/>
+                </Button>
               </InputGroup>
               {#if form[idx].monitorNewItems !== undefined} <InputGroup>
                 <InputGroupText class="setting-name"><T id="instances.MonitorNew"/></InputGroupText>
@@ -213,6 +236,10 @@
                     <option value={info[idx].monitorNewItems}>{info[idx].monitorNewItems}</option>
                   {/if}
                 </Input>
+                <Tooltip target="il{instance.App}monitorNewItemsAll">Apply this setting to all import lists in {instance.Name}.</Tooltip>
+                <Button on:click={()=>{applyToAll("monitorNewItems", form[idx].monitorNewItems)}} id="il{instance.App}monitorNewItemsAll">
+                  <Fa primaryColor="darkCyan" icon="{faGroupArrowsRotate}"/>
+                </Button>
               </InputGroup> {/if}
               {#if form[idx].enableAutomaticAdd !== undefined} <InputGroup>
                 <InputGroupText class="setting-name"><T id="instances.EnableAutoAdd"/></InputGroupText>
@@ -222,6 +249,10 @@
                   <option value={true}>{$_("configvalues.Enabled")}</option>
                   <option value={false}>{$_("configvalues.Disabled")}</option>
                 </Input>
+                <Tooltip target="il{instance.App}enableAutomaticAddAll">Apply this setting to all import lists in {instance.Name}.</Tooltip>
+                <Button on:click={()=>{applyToAll("enableAutomaticAdd", form[idx].enableAutomaticAdd)}} id="il{instance.App}enableAutomaticAddAll">
+                  <Fa primaryColor="darkCyan" icon="{faGroupArrowsRotate}"/>
+                </Button>
               </InputGroup> {/if}
               {#if form[idx].enableAuto !== undefined} <InputGroup>
                 <InputGroupText class="setting-name"><T id="instances.EnableAutoAdd"/></InputGroupText>
@@ -231,6 +262,10 @@
                   <option value={true}>{$_("configvalues.Enabled")}</option>
                   <option value={false}>{$_("configvalues.Disabled")}</option>
                 </Input>
+                <Tooltip target="il{instance.App}enableAutoAll">Apply this setting to all import lists in {instance.Name}.</Tooltip>
+                <Button on:click={()=>{applyToAll("enableAuto", form[idx].enableAuto)}} id="il{instance.App}enableAutoAll">
+                  <Fa primaryColor="darkCyan" icon="{faGroupArrowsRotate}"/>
+                </Button>
               </InputGroup> {/if}
               {#if form[idx].shouldSearch !== undefined} <InputGroup>
                 <InputGroupText class="setting-name"><T id="instances.SearchNewItems"/></InputGroupText>
@@ -240,6 +275,10 @@
                   <option value={true}>{$_("configvalues.Enabled")}</option>
                   <option value={false}>{$_("configvalues.Disabled")}</option>
                 </Input>
+                <Tooltip target="il{instance.App}shouldSearchAll">Apply this setting to all import lists in {instance.Name}.</Tooltip>
+                <Button on:click={()=>{applyToAll("shouldSearch", form[idx].shouldSearch)}} id="il{instance.App}shouldSearchAll">
+                  <Fa primaryColor="darkCyan" icon="{faGroupArrowsRotate}"/>
+                </Button>
               </InputGroup> {/if}
               {#if form[idx].shouldMonitorExisting !== undefined} <InputGroup>
                 <InputGroupText class="setting-name"><T id="instances.MonitorExisting"/></InputGroupText>
@@ -249,6 +288,10 @@
                   <option value={true}>{$_("configvalues.Enabled")}</option>
                   <option value={false}>{$_("configvalues.Disabled")}</option>
                 </Input>
+                <Tooltip target="il{instance.App}shouldMonitorExistingAll">Apply this setting to all import lists in {instance.Name}.</Tooltip>
+                <Button on:click={()=>{applyToAll("shouldMonitorExisting", form[idx].shouldMonitorExisting)}} id="il{instance.App}shouldMonitorExistingAll">
+                  <Fa primaryColor="darkCyan" icon="{faGroupArrowsRotate}"/>
+                </Button>
               </InputGroup> {/if}
               {#if form[idx].monitor !== undefined} <InputGroup>
                 <InputGroupText class="setting-name"><T id="instances.SearchNewItems"/></InputGroupText>
@@ -260,6 +303,10 @@
                     <option value="none">{$_("words.None")}</option>
                   {/if}
                 </Input>
+                <Tooltip target="il{instance.App}movieAndCollectionAll">Apply this setting to all import lists in {instance.Name}.</Tooltip>
+                <Button on:click={()=>{applyToAll("movieAndCollection", form[idx].movieAndCollection)}} id="il{instance.App}movieAndCollectionAll">
+                  <Fa primaryColor="darkCyan" icon="{faGroupArrowsRotate}"/>
+                </Button>
               </InputGroup> {/if}
               {#if form[idx].seriesType !== undefined} <InputGroup>
                 <InputGroupText class="setting-name">{$_("instances.SeriesType")}</InputGroupText>
@@ -271,6 +318,10 @@
                     <option value="anime">{$_("words.Anime")}</option>
                   {/if} <!-- whisparr? -->
                 </Input>
+                <Tooltip target="il{instance.App}seriesTypeAll">Apply this setting to all import lists in {instance.Name}.</Tooltip>
+                <Button on:click={()=>{applyToAll("seriesType", form[idx].seriesType)}} id="il{instance.App}seriesTypeAll">
+                  <Fa primaryColor="darkCyan" icon="{faGroupArrowsRotate}"/>
+                </Button>
               </InputGroup> {/if}
               {#if form[idx].shouldMonitor !== undefined} <InputGroup>
                 <InputGroupText class="setting-name"><T id="instances.Monitor"/></InputGroupText>
@@ -302,6 +353,10 @@
                     {/if}
                   {/if}
                 </Input>
+                <Tooltip target="il{instance.App}shouldMonitorAll">Apply this setting to all import lists in {instance.Name}.</Tooltip>
+                <Button on:click={()=>{applyToAll("shouldMonitor", form[idx].shouldMonitor)}} id="il{instance.App}shouldMonitorAll">
+                  <Fa primaryColor="darkCyan" icon="{faGroupArrowsRotate}"/>
+                </Button>
               </InputGroup> {/if}
               {#if form[idx].minimumAvailability !== undefined} <InputGroup>
                 <InputGroupText class="setting-name">{$_("instances.MinimumAvailability")}</InputGroupText>
@@ -313,6 +368,10 @@
                     <option value="inCinemas">{$_("instances.InCinemas")}</option>
                   {/if}
                 </Input>
+                <Tooltip target="il{instance.App}minimumAvailability">Apply this setting to all import lists in {instance.Name}.</Tooltip>
+                <Button on:click={()=>{applyToAll("minimumAvailability", form[idx].minimumAvailability)}} id="il{instance.App}minimumAvailability">
+                  <Fa primaryColor="darkCyan" icon="{faGroupArrowsRotate}"/>
+                </Button>
               </InputGroup> {/if}
               {#each info[idx].fields as item, itemIdx}
                 {#if item.helpText}

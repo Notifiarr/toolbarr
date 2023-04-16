@@ -17,21 +17,20 @@
   let rawOpen = false
   let info = undefined
   let prevTab = tab
-  let prevIns = instance
+  let prevURL = undefined
   // update info when tab or instance changes.
   $: if (tab&&instance&&!hidden) update()
 
   async function update() {
-    if (prevIns === instance && prevTab === tab && info) return
+    if (prevURL === instance.URL && prevTab === tab && info) return
 
     prevTab = tab
-    prevIns = instance
     updating = true
     info = undefined
 
     if (instance.URL=="") return
     await tab.getData(instance).then(
-      rep => info = rep,
+      rep => {info = rep; prevURL = instance.URL},
       err => toast("error", err),
     )
     updating = false

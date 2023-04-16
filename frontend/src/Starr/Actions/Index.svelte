@@ -26,13 +26,14 @@
   let updating = false
   let menuOpen = true
   let showTitle = true
+  let tab = startTab
   // Pick the first instance on first load.
-  let instance =  $conf.Instances[starrApp] ? $conf.Instances[starrApp][0] : undefined
-  $: if (small) menuOpen = true
+  $: instance = $conf.Instances[starrApp] ? $conf.Instances[starrApp][idx] : undefined
+  let idx = 0
 
   let width
-  let tab = startTab
   $: small = width < 1200
+  $: if (small) menuOpen = true
 </script>
 
 <svelte:window bind:innerWidth={width}/>
@@ -52,10 +53,10 @@
      <FormGroup>
       <InputGroup>
         <InputGroupText class="setting-name">{$_("words.Instance")}</InputGroupText>
-        <Input invalid={!instance} type="select" bind:value={instance}>
+        <Input invalid={!instance} type="select" bind:value={idx}>
         {#if $conf.Instances[starrApp] != null}
-          {#each $conf.Instances[starrApp] as instance}
-            <option value={instance}>{instance.Name}: {instance.URL}</option>
+          {#each $conf.Instances[starrApp] as val, index}
+            <option value={index}>{val.Name}: {val.URL}</option>
           {/each}
           {#if $conf.Instances[starrApp].length == 0}
             <option disabled>- {$_("instances.noInstancesConfigured")} -</option>
@@ -91,7 +92,8 @@
       {/if}
       <div class="right">
         <!-- Display the selected tool, pass in selected instance. -->
-        <Action bind:updating={updating} {instance} {starrApp} {showTitle} {tab} {hidden}/>
+        <Action bind:updating={updating} {starrApp} {showTitle} {tab} {hidden}
+          {instance} />
       </div>
     </Col>
   </div>
