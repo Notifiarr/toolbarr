@@ -1,11 +1,11 @@
 <script context="module">
-  import appProfiles from "./AppProfiles/Index.svelte"
-  import indexers from "./Indexers/Index.svelte"
-  import downloadClients from "./DownloadClients/Index.svelte"
-  import importLists from "./ImportLists/Index.svelte"
-  import customFilters from "./CustomFilters/Index.svelte"
-  import blockList from "./BlockLists/Index.svelte"
-  import qualityProfiles from "./QualityProfiles/Index.svelte"
+  import appProfiles from "./AppProfiles.svelte"
+  import indexers from "./Indexers.svelte"
+  import downloadClients from "./DownloadClients.svelte"
+  import importLists from "./ImportLists.svelte"
+  import customFilters from "./CustomFilters.svelte"
+  import blockList from "./BlockLists.svelte"
+  import qualityProfiles from "./QualityProfiles.svelte"
   import {
     AppProfiles,
     Indexers,
@@ -21,11 +21,7 @@
     {getData: Indexers, link: "Indexers", component: indexers},
     {getData: Downloaders, link: "DownloadClients", component: downloadClients},
   ]
-  // Add some more tabs depending on the app.
-  const prowlarrTabs = [
-    {getData: AppProfiles, link: "AppProfiles", component: appProfiles},
-    {getData: CustomFilters, link: "CustomFilters", component: customFilters},
-  ]
+
   // Everything but Prowlarr.
   const otherTabs = [
     {getData: BlockList, link: "BlockList", component: blockList},
@@ -33,20 +29,32 @@
     {getData: ImportLists, link: "ImportLists", component: importLists},
   ]
 
+  const starrTabs = commonTabs.concat(otherTabs)
+
+  const tabs = {
+    "Lidarr": starrTabs,
+    "Prowlarr": commonTabs.concat([
+      {getData: AppProfiles, link: "AppProfiles", component: appProfiles},
+      {getData: CustomFilters, link: "CustomFilters", component: customFilters},
+    ]),
+    "Radarr": starrTabs,
+    "Readarr": starrTabs,
+    "Sonarr": starrTabs,
+    "Whisparr": starrTabs,
+  }
+
   // So consumers can find the start page.
-  export let startTab = commonTabs[0]
+  export const startTab = commonTabs[0]
 </script>
 
 <script>
   export let starrApp
   export let showTitle = false
   export let updating
-  export let tab // bind and pass in startTab.
+  export let tab // bind this and pass in startTab.
  
   import T, { _ } from "../../libs/Translate.svelte"
   import { Fade, Nav, NavItem, NavLink } from "sveltestrap"
-
-  let tabs = commonTabs.concat(starrApp == "Prowlarr" ? prowlarrTabs : otherTabs)
 
   function changeTab(e, newTab) {
     e.preventDefault()
@@ -66,7 +74,7 @@
       </NavItem>
     </Fade>
 
-    {#each tabs as thisTab}
+    {#each tabs[starrApp] as thisTab}
       <NavItem>
         <NavLink class="nav-link" active={tab == thisTab} on:click={(e) => {changeTab(e, thisTab)}} href="/">
           {@html $_("instances."+thisTab.link)}

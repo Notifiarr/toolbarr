@@ -63,7 +63,7 @@
   }
 
   async function deleteItem() {
-    toast("info", $_("instances.Deleting"+identifier, {values:{"count": count(selected)}}))
+    toast("info", $_("instances.Deleting"+identifier, { values:{"count": count(selected)} }))
     goodMsg = badMsg = ""
     updating = true
 
@@ -92,17 +92,27 @@
   <Collapse isOpen={!updating && (unSaved||selectedCount > 0)}>
     {#if instance.App == "Whisparr"}
     <Card color="warning" class="p-1">
-      Toolbarr has not been tested with {instance.App}. Make a backup and save with caution!
+      Toolbarr has not been tested with {instance.App}.
+      Make a backup and save with caution!
     </Card>
     {/if}
     <Fade style="display:inline-block" isOpen={unSaved}>
-      <span class="text-warning"><Icon class="text-danger" name="exclamation-circle"/> {$_("configvalues.UnsavedChanges")}</span><br>
-      <Button class="actions" color="success" on:click={() => updateItems(false)}>{$_(noForce?"words.Save":"instances.TestandSave")}</Button>
-      <Tooltip target="forceSave"><T id="instances.ForceSaveDesc" starrApp={instance.App}/></Tooltip>
-      <Button disabled={noForce} id="forceSave" class="actions" color="info" on:click={() => updateItems(true)}>{$_("instances.ForceSave")}</Button>
+      <span class="text-warning">
+        <Icon class="text-danger" name="exclamation-circle"/>
+        {$_("configvalues.UnsavedChanges")}
+      </span><br>
+      <Button class="actions" color="success" on:click={() => updateItems(false)}>
+        {$_(noForce?"words.Save":"instances.TestandSave")}
+      </Button>
+      <Button disabled={noForce} id="force{identifier}{instance.App}" class="actions" color="info" on:click={() => updateItems(true)}>
+        {$_("instances.ForceSave")}
+      </Button>
+      <Tooltip target="force{identifier}{instance.App}"><T id="instances.ForceSaveDesc" starrApp={instance.App}/></Tooltip>
     </Fade>
     <Fade style="display:inline-block" isOpen={selectedCount > 0}>
-      <Button class="actions" color="danger" on:click={deleteItem}><T id="instances.DeleteSelected" count={selectedCount}/></Button>
+      <Button class="actions" color="danger" on:click={deleteItem}>
+        <T id="instances.DeleteSelected" count={selectedCount}/>
+      </Button>
     </Fade>
   </Collapse>
 </div>

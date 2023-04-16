@@ -26,10 +26,8 @@
   let updating = false
   let menuOpen = true
   let showTitle = true
-  let instance
-  $: selected = $conf.Instances[starrApp] ? $conf.Instances[starrApp][0] : undefined
-  // This trick is to avoid reloading the instance data when expanding the header.
-  $: if (selected != instance && selected != undefined) instance = selected
+  // Pick the first instance on first load.
+  let instance =  $conf.Instances[starrApp] ? $conf.Instances[starrApp][0] : undefined
   $: if (small) menuOpen = true
 
   let width
@@ -54,7 +52,7 @@
      <FormGroup>
       <InputGroup>
         <InputGroupText class="setting-name">{$_("words.Instance")}</InputGroupText>
-        <Input invalid={!instance} type="select" bind:value={selected}>
+        <Input invalid={!instance} type="select" bind:value={instance}>
         {#if $conf.Instances[starrApp] != null}
           {#each $conf.Instances[starrApp] as instance}
             <option value={instance}>{instance.Name}: {instance.URL}</option>
@@ -91,12 +89,10 @@
           </Collapse>
         </div>
       {/if}
-      {#if !hidden}
-        <div class="right">
-          <!-- Display the selected tool, pass in selected instance. -->
-          <Action bind:updating={updating} {instance} {starrApp} {showTitle} {tab}/>
-        </div>
-      {/if}
+      <div class="right">
+        <!-- Display the selected tool, pass in selected instance. -->
+        <Action bind:updating={updating} {instance} {starrApp} {showTitle} {tab} {hidden}/>
+      </div>
     </Col>
   </div>
 </Row>

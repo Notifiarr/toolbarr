@@ -165,7 +165,7 @@
               {#if instance.App == "Prowlarr"}
                 <p>{$_("instances.ProwlarrNotSupported")}</p>
               {:else}
-                <Button size="sm" disabled={str==JSON.stringify(form)} color="danger" 
+                <Button size="sm" disabled={str==JSON.stringify(form)} color="warning"
                   on:click={() => {form[idx] = JSON.parse(JSON.stringify(info[idx]))}}>{$_("words.Reset")}</Button>
               {/if}
               <Button size="sm" color="info" on:click={() => {isOpen[idx] = false}}>{$_("words.Close")}</Button>

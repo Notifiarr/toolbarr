@@ -4,6 +4,7 @@
   export let tab
   export let showTitle
   export let updating
+  export let hidden
 
   import { Button, Card, CardBody, CardFooter, CardHeader, CardTitle, Collapse } from "sveltestrap"
   import T, { _ } from "../../libs/Translate.svelte"
@@ -15,13 +16,20 @@
 
   let rawOpen = false
   let info = undefined
-  $: if (tab&&instance) update() // update info when tab changes.
+  let prevTab = tab
+  let prevIns = instance
+  // update info when tab or instance changes.
+  $: if (tab&&instance&&!hidden) update()
 
   async function update() {
+    if (prevIns === instance && prevTab === tab && info) return
+
+    prevTab = tab
+    prevIns = instance
     updating = true
     info = undefined
-    if (instance.URL=="") return
 
+    if (instance.URL=="") return
     await tab.getData(instance).then(
       rep => info = rep,
       err => toast("error", err),
@@ -30,15 +38,15 @@
   }
 </script>
 
-<Card outline color="dark" class="mt-2">
+<Card outline color="dark" class="mt-1">
   {#if showTitle}
-  <CardHeader>
-    <CardTitle class="mb-0">{$_("instances."+tab.link)}</CardTitle>
-  </CardHeader>
+    <CardHeader>
+      <CardTitle class="mb-0">{$_("instances."+tab.link)}</CardTitle>
+    </CardHeader>
   {/if}
 
   <CardBody>
-    {#if info&&tab&&instance}
+    {#if info}
     <div id="container">
       <!-- We have all the pieces we need. Load the selected tab's component. -->
       <svelte:component this={tab.component} {instance} bind:info={info}/>
@@ -60,7 +68,7 @@
       <Card body color="danger">
         <T id="instances.NoURLConfigured" {starrApp} name={instance?instance.Name:"***"}/>
       </Card>
-    {:else if info==undefined}
+    {:else if !info}
       <Loading/>
     {/if}
   </CardBody>
