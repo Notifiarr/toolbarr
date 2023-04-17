@@ -4,7 +4,7 @@
         {
             "id": "Dialog Failed: {Err}",
             "message": "Dialog Failed: {Err}",
-            "translation": "",
+            "translation": "Dialogo fallito: {Err}",
             "placeholders": [
                 {
                     "id": "Err",
@@ -131,7 +131,7 @@
         {
             "id": "Opening directory browser: {Err}",
             "message": "Opening directory browser: {Err}",
-            "translation": "",
+            "translation": "Apertura browser directory: {Err}",
             "placeholders": [
                 {
                     "id": "Err",
@@ -146,7 +146,7 @@
         {
             "id": "Saved {App} instance configuration!",
             "message": "Saved {App} instance configuration!",
-            "translation": "",
+            "translation": "Salvata la configurazione dell'istanza {App}!",
             "placeholders": [
                 {
                     "id": "App",
@@ -161,7 +161,7 @@
         {
             "id": "Added new {App} instance!",
             "message": "Added new {App} instance!",
-            "translation": "",
+            "translation": "Aggiunta nuova istanza {App}!",
             "placeholders": [
                 {
                     "id": "App",
@@ -176,7 +176,7 @@
         {
             "id": "Provided {StarrApp} instance {Idx} does not exist",
             "message": "Provided {StarrApp} instance {Idx} does not exist",
-            "translation": "",
+            "translation": "L'istanza {StarrApp} {Idx} non esiste",
             "placeholders": [
                 {
                     "id": "StarrApp",
@@ -199,7 +199,7 @@
         {
             "id": "Really delete {StarrApp} instance? Name: {Name}",
             "message": "Really delete {StarrApp} instance? Name: {Name}",
-            "translation": "",
+            "translation": "Vuoi eliminare davvero l'istanza {StarrApp}? Nome: {Name}",
             "placeholders": [
                 {
                     "id": "StarrApp",
@@ -222,12 +222,12 @@
         {
             "id": "Remove Instance",
             "message": "Remove Instance",
-            "translation": ""
+            "translation": "Rimuovi istanza"
         },
         {
             "id": "Removed {StarrApp} Instance",
             "message": "Removed {StarrApp} Instance",
-            "translation": "",
+            "translation": "Rimossa istanza {StarrApp} Istanza",
             "placeholders": [
                 {
                     "id": "StarrApp",
@@ -309,7 +309,7 @@
         {
             "id": "Hide",
             "message": "Hide",
-            "translation": ""
+            "translation": "Nascondi"
         },
         {
             "id": "Checking for current {Updates} release: {Err}",
@@ -373,12 +373,12 @@
         {
             "id": "Missing release, check first?",
             "message": "Missing release, check first?",
-            "translation": ""
+            "translation": "Release mancante, controllare prima?"
         },
         {
             "id": "Downloading {Updates} update failed: {Error}",
             "message": "Downloading {Updates} update failed: {Error}",
-            "translation": "",
+            "translation": "Il download dell'aggiornamento {Updates} non è riuscito: {Errore}",
             "placeholders": [
                 {
                     "id": "Updates",
