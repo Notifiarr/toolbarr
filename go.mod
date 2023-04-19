@@ -11,7 +11,7 @@ require (
 	golang.org/x/text v0.9.0
 	golift.io/datacounter v1.0.4
 	golift.io/rotatorr v0.0.0-20230317103044-d974d22ee164
-	golift.io/starr v0.14.1-0.20230409064824-627a7ad8d50a
+	golift.io/starr v0.14.1-0.20230416074015-1fb67f4b06f8
 	golift.io/version v0.0.2
 	modernc.org/sqlite v1.21.1
 )
@@ -39,11 +39,11 @@ require (
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasttemplate v1.2.2 // indirect
 	github.com/wailsapp/mimetype v1.4.1 // indirect
-	golang.org/x/crypto v0.7.0 // indirect
+	golang.org/x/crypto v0.8.0 // indirect
 	golang.org/x/exp v0.0.0-20230321023759-10a507213a29 // indirect
-	golang.org/x/net v0.8.0 // indirect
+	golang.org/x/net v0.9.0 // indirect
 	golang.org/x/sys v0.7.0 // indirect
-	golang.org/x/tools v0.7.0 // indirect
+	golang.org/x/tools v0.8.0 // indirect
 	lukechampine.com/uint128 v1.3.0 // indirect
 	modernc.org/cc/v3 v3.40.0 // indirect
 	modernc.org/ccgo/v3 v3.16.13 // indirect

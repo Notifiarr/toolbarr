@@ -29,9 +29,13 @@ export function ImportLists(arg1:any):Promise<any>;
 
 export function Indexers(arg1:any):Promise<any>;
 
+export function MetadataProfiles(arg1:any):Promise<any>;
+
 export function MigratorInfo(arg1:any):Promise<any>;
 
 export function QualityProfiles(arg1:any):Promise<any>;
+
+export function RootFolders(arg1:any):Promise<any>;
 
 export function Tags(arg1:any):Promise<{[key: number]: string}>;
 
@@ -39,18 +43,50 @@ export function TestInstance(arg1:any):Promise<string>;
 
 export function UpdateInvalidItems(arg1:any,arg2:string,arg3:string,arg4:{[key: number]: boolean}):Promise<any>;
 
+export function UpdateLidarrDownloadClient(arg1:any,arg2:boolean,arg3:any):Promise<any>;
+
+export function UpdateLidarrImportList(arg1:any,arg2:boolean,arg3:any):Promise<any>;
+
 export function UpdateLidarrIndexer(arg1:any,arg2:boolean,arg3:any):Promise<any>;
+
+export function UpdateLidarrQualityProfile(arg1:any,arg2:any):Promise<any>;
+
+export function UpdateProwlarrDownloadClient(arg1:any,arg2:boolean,arg3:any):Promise<any>;
 
 export function UpdateProwlarrIndexer(arg1:any,arg2:boolean,arg3:any):Promise<any>;
 
+export function UpdateRadarrDownloadClient(arg1:any,arg2:boolean,arg3:any):Promise<any>;
+
+export function UpdateRadarrImportList(arg1:any,arg2:boolean,arg3:any):Promise<any>;
+
 export function UpdateRadarrIndexer(arg1:any,arg2:boolean,arg3:any):Promise<any>;
 
+export function UpdateRadarrQualityProfile(arg1:any,arg2:any):Promise<any>;
+
+export function UpdateReadarrDownloadClient(arg1:any,arg2:boolean,arg3:any):Promise<any>;
+
+export function UpdateReadarrImportList(arg1:any,arg2:boolean,arg3:any):Promise<any>;
+
 export function UpdateReadarrIndexer(arg1:any,arg2:boolean,arg3:any):Promise<any>;
+
+export function UpdateReadarrQualityProfile(arg1:any,arg2:any):Promise<any>;
 
 export function UpdateRecycleBin(arg1:any,arg2:string):Promise<any>;
 
 export function UpdateRootFolder(arg1:any,arg2:string,arg3:string):Promise<any>;
 
+export function UpdateSonarrDownloadClient(arg1:any,arg2:boolean,arg3:any):Promise<any>;
+
+export function UpdateSonarrImportList(arg1:any,arg2:boolean,arg3:any):Promise<any>;
+
 export function UpdateSonarrIndexer(arg1:any,arg2:boolean,arg3:any):Promise<any>;
 
+export function UpdateSonarrQualityProfile(arg1:any,arg2:any):Promise<any>;
+
+export function UpdateWhisparrDownloadClient(arg1:any,arg2:boolean,arg3:any):Promise<any>;
+
+export function UpdateWhisparrImportList(arg1:any,arg2:boolean,arg3:any):Promise<any>;
+
 export function UpdateWhisparrIndexer(arg1:any,arg2:boolean,arg3:any):Promise<any>;
+
+export function UpdateWhisparrQualityProfile(arg1:any,arg2:any):Promise<any>;

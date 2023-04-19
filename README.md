@@ -6,9 +6,16 @@ Toolbarr allows you to perform various actions against your Starr apps and their
 
 # Features
 
-The first release provides only 1 feature:
+The first release provides 1 major feature:
 
 - **Updating Root Folders**: Use this when you need to migrate your starr application to another host, and the file system paths to your media are changing.
+
+And several other features:
+
+- Mass Quality profiles management.
+- Mass Indexer management.
+- Mass Import List management.
+- Mass Download Client manegement.
 
 # How?
 
@@ -30,6 +37,8 @@ curl -s https://golift.io/repo.sh | sudo bash -s - toolbarr
 # Caution
 
 This app may be destructive. Make backups. Do not connect it to a live SQLite database file; use a backup copy!
+
+The `Actions` tab is safe, and well tested with the four primary Starr apps. Prowlarr has limited support. Whisparr may work, but is not tested.
 
 # I want more..
 

@@ -3,52 +3,72 @@
   export let instance
   export let tab
   export let showTitle
-  
-  import { Card, CardBody, CardFooter, CardHeader, CardTitle, Spinner } from "sveltestrap"
+  export let updating
+  export let hidden
+
+  import { Button, Card, CardBody, CardFooter, CardHeader, CardTitle, Collapse } from "sveltestrap"
   import T, { _ } from "../../libs/Translate.svelte"
   import { toast } from "../../libs/funcs"
+  import Loading  from "../loading.svelte"
+  import { conf } from "../../libs/config"
+  import Fa from "svelte-fa"
+  import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons"
 
-  let info
-  $: activeTab = (tab != activeTab || info == undefined) ? undefined : tab
+  let rawOpen = false
+  let info = undefined
+  let prevTab = tab
+  let prevURL = undefined
+  // update info when tab or instance changes.
+  $: if (tab&&instance&&!hidden) update()
 
-  $: if (activeTab == undefined) {
+  async function update() {
+    if (prevURL === instance.URL && prevTab === tab && info) return
+
+    prevTab = tab
+    updating = true
     info = undefined
-    activeTab = tab
-    if (instance && instance.URL) update()
-  }
 
-  const update = () => tab.fn(instance).then(
-    rep => info = rep,
-    err => toast("error", err),
-  )
+    if (instance.URL=="") return
+    await tab.getData(instance).then(
+      rep => {info = rep; prevURL = instance.URL},
+      err => toast("error", err),
+    )
+    updating = false
+  }
 </script>
 
-<Card outline color="dark" class="mt-2">
+<Card outline color="dark" class="mt-1">
   {#if showTitle}
-  <CardHeader>
-    <CardTitle class="mb-0">{$_("instances."+tab.link)}</CardTitle>
-  </CardHeader>
+    <CardHeader>
+      <CardTitle class="mb-0">{$_("instances."+tab.link)}</CardTitle>
+    </CardHeader>
   {/if}
 
   <CardBody>
-    {#if !instance} 
+    {#if info}
+    <div id="container">
+      <!-- We have all the pieces we need. Load the selected tab's component. -->
+      <svelte:component this={tab.component} {instance} bind:info={info} {tab}/>
+    </div>
+    {/if}
+    <!-- show raw data button for dev mode -->
+    <Collapse isOpen={$conf.DevMode}>
+      <hr>
+      <Button size="sm" on:click={() => (rawOpen = !rawOpen)} class="mb-1">
+        Raw Data <Fa icon={rawOpen?faCaretDown:faCaretUp}/>
+      </Button>
+      <Card color="secondary">
+        <Collapse isOpen={rawOpen}>
+          <code><pre>{JSON.stringify(info, null, 3)}</pre></code>
+        </Collapse>
+      </Card>
+    </Collapse>
+    {#if !instance || instance.URL == ""}
       <Card body color="danger">
-        <T id="instances.NoURLConfigured" starrApp={starrApp} name="***"/>
+        <T id="instances.NoURLConfigured" {starrApp} name={instance?instance.Name:"***"}/>
       </Card>
-    {:else if instance.URL == ""}
-      <Card body color="danger">
-        <T id="instances.NoURLConfigured" starrApp={starrApp} name={instance.Name}/>
-      </Card>
-    {:else if info}
-      <!-- We have all the pieces we need. Load the form component. -->
-      <svelte:component this={tab.lib} {instance} {info} on:update={update}/>
-    {:else}
-      <Card body color="secondary">
-        <span>
-          <Spinner size="sm" color="info" />
-          <h5 style="display:inline-block">{$_("words.Loading")} ...</h5>
-        </span>
-      </Card>
+    {:else if !info}
+      <Loading/>
     {/if}
   </CardBody>
 
@@ -56,3 +76,10 @@
     <CardFooter><code>{instance.URL}</code></CardFooter>
   {/if}
 </Card>
+
+<style>
+  #container :global(.link) {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+</style>

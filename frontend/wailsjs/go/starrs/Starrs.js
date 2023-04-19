@@ -58,12 +58,20 @@ export function Indexers(arg1) {
   return window['go']['starrs']['Starrs']['Indexers'](arg1);
 }
 
+export function MetadataProfiles(arg1) {
+  return window['go']['starrs']['Starrs']['MetadataProfiles'](arg1);
+}
+
 export function MigratorInfo(arg1) {
   return window['go']['starrs']['Starrs']['MigratorInfo'](arg1);
 }
 
 export function QualityProfiles(arg1) {
   return window['go']['starrs']['Starrs']['QualityProfiles'](arg1);
+}
+
+export function RootFolders(arg1) {
+  return window['go']['starrs']['Starrs']['RootFolders'](arg1);
 }
 
 export function Tags(arg1) {
@@ -78,20 +86,60 @@ export function UpdateInvalidItems(arg1, arg2, arg3, arg4) {
   return window['go']['starrs']['Starrs']['UpdateInvalidItems'](arg1, arg2, arg3, arg4);
 }
 
+export function UpdateLidarrDownloadClient(arg1, arg2, arg3) {
+  return window['go']['starrs']['Starrs']['UpdateLidarrDownloadClient'](arg1, arg2, arg3);
+}
+
+export function UpdateLidarrImportList(arg1, arg2, arg3) {
+  return window['go']['starrs']['Starrs']['UpdateLidarrImportList'](arg1, arg2, arg3);
+}
+
 export function UpdateLidarrIndexer(arg1, arg2, arg3) {
   return window['go']['starrs']['Starrs']['UpdateLidarrIndexer'](arg1, arg2, arg3);
+}
+
+export function UpdateLidarrQualityProfile(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['UpdateLidarrQualityProfile'](arg1, arg2);
+}
+
+export function UpdateProwlarrDownloadClient(arg1, arg2, arg3) {
+  return window['go']['starrs']['Starrs']['UpdateProwlarrDownloadClient'](arg1, arg2, arg3);
 }
 
 export function UpdateProwlarrIndexer(arg1, arg2, arg3) {
   return window['go']['starrs']['Starrs']['UpdateProwlarrIndexer'](arg1, arg2, arg3);
 }
 
+export function UpdateRadarrDownloadClient(arg1, arg2, arg3) {
+  return window['go']['starrs']['Starrs']['UpdateRadarrDownloadClient'](arg1, arg2, arg3);
+}
+
+export function UpdateRadarrImportList(arg1, arg2, arg3) {
+  return window['go']['starrs']['Starrs']['UpdateRadarrImportList'](arg1, arg2, arg3);
+}
+
 export function UpdateRadarrIndexer(arg1, arg2, arg3) {
   return window['go']['starrs']['Starrs']['UpdateRadarrIndexer'](arg1, arg2, arg3);
 }
 
+export function UpdateRadarrQualityProfile(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['UpdateRadarrQualityProfile'](arg1, arg2);
+}
+
+export function UpdateReadarrDownloadClient(arg1, arg2, arg3) {
+  return window['go']['starrs']['Starrs']['UpdateReadarrDownloadClient'](arg1, arg2, arg3);
+}
+
+export function UpdateReadarrImportList(arg1, arg2, arg3) {
+  return window['go']['starrs']['Starrs']['UpdateReadarrImportList'](arg1, arg2, arg3);
+}
+
 export function UpdateReadarrIndexer(arg1, arg2, arg3) {
   return window['go']['starrs']['Starrs']['UpdateReadarrIndexer'](arg1, arg2, arg3);
+}
+
+export function UpdateReadarrQualityProfile(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['UpdateReadarrQualityProfile'](arg1, arg2);
 }
 
 export function UpdateRecycleBin(arg1, arg2) {
@@ -102,10 +150,34 @@ export function UpdateRootFolder(arg1, arg2, arg3) {
   return window['go']['starrs']['Starrs']['UpdateRootFolder'](arg1, arg2, arg3);
 }
 
+export function UpdateSonarrDownloadClient(arg1, arg2, arg3) {
+  return window['go']['starrs']['Starrs']['UpdateSonarrDownloadClient'](arg1, arg2, arg3);
+}
+
+export function UpdateSonarrImportList(arg1, arg2, arg3) {
+  return window['go']['starrs']['Starrs']['UpdateSonarrImportList'](arg1, arg2, arg3);
+}
+
 export function UpdateSonarrIndexer(arg1, arg2, arg3) {
   return window['go']['starrs']['Starrs']['UpdateSonarrIndexer'](arg1, arg2, arg3);
 }
 
+export function UpdateSonarrQualityProfile(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['UpdateSonarrQualityProfile'](arg1, arg2);
+}
+
+export function UpdateWhisparrDownloadClient(arg1, arg2, arg3) {
+  return window['go']['starrs']['Starrs']['UpdateWhisparrDownloadClient'](arg1, arg2, arg3);
+}
+
+export function UpdateWhisparrImportList(arg1, arg2, arg3) {
+  return window['go']['starrs']['Starrs']['UpdateWhisparrImportList'](arg1, arg2, arg3);
+}
+
 export function UpdateWhisparrIndexer(arg1, arg2, arg3) {
   return window['go']['starrs']['Starrs']['UpdateWhisparrIndexer'](arg1, arg2, arg3);
+}
+
+export function UpdateWhisparrQualityProfile(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['UpdateWhisparrQualityProfile'](arg1, arg2);
 }

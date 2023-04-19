@@ -2,6 +2,7 @@
 package starrs
 
 import (
+	"errors"
 	"fmt"
 
 	"golift.io/starr"
@@ -85,4 +86,117 @@ func (s *Starrs) deleteDownloader(config *AppConfig, clientID int64) error {
 	default:
 		return fmt.Errorf("%w: missing app", starr.ErrRequestError)
 	}
+}
+
+func (s *Starrs) UpdateLidarrDownloadClient(
+	config *AppConfig,
+	force bool,
+	downloader *lidarr.DownloadClientInput,
+) (*DataReply, error) {
+	s.log.Tracef("Call:UpdateLidarrDownloadClient(%s, %s, %d)", config.App, config.Name, downloader.ID)
+	data, err := s.updateDownloadClient(config, force, downloader)
+
+	return s.updateDownloadClientReply(config.Name, downloader.Name, downloader.ID, data, err)
+}
+
+func (s *Starrs) UpdateProwlarrDownloadClient(
+	config *AppConfig,
+	force bool,
+	downloader *prowlarr.DownloadClientInput,
+) (*DataReply, error) {
+	s.log.Tracef("Call:UpdateProwlarrDownloadClient(%s, %s, %d)", config.App, config.Name, downloader.ID)
+	data, err := s.updateDownloadClient(config, force, downloader)
+
+	return s.updateDownloadClientReply(config.Name, downloader.Name, downloader.ID, data, err)
+}
+
+func (s *Starrs) UpdateRadarrDownloadClient(
+	config *AppConfig,
+	force bool,
+	downloader *radarr.DownloadClientInput,
+) (*DataReply, error) {
+	s.log.Tracef("Call:UpdateRadarrDownloadClient(%s, %s, %d)", config.App, config.Name, downloader.ID)
+	data, err := s.updateDownloadClient(config, force, downloader)
+
+	return s.updateDownloadClientReply(config.Name, downloader.Name, downloader.ID, data, err)
+}
+
+func (s *Starrs) UpdateReadarrDownloadClient(
+	config *AppConfig,
+	force bool,
+	downloader *readarr.DownloadClientInput,
+) (*DataReply, error) {
+	s.log.Tracef("Call:UpdateReadarrDownloadClient(%s, %s, %d)", config.App, config.Name, downloader.ID)
+	data, err := s.updateDownloadClient(config, force, downloader)
+
+	return s.updateDownloadClientReply(config.Name, downloader.Name, downloader.ID, data, err)
+}
+
+func (s *Starrs) UpdateSonarrDownloadClient(
+	config *AppConfig,
+	force bool,
+	downloader *sonarr.DownloadClientInput,
+) (*DataReply, error) {
+	s.log.Tracef("Call:UpdateSonarrDownloadClient(%s, %s, %d)", config.App, config.Name, downloader.ID)
+	data, err := s.updateDownloadClient(config, force, downloader)
+
+	return s.updateDownloadClientReply(config.Name, downloader.Name, downloader.ID, data, err)
+}
+
+func (s *Starrs) UpdateWhisparrDownloadClient(
+	config *AppConfig,
+	force bool,
+	downloader *sonarr.DownloadClientInput,
+) (*DataReply, error) {
+	s.log.Tracef("Call:UpdateWhisparrDownloadClient(%s, %s, %d)", config.App, config.Name, downloader.ID)
+	data, err := s.updateDownloadClient(config, force, downloader)
+
+	return s.updateDownloadClientReply(config.Name, downloader.Name, downloader.ID, data, err)
+}
+
+func (s *Starrs) updateDownloadClient(config *AppConfig, force bool, downloader any) (any, error) {
+	instance, err := s.newAPIinstance(config)
+	if err != nil {
+		return nil, err
+	}
+
+	switch data := downloader.(type) {
+	case *lidarr.DownloadClientInput:
+		return lidarr.New(instance.Config).UpdateDownloadClientContext(s.ctx, data, force)
+	case *prowlarr.DownloadClientInput:
+		return prowlarr.New(instance.Config).UpdateDownloadClientContext(s.ctx, data, force)
+	case *radarr.DownloadClientInput:
+		return radarr.New(instance.Config).UpdateDownloadClientContext(s.ctx, data, force)
+	case *readarr.DownloadClientInput:
+		return readarr.New(instance.Config).UpdateDownloadClientContext(s.ctx, data, force)
+	case *sonarr.DownloadClientInput:
+		return sonarr.New(instance.Config).UpdateDownloadClientContext(s.ctx, data, force)
+	default:
+		return nil, fmt.Errorf("%w: missing app", starr.ErrRequestError)
+	}
+}
+
+func (s *Starrs) updateDownloadClientReply(
+	name, clientName string,
+	clientID int64,
+	data any,
+	err error,
+) (*DataReply, error) {
+	if err == nil {
+		msg := s.log.Translate("Updated %s download client %s (%d).", name, clientName, clientID)
+		s.log.Wails.Info(msg)
+
+		return &DataReply{Msg: msg, Data: data}, nil
+	}
+
+	reqError := &starr.ReqError{}
+
+	if errors.As(err, &reqError) && reqError.Msg != "" {
+		err = fmt.Errorf("%s: %s", reqError.Name, reqError.Msg)
+	}
+
+	msg := s.log.Translate("Updating %s download client: %s (%d): %s", name, clientName, clientID, err.Error())
+	s.log.Wails.Error(msg)
+
+	return nil, fmt.Errorf(msg)
 }

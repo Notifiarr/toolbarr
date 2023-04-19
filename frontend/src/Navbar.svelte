@@ -31,6 +31,7 @@
   import { toast } from "./libs/funcs"
   import darkCSS from "./assets/bootstrap.darkly.css?url"
   import liteCSS from "./assets/bootstrap.flatly.css?url"
+  import icons from "./assets/bootstrap-icons.css?url"
 
   let isOpen = false // nav open/closer tracker (mobile)
   let app
@@ -63,6 +64,7 @@
   <link rel="preload" as="image" href={bgVint}>
   <link rel="preload" as="image" href={bgDark}>
   <link rel="stylesheet" href={$conf.Dark?darkCSS:liteCSS} />
+  <link rel="stylesheet" href={icons} />
 </svelte:head>
 
 <!-- This gets used by any toast from any page. -->
