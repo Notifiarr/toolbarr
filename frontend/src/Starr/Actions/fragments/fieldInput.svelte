@@ -1,0 +1,62 @@
+<script>
+  export let info
+  export let form
+  export let idx
+  export let item
+  export let itemIdx
+
+  import { _ } from "../../../libs/Translate.svelte"
+  import { Input, InputGroup, InputGroupText, Tooltip } from "sveltestrap"
+
+  let input
+  // changed.
+  $: invalid = info[idx].fields[itemIdx].value != form[idx].fields[itemIdx].value
+</script>
+
+  {#if item.helpText}
+    <Tooltip target={input}>{item.helpText}</Tooltip>
+  {/if}
+
+  <div id="input" bind:this={input}>
+    <InputGroup>
+      <InputGroupText class="setting-name">{item.label?item.label:item.name}</InputGroupText>
+
+      {#if item.type == "select" || item.type == "tagSelect"}
+        {#if item.selectOptions && typeof item.value != "object"}
+          <Input type="select" {invalid} bind:value={form[idx].fields[itemIdx].value}>
+              {#each info[idx].fields[itemIdx].selectOptions as val}
+                <option value={val.name}>{val.name}</option>
+              {/each}
+          </Input>
+        {:else}<!-- /else (item.selectOptions) -->
+          <select multiple disabled class="multi" bind:value={form[idx].fields[itemIdx].value}>
+            {#if typeof item.value == "object"}
+              {#each info[idx].fields[itemIdx].value as val}
+                <option value={val}>{val}</option>
+              {/each}
+            {:else}
+              <option value={info[idx].fields[itemIdx].value}>{info[idx].fields[itemIdx].value}</option>
+            {/if}
+          </select>
+        {/if}<!-- /if (item.selectOptions) -->
+      {:else if item.type == "checkbox"}
+      <Input type="select" {invalid} bind:value={form[idx].fields[itemIdx].value}>
+        <option value={true}>{$_("configvalues.Enabled")}</option>
+        <option value={false}>{$_("configvalues.Disabled")}</option>
+      </Input>
+      {:else}
+        <Input type={item.type} {invalid} bind:value={form[idx].fields[itemIdx].value}/>
+      {/if}<!-- /if (item.type) -->
+    </InputGroup>
+  </div>
+
+  <style>
+    .multi {
+      width: calc(100% - 160px)
+    }
+
+    #input :global(.setting-name) {
+      min-width: max-content !important;
+      width: 160px !important;
+    }
+  </style>

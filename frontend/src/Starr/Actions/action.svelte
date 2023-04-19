@@ -48,7 +48,7 @@
     {#if info}
     <div id="container">
       <!-- We have all the pieces we need. Load the selected tab's component. -->
-      <svelte:component this={tab.component} {instance} bind:info={info}/>
+      <svelte:component this={tab.component} {instance} bind:info={info} {tab}/>
     </div>
     {/if}
     <!-- show raw data button for dev mode -->

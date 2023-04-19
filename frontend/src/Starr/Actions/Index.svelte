@@ -28,8 +28,8 @@
   let showTitle = true
   let tab = startTab
   // Pick the first instance on first load.
-  $: instance = $conf.Instances[starrApp] ? $conf.Instances[starrApp][idx] : undefined
   let idx = 0
+  $: instance = $conf.Instances[starrApp] ? $conf.Instances[starrApp][idx] : undefined
 
   let width
   $: small = width < 1200
@@ -92,8 +92,7 @@
       {/if}
       <div class="right">
         <!-- Display the selected tool, pass in selected instance. -->
-        <Action bind:updating={updating} {starrApp} {showTitle} {tab} {hidden}
-          {instance} />
+        <Action bind:updating={updating} {starrApp} {showTitle} {tab} {hidden} {instance} />
       </div>
     </Col>
   </div>

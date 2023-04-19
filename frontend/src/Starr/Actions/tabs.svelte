@@ -1,4 +1,4 @@
-<script context="module">
+<script context="module" type="ts">
   import appProfiles from "./AppProfiles.svelte"
   import indexers from "./Indexers.svelte"
   import downloadClients from "./DownloadClients.svelte"
@@ -17,19 +17,16 @@
   } from "../../../wailsjs/go/starrs/Starrs.js"
 
   // All apps have these tabs.
-  const commonTabs = [
-    {getData: Indexers, link: "Indexers", component: indexers},
-    {getData: Downloaders, link: "DownloadClients", component: downloadClients},
-  ]
+  const commonTabs = []
+  commonTabs.push({getData: Indexers, link: "Indexers", component: indexers})
+  commonTabs.push({getData: Downloaders, link: "DownloadClients", component: downloadClients})
 
   // Everything but Prowlarr.
-  const otherTabs = [
+  const starrTabs = commonTabs.concat([
     {getData: BlockList, link: "BlockList", component: blockList},
     {getData: QualityProfiles, link: "QualityProfiles", component: qualityProfiles},
     {getData: ImportLists, link: "ImportLists", component: importLists},
-  ]
-
-  const starrTabs = commonTabs.concat(otherTabs)
+  ])
 
   const tabs = {
     "Lidarr": starrTabs,
