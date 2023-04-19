@@ -1,8 +1,9 @@
 <script lang="ts">
-  export let tab
+  export let tab: Tab
   export let info
   export let instance
 
+  import type { Tab } from "./fragments/tabs.svelte"
   import { _ } from "../../libs/Translate.svelte"
   import Footer from "./footer.svelte"
   import { count } from "../../libs/funcs"
@@ -14,12 +15,12 @@
   import SelectAll from "./fragments/selectAllHeader.svelte"
   import SelectRow from "./fragments/selectAllRow.svelte"
 
-  let isOpen = {}       // Modal toggle control.
-  let updating = false  // True while doing updates.
-  let all = false       // Toggle for select-all link.
-  let selected = {}     // Rows selected by key: ID.
-  let str = JSON.stringify(info) // Used for equivalence comparison.
-  let form = JSON.parse(str)     // Form changes go here.
+  let isOpen: any = {}           // Modal toggle control.
+  let updating: boolean = false  // True while doing updates.
+  let all: boolean = false       // Toggle for select-all link.
+  let selected: any = {}         // Rows selected by key: ID.
+  let str: string = JSON.stringify(info) // Used for equivalence comparison.
+  let form: any = JSON.parse(str)        // Form changes go here.
 </script>
 
 <Table bordered>
@@ -76,4 +77,4 @@
   {/each}<!-- /each info as profile, idx -->
 </Table>
 
-<Footer {instance} noForce {tab} bind:selected={selected} bind:updating={updating} bind:info={info} bind:form={form} bind:str={str}/>
+<Footer {instance} noForce {tab} bind:selected bind:updating bind:info bind:form bind:str/>

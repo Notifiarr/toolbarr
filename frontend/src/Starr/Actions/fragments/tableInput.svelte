@@ -1,13 +1,14 @@
 <script lang="ts">
-  export let info
-  export let form
-  export let idx
-  export let field
-  export let updating
-  export let type
+  export let info: any
+  export let form: any
+  export let idx: number
+  export let field: string
+  export let updating: boolean
+  export let type: InputType
 
   import { _ } from "../../../libs/Translate.svelte"
   import { Button, Input, InputGroup, Tooltip } from "sveltestrap"
+  import type { InputType } from "sveltestrap/src/Input"
 
   let cell
   $: changed = form[idx][field]!=info[idx][field]

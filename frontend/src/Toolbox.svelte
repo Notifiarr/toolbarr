@@ -1,5 +1,5 @@
 <script lang="ts">
-  export let hidden = false
+  export let hidden: boolean = false
 
   import { Container, Row } from "sveltestrap"
   import BGLogo from "./libs/BackgroundLogo.svelte"

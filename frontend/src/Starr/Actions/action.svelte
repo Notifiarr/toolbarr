@@ -1,6 +1,6 @@
 <script lang="ts">
-  export let starrApp
-  export let instance
+  export let starrApp: StarrApp
+  export let instance: Instance
   export let tab: Tab
   export let showTitle: boolean
   export let updating: boolean
@@ -11,14 +11,14 @@
   import T, { _ } from "../../libs/Translate.svelte"
   import { toast } from "../../libs/funcs"
   import Loading  from "../loading.svelte"
-  import { conf } from "../../libs/config"
+  import { conf, type Instance, type StarrApp } from "../../libs/config"
   import Fa from "svelte-fa"
   import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons"
-  
+
   let rawOpen = false
   let info = undefined
   let prevTab = tab
-  let prevURL = undefined
+  let prevURL = ""
   // update info when tab or instance changes.
   $: if (tab&&instance&&!hidden) update()
 
@@ -41,7 +41,7 @@
 <Card outline color="dark" class="mt-1">
   {#if showTitle}
     <CardHeader>
-      <CardTitle class="mb-0">{$_("instances."+tab.link)}</CardTitle>
+      <CardTitle class="mb-0">{$_("instances."+tab.id)}</CardTitle>
     </CardHeader>
   {/if}
 

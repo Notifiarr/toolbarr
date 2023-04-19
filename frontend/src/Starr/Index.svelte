@@ -1,5 +1,5 @@
 <script lang="ts">
-  export let starrApp
+  export let starrApp: StarrApp
   export let hidden = true
 
   import { TabContent, TabPane } from "sveltestrap"
@@ -8,9 +8,10 @@
   import Database from "./Database/Index.svelte"
   import { _ } from "../libs/Translate.svelte"
   import BackgroundLogo from "../libs/BackgroundLogo.svelte"
+  import type { StarrApp } from "../libs/config"
 
   // Keep track of the active tab.
-  let tab
+  let tab: string | number
 </script>
 
 <BackgroundLogo {hidden} url="starr">

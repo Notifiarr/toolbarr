@@ -1,4 +1,5 @@
 <script context="module" lang="ts">
+  import type { StarrApp } from "src/libs/config"
   import type { ComponentType } from "svelte"
   import appProfiles from "../AppProfiles.svelte"
   import indexers from "../Indexers.svelte"
@@ -15,32 +16,33 @@
     CustomFilters,
     BlockList,
     QualityProfiles,
-  } from "../../../../wailsjs/go/starrs/Starrs.js"
+  } from "../../../../wailsjs/go/starrs/Starrs"
 
   export type Tab = {
     data: (any) => Promise<any>
-    link: string
+    id: string
     component: ComponentType
   }
 
   // All apps have these tabs.
   const commonTabs: Tab[] = [
-    {data: Indexers, link: "Indexers", component: indexers},
-    {data: Downloaders, link: "DownloadClients", component: downloadClients},
+    {data: Indexers, id: "Indexers", component: indexers},
+    {data: Downloaders, id: "DownloadClients", component: downloadClients},
   ]
 
   // Everything but Prowlarr.
   const starrTabs = commonTabs.concat([
-    {data: BlockList, link: "BlockList", component: blockList},
-    {data: QualityProfiles, link: "QualityProfiles", component: qualityProfiles},
-    {data: ImportLists, link: "ImportLists", component: importLists},
+    {data: BlockList, id: "BlockList", component: blockList},
+    {data: QualityProfiles, id: "QualityProfiles", component: qualityProfiles},
+    {data: ImportLists, id: "ImportLists", component: importLists},
   ])
+
 
   const tabs = {
     "Lidarr": starrTabs,
     "Prowlarr": commonTabs.concat([
-      {data: AppProfiles, link: "AppProfiles", component: appProfiles},
-      {data: CustomFilters, link: "CustomFilters", component: customFilters},
+      {data: AppProfiles, id: "AppProfiles", component: appProfiles},
+      {data: CustomFilters, id: "CustomFilters", component: customFilters},
     ]),
     "Radarr": starrTabs,
     "Readarr": starrTabs,
@@ -53,7 +55,7 @@
 </script>
 
 <script lang="ts">
-  export let starrApp: string
+  export let starrApp: StarrApp
   export let showTitle = false
   export let updating: boolean
   export let tab: Tab // bind this and pass in startTab.
@@ -82,7 +84,7 @@
     {#each tabs[starrApp] as thisTab}
       <NavItem>
         <NavLink class="nav-link" active={tab == thisTab} on:click={(e) => {changeTab(e, thisTab)}} href="/">
-          {@html $_("instances."+thisTab.link)}
+          {@html $_("instances."+thisTab.id)}
         </NavLink>
       </NavItem>
     {/each}

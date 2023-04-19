@@ -1,11 +1,11 @@
 <script lang="ts">
-  export let form
+  export let form: any
   export let isOpen = false
-  export let id
-  export let name
-  export let idx
-  export let info
-  export let str
+  export let id: number | string
+  export let name: string
+  export let idx: number
+  export let info: any
+  export let str: string
   export let disabled = ""
 
   import { _ } from "../../../libs/Translate.svelte"
@@ -16,17 +16,16 @@
     form[idx] = JSON.parse(JSON.stringify(info[idx]))
   }
 
-  function toggle(e) {
-    e.preventDefault()
+  function toggle(e?: any) {
+    e?.preventDefault()
     isOpen = false
   }
 
   function onkeydown(e) {
-    if (e.key == "Escape") e.preventDefault()
+    if (e.key == "Escape") if (isOpen) e.preventDefault()
   }
 
   function onkeyup(e) {
-    e.preventDefault()
     if (e.key == "Escape") isOpen = false
   }
 </script>

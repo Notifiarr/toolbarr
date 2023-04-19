@@ -1,8 +1,9 @@
 <script lang="ts">
   export let info
   export let instance
-  export let tab
+  export let tab: Tab
 
+  import type { Tab } from "./fragments/tabs.svelte"
   import { toast } from "../../libs/funcs"
   import { _ } from "../../libs/Translate.svelte"
   import Footer from "./footer.svelte"
@@ -17,17 +18,17 @@
   import SelectRow from "./fragments/selectAllRow.svelte"
   import { Card, Table, Tooltip, Icon } from "sveltestrap"
 
-  let isOpen = {}       // Modal toggle control.
-  let updating = false  // True while doing updates.
-  let all = false       // Toggle for select-all link.
-  let selected = {}     // Rows selected by key: ID.
-  let str = fixFieldValues(info) // Used for equivalence comparison.
-  let form = JSON.parse(str)     // Form changes go here.
+  let isOpen: any = {}       // Modal toggle control.
+  let updating: boolean = false  // True while doing updates.
+  let all: boolean = false       // Toggle for select-all link.
+  let selected: any = {}     // Rows selected by key: ID.
+  let str: string = fixFieldValues(info) // Used for equivalence comparison.
+  let form: any = JSON.parse(str)     // Form changes go here.
   let starrApp = instance.App
-  let applyAll = $_("instances.applyAllimportList", {values:{starrApp: instance.Name}})
-  let qualityProfiles
-  let metadataProfiles
-  let rootFolders
+  let applyAll: string = $_("instances.applyAllimportList", {values:{starrApp: instance.Name}})
+  let qualityProfiles: any
+  let metadataProfiles: any
+  let rootFolders: any
 
   // Fetch extra data to populate the form.
   $: if (instance && instance.URL != "") {
@@ -118,10 +119,10 @@
         {/if}
       </ModalInput>
       <ModalInput {info} bind:form={form} {idx} {applyAll} {starrApp} field="enableAutomaticAdd"
-        desc="instances.enableAutoDesc" name="instances.enableAutoTitle" type="binary"/>
-      <ModalInput {info} bind:form={form} {idx} {applyAll} {starrApp} field="enableAuto" type="binary"/>
-      <ModalInput {info} bind:form={form} {idx} {applyAll} {starrApp} field="shouldSearch" type="binary"/>
-      <ModalInput {info} bind:form={form} {idx} {applyAll} starrApp={instance.Name} field="shouldMonitorExisting" type="binary"/>
+        desc="instances.enableAutoDesc" name="instances.enableAutoTitle" type="checkbox"/>
+      <ModalInput {info} bind:form={form} {idx} {applyAll} {starrApp} field="enableAuto" type="checkbox"/>
+      <ModalInput {info} bind:form={form} {idx} {applyAll} {starrApp} field="shouldSearch" type="checkbox"/>
+      <ModalInput {info} bind:form={form} {idx} {applyAll} starrApp={instance.Name} field="shouldMonitorExisting" type="checkbox"/>
       <ModalInput {info} bind:form={form} {idx} {applyAll} {starrApp} field="monitor" type="select">
         {#if starrApp == "Radarr"}
         <option value="movieOnly">{$_("instances.MovieOnly")}</option>
@@ -191,4 +192,4 @@
     {/if}<!-- /if (client) -->
   {/each}<!-- /each info as client, idx -->
 </Table>
-<Footer {instance} bind:selected={selected} {tab} bind:updating={updating} bind:info={info} bind:form={form} bind:str={str}/>
+<Footer {instance} bind:selected {tab} bind:updating bind:info bind:form bind:str/>

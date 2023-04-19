@@ -1,8 +1,9 @@
-<script>
-  export let starrApp
-  export let instance
-  export let showTitle
+<script lang="ts">
+  export let starrApp: StarrApp
+  export let instance: Instance
+  export let showTitle: boolean | undefined
 
+  import type { Instance, StarrApp } from "../../libs/config"
   import { Alert, Card, CardBody, CardFooter, CardHeader, CardTitle } from "sveltestrap"
   import T, { _ } from "../../libs/Translate.svelte"
 </script>

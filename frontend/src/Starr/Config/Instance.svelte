@@ -1,8 +1,9 @@
 <script lang="ts">
-  export let starrApp
-  export let index
-  export let instance = undefined
+  export let starrApp: StarrApp
+  export let index: number
+  export let instance: Instance|undefined = undefined
 
+  import type { StarrApp, Instance } from "../../libs/config"
   import { Input, InputGroup, InputGroupText, Button, Form, Alert, FormGroup, Badge } from "sveltestrap"
   import { app, conf } from "../../libs/config"
   import { port } from "../../libs/info"
@@ -25,6 +26,9 @@
       App: starrApp,
       Name: starrApp+(index+1),
       URL: `http://127.0.0.1:${port[starrApp]}/${starrApp.toLowerCase()}`,
+      SSL: false,
+      Form: false,
+      Timeout: 999999999,
     }
   }
 
@@ -33,7 +37,7 @@
   let passLocked = true
   let keyLocked = !newInstance
 
-  const reset = {}
+  const reset: any = {}
   Object.keys(instance).map((k) =>{ reset[k] = instance[k] })
   onDestroy(() => Object.keys(reset).map((k) => {
     instance[k] = reset[k]

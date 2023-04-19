@@ -1,10 +1,10 @@
 <script lang="ts">
-  export let instance
-  export let info
-  export let form
+  export let instance: Instance
+  export let info: any
+  export let form: any
   export let str: string
   export let updating: boolean
-  export let selected
+  export let selected: {[key: string]: boolean}
   export let tab: Tab
   export let noForce = false
 
@@ -14,6 +14,7 @@
   import T, { _ } from "../../libs/Translate.svelte"
   import { toast, count } from "../../libs/funcs"
   import { update, remove, fixFieldValues } from "./methods"
+  import type { Instance } from "../..//libs/config";
 
   let badMsg = ""
   let goodMsg = ""
@@ -39,19 +40,19 @@
   }
 
   async function updateItems(force) {
-    toast("info", $_("instances.Updating"+tab.link))
+    toast("info", $_("instances.Updating"+tab.id))
     goodMsg = badMsg = ""
     updating = true
 
     for (var idx = 0; idx < form.length; idx++) {
       if (JSON.stringify(form[idx]) == JSON.stringify(info[idx])) continue // not changed
       if (noForce) {
-        await update[tab.link][instance.App](instance, form[idx]).then(
+        await update[tab.id][instance.App](instance, form[idx]).then(
           (resp) => showMsg(idx, resp.Msg, resp.Data),
           (err) => showError(idx, err)
         )
       } else {
-        await update[tab.link][instance.App](instance, force, form[idx]).then(
+        await update[tab.id][instance.App](instance, force, form[idx]).then(
           (resp) => showMsg(idx, resp.Msg, resp.Data),
           (err) => showError(idx, err)
         )
@@ -65,13 +66,13 @@
   }
 
   async function deleteItem() {
-    toast("info", $_("instances.Deleting"+tab.link, { values:{"count": count(selected, null)} }))
+    toast("info", $_("instances.Deleting"+tab.id, { values:{"count": count(selected, null)} }))
     goodMsg = badMsg = ""
     updating = true
 
     for (var idx = form.length-1; idx >= 0; idx--) {
       if (!selected[form[idx].id]) continue // Not selected.
-      await remove[tab.link][instance.App](instance, form[idx].id).then(
+      await remove[tab.id][instance.App](instance, form[idx].id).then(
         (msg) => showMsg(idx, msg, false),
         (err) => showError(idx, err)
       )

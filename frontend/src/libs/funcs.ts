@@ -12,7 +12,7 @@ isReady.subscribe(ready => {
 })
 
 let isDark = false;
-conf.subscribe(value => {
+conf.subscribe((value) => {
   isDark = value.Dark
   // Updates the active toasts themes if dark mode changes.
   sentToasts.forEach(t => t.theme = isDark ? "dark" : "light")
@@ -54,7 +54,7 @@ export function onOnce(callback, seconds) {
   return interval
 }
 
-export function count(selected, key) {
+export function count(selected, key?): number {
   let counter = 0
 
   if (key) {

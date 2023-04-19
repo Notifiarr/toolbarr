@@ -13,7 +13,7 @@
       */
     "importsNotUsedAsValues": "error",
     "isolatedModules": true,
-    "resolveJsonModule": true,
+    "resolveJsonModule": false,
     /**
       * To have warnings / errors of the Svelte compiler at the
       * correct position, enable source maps by default.
@@ -32,7 +32,7 @@
     
   "include": [
     "src/**/*.d.ts",
-    "src/**/*.js",
+    "src/**/*.d.js",
     "src/**/*.svelte"
   ],
   "references": [{ "path": "./tsconfig.node.json" }]

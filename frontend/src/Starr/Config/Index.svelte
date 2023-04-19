@@ -1,6 +1,7 @@
 <script lang="ts">
-  export let starrApp
+  export let starrApp: StarrApp
 
+  import type { StarrApp } from "../../libs/config"
   import { Accordion, AccordionItem, Badge} from "sveltestrap"
   import { conf } from "../../libs/config"
   import Fa from "svelte-fa"
@@ -8,6 +9,8 @@
   import Instance from "./Instance.svelte"
   import T from "../../libs/Translate.svelte"
 
+  let count: number
+  let id: number
   // Keep UI up to date with existing count of instances.
   $: count = $conf.Instances[starrApp] ? $conf.Instances[starrApp].length : 0
   $: id = count<2 ? 0 : count-1

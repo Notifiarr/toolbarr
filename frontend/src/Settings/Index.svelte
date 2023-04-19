@@ -1,23 +1,14 @@
 <script lang="ts">
   export let hidden = false
 
-  import { 
-    Button,
-    Container,
-    Form,
-    InputGroup,
-    Nav,
-    NavLink,
-    Offcanvas,
-    Row,
-  } from "sveltestrap"
+  import { Button, Container, Form, InputGroup, Nav, NavLink, Offcanvas, Row } from "sveltestrap"
   import Logs from "./Logs.svelte"
   import Advanced from "./Advanced.svelte"
-  import { CreateShortcut } from "../../wailsjs/go/app/App.js"
+  import { CreateShortcut } from "../../wailsjs/go/app/App"
   import BGLogo from "../libs/BackgroundLogo.svelte"
   import Fa from "svelte-fa"
   import { faQuestion } from "@fortawesome/free-solid-svg-icons"
-  import { conf, app } from "../libs/config.js"
+  import { conf, app } from "../libs/config"
   import windowsConf from "../assets/images/windows-conf-file.png"
   import { toast } from "../libs/funcs"
   import ConfigInput from "../libs/Input.svelte"

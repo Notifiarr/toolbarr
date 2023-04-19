@@ -2,8 +2,8 @@
   import { Button, InputGroup } from "sveltestrap"
   import Fa from "svelte-fa"
   import { faFolderOpen } from "@fortawesome/free-solid-svg-icons"
-  import { PickFolder } from "../../wailsjs/go/app/App.js"
-  import { app, conf } from "../libs/config.js"
+  import { PickFolder } from "../../wailsjs/go/app/App"
+  import { app, conf } from "../libs/config"
   import ConfigInput from "../libs/Input.svelte"
   import T, { _ } from "../libs/Translate.svelte"
 

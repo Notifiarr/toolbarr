@@ -3,6 +3,7 @@ package starrs
 import (
 	"context"
 	"strings"
+	"time"
 
 	"github.com/Notifiarr/toolbarr/pkg/logs"
 	"github.com/Notifiarr/toolbarr/pkg/mnd"
@@ -29,14 +30,16 @@ type Instances map[string][]AppConfig
 
 // AppConfig is the configuration for an instance.
 type AppConfig struct {
-	App    string // Radarr, Sonarr, etc
-	Name   string // Custom name: Radarr2, Radarr4k, etc.
-	URL    string // url to app.
-	User   string // username for app.
-	Pass   string // password for app.
-	Key    string // api key for app.
-	DBPath string // path to database for app.
-	SSL    bool   // verify ssl cert?
+	SSL     bool          // verify ssl cert?
+	Form    bool          // Use form login instead of basic auth?
+	Timeout time.Duration // How long to wait for the app's API.
+	App     string        // Radarr, Sonarr, etc
+	Name    string        // Custom name: Radarr2, Radarr4k, etc.
+	URL     string        // url to app.
+	User    string        // username for app.
+	Pass    string        // password for app.
+	Key     string        // api key for app.
+	DBPath  string        // path to database for app.
 }
 
 // Startup runs after wails inializes so we can save the context.

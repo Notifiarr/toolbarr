@@ -1,8 +1,9 @@
 <script lang="ts">
-  export let tab
+  export let tab: Tab
   export let info
   export let instance
 
+  import type { Tab } from "./fragments/tabs.svelte"
   import { _ } from "../../libs/Translate.svelte"
   import Footer from "./footer.svelte"
   import Dropdown from "./fragments/dropdown.svelte"
@@ -15,12 +16,12 @@
   import { fixFieldValues } from "./methods"
   import { Table, Tooltip, Icon } from "sveltestrap"
 
-  let isOpen = {}       // Modal toggle control.
-  let updating = false  // True while doing updates.
-  let all = false       // Toggle for select-all link.
-  let selected = {}     // Rows selected by key: ID.
-  let str = fixFieldValues(info) // Used for equivalence comparison.
-  let form = JSON.parse(str)     // Form changes go here.
+  let isOpen: any = {}           // Modal toggle control.
+  let updating: boolean = false  // True while doing updates.
+  let all: boolean = false       // Toggle for select-all link.
+  let selected: any = {}         // Rows selected by key: ID.
+  let str: string = fixFieldValues(info) // Used for equivalence comparison.
+  let form: any = JSON.parse(str)        // Form changes go here.
   let starrApp = instance.App
 </script>
 
@@ -73,5 +74,5 @@
 {#if instance.App == "Prowlarr"}
   {$_("instances.ProwlarrNotSupported")}
 {:else}
-  <Footer {instance} bind:selected={selected} {tab} bind:updating={updating} bind:info={info} bind:form={form} bind:str={str}/>
+  <Footer {instance} bind:selected {tab} bind:updating bind:info bind:form bind:str/>
 {/if}

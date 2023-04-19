@@ -1,14 +1,15 @@
 <script lang="ts">
-  export let form
-  export let updating
-  export let starrApp
-  export let field
+  export let form: any
+  export let updating: boolean
+  export let starrApp: StarrApp
+  export let field: string
   export let name = ""
 
   import T, { _ } from "../../../libs/Translate.svelte"
   import Fa from "svelte-fa"
   import { faCircleInfo } from "@fortawesome/free-solid-svg-icons"
   import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Tooltip } from "sveltestrap"
+  import type { StarrApp } from "../../..//libs/config";
 
   $: title = name ? $_(name) : $_(`instances.${field}Title`)
   let dropdown

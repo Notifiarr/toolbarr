@@ -1,9 +1,9 @@
 <script lang="ts">
-  export let info
-  export let form
-  export let idx
-  export let item
-  export let itemIdx
+  export let info: any
+  export let form: any
+  export let idx: number
+  export let item: any
+  export let itemIdx: number
 
   import { _ } from "../../../libs/Translate.svelte"
   import { Input, InputGroup, InputGroupText, Tooltip } from "sveltestrap"

@@ -1,15 +1,16 @@
 <script lang="ts">
-  export let starrApp
-  export let instance
-  export let showTitle
+  export let starrApp: StarrApp
+  export let instance: Instance
+  export let showTitle: boolean | undefined
 
+  import type { StarrApp, Instance } from "../../../libs/config"
   import { Card, CardBody, CardFooter, CardHeader, CardTitle, Spinner } from "sveltestrap"
   import T, { _ } from "../../../libs/Translate.svelte"
   import { MigratorInfo } from "../../../../wailsjs/go/starrs/Starrs"
   import { toast } from "../../../libs/funcs"
   import Form from "./Form.svelte"
 
-  let info
+  let info: any
   if (instance && instance.DBPath) {
     MigratorInfo(instance).then(
       rep => info = rep,
