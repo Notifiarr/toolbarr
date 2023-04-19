@@ -13,7 +13,7 @@ require (
 	golift.io/rotatorr v0.0.0-20230317103044-d974d22ee164
 	golift.io/starr v0.14.1-0.20230416074015-1fb67f4b06f8
 	golift.io/version v0.0.2
-	modernc.org/sqlite v1.21.1
+	modernc.org/sqlite v1.21.2
 )
 
 require (
@@ -47,7 +47,7 @@ require (
 	lukechampine.com/uint128 v1.3.0 // indirect
 	modernc.org/cc/v3 v3.40.0 // indirect
 	modernc.org/ccgo/v3 v3.16.13 // indirect
-	modernc.org/libc v1.22.3 // indirect
+	modernc.org/libc v1.22.4 // indirect
 	modernc.org/mathutil v1.5.0 // indirect
 	modernc.org/memory v1.5.0 // indirect
 	modernc.org/opt v0.1.3 // indirect
