@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { Badge, Input, Tooltip } from "sveltestrap"
 
   export let updating

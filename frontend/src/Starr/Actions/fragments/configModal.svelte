@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   export let form
   export let isOpen = false
   export let id

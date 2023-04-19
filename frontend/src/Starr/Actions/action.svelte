@@ -1,11 +1,12 @@
-<script>
+<script lang="ts">
   export let starrApp
   export let instance
-  export let tab
-  export let showTitle
-  export let updating
-  export let hidden
+  export let tab: Tab
+  export let showTitle: boolean
+  export let updating: boolean
+  export let hidden: boolean
 
+  import type { Tab } from "./fragments/tabs.svelte"
   import { Button, Card, CardBody, CardFooter, CardHeader, CardTitle, Collapse } from "sveltestrap"
   import T, { _ } from "../../libs/Translate.svelte"
   import { toast } from "../../libs/funcs"
@@ -13,7 +14,7 @@
   import { conf } from "../../libs/config"
   import Fa from "svelte-fa"
   import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons"
-
+  
   let rawOpen = false
   let info = undefined
   let prevTab = tab
@@ -29,8 +30,8 @@
     info = undefined
 
     if (instance.URL=="") return
-    await tab.getData(instance).then(
-      rep => {info = rep; prevURL = instance.URL},
+    await tab.data(instance).then(
+      rep => { info = rep; prevURL = instance.URL },
       err => toast("error", err),
     )
     updating = false

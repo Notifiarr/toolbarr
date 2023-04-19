@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   export let form
   export let updating
   export let starrApp

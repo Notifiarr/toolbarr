@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   export let app
   export let size
   export let style = ""

@@ -2,21 +2,22 @@
   export let instance
   export let info
   export let form
-  export let str
-  export let updating
+  export let str: string
+  export let updating: boolean
   export let selected
-  export let tab
+  export let tab: Tab
   export let noForce = false
 
+  import type { Tab } from "./fragments/tabs.svelte"
   import { Alert, Button, Collapse, Fade, Tooltip, Icon, Card } from "sveltestrap"
   import Loading from "../loading.svelte"
   import T, { _ } from "../../libs/Translate.svelte"
-  import { toast, count } from "../../libs/funcs.js"
-  import { update, remove, fixFieldValues } from "./methods.js"
+  import { toast, count } from "../../libs/funcs"
+  import { update, remove, fixFieldValues } from "./methods"
 
   let badMsg = ""
   let goodMsg = ""
-  $: selectedCount = count(selected)        // How many items are selected.
+  $: selectedCount = count(selected, null)        // How many items are selected.
   $: unSaved = JSON.stringify(form) !== str // True when something changed.
   let button
 
@@ -64,7 +65,7 @@
   }
 
   async function deleteItem() {
-    toast("info", $_("instances.Deleting"+tab.link, { values:{"count": count(selected)} }))
+    toast("info", $_("instances.Deleting"+tab.link, { values:{"count": count(selected, null)} }))
     goodMsg = badMsg = ""
     updating = true
 

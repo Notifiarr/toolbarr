@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   export let hidden = false
   import mainLogo from "./assets/images/logo.png"
   import BGLogo from "./libs/BackgroundLogo.svelte"

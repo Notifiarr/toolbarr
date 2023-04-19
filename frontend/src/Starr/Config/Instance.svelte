@@ -1,16 +1,16 @@
-<script>
+<script lang="ts">
   export let starrApp
   export let index
   export let instance = undefined
 
   import { Input, InputGroup, InputGroupText, Button, Form, Alert, FormGroup, Badge } from "sveltestrap"
-  import { app, conf } from "../../libs/config.js"
-  import { port } from "../../libs/info.js"
+  import { app, conf } from "../../libs/config"
+  import { port } from "../../libs/info"
   import Fa from "svelte-fa"
   import { faFolderOpen, faLock, faUnlock, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons"
-  import { PickFile, SaveInstance, RemoveInstance } from "../../../wailsjs/go/app/App.js"
-  import { TestInstance } from "../../../wailsjs/go/starrs/Starrs.js"
-  import { toast } from "../../libs/funcs.js"
+  import { PickFile, SaveInstance, RemoveInstance } from "../../../wailsjs/go/app/App"
+  import { TestInstance } from "../../../wailsjs/go/starrs/Starrs"
+  import { toast } from "../../libs/funcs"
   import { onDestroy } from "svelte"
   import { _ } from "../../libs/Translate.svelte"
 

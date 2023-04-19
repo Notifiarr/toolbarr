@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   export let tab
   export let info
   export let instance
@@ -12,7 +12,7 @@
   import FieldInput from "./fragments/fieldInput.svelte"
   import SelectAll from "./fragments/selectAllHeader.svelte"
   import SelectRow from "./fragments/selectAllRow.svelte"
-  import { fixFieldValues } from "./methods.js"
+  import { fixFieldValues } from "./methods"
   import { Table, Tooltip, Icon } from "sveltestrap"
 
   let isOpen = {}       // Modal toggle control.

@@ -1,4 +1,4 @@
-<script type="ts">
+<script lang="ts">
   import golift from "../assets/images/golift.png"
   import starr from "../assets/images/servarr.png"
   import notifiarr from "../assets/images/notifiarr.png"

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { Button, InputGroup } from "sveltestrap"
   import Fa from "svelte-fa"
   import { faFolderOpen } from "@fortawesome/free-solid-svg-icons"

@@ -1,11 +1,11 @@
-<script>
+<script lang="ts">
   export let starrApp
   export let instance
   export let showTitle
 
   import { Card, CardBody, CardFooter, CardHeader, CardTitle, Spinner } from "sveltestrap"
   import T, { _ } from "../../../libs/Translate.svelte"
-  import { MigratorInfo } from "../../../../wailsjs/go/starrs/Starrs.js"
+  import { MigratorInfo } from "../../../../wailsjs/go/starrs/Starrs"
   import { toast } from "../../../libs/funcs"
   import Form from "./Form.svelte"
 

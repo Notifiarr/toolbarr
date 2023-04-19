@@ -1,5 +1,5 @@
 import { toasts }  from "svelte-toasts"
-import { conf } from "./config.js"
+import { conf } from "./config"
 import { onDestroy } from "svelte"
 import { _, isReady } from "./Translate.svelte"
 
@@ -18,7 +18,7 @@ conf.subscribe(value => {
   sentToasts.forEach(t => t.theme = isDark ? "dark" : "light")
 })
 
-export const toast = (type, msg, title="", seconds=7) => {
+export function toast(type, msg, title="", seconds=7) {
   const thisToast = toasts.add({
     title: title != "" ? title : type == "error" ? errorWord : "",
     description: msg,
@@ -32,6 +32,7 @@ export const toast = (type, msg, title="", seconds=7) => {
       if (index > -1) sentToasts.splice(index, 1)
     }
   })
+
   sentToasts.push(thisToast)
 }
 
@@ -39,6 +40,7 @@ export const toast = (type, msg, title="", seconds=7) => {
 export function onInterval(callback, seconds) {
   const interval = setInterval(callback, seconds*1000)
   onDestroy(() => clearInterval(interval))
+
   return interval
 }
 
@@ -48,12 +50,18 @@ export function onOnce(callback, seconds) {
     clearInterval(interval)
     callback(input)
   }, seconds*1000)
+
   return interval
 }
 
 export function count(selected, key) {
   let counter = 0
-  if (key) for (var k in selected) if (selected[k][key]) counter++
-  if (!key) for (var k in selected) if (selected[k]) counter++
+
+  if (key) {
+    for (var k in selected) if (selected[k][key]) counter++
+  } else {
+    for (var k in selected) if (selected[k]) counter++
+  }
+
   return counter
 }

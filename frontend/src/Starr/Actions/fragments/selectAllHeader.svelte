@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { _ } from "../../../libs/Translate.svelte"
   import { Icon } from "sveltestrap"
 

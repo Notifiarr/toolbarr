@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   export let tab
   export let info
   export let instance
@@ -45,19 +45,19 @@
 
   {#each info as client, idx}
     {#if client} <!-- When deleting a client, this protects an error condition. -->
+    <ConfigModal {info} {form} {idx} {str} id={client.id} name={client.implementation} bind:isOpen={isOpen[idx]}
+      disabled={starrApp=="Prowlarr"?$_("instances.ProwlarrNotSupported"):""}>
+      <ModalInput {info} bind:form={form} {idx} field="name" name="words.Name" type="text"/>
+      <ModalInput {info} bind:form={form} {idx} field="priority" name="words.Priority" type="number"/>
+      {#each info[idx].fields as item, itemIdx}
+        <FieldInput {item} {itemIdx} {info} {idx} bind:form={form}/>
+      {/each}
+    </ConfigModal>
+
     <SelectRow {updating} {selected} id={info[idx].id} item={client}>
       <td class={JSON.stringify(form[idx]) != JSON.stringify(info[idx])?"border-warning":""}>
         <a href="/" style="padding-left:0" on:click|preventDefault={() => isOpen[idx]=!updating}>{client.name}</a>
-        <ConfigModal {info} {form} {idx} {str} id={client.id} name={client.implementation} bind:isOpen={isOpen[idx]}
-            disabled={starrApp=="Prowlarr"?$_("instances.ProwlarrNotSupported"):""}>
-          <ModalInput {info} bind:form={form} {idx} field="name" name="words.Name" type="text"/>
-          <ModalInput {info} bind:form={form} {idx} field="priority" name="words.Priority" type="number"/>
-          {#each info[idx].fields as item, itemIdx}
-            <FieldInput {item} {itemIdx} {info} {idx} bind:form={form}/>
-          {/each}
-        </ConfigModal>
       </td>
-
       {#if instance.App == "Readarr"}
       <TDInput {idx} {info} {updating} bind:form={form} field="enable" type="switch"/>
       {:else}

@@ -1,12 +1,12 @@
-<script>
+<script lang="ts">
   export let starrApp
   export let hidden = false // Avoid querying backends if hidden.
 
   import Applogo from "../../libs/Applogo.svelte"
-  import { conf } from "../../libs/config.js"
+  import { conf } from "../../libs/config"
   import T, { _ } from "../../libs/Translate.svelte"
   import Action from "./action.svelte"
-  import Tabs, { startTab } from "./tabs.svelte"
+  import Tabs, { startTab } from "./fragments/tabs.svelte"
   import Fa from "svelte-fa"
   import { faCaretLeft, faCaretRight } from "@fortawesome/free-solid-svg-icons"
   import {

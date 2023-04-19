@@ -1,8 +1,8 @@
-<script>
+<script lang="ts">
   export let starrApp
 
   import { Accordion, AccordionItem, Badge} from "sveltestrap"
-  import { conf } from "../../libs/config.js"
+  import { conf } from "../../libs/config"
   import Fa from "svelte-fa"
   import { faPlus } from "@fortawesome/free-solid-svg-icons"
   import Instance from "./Instance.svelte"

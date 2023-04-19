@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   export let info
   export let instance
   import { Card } from "sveltestrap"

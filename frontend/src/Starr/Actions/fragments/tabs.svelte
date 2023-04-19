@@ -1,11 +1,12 @@
-<script context="module" type="ts">
-  import appProfiles from "./AppProfiles.svelte"
-  import indexers from "./Indexers.svelte"
-  import downloadClients from "./DownloadClients.svelte"
-  import importLists from "./ImportLists.svelte"
-  import customFilters from "./CustomFilters.svelte"
-  import blockList from "./BlockLists.svelte"
-  import qualityProfiles from "./QualityProfiles.svelte"
+<script context="module" lang="ts">
+  import type { ComponentType } from "svelte"
+  import appProfiles from "../AppProfiles.svelte"
+  import indexers from "../Indexers.svelte"
+  import downloadClients from "../DownloadClients.svelte"
+  import importLists from "../ImportLists.svelte"
+  import customFilters from "../CustomFilters.svelte"
+  import blockList from "../BlockLists.svelte"
+  import qualityProfiles from "../QualityProfiles.svelte"
   import {
     AppProfiles,
     Indexers,
@@ -14,25 +15,32 @@
     CustomFilters,
     BlockList,
     QualityProfiles,
-  } from "../../../wailsjs/go/starrs/Starrs.js"
+  } from "../../../../wailsjs/go/starrs/Starrs.js"
+
+  export type Tab = {
+    data: (any) => Promise<any>
+    link: string
+    component: ComponentType
+  }
 
   // All apps have these tabs.
-  const commonTabs = []
-  commonTabs.push({getData: Indexers, link: "Indexers", component: indexers})
-  commonTabs.push({getData: Downloaders, link: "DownloadClients", component: downloadClients})
+  const commonTabs: Tab[] = [
+    {data: Indexers, link: "Indexers", component: indexers},
+    {data: Downloaders, link: "DownloadClients", component: downloadClients},
+  ]
 
   // Everything but Prowlarr.
   const starrTabs = commonTabs.concat([
-    {getData: BlockList, link: "BlockList", component: blockList},
-    {getData: QualityProfiles, link: "QualityProfiles", component: qualityProfiles},
-    {getData: ImportLists, link: "ImportLists", component: importLists},
+    {data: BlockList, link: "BlockList", component: blockList},
+    {data: QualityProfiles, link: "QualityProfiles", component: qualityProfiles},
+    {data: ImportLists, link: "ImportLists", component: importLists},
   ])
 
   const tabs = {
     "Lidarr": starrTabs,
     "Prowlarr": commonTabs.concat([
-      {getData: AppProfiles, link: "AppProfiles", component: appProfiles},
-      {getData: CustomFilters, link: "CustomFilters", component: customFilters},
+      {data: AppProfiles, link: "AppProfiles", component: appProfiles},
+      {data: CustomFilters, link: "CustomFilters", component: customFilters},
     ]),
     "Radarr": starrTabs,
     "Readarr": starrTabs,
@@ -44,13 +52,13 @@
   export const startTab = commonTabs[0]
 </script>
 
-<script>
-  export let starrApp
+<script lang="ts">
+  export let starrApp: string
   export let showTitle = false
-  export let updating
-  export let tab // bind this and pass in startTab.
+  export let updating: boolean
+  export let tab: Tab // bind this and pass in startTab.
  
-  import T, { _ } from "../../libs/Translate.svelte"
+  import T, { _ } from "../../../libs/Translate.svelte"
   import { Fade, Nav, NavItem, NavLink } from "sveltestrap"
 
   function changeTab(e, newTab) {

@@ -1,11 +1,11 @@
-<script>
+<script lang="ts">
   export let tab
   export let info
   export let instance
 
   import { _ } from "../../libs/Translate.svelte"
   import Footer from "./footer.svelte"
-  import { count } from "../../libs/funcs.js"
+  import { count } from "../../libs/funcs"
   import Dropdown from "./fragments/dropdown.svelte"
   import TDInput from "./fragments/tableInput.svelte"
   import ModalInput from "./fragments/modalInput.svelte"

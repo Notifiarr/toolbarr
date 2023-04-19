@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   export let instance
   export let info
   
@@ -20,14 +20,14 @@
     DeleteRootFolder,
     UpdateRecycleBin,
     UpdateInvalidItems,
-  } from "../../../../wailsjs/go/starrs/Starrs.js"
-  import { PickFolder } from "../../../../wailsjs/go/app/App.js"
+  } from "../../../../wailsjs/go/starrs/Starrs"
+  import { PickFolder } from "../../../../wailsjs/go/app/App"
   import T, { _ } from "../../../libs/Translate.svelte"
   import { faClose, faFolderOpen } from "@fortawesome/free-solid-svg-icons"
   import Fa from "svelte-fa"
-  import { app } from "../../../libs/config.js"
-  import { EventsOff, EventsOn } from "../../../../wailsjs/runtime/runtime.js"
-  import { onOnce } from "../../../libs/funcs.js"
+  import { app } from "../../../libs/config"
+  import { EventsOff, EventsOn } from "../../../../wailsjs/runtime/runtime"
+  import { onOnce } from "../../../libs/funcs"
   import Loading from "../../loading.svelte"
 
   // Used when updating root folder paths.

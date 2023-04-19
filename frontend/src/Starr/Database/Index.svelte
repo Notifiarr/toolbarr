@@ -1,10 +1,10 @@
-<script>
+<script lang="ts">
   export let starrApp
   export let hidden = false
 
   import Applogo from "../../libs/Applogo.svelte"
   import { Accordion, AccordionItem, Badge, Input, InputGroup, InputGroupText } from "sveltestrap"
-  import { conf } from "../../libs/config.js"
+  import { conf } from "../../libs/config"
   import T, { _ } from "../../libs/Translate.svelte"
   import Inspector from "./Inspector.svelte"
   import Migrator from "./Migrator/Index.svelte"
