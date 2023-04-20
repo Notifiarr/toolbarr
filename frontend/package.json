@@ -22,7 +22,7 @@
     "sveltestrap": "^5.10.0",
     "vite": "^4.2.0",
     "tslib": "^2.5.0",
-    "typescript": "4.3.5",
+    "typescript": "4.9.5",
     "@tsconfig/svelte": "^3.0.0",
     "svelte-check": "^2.10.3"
   },
