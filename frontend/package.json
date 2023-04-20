@@ -11,11 +11,11 @@
 
   },
   "devDependencies": {
-    "@fortawesome/free-brands-svg-icons": "^6.3.0",
-    "@fortawesome/free-regular-svg-icons": "^6.4.0",
-    "@fortawesome/free-solid-svg-icons": "^6.3.0",
-    "@sveltejs/vite-plugin-svelte": "^2.0.3",
-    "svelte": "^3.55.1",
+    "@fortawesome/free-brands-svg-icons": "6.3.0",
+    "@fortawesome/free-regular-svg-icons": "6.4.0",
+    "@fortawesome/free-solid-svg-icons": "6.3.0",
+    "@sveltejs/vite-plugin-svelte": "2.0.3",
+    "svelte": "3.55.1",
     "svelte-fa": "^3.0.3",
     "svelte-toasts": "^1.1.2",
     "svelte-preprocess": "4.10.7",
@@ -27,6 +27,6 @@
     "svelte-check": "^2.10.3"
   },
   "dependencies": {
-    "svelte-i18n": "^3.6.0"
+    "svelte-i18n": "3.6.0"
   }
 }
