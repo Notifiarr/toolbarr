@@ -29,11 +29,9 @@ jobs:
   golangci:
     strategy:
       matrix:
-        os: [darwin, linux, windows]
+        os: [ubuntu, macos, windows]
     name: golangci-lint
-    runs-on: macos-latest
-    env:
-      GOOS: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-go@v4
@@ -42,5 +40,5 @@ jobs:
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v3
         with:
-          version: 'v1.51'
+          version: 'v1.52'
           args: --verbose ./pkg/...
