@@ -4,7 +4,7 @@
         {
             "id": "Dialog Failed: {Err}",
             "message": "Dialog Failed: {Err}",
-            "translation": "",
+            "translation": "Dialogo fallito: {Err}",
             "placeholders": [
                 {
                     "id": "Err",
@@ -131,7 +131,7 @@
         {
             "id": "Opening directory browser: {Err}",
             "message": "Opening directory browser: {Err}",
-            "translation": "",
+            "translation": "Apertura browser directory: {Err}",
             "placeholders": [
                 {
                     "id": "Err",
@@ -146,7 +146,7 @@
         {
             "id": "Saved {App} instance configuration!",
             "message": "Saved {App} instance configuration!",
-            "translation": "",
+            "translation": "Salvata la configurazione dell'istanza {App}!",
             "placeholders": [
                 {
                     "id": "App",
@@ -161,7 +161,7 @@
         {
             "id": "Added new {App} instance!",
             "message": "Added new {App} instance!",
-            "translation": "",
+            "translation": "Aggiunta nuova istanza {App}!",
             "placeholders": [
                 {
                     "id": "App",
@@ -176,7 +176,7 @@
         {
             "id": "Provided {StarrApp} instance {Idx} does not exist",
             "message": "Provided {StarrApp} instance {Idx} does not exist",
-            "translation": "",
+            "translation": "L'istanza {StarrApp} {Idx} non esiste",
             "placeholders": [
                 {
                     "id": "StarrApp",
@@ -199,7 +199,7 @@
         {
             "id": "Really delete {StarrApp} instance? Name: {Name}",
             "message": "Really delete {StarrApp} instance? Name: {Name}",
-            "translation": "",
+            "translation": "Vuoi eliminare davvero l'istanza {StarrApp}? Nome: {Name}",
             "placeholders": [
                 {
                     "id": "StarrApp",
@@ -222,12 +222,12 @@
         {
             "id": "Remove Instance",
             "message": "Remove Instance",
-            "translation": ""
+            "translation": "Rimuovi istanza"
         },
         {
             "id": "Removed {StarrApp} Instance",
             "message": "Removed {StarrApp} Instance",
-            "translation": "",
+            "translation": "Rimossa istanza {StarrApp} Istanza",
             "placeholders": [
                 {
                     "id": "StarrApp",
@@ -309,7 +309,7 @@
         {
             "id": "Hide",
             "message": "Hide",
-            "translation": ""
+            "translation": "Nascondi"
         },
         {
             "id": "Checking for current {Updates} release: {Err}",
@@ -373,12 +373,12 @@
         {
             "id": "Missing release, check first?",
             "message": "Missing release, check first?",
-            "translation": ""
+            "translation": "Release mancante, controllare prima?"
         },
         {
             "id": "Downloading {Updates} update failed: {Error}",
             "message": "Downloading {Updates} update failed: {Error}",
-            "translation": "",
+            "translation": "Il download dell'aggiornamento {Updates} non è riuscito: {Error}",
             "placeholders": [
                 {
                     "id": "Updates",
@@ -642,6 +642,961 @@
             "id": "closing log rotator:",
             "message": "closing log rotator:",
             "translation": "chiusura del log rotator:"
+        },
+        {
+            "id": "Updated {Rows} rows in table {Table}.",
+            "message": "Updated {Rows} rows in table {Table}.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Aggiornate le righe di {Rows} nella tabella {Table}.",
+            "placeholders": [
+                {
+                    "id": "Rows",
+                    "string": "%[1]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 1,
+                    "expr": "rows"
+                },
+                {
+                    "id": "Table",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "column.Table"
+                }
+            ]
+        },
+        {
+            "id": "Unset recycle bin path! Rows Updated: {Count}",
+            "message": "Unset recycle bin path! Rows Updated: {Count}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Disattivato il percorso del cestino! Righe aggiornate: {Count}",
+            "placeholders": [
+                {
+                    "id": "Count",
+                    "string": "%[1]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 1,
+                    "expr": "count"
+                }
+            ]
+        },
+        {
+            "id": "Getting user data: {Error}",
+            "message": "Getting user data: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Ottengo i dati dell'utente: {Error}",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Getting block lists: {Error}",
+            "message": "Getting block lists: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Ottengo elenchi di blocchi: {Error}",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Deleting {Name} block list: {ListID}: {Error}",
+            "message": "Deleting {Name} block list: {ListID}: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Eliminazione dell'elenco di blocco {Name}: {ListID}: {Error}",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "ListID",
+                    "string": "%[2]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 2,
+                    "expr": "listID"
+                },
+                {
+                    "id": "Error",
+                    "string": "%[3]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 3,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Getting download clients: {Error}",
+            "message": "Getting download clients: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Ottengo i client di download: {Error}",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Deleting {Name} download client: {ClientID}: {Error}",
+            "message": "Deleting {Name} download client: {ClientID}: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Eliminazione del client di download {Name}: {ClientID}: {Error}",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "ClientID",
+                    "string": "%[2]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 2,
+                    "expr": "clientID"
+                },
+                {
+                    "id": "Error",
+                    "string": "%[3]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 3,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Getting import list: {Error}",
+            "message": "Getting import list: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Ottengo l'elenco delle importazioni: {Error}",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Deleted {Name} block list with ID {ListID}.",
+            "message": "Deleted {Name} block list with ID {ListID}.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Eliminato l'elenco di blocchi {Name} con ID {ListID}.",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "ListID",
+                    "string": "%[2]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 2,
+                    "expr": "listID"
+                }
+            ]
+        },
+        {
+            "id": "Deleted {Name} download client with ID {ClientID}.",
+            "message": "Deleted {Name} download client with ID {ClientID}.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Eliminato {Name} client di download con ID {ClientID}.",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "ClientID",
+                    "string": "%[2]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 2,
+                    "expr": "clientID"
+                }
+            ]
+        },
+        {
+            "id": "Deleted {Name} quality profile with ID {ProfileID}.",
+            "message": "Deleted {Name} quality profile with ID {ProfileID}.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Eliminato il profilo di qualità {Name} con ID {ProfileID}.",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "ProfileID",
+                    "string": "%[2]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 2,
+                    "expr": "profileID"
+                }
+            ]
+        },
+        {
+            "id": "Choose File",
+            "message": "Choose File",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Scegli file"
+        },
+        {
+            "id": "Opening file browser: {Err}",
+            "message": "Opening file browser: {Err}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Apertura del browser dei file: {Err}",
+            "placeholders": [
+                {
+                    "id": "Err",
+                    "string": "%[1]v",
+                    "type": "error",
+                    "underlyingType": "interface{Error() string}",
+                    "argNum": 1,
+                    "expr": "err"
+                }
+            ]
+        },
+        {
+            "id": "Querying Sqlite3 DB: {Error}",
+            "message": "Querying Sqlite3 DB: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Interrogazione del DB Sqlite3: {Error}",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Delete Root Folder",
+            "message": "Delete Root Folder",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Elimina la cartella principale"
+        },
+        {
+            "id": "Really unset {Name} recycle bin?",
+            "message": "Really unset {Name} recycle bin?",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Hai davvero disattivato il cestino di {Name}?",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                }
+            ]
+        },
+        {
+            "id": "Unset Recycle Bin",
+            "message": "Unset Recycle Bin",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Disattiva il cestino"
+        },
+        {
+            "id": "Really delete {Name} root folder?\nPath: {Folder}\nThis Action cannot be undone, and this application does not make backups.",
+            "message": "Really delete {Name} root folder?\nPath: {Folder}\nThis Action cannot be undone, and this application does not make backups.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Cancellare davvero la cartella principale {Name}? \nCartella: {Folder}\nQuesta azione non può essere annullata e questa applicazione non esegue backup.",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "Folder",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "folder"
+                }
+            ]
+        },
+        {
+            "id": "Success! Deleted root folder: {Folder}",
+            "message": "Success! Deleted root folder: {Folder}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Eseguito! Eliminata la cartella principale: {Folder}",
+            "placeholders": [
+                {
+                    "id": "Folder",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "folder"
+                }
+            ]
+        },
+        {
+            "id": "No path provided.",
+            "message": "No path provided.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Nessun percorso fornito."
+        },
+        {
+            "id": "Changed recycle bin path! Rows Updated: {Count}",
+            "message": "Changed recycle bin path! Rows Updated: {Count}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Cambiato il percorso del cestino! Righe aggiornate: {Count}",
+            "placeholders": [
+                {
+                    "id": "Count",
+                    "string": "%[1]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 1,
+                    "expr": "count"
+                }
+            ]
+        },
+        {
+            "id": "Connection test failed! {Error}",
+            "message": "Connection test failed! {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Test di connessione fallito! {Error}",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Connection test failed! Querying Sqlite3 DB: {Error}",
+            "message": "Connection test failed! Querying Sqlite3 DB: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Test di connessione fallito! Query Sqlite3 DB: {Error}",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Login (username/password) failed: {Error}",
+            "message": "Login (username/password) failed: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Login (username/password) fallito: {Error}",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Deleting {Name} import list: {ListID}: {Error}",
+            "message": "Deleting {Name} import list: {ListID}: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Eliminazione dell'elenco di importazioni di {Name}: {ListID}: {Error}",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "ListID",
+                    "string": "%[2]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 2,
+                    "expr": "listID"
+                },
+                {
+                    "id": "Error",
+                    "string": "%[3]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 3,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Getting exclusions: {Error}",
+            "message": "Getting exclusions: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Ottengo le esclusioni: {Error}",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Deleting import list exclusion: {Id}: {Error}",
+            "message": "Deleting import list exclusion: {Id}: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Eliminazione dell'esclusione dell'elenco di importazione: {Id}: {Error}",
+            "placeholders": [
+                {
+                    "id": "Id",
+                    "string": "%[1]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 1,
+                    "expr": "id"
+                },
+                {
+                    "id": "Error",
+                    "string": "%[2]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Getting indexers: {Error}",
+            "message": "Getting indexers: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Ottengo indicizzatori: {Error}",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Deleting {Name} indexer: {IndexerID}: {Error}",
+            "message": "Deleting {Name} indexer: {IndexerID}: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Eliminazione dell'indexer {Name}: {IndexerID}: {Error}",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "IndexerID",
+                    "string": "%[2]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 2,
+                    "expr": "indexerID"
+                },
+                {
+                    "id": "Error",
+                    "string": "%[3]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 3,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Updating {Name} indexer: {IndexerName} ({IndexerID}): {Error}",
+            "message": "Updating {Name} indexer: {IndexerName} ({IndexerID}): {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Aggiornamento dell'indexer {Name}: {IndexerName} ({IndexerID}): {Error}",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "IndexerName",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "indexerName"
+                },
+                {
+                    "id": "IndexerID",
+                    "string": "%[3]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 3,
+                    "expr": "indexerID"
+                },
+                {
+                    "id": "Error",
+                    "string": "%[4]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 4,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Getting quality profiles: {Error}",
+            "message": "Getting quality profiles: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Ottengo profili di qualità: {Error}",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Running Query: {Query}",
+            "message": "Running Query: {Query}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Eseguo Query: {Query}",
+            "placeholders": [
+                {
+                    "id": "Query",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "query"
+                }
+            ]
+        },
+        {
+            "id": "Getting tags: {Error}",
+            "message": "Getting tags: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Ottengo i tags: {Error}",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "<li>Connection test successful! Found {App} ({Name}) with version {Version}.</li>",
+            "message": "<li>Connection test successful! Found {App} ({Name}) with version {Version}.</li>",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "<li>Test di connessione ok! Trovata {App} ({Name}) con versione {Version}.</li>",
+            "placeholders": [
+                {
+                    "id": "App",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "test.App"
+                },
+                {
+                    "id": "Name",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "test.Name"
+                },
+                {
+                    "id": "Version",
+                    "string": "%[3]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 3,
+                    "expr": "test.Version"
+                }
+            ]
+        },
+        {
+            "id": "Connection test failed! Wrong app found. Expected {App} but found {App_1}. App Version: {Version}",
+            "message": "Connection test failed! Wrong app found. Expected {App} but found {App_1}. App Version: {Version}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Test di connessione fallito! Trovata App errata. Trovata {App_1} invece di {App}. Versione App: {Version}",
+            "placeholders": [
+                {
+                    "id": "App",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.App"
+                },
+                {
+                    "id": "App_1",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "test.App"
+                },
+                {
+                    "id": "Version",
+                    "string": "%[3]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 3,
+                    "expr": "test.Version"
+                }
+            ]
+        },
+        {
+            "id": "{Count} errors: {Errors}",
+            "message": "{Count} errors: {Errors}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "{Count} errori: {Errors}",
+            "placeholders": [
+                {
+                    "id": "Count",
+                    "string": "%[1]d",
+                    "type": "int",
+                    "underlyingType": "int",
+                    "argNum": 1,
+                    "expr": "count"
+                },
+                {
+                    "id": "Errors",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "errors"
+                }
+            ]
+        },
+        {
+            "id": "Deleted {Count} import list exclusions.",
+            "message": "Deleted {Count} import list exclusions.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Eliminate {Count} esclusioni di liste di importazione.",
+            "placeholders": [
+                {
+                    "id": "Count",
+                    "string": "%[1]d",
+                    "type": "int",
+                    "underlyingType": "int",
+                    "argNum": 1,
+                    "expr": "count"
+                }
+            ]
+        },
+        {
+            "id": "Deleted {Name} indexer with ID {IndexerID}.",
+            "message": "Deleted {Name} indexer with ID {IndexerID}.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Eliminato l'indexer {Name} con ID {IndexerID}.",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "IndexerID",
+                    "string": "%[2]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 2,
+                    "expr": "indexerID"
+                }
+            ]
+        },
+        {
+            "id": "Updated {Name} indexer {IndexerName} ({IndexerID}).",
+            "message": "Updated {Name} indexer {IndexerName} ({IndexerID}).",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Aggiornato l'indexer {Name} {IndexerName} ({IndexerID}).",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "IndexerName",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "indexerName"
+                },
+                {
+                    "id": "IndexerID",
+                    "string": "%[3]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 3,
+                    "expr": "indexerID"
+                }
+            ]
+        },
+        {
+            "id": "Success! Changed Root Folder from '{OldPath}' to '{NewPath}'.",
+            "message": "Success! Changed Root Folder from '{OldPath}' to '{NewPath}'.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Eseguito! Cambiata la cartella principale da '{OldPath}' a '{NewPath}'.",
+            "placeholders": [
+                {
+                    "id": "OldPath",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "oldPath"
+                },
+                {
+                    "id": "NewPath",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "newPath"
+                }
+            ]
+        },
+        {
+            "id": "Unable to open or read DB file: {Error}",
+            "message": "Unable to open or read DB file: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Impossibile aprire o leggere il file del DB: {Error}",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "You picked a folder, but you need to pick a sqlite3 database FILE.",
+            "message": "You picked a folder, but you need to pick a sqlite3 database FILE.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "È stata scelta una cartella, ma è necessario scegliere un FILE di database sqlite3."
+        },
+        {
+            "id": "<li>Database file test successful! SQLite3 version: {Version}, tables: {Count}</li>",
+            "message": "<li>Database file test successful! SQLite3 version: {Version}, tables: {Count}</li>",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "<li>Test del file di database riuscito! Versione SQLite3: {Version}, tabelle: {Count}</li>",
+            "placeholders": [
+                {
+                    "id": "Version",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "test.Version"
+                },
+                {
+                    "id": "Count",
+                    "string": "%[2]d",
+                    "type": "int",
+                    "underlyingType": "int",
+                    "argNum": 2,
+                    "expr": "test.Count"
+                }
+            ]
+        },
+        {
+            "id": "Deleted {Name} import list with ID {ListID}.",
+            "message": "Deleted {Name} import list with ID {ListID}.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Eliminato l'elenco di importazione {Name} con ID {ListID}.",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "ListID",
+                    "string": "%[2]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 2,
+                    "expr": "listID"
+                }
+            ]
+        },
+        {
+            "id": "Deleting {Name} quality profile: {ProfileID}: {Error}",
+            "message": "Deleting {Name} quality profile: {ProfileID}: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Eliminazione del profilo di qualità {Name}: {ProfileID}: {Error}",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "ProfileID",
+                    "string": "%[2]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 2,
+                    "expr": "profileID"
+                },
+                {
+                    "id": "Error",
+                    "string": "%[3]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 3,
+                    "expr": "err.Error()"
+                }
+            ]
         }
     ]
 }
