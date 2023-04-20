@@ -1,13 +1,13 @@
 <!-- this component allows a smoother syntax for html translations with values or href links. -->
 
-<script context="module">
+<script context="module" lang="ts">
   import { derived } from "svelte/store"
   import { _, locale } from "svelte-i18n"
   export { _ } // pass it through
   export const isReady = derived(locale, $locale => typeof $locale === 'string');
 </script>
 
-<script>
+<script lang="ts">
   export let id
 </script>
 

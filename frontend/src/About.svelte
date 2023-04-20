@@ -1,4 +1,4 @@
-<script type="ts">
+<script lang="ts">
   export let hidden = false
 
   import Fa from "svelte-fa"
@@ -6,9 +6,9 @@
   import { faGear } from "@fortawesome/free-solid-svg-icons"
   import { EventsOn, EventsOff } from "../wailsjs/runtime"
   import { CheckUpdate, DownloadUpdate, LaunchInstaller, OpenFolder } from "../wailsjs/go/app/App"
-  import { Container, Row, Table, Col, Card, Tooltip, Button, Progress, Badge } from   "sveltestrap"
+  import { Container, Row, Table, Col, Card, Tooltip, Button, Progress, Badge } from "sveltestrap"
   import BGLogo from "./libs/BackgroundLogo.svelte"
-  import { app, conf } from "./libs/config.js"
+  import { app, conf } from "./libs/config"
   import { toast, onOnce, onInterval } from "./libs/funcs"
   import T, { _ } from "./libs/Translate.svelte"
 

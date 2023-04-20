@@ -1,7 +1,8 @@
-<script>
-  export let app
-  export let size
+<script lang="ts">
+  export let app: string
+  export let size: number | string | undefined
   export let style = ""
+  
   import logo from "../assets/images/logo.png"
   import toolboxLogo from "../assets/images/Toolbox.png"
   import settingsLogo from "../assets/images/settings.png"

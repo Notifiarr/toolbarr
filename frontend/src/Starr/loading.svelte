@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   export let isOpen = true
 
   import { Card, Collapse, Spinner } from "sveltestrap"

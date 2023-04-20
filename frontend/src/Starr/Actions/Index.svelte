@@ -1,12 +1,13 @@
-<script>
-  export let starrApp
-  export let hidden = false // Avoid querying backends if hidden.
+<script lang="ts">
+  export let starrApp: StarrApp
+  export let hidden: boolean // Avoid querying backends if hidden.
 
+  import type { StarrApp, Instance } from "../../libs/config"
   import Applogo from "../../libs/Applogo.svelte"
-  import { conf } from "../../libs/config.js"
+  import { conf } from "../../libs/config"
   import T, { _ } from "../../libs/Translate.svelte"
   import Action from "./action.svelte"
-  import Tabs, { startTab } from "./tabs.svelte"
+  import Tabs, { startTab } from "./fragments/tabs.svelte"
   import Fa from "svelte-fa"
   import { faCaretLeft, faCaretRight } from "@fortawesome/free-solid-svg-icons"
   import {
@@ -29,9 +30,10 @@
   let tab = startTab
   // Pick the first instance on first load.
   let idx = 0
+  let instance: Instance
   $: instance = $conf.Instances[starrApp] ? $conf.Instances[starrApp][idx] : undefined
 
-  let width
+  let width: number
   $: small = width < 1200
   $: if (small) menuOpen = true
 </script>
@@ -44,7 +46,7 @@
     <!-- This is the page title. It's collapsible. -->
     <span slot="header" style="width:95%;">
       <Applogo style="float:right" size="25px" app={starrApp}/>
-      <h4 class="d-inline-block accordian-header">{@html $_("instances."+tab.link)}</h4>
+      <h4 class="d-inline-block accordian-header">{@html $_("instances."+tab.id)}</h4>
       {#if instance}<Badge color="primary">{$_(instance.Name)}</Badge>{/if}
     </span>
     <p><T id="instances.ToolsSelector" {starrApp}/></p>

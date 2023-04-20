@@ -1,8 +1,8 @@
 <script lang="ts">
   import { Button, InputGroup, Offcanvas } from "sveltestrap"
   import ConfigInput from "../libs/Input.svelte"
-  import { conf } from "../libs/config.js"
-  import { Languages } from "../../wailsjs/go/app/App.js"
+  import { conf } from "../libs/config"
+  import { Languages } from "../../wailsjs/go/app/App"
   import { faQuestion } from "@fortawesome/free-solid-svg-icons"
   import Fa from "svelte-fa"
   import T, { _ } from "../libs/Translate.svelte"

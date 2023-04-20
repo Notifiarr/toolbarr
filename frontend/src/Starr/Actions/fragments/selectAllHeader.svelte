@@ -1,12 +1,13 @@
-<script>
+<script lang="ts">
+  import type { Color } from "sveltestrap/src/shared";
   import { _ } from "../../../libs/Translate.svelte"
   import { Icon } from "sveltestrap"
 
-  export let updating
-  export let all
-  export let selected
+  export let updating: boolean
+  export let all: boolean
+  export let selected: {[key: string]: boolean}
   export let icon = "trash"
-  export let color = "danger"
+  export let color: Color = "danger"
 
 
   function selectAll() {

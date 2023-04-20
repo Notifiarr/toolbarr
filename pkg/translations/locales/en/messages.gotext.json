@@ -1409,6 +1409,23 @@
             "fuzzy": true
         },
         {
+            "id": "Getting metadata profiles: {Error}",
+            "message": "Getting metadata profiles: {Error}",
+            "translation": "Getting metadata profiles: {Error}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
             "id": "Getting quality profiles: {Error}",
             "message": "Getting quality profiles: {Error}",
             "translation": "Getting quality profiles: {Error}",
@@ -1552,6 +1569,23 @@
                     "type": "string",
                     "underlyingType": "string",
                     "argNum": 4,
+                    "expr": "err.Error()"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Getting root folders: {Error}",
+            "message": "Getting root folders: {Error}",
+            "translation": "Getting root folders: {Error}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
                     "expr": "err.Error()"
                 }
             ],

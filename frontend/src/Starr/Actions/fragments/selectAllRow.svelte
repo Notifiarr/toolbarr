@@ -1,9 +1,9 @@
-<script>
+<script lang="ts">
   import { Badge, Input, Tooltip } from "sveltestrap"
 
-  export let updating
-  export let id
-  export let selected
+  export let updating: boolean
+  export let id: string
+  export let selected: {[key: string]: boolean}
   export let item = undefined
 
   let link

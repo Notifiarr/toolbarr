@@ -1,18 +1,21 @@
-<script>
-  export let starrApp
-  export let hidden = false
+<script lang="ts">
+  export let starrApp: StarrApp
+  export let hidden: boolean = false
 
   import Applogo from "../../libs/Applogo.svelte"
   import { Accordion, AccordionItem, Badge, Input, InputGroup, InputGroupText } from "sveltestrap"
-  import { conf } from "../../libs/config.js"
+  import type { Instance, StarrApp } from "../../libs/config"
+  import { conf } from "../../libs/config"
   import T, { _ } from "../../libs/Translate.svelte"
   import Inspector from "./Inspector.svelte"
   import Migrator from "./Migrator/Index.svelte"
+  import type { ComponentType } from "svelte"
 
-  const tabs = []
+  
+  const tabs: {title: string, target: ComponentType}[] = []
   if (starrApp != "Prowlarr") tabs.push({title: "instances.FilesystemPathsMigrator", target: Migrator})
   tabs.push({title: "instances.SQLite3DatabaseInspector", target: Inspector})
-  let instance = $conf.Instances[starrApp] ? $conf.Instances[starrApp][0] : undefined
+  let instance: Instance = $conf.Instances[starrApp] ? $conf.Instances[starrApp][0] : undefined
   let activeTab = tabs[0]
   let showTitle = true
 </script>

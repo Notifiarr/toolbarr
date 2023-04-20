@@ -1,5 +1,6 @@
-<script>
+<script lang="ts">
   export let hidden = false
+
   import mainLogo from "./assets/images/logo.png"
   import BGLogo from "./libs/BackgroundLogo.svelte"
   import { _ } from "./libs/Translate.svelte"
@@ -14,7 +15,7 @@
 
 <style>
   #logo {
-    max-width:100%;
-    max-height:calc(100vh - 100px);
+    max-width: 100%;
+    max-height: calc(100vh - 100px);
   }
 </style>

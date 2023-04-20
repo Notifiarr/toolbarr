@@ -1,6 +1,6 @@
-<script>
-  export let instance
-  export let info
+<script lang="ts">
+  export let instance: Instance
+  export let info: any
   
   import {
     Alert,
@@ -20,19 +20,21 @@
     DeleteRootFolder,
     UpdateRecycleBin,
     UpdateInvalidItems,
-  } from "../../../../wailsjs/go/starrs/Starrs.js"
-  import { PickFolder } from "../../../../wailsjs/go/app/App.js"
+  } from "../../../../wailsjs/go/starrs/Starrs"
+  import { PickFolder } from "../../../../wailsjs/go/app/App"
   import T, { _ } from "../../../libs/Translate.svelte"
   import { faClose, faFolderOpen } from "@fortawesome/free-solid-svg-icons"
   import Fa from "svelte-fa"
-  import { app } from "../../../libs/config.js"
-  import { EventsOff, EventsOn } from "../../../../wailsjs/runtime/runtime.js"
-  import { onOnce } from "../../../libs/funcs.js"
+  import type { Instance } from "../../../libs/config"
+  import { app } from "../../../libs/config"
+  import { EventsOff, EventsOn } from "../../../../wailsjs/runtime/runtime"
+  import { onOnce } from "../../../libs/funcs"
   import Loading from "../../loading.svelte"
+  import type { Color } from "sveltestrap/src/shared"
 
   // Used when updating root folder paths.
-  let newPath
-  let oldPath
+  let newPath: string
+  let oldPath: string
   // Progress for root folder updates.
   let progress = undefined
   let totals
@@ -42,7 +44,7 @@
   let action
   // Message shows up after an action completes.
   let msg = ""
-  let msgType
+  let msgType: Color
   // Controls the Modals for invalid paths display.
   let invalidModals = {}
   let invalidIDs = {}

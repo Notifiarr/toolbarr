@@ -1,16 +1,17 @@
-<script>
-  export let starrApp
-  export let index
-  export let instance = undefined
+<script lang="ts">
+  export let starrApp: StarrApp
+  export let index: number
+  export let instance: Instance|undefined = undefined
 
+  import type { StarrApp, Instance } from "../../libs/config"
   import { Input, InputGroup, InputGroupText, Button, Form, Alert, FormGroup, Badge } from "sveltestrap"
-  import { app, conf } from "../../libs/config.js"
-  import { port } from "../../libs/info.js"
+  import { app, conf } from "../../libs/config"
+  import { port } from "../../libs/info"
   import Fa from "svelte-fa"
   import { faFolderOpen, faLock, faUnlock, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons"
-  import { PickFile, SaveInstance, RemoveInstance } from "../../../wailsjs/go/app/App.js"
-  import { TestInstance } from "../../../wailsjs/go/starrs/Starrs.js"
-  import { toast } from "../../libs/funcs.js"
+  import { PickFile, SaveInstance, RemoveInstance } from "../../../wailsjs/go/app/App"
+  import { TestInstance } from "../../../wailsjs/go/starrs/Starrs"
+  import { toast } from "../../libs/funcs"
   import { onDestroy } from "svelte"
   import { _ } from "../../libs/Translate.svelte"
 
@@ -25,6 +26,9 @@
       App: starrApp,
       Name: starrApp+(index+1),
       URL: `http://127.0.0.1:${port[starrApp]}/${starrApp.toLowerCase()}`,
+      SSL: false,
+      Form: false,
+      Timeout: 999999999,
     }
   }
 
@@ -33,7 +37,7 @@
   let passLocked = true
   let keyLocked = !newInstance
 
-  const reset = {}
+  const reset: any = {}
   Object.keys(instance).map((k) =>{ reset[k] = instance[k] })
   onDestroy(() => Object.keys(reset).map((k) => {
     instance[k] = reset[k]

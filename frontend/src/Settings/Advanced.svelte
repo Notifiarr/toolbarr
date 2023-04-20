@@ -1,7 +1,7 @@
-<script>
+<script lang="ts">
   import { Input, InputGroup, InputGroupText } from "sveltestrap"
   import ConfigInput from "../libs/Input.svelte"
-  import { app } from "../libs/config.js"
+  import { app } from "../libs/config"
   import { _ } from "../libs/Translate.svelte"
 </script>
 

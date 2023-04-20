@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Badge, Input, InputGroupText, Tooltip } from "sveltestrap"
-  import { toast, onOnce } from "./funcs.js"
-  import { SaveConfigItem } from "../../wailsjs/go/app/App.js"
+  import { toast, onOnce } from "./funcs"
+  import { SaveConfigItem } from "../../wailsjs/go/app/App"
   import { conf } from "./config"
   import { _ } from "./Translate.svelte"
   import { createEventDispatcher } from "svelte"
