@@ -23,14 +23,17 @@ all:
 wailsjson:
 	jq ".info.productVersion = \"$(VERSION)\"" wails.json > wails.json.new
 	mv wails.json.new wails.json
+packagejson:
+	jq ".version = \"$(VERSION)\"" frontend/package.json > frontend/package.json.new
+	mv frontend/package.json.new frontend/package.json
 
-build: wailsjson
+build: wailsjson packagejson
 	wails build -ldflags "$(VERSION_LDFLAGS)"
 
-windows: wailsjson
+windows: wailsjson packagejson
 	wails build -platform windows/amd64 -nsis -ldflags "$(VERSION_LDFLAGS)"
 
-dev: wailsjson
+dev: wailsjson packagejson
 	wails dev -nosyncgomod -race -ldflags "$(VERSION_LDFLAGS)"
 
 # npm?? svelte? hm..
