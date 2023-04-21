@@ -41,7 +41,7 @@ jobs:
           jq ".info.productVersion = \"${VERSION}\"" wails.json > wails.json.new
           mv wails.json.new wails.json
           jq ".version = \"${VERSION}\"" frontend/package.json > frontend/package.json.new
-	        mv frontend/package.json.new frontend/package.json
+          mv frontend/package.json.new frontend/package.json
           VERSION_LDFLAGS="-X \"golift.io/version.Branch=${{github.ref_name}} (${COMMIT})\" \
           -X \"golift.io/version.BuildDate=$(date -u +%Y-%m-%dT%H:%M:00Z)\" \
           -X \"golift.io/version.BuildUser=$(whoami || echo "unknown")\" \
