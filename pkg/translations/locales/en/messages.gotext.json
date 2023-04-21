@@ -846,81 +846,6 @@
             "fuzzy": true
         },
         {
-            "id": "Getting import list: {Error}",
-            "message": "Getting import list: {Error}",
-            "translation": "Getting import list: {Error}",
-            "translatorComment": "Copied from source.",
-            "placeholders": [
-                {
-                    "id": "Error",
-                    "string": "%[1]v",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 1,
-                    "expr": "err.Error()"
-                }
-            ],
-            "fuzzy": true
-        },
-        {
-            "id": "Deleting {Name} import list: {ListID}: {Error}",
-            "message": "Deleting {Name} import list: {ListID}: {Error}",
-            "translation": "Deleting {Name} import list: {ListID}: {Error}",
-            "translatorComment": "Copied from source.",
-            "placeholders": [
-                {
-                    "id": "Name",
-                    "string": "%[1]s",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 1,
-                    "expr": "config.Name"
-                },
-                {
-                    "id": "ListID",
-                    "string": "%[2]d",
-                    "type": "int64",
-                    "underlyingType": "int64",
-                    "argNum": 2,
-                    "expr": "listID"
-                },
-                {
-                    "id": "Error",
-                    "string": "%[3]v",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 3,
-                    "expr": "err.Error()"
-                }
-            ],
-            "fuzzy": true
-        },
-        {
-            "id": "Deleted {Name} import list with ID {ListID}.",
-            "message": "Deleted {Name} import list with ID {ListID}.",
-            "translation": "Deleted {Name} import list with ID {ListID}.",
-            "translatorComment": "Copied from source.",
-            "placeholders": [
-                {
-                    "id": "Name",
-                    "string": "%[1]s",
-                    "type": "string",
-                    "underlyingType": "string",
-                    "argNum": 1,
-                    "expr": "config.Name"
-                },
-                {
-                    "id": "ListID",
-                    "string": "%[2]d",
-                    "type": "int64",
-                    "underlyingType": "int64",
-                    "argNum": 2,
-                    "expr": "listID"
-                }
-            ],
-            "fuzzy": true
-        },
-        {
             "id": "Getting exclusions: {Error}",
             "message": "Getting exclusions: {Error}",
             "translation": "Getting exclusions: {Error}",
@@ -1000,6 +925,81 @@
                     "underlyingType": "int",
                     "argNum": 1,
                     "expr": "count"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Getting import list: {Error}",
+            "message": "Getting import list: {Error}",
+            "translation": "Getting import list: {Error}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Deleting {Name} import list: {ListID}: {Error}",
+            "message": "Deleting {Name} import list: {ListID}: {Error}",
+            "translation": "Deleting {Name} import list: {ListID}: {Error}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "ListID",
+                    "string": "%[2]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 2,
+                    "expr": "listID"
+                },
+                {
+                    "id": "Error",
+                    "string": "%[3]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 3,
+                    "expr": "err.Error()"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Deleted {Name} import list with ID {ListID}.",
+            "message": "Deleted {Name} import list with ID {ListID}.",
+            "translation": "Deleted {Name} import list with ID {ListID}.",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "ListID",
+                    "string": "%[2]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 2,
+                    "expr": "listID"
                 }
             ],
             "fuzzy": true

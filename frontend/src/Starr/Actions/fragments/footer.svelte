@@ -8,13 +8,13 @@
   export let tab: Tab
   export let noForce = false
 
-  import type { Tab } from "./fragments/tabs.svelte"
+  import type { Tab } from "./tabs.svelte"
   import { Alert, Button, Collapse, Fade, Tooltip, Icon, Card } from "sveltestrap"
-  import Loading from "../loading.svelte"
-  import T, { _ } from "../../libs/Translate.svelte"
-  import { toast, count } from "../../libs/funcs"
-  import { update, remove, fixFieldValues } from "./methods"
-  import type { Instance } from "../..//libs/config";
+  import Loading from "../../loading.svelte"
+  import T, { _ } from "../../../libs/Translate.svelte"
+  import { toast, count } from "../../../libs/funcs"
+  import { update, remove, fixFieldValues } from "../methods"
+  import type { Instance } from "../../../libs/config";
 
   let badMsg = ""
   let goodMsg = ""

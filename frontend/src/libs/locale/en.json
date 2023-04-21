@@ -11,6 +11,7 @@
     "20charactermax": "20 character maximum",
     "incompletePage": "This tool or page is incomplete.",
     "words": {
+        "Year": "Year",
         "Protocol": "Protocol",
         "Implementation": "Implementation",
         "All": "All",
@@ -123,7 +124,11 @@
         "Megabyte": "{count} Megabyte{count, plural, =0 {s} one {} other {s}}",
         "File": "{count} File{count, plural, =0 {s} one {} other {s}}",
         "DisableRotation": "Disable Rotation",
-        "CONFIGERROR": "CONFIG ERROR"
+        "CONFIGERROR": "CONFIG ERROR",
+        "ArtistName": "Artist Name",
+        "AuthorName": "Author Name",
+        "ForeignID": "Foreign ID",
+        "MovieTitle": "Movie Title"
     },
     "aboutPage": {
         "justWaitin": "Just waitin' for somethin' to happen.",
@@ -254,6 +259,7 @@
         "Released": "Released",
         "InCinemas": "In Cinemas",
         "monitorNewItemsDesc": "Monitor items added from this list.",
-        "applyAllimportList": "Apply this setting to all import lists in {starrApp}."
+        "applyAllimportList": "Apply this setting to all import lists in {starrApp}.",
+        "ImportListExclusions": "Import List Exclusions"
     }
 }
