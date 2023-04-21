@@ -1,8 +1,8 @@
 package starrs
 
 import (
+	"errors"
 	"fmt"
-	"strings"
 
 	"golift.io/starr"
 	"golift.io/starr/lidarr"
@@ -14,15 +14,15 @@ import (
 func (s *Starrs) Exclusions(config *AppConfig) (any, error) {
 	s.log.Tracef("Call:Exclusions(%s, %s)", config.App, config.Name)
 
-	list, err := s.exclusions(config)
+	exclusion, err := s.exclusions(config)
 	if err != nil {
-		msg := s.log.Translate("Getting exclusions: %v", err.Error())
+		msg := s.log.Translate("Getting import list exclusions: %v", err.Error())
 		s.log.Wails.Error(msg)
 
 		return "", fmt.Errorf(msg)
 	}
 
-	return list, nil
+	return exclusion, nil
 }
 
 func (s *Starrs) exclusions(config *AppConfig) (any, error) {
@@ -47,28 +47,17 @@ func (s *Starrs) exclusions(config *AppConfig) (any, error) {
 	}
 }
 
-func (s *Starrs) DeleteExclusions(config *AppConfig, ids []int64) (any, error) {
-	s.log.Tracef("Call:DeleteExclusions(%s, %s, %+v)", config.App, config.Name, ids)
+func (s *Starrs) DeleteExclusion(config *AppConfig, id int64) (any, error) {
+	s.log.Tracef("Call:DeleteExclusion(%s, %s, %+v)", config.App, config.Name, id)
 
-	var errs []string
-
-	for _, id := range ids {
-		if err := s.deleteExclusion(config, id); err != nil {
-			errs = append(errs, s.log.Translate("Deleting import list exclusion: %d: %v", id, err.Error()))
-		}
-	}
-
-	if count := len(errs); count != 0 {
-		errors := strings.Join(errs, ", ")
-		msg := s.log.Translate("%d errors: %s", count, errors)
+	if err := s.deleteExclusion(config, id); err != nil {
+		msg := s.log.Translate("Deleting %s import list exclusion: %d: %v", config.Name, id, err.Error())
 		s.log.Wails.Error(msg)
 
 		return nil, fmt.Errorf(msg)
 	}
 
-	count := len(ids) // so it says "{Count}" in the translation string.
-
-	return s.log.Translate("Deleted %d import list exclusions.", count), nil
+	return s.log.Translate("Deleted %s import list exclusion with ID %d.", config.Name, id), nil
 }
 
 func (s *Starrs) deleteExclusion(config *AppConfig, exclusionID int64) error {
@@ -91,4 +80,99 @@ func (s *Starrs) deleteExclusion(config *AppConfig, exclusionID int64) error {
 	default:
 		return fmt.Errorf("%w: missing app", starr.ErrRequestError)
 	}
+}
+
+func (s *Starrs) UpdateLidarrExclusion(
+	config *AppConfig,
+	exclusion *lidarr.Exclusion,
+) (*DataReply, error) {
+	s.log.Tracef("Call:UpdateLidarrExclusion(%s, %s, %d)", config.App, config.Name, exclusion.ID)
+	data, err := s.updateExclusion(config, exclusion)
+
+	return s.updateExclusionReply(config.Name, exclusion.ArtistName, exclusion.ID, data, err)
+}
+
+func (s *Starrs) UpdateRadarrExclusion(
+	config *AppConfig,
+	exclusion *radarr.Exclusion,
+) (*DataReply, error) {
+	s.log.Tracef("Call:UpdateRadarrExclusion(%s, %s, %d)", config.App, config.Name, exclusion.ID)
+	data, err := s.updateExclusion(config, exclusion)
+
+	return s.updateExclusionReply(config.Name, exclusion.Title, exclusion.ID, data, err)
+}
+
+func (s *Starrs) UpdateReadarrExclusion(
+	config *AppConfig,
+	exclusion *readarr.Exclusion,
+) (*DataReply, error) {
+	s.log.Tracef("Call:UpdateReadarrExclusion(%s, %s, %d)", config.App, config.Name, exclusion.ID)
+	data, err := s.updateExclusion(config, exclusion)
+
+	return s.updateExclusionReply(config.Name, exclusion.AuthorName, exclusion.ID, data, err)
+}
+
+func (s *Starrs) UpdateSonarrExclusion(
+	config *AppConfig,
+	exclusion *sonarr.Exclusion,
+) (*DataReply, error) {
+	s.log.Tracef("Call:UpdateSonarrExclusion(%s, %s, %d)", config.App, config.Name, exclusion.ID)
+	data, err := s.updateExclusion(config, exclusion)
+
+	return s.updateExclusionReply(config.Name, exclusion.Title, exclusion.ID, data, err)
+}
+
+func (s *Starrs) UpdateWhisparrExclusion(
+	config *AppConfig,
+	exclusion *sonarr.Exclusion,
+) (*DataReply, error) {
+	s.log.Tracef("Call:UpdateWhisparrExclusion(%s, %s, %d)", config.App, config.Name, exclusion.ID)
+	data, err := s.updateExclusion(config, exclusion)
+
+	return s.updateExclusionReply(config.Name, exclusion.Title, exclusion.ID, data, err)
+}
+
+func (s *Starrs) updateExclusion(config *AppConfig, exclusion any) (any, error) {
+	instance, err := s.newAPIinstance(config)
+	if err != nil {
+		return nil, err
+	}
+
+	switch data := exclusion.(type) {
+	case *lidarr.Exclusion:
+		return lidarr.New(instance.Config).UpdateExclusionContext(s.ctx, data)
+	case *radarr.Exclusion:
+		return radarr.New(instance.Config).UpdateExclusionContext(s.ctx, data)
+	case *readarr.Exclusion:
+		return readarr.New(instance.Config).UpdateExclusionContext(s.ctx, data)
+	case *sonarr.Exclusion:
+		return sonarr.New(instance.Config).UpdateExclusionContext(s.ctx, data)
+	default:
+		return nil, fmt.Errorf("%w: missing app", starr.ErrRequestError)
+	}
+}
+
+func (s *Starrs) updateExclusionReply(
+	name, exclusionName string,
+	exclusionID int64,
+	data any,
+	err error,
+) (*DataReply, error) {
+	if err == nil {
+		msg := s.log.Translate("Updated %s import list exclusion %s (%d).", name, exclusionName, exclusionID)
+		s.log.Wails.Info(msg)
+
+		return &DataReply{Msg: msg, Data: data}, nil
+	}
+
+	reqError := &starr.ReqError{}
+
+	if errors.As(err, &reqError) && reqError.Msg != "" {
+		err = fmt.Errorf("%s: %s", reqError.Name, reqError.Msg)
+	}
+
+	msg := s.log.Translate("Updating %s import list exclusion: %s (%d): %s", name, exclusionName, exclusionID, err.Error())
+	s.log.Wails.Error(msg)
+
+	return nil, fmt.Errorf(msg)
 }

@@ -18,7 +18,7 @@
 
   let badMsg = ""
   let goodMsg = ""
-  $: selectedCount = count(selected, null)        // How many items are selected.
+  $: selectedCount = count(selected)        // How many items are selected.
   $: unSaved = JSON.stringify(form) !== str // True when something changed.
   let button
 
@@ -66,7 +66,7 @@
   }
 
   async function deleteItem() {
-    toast("info", $_("instances.Deleting"+tab.id, { values:{"count": count(selected, null)} }))
+    toast("info", $_("instances.Deleting"+tab.id, { values:{"count": count(selected)} }))
     goodMsg = badMsg = ""
     updating = true
 

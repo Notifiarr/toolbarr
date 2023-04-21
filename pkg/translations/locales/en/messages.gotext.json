@@ -846,9 +846,9 @@
             "fuzzy": true
         },
         {
-            "id": "Getting exclusions: {Error}",
-            "message": "Getting exclusions: {Error}",
-            "translation": "Getting exclusions: {Error}",
+            "id": "Getting import list exclusions: {Error}",
+            "message": "Getting import list exclusions: {Error}",
+            "translation": "Getting import list exclusions: {Error}",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
@@ -863,68 +863,133 @@
             "fuzzy": true
         },
         {
-            "id": "Deleting import list exclusion: {Id}: {Error}",
-            "message": "Deleting import list exclusion: {Id}: {Error}",
-            "translation": "Deleting import list exclusion: {Id}: {Error}",
+            "id": "Deleting {Name} import list exclusion: {Id}: {Error}",
+            "message": "Deleting {Name} import list exclusion: {Id}: {Error}",
+            "translation": "Deleting {Name} import list exclusion: {Id}: {Error}",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
                     "id": "Id",
-                    "string": "%[1]d",
+                    "string": "%[2]d",
                     "type": "int64",
                     "underlyingType": "int64",
-                    "argNum": 1,
+                    "argNum": 2,
                     "expr": "id"
                 },
                 {
                     "id": "Error",
-                    "string": "%[2]v",
+                    "string": "%[3]v",
                     "type": "string",
                     "underlyingType": "string",
-                    "argNum": 2,
+                    "argNum": 3,
                     "expr": "err.Error()"
                 }
             ],
             "fuzzy": true
         },
         {
-            "id": "{Count} errors: {Errors}",
-            "message": "{Count} errors: {Errors}",
-            "translation": "{Count} errors: {Errors}",
+            "id": "Deleted {Name} import list exclusion with ID {Id}.",
+            "message": "Deleted {Name} import list exclusion with ID {Id}.",
+            "translation": "Deleted {Name} import list exclusion with ID {Id}.",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
-                    "id": "Count",
-                    "string": "%[1]d",
-                    "type": "int",
-                    "underlyingType": "int",
-                    "argNum": 1,
-                    "expr": "count"
-                },
-                {
-                    "id": "Errors",
-                    "string": "%[2]s",
+                    "id": "Name",
+                    "string": "%[1]s",
                     "type": "string",
                     "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "Id",
+                    "string": "%[2]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
                     "argNum": 2,
-                    "expr": "errors"
+                    "expr": "id"
                 }
             ],
             "fuzzy": true
         },
         {
-            "id": "Deleted {Count} import list exclusions.",
-            "message": "Deleted {Count} import list exclusions.",
-            "translation": "Deleted {Count} import list exclusions.",
+            "id": "Updated {Name} import list exclusion {ExclusionName} ({ExclusionID}).",
+            "message": "Updated {Name} import list exclusion {ExclusionName} ({ExclusionID}).",
+            "translation": "Updated {Name} import list exclusion {ExclusionName} ({ExclusionID}).",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
-                    "id": "Count",
-                    "string": "%[1]d",
-                    "type": "int",
-                    "underlyingType": "int",
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
                     "argNum": 1,
-                    "expr": "count"
+                    "expr": "name"
+                },
+                {
+                    "id": "ExclusionName",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "exclusionName"
+                },
+                {
+                    "id": "ExclusionID",
+                    "string": "%[3]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 3,
+                    "expr": "exclusionID"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Updating {Name} import list exclusion: {ExclusionName} ({ExclusionID}): {Error}",
+            "message": "Updating {Name} import list exclusion: {ExclusionName} ({ExclusionID}): {Error}",
+            "translation": "Updating {Name} import list exclusion: {ExclusionName} ({ExclusionID}): {Error}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "ExclusionName",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "exclusionName"
+                },
+                {
+                    "id": "ExclusionID",
+                    "string": "%[3]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 3,
+                    "expr": "exclusionID"
+                },
+                {
+                    "id": "Error",
+                    "string": "%[4]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 4,
+                    "expr": "err.Error()"
                 }
             ],
             "fuzzy": true

@@ -2,7 +2,7 @@
   import { Exclusions } from "../../../wailsjs/go/starrs/Starrs"
   import type { Tab } from "./fragments/tabs.svelte"
 
-  export const tab: Tab = { data: Exclusions, id: "exclusions" }
+  export const tab: Tab = { data: Exclusions, id: "Exclusions" }
   const max = new Date().getFullYear()+25
 </script>
 
@@ -46,8 +46,8 @@
   </tr>
 
   {#each info as exclusion, idx}
-    <SelectRow {updating} bind:selected id={info[idx].id} item={exclusion}>
-      {#if exclusion} <!-- When deleting an exclusion, this protects an error condition. -->
+    {#if exclusion} <!-- When deleting an exclusion, this protects an error condition. -->
+      <SelectRow {updating} bind:selected id={info[idx].id} item={exclusion}>
         {#if starrApp == "Sonarr" || starrApp == "Whisparr"}
         <TDInput {idx} {info} {updating} bind:form field="tvdbId" type="text" />
         <TDInput {idx} {info} {updating} bind:form field="title" type="text" />
@@ -62,9 +62,9 @@
         <TDInput {idx} {info} {updating} bind:form field="foreignId" type="text" />
         <TDInput {idx} {info} {updating} bind:form field="authorName" type="text" />
         {/if}
+      </SelectRow>
       {/if}
-    </SelectRow>
-  {/each}
+    {/each}
 </Table>
 
-<Footer {tab} {instance} bind:selected bind:updating bind:info bind:form bind:str />
+<Footer noForce {tab} {instance} bind:selected bind:updating bind:info bind:form bind:str />

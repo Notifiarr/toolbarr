@@ -14,7 +14,7 @@
   import SelectAll from "./fragments/selectAllHeader.svelte"
   import SelectRow from "./fragments/selectAllRow.svelte"
   import { fixFieldValues } from "./methods"
-  import { Table, Tooltip, Icon } from "sveltestrap"
+  import { Table, Tooltip, Icon, Button } from "sveltestrap"
 
   let isOpen: any = {}       // Modal toggle control.
   let updating = false  // True while doing updates.
@@ -50,7 +50,7 @@
           <ModalInput {info} bind:form {idx} field="name" name="words.Name" type="text"/>
           <ModalInput {info} bind:form {idx} field="priority" name="words.Priority" type="number"/>
           {#each info[idx].fields as item, itemIdx}
-            <FieldInput {item} {itemIdx} {info} {idx} bind:form/>
+            <FieldInput {item} {itemIdx} {info} {idx} bind:form />
           {/each}
         </ConfigModal>
       </td>
@@ -65,5 +65,5 @@
 {#if instance.App == "Prowlarr"}
   {$_("instances.ProwlarrNotSupported")}
 {:else}
-  <Footer {instance} {tab} bind:selected bind:updating bind:info bind:form bind:str/>
+  <Footer {instance} {tab} bind:selected bind:updating bind:info bind:form bind:str />
 {/if}<!-- /if (instance.App) -->
