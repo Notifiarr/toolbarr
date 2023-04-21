@@ -47,17 +47,17 @@ func (s *Starrs) exclusions(config *AppConfig) (any, error) {
 	}
 }
 
-func (s *Starrs) DeleteExclusion(config *AppConfig, id int64) (any, error) {
-	s.log.Tracef("Call:DeleteExclusion(%s, %s, %+v)", config.App, config.Name, id)
+func (s *Starrs) DeleteExclusion(config *AppConfig, exclusionID int64) (any, error) {
+	s.log.Tracef("Call:DeleteExclusion(%s, %s, %+v)", config.App, config.Name, exclusionID)
 
-	if err := s.deleteExclusion(config, id); err != nil {
-		msg := s.log.Translate("Deleting %s import list exclusion: %d: %v", config.Name, id, err.Error())
+	if err := s.deleteExclusion(config, exclusionID); err != nil {
+		msg := s.log.Translate("Deleting %s import list exclusion: %d: %v", config.Name, exclusionID, err.Error())
 		s.log.Wails.Error(msg)
 
 		return nil, fmt.Errorf(msg)
 	}
 
-	return s.log.Translate("Deleted %s import list exclusion with ID %d.", config.Name, id), nil
+	return s.log.Translate("Deleted %s import list exclusion with ID %d.", config.Name, exclusionID), nil
 }
 
 func (s *Starrs) deleteExclusion(config *AppConfig, exclusionID int64) error {
