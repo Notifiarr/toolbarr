@@ -6,8 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview",
-    "check": "svelte-check --tsconfig ./tsconfig.json"
+    "preview": "vite preview"
   },
   "devDependencies": {
     "@fortawesome/free-brands-svg-icons": "6.4.0",

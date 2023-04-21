@@ -5,7 +5,7 @@
 
   import type { Tab } from "./fragments/tabs.svelte"
   import { _ } from "../../libs/Translate.svelte"
-  import Footer from "./footer.svelte"
+  import Footer from "./fragments/footer.svelte"
   import { count } from "../../libs/funcs"
   import Dropdown from "./fragments/dropdown.svelte"
   import TDInput from "./fragments/tableInput.svelte"

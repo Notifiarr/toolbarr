@@ -22,8 +22,8 @@ export function DeleteDownloader(arg1, arg2) {
   return window['go']['starrs']['Starrs']['DeleteDownloader'](arg1, arg2);
 }
 
-export function DeleteExclusions(arg1, arg2) {
-  return window['go']['starrs']['Starrs']['DeleteExclusions'](arg1, arg2);
+export function DeleteExclusion(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['DeleteExclusion'](arg1, arg2);
 }
 
 export function DeleteImportList(arg1, arg2) {
@@ -90,6 +90,10 @@ export function UpdateLidarrDownloadClient(arg1, arg2, arg3) {
   return window['go']['starrs']['Starrs']['UpdateLidarrDownloadClient'](arg1, arg2, arg3);
 }
 
+export function UpdateLidarrExclusion(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['UpdateLidarrExclusion'](arg1, arg2);
+}
+
 export function UpdateLidarrImportList(arg1, arg2, arg3) {
   return window['go']['starrs']['Starrs']['UpdateLidarrImportList'](arg1, arg2, arg3);
 }
@@ -114,6 +118,10 @@ export function UpdateRadarrDownloadClient(arg1, arg2, arg3) {
   return window['go']['starrs']['Starrs']['UpdateRadarrDownloadClient'](arg1, arg2, arg3);
 }
 
+export function UpdateRadarrExclusion(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['UpdateRadarrExclusion'](arg1, arg2);
+}
+
 export function UpdateRadarrImportList(arg1, arg2, arg3) {
   return window['go']['starrs']['Starrs']['UpdateRadarrImportList'](arg1, arg2, arg3);
 }
@@ -128,6 +136,10 @@ export function UpdateRadarrQualityProfile(arg1, arg2) {
 
 export function UpdateReadarrDownloadClient(arg1, arg2, arg3) {
   return window['go']['starrs']['Starrs']['UpdateReadarrDownloadClient'](arg1, arg2, arg3);
+}
+
+export function UpdateReadarrExclusion(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['UpdateReadarrExclusion'](arg1, arg2);
 }
 
 export function UpdateReadarrImportList(arg1, arg2, arg3) {
@@ -154,6 +166,10 @@ export function UpdateSonarrDownloadClient(arg1, arg2, arg3) {
   return window['go']['starrs']['Starrs']['UpdateSonarrDownloadClient'](arg1, arg2, arg3);
 }
 
+export function UpdateSonarrExclusion(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['UpdateSonarrExclusion'](arg1, arg2);
+}
+
 export function UpdateSonarrImportList(arg1, arg2, arg3) {
   return window['go']['starrs']['Starrs']['UpdateSonarrImportList'](arg1, arg2, arg3);
 }
@@ -168,6 +184,10 @@ export function UpdateSonarrQualityProfile(arg1, arg2) {
 
 export function UpdateWhisparrDownloadClient(arg1, arg2, arg3) {
   return window['go']['starrs']['Starrs']['UpdateWhisparrDownloadClient'](arg1, arg2, arg3);
+}
+
+export function UpdateWhisparrExclusion(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['UpdateWhisparrExclusion'](arg1, arg2);
 }
 
 export function UpdateWhisparrImportList(arg1, arg2, arg3) {

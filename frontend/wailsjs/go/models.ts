@@ -50,6 +50,22 @@ export namespace lidarr {
 		    return a;
 		}
 	}
+	export class Exclusion {
+	    foreignId: string;
+	    artistName: string;
+	    id?: number;
+	
+	    static createFrom(source: any = {}) {
+	        return new Exclusion(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.foreignId = source["foreignId"];
+	        this.artistName = source["artistName"];
+	        this.id = source["id"];
+	    }
+	}
 	export class ImportListInput {
 	    enableAutomaticAdd: boolean;
 	    shouldMonitorExisting: boolean;
@@ -360,6 +376,24 @@ export namespace radarr {
 		    return a;
 		}
 	}
+	export class Exclusion {
+	    tmdbId: number;
+	    movieTitle: string;
+	    movieYear: number;
+	    id?: number;
+	
+	    static createFrom(source: any = {}) {
+	        return new Exclusion(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.tmdbId = source["tmdbId"];
+	        this.movieTitle = source["movieTitle"];
+	        this.movieYear = source["movieYear"];
+	        this.id = source["id"];
+	    }
+	}
 	export class ImportListInput {
 	    enableAuto: boolean;
 	    enabled: boolean;
@@ -573,6 +607,22 @@ export namespace readarr {
 		    return a;
 		}
 	}
+	export class Exclusion {
+	    foreignId: string;
+	    authorName: string;
+	    id?: number;
+	
+	    static createFrom(source: any = {}) {
+	        return new Exclusion(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.foreignId = source["foreignId"];
+	        this.authorName = source["authorName"];
+	        this.id = source["id"];
+	    }
+	}
 	export class ImportListInput {
 	    enableAutomaticAdd: boolean;
 	    shouldMonitorExisting: boolean;
@@ -781,6 +831,22 @@ export namespace sonarr {
 		    }
 		    return a;
 		}
+	}
+	export class Exclusion {
+	    tvdbId: number;
+	    title: string;
+	    id?: number;
+	
+	    static createFrom(source: any = {}) {
+	        return new Exclusion(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.tvdbId = source["tvdbId"];
+	        this.title = source["title"];
+	        this.id = source["id"];
+	    }
 	}
 	export class ImportListInput {
 	    enableAutomaticAdd: boolean;

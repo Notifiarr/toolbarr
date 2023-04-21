@@ -11,7 +11,7 @@ export function DeleteBlockList(arg1:any,arg2:number):Promise<any>;
 
 export function DeleteDownloader(arg1:any,arg2:number):Promise<any>;
 
-export function DeleteExclusions(arg1:any,arg2:Array<number>):Promise<any>;
+export function DeleteExclusion(arg1:any,arg2:number):Promise<any>;
 
 export function DeleteImportList(arg1:any,arg2:number):Promise<any>;
 
@@ -45,6 +45,8 @@ export function UpdateInvalidItems(arg1:any,arg2:string,arg3:string,arg4:{[key: 
 
 export function UpdateLidarrDownloadClient(arg1:any,arg2:boolean,arg3:any):Promise<any>;
 
+export function UpdateLidarrExclusion(arg1:any,arg2:any):Promise<any>;
+
 export function UpdateLidarrImportList(arg1:any,arg2:boolean,arg3:any):Promise<any>;
 
 export function UpdateLidarrIndexer(arg1:any,arg2:boolean,arg3:any):Promise<any>;
@@ -57,6 +59,8 @@ export function UpdateProwlarrIndexer(arg1:any,arg2:boolean,arg3:any):Promise<an
 
 export function UpdateRadarrDownloadClient(arg1:any,arg2:boolean,arg3:any):Promise<any>;
 
+export function UpdateRadarrExclusion(arg1:any,arg2:any):Promise<any>;
+
 export function UpdateRadarrImportList(arg1:any,arg2:boolean,arg3:any):Promise<any>;
 
 export function UpdateRadarrIndexer(arg1:any,arg2:boolean,arg3:any):Promise<any>;
@@ -64,6 +68,8 @@ export function UpdateRadarrIndexer(arg1:any,arg2:boolean,arg3:any):Promise<any>
 export function UpdateRadarrQualityProfile(arg1:any,arg2:any):Promise<any>;
 
 export function UpdateReadarrDownloadClient(arg1:any,arg2:boolean,arg3:any):Promise<any>;
+
+export function UpdateReadarrExclusion(arg1:any,arg2:any):Promise<any>;
 
 export function UpdateReadarrImportList(arg1:any,arg2:boolean,arg3:any):Promise<any>;
 
@@ -77,6 +83,8 @@ export function UpdateRootFolder(arg1:any,arg2:string,arg3:string):Promise<any>;
 
 export function UpdateSonarrDownloadClient(arg1:any,arg2:boolean,arg3:any):Promise<any>;
 
+export function UpdateSonarrExclusion(arg1:any,arg2:any):Promise<any>;
+
 export function UpdateSonarrImportList(arg1:any,arg2:boolean,arg3:any):Promise<any>;
 
 export function UpdateSonarrIndexer(arg1:any,arg2:boolean,arg3:any):Promise<any>;
@@ -84,6 +92,8 @@ export function UpdateSonarrIndexer(arg1:any,arg2:boolean,arg3:any):Promise<any>
 export function UpdateSonarrQualityProfile(arg1:any,arg2:any):Promise<any>;
 
 export function UpdateWhisparrDownloadClient(arg1:any,arg2:boolean,arg3:any):Promise<any>;
+
+export function UpdateWhisparrExclusion(arg1:any,arg2:any):Promise<any>;
 
 export function UpdateWhisparrImportList(arg1:any,arg2:boolean,arg3:any):Promise<any>;
 

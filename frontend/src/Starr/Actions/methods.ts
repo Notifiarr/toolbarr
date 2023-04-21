@@ -1,5 +1,6 @@
 import {
   DeleteDownloader,
+  DeleteExclusion,
   DeleteIndexer,
   DeleteQualityProfile,
   DeleteImportList,
@@ -25,10 +26,16 @@ import {
   UpdateWhisparrImportList,
   UpdateWhisparrIndexer,
   UpdateWhisparrQualityProfile,
+  UpdateLidarrExclusion,
+  UpdateRadarrExclusion,
+  UpdateReadarrExclusion,
+  UpdateSonarrExclusion,
+  UpdateWhisparrExclusion,
 } from "../../../wailsjs/go/starrs/Starrs"
 
 export function fixFieldValues(info) {
   info.forEach((item, idx) => {
+    if (!item.fields) return
     item.fields.forEach((field, itemIdx) => {
       if (field.value === undefined || field.value === null) info[idx].fields[itemIdx].value = ""
     })
@@ -52,7 +59,7 @@ export const remove = {
     "Radarr":   DeleteIndexer,
     "Readarr":  DeleteIndexer,
     "Sonarr":   DeleteIndexer,
-    "Whisparr": DeleteIndexer,  
+    "Whisparr": DeleteIndexer,
   },
   "QualityProfiles": {
     "Lidarr":   DeleteQualityProfile,
@@ -60,7 +67,7 @@ export const remove = {
     "Radarr":   DeleteQualityProfile,
     "Readarr":  DeleteQualityProfile,
     "Sonarr":   DeleteQualityProfile,
-    "Whisparr": DeleteQualityProfile,  
+    "Whisparr": DeleteQualityProfile,
   },
   "ImportLists": {
     "Lidarr":   DeleteImportList,
@@ -68,7 +75,14 @@ export const remove = {
     "Radarr":   DeleteImportList,
     "Readarr":  DeleteImportList,
     "Sonarr":   DeleteImportList,
-    "Whisparr": DeleteImportList,  
+    "Whisparr": DeleteImportList,
+  },
+  "Exclusions": {
+    "Lidarr": DeleteExclusion,
+    "Radarr": DeleteExclusion,
+    "Readarr": DeleteExclusion,
+    "Sonarr": DeleteExclusion,
+    "Whisparr": DeleteExclusion,
   }
 }
 
@@ -87,20 +101,27 @@ export const update = {
     "Radarr":   UpdateRadarrIndexer,
     "Readarr":  UpdateReadarrIndexer,
     "Sonarr":   UpdateSonarrIndexer,
-    "Whisparr": UpdateWhisparrIndexer,  
+    "Whisparr": UpdateWhisparrIndexer,
   },
   "QualityProfiles": {
     "Lidarr": UpdateLidarrQualityProfile,
     "Radarr": UpdateRadarrQualityProfile,
     "Readarr": UpdateReadarrQualityProfile,
     "Sonarr": UpdateSonarrQualityProfile,
-    "Whisparr": UpdateWhisparrQualityProfile,  
+    "Whisparr": UpdateWhisparrQualityProfile,
   },
   "ImportLists": {
     "Lidarr": UpdateLidarrImportList,
     "Radarr": UpdateRadarrImportList,
     "Readarr": UpdateReadarrImportList,
     "Sonarr": UpdateSonarrImportList,
-    "Whisparr": UpdateWhisparrImportList,  
+    "Whisparr": UpdateWhisparrImportList,
+  },
+  "Exclusions": {
+    "Lidarr": UpdateLidarrExclusion,
+    "Radarr": UpdateRadarrExclusion,
+    "Readarr": UpdateReadarrExclusion,
+    "Sonarr": UpdateSonarrExclusion,
+    "Whisparr": UpdateWhisparrExclusion,
   },
 }
