@@ -54,7 +54,7 @@
         {:else if starrApp == "Radarr"}
         <TDInput {idx} {info} {updating} bind:form field="tmdbId" type="text" />
         <TDInput {idx} {info} {updating} bind:form field="movieTitle" type="text" />
-        <TDInput {idx} {info} {updating} bind:form field="movieYear" min="1895" {max} type="range" />
+        <TDInput {idx} {info} {updating} bind:form field="movieYear" min={1895} {max} type="range" />
         {:else if starrApp == "Lidarr"}
         <TDInput {idx} {info} {updating} bind:form field="foreignId" type="text" />
         <TDInput {idx} {info} {updating} bind:form field="artistName" type="text" />

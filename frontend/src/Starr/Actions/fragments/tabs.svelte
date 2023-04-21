@@ -21,7 +21,7 @@
   export type Tab = {
     data: (any) => Promise<any>
     id: string
-    component: ComponentType
+    component?: ComponentType
   }
 
   // All apps have these tabs.

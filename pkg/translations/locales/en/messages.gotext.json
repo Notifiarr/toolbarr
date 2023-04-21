@@ -863,9 +863,9 @@
             "fuzzy": true
         },
         {
-            "id": "Deleting {Name} import list exclusion: {Id}: {Error}",
-            "message": "Deleting {Name} import list exclusion: {Id}: {Error}",
-            "translation": "Deleting {Name} import list exclusion: {Id}: {Error}",
+            "id": "Deleting {Name} import list exclusion: {ExclusionID}: {Error}",
+            "message": "Deleting {Name} import list exclusion: {ExclusionID}: {Error}",
+            "translation": "Deleting {Name} import list exclusion: {ExclusionID}: {Error}",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
@@ -877,12 +877,12 @@
                     "expr": "config.Name"
                 },
                 {
-                    "id": "Id",
+                    "id": "ExclusionID",
                     "string": "%[2]d",
                     "type": "int64",
                     "underlyingType": "int64",
                     "argNum": 2,
-                    "expr": "id"
+                    "expr": "exclusionID"
                 },
                 {
                     "id": "Error",
@@ -896,9 +896,9 @@
             "fuzzy": true
         },
         {
-            "id": "Deleted {Name} import list exclusion with ID {Id}.",
-            "message": "Deleted {Name} import list exclusion with ID {Id}.",
-            "translation": "Deleted {Name} import list exclusion with ID {Id}.",
+            "id": "Deleted {Name} import list exclusion with ID {ExclusionID}.",
+            "message": "Deleted {Name} import list exclusion with ID {ExclusionID}.",
+            "translation": "Deleted {Name} import list exclusion with ID {ExclusionID}.",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
@@ -910,12 +910,12 @@
                     "expr": "config.Name"
                 },
                 {
-                    "id": "Id",
+                    "id": "ExclusionID",
                     "string": "%[2]d",
                     "type": "int64",
                     "underlyingType": "int64",
                     "argNum": 2,
-                    "expr": "id"
+                    "expr": "exclusionID"
                 }
             ],
             "fuzzy": true
