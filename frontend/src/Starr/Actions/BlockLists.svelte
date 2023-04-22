@@ -8,12 +8,15 @@
 
   import type { Tab } from "./fragments/tabs.svelte"
   import type { Instance } from "../../libs/config"
+  import { toast } from "../../libs/funcs"
   import { Table, Icon } from "sveltestrap"
-  import { _, date } from "../../libs/Translate.svelte"
+  import { _ } from "../../libs/Translate.svelte"
   import SelectAll from "./fragments/selectAllHeader.svelte"
   import SelectRow from "./fragments/selectAllRow.svelte"
   import Footer from "./fragments/footer.svelte"
+  import { QualityProfiles } from "../../../wailsjs/go/starrs/Starrs"
   import { createEventDispatcher } from "svelte"
+  import BlockList from "./blockListsRow.svelte"
 
   const dispatch = createEventDispatcher()
   let all = false
@@ -27,6 +30,21 @@
     sortKey = e.target.id
     dispatch("update", true)
   }
+
+  let qualityProfiles: any
+
+  // Fetch extra data to populate the form.
+  $: if (instance && instance.URL != "") {
+    QualityProfiles(instance).then(resp => qualityProfiles = resp, err => { toast("error", err) })
+  }
+
+  function qp(id) {
+    let name = id
+    qualityProfiles.forEach((qp) => {
+      if (qp.id == id) name = qp.name
+    })
+    return name
+  }
 </script>
 
 <Table striped responsive size="sm">
@@ -35,14 +53,20 @@
     <SelectAll bind:all bind:selected bind:updating />
     {#if starrApp == "Lidarr"}
       <th>{$_("configvalues.ArtistName")}</th>
+      <th>{$_("configvalues.SourceTitle")}</th>
+      <th>{$_("words.Quality")}</th>
     {:else if starrApp == "Radarr"}
       <th>{$_("configvalues.MovieTitle")}</th>
       <th>{$_("configvalues.SourceTitle")}</th>
       <th>{$_("words.Quality")}</th>
     {:else if starrApp == "Readarr"}
       <th>{$_("configvalues.AuthorName")}</th>
+      <th>{$_("configvalues.SourceTitle")}</th>
+      <th>{$_("words.Quality")}</th>
     {:else if starrApp == "Sonarr"}
       <th>Title</th>
+      <th>{$_("configvalues.SourceTitle")}</th>
+      <th>{$_("words.Quality")}</th>
     {/if}
       <th>
         <span class="link" id="date" on:keyup={sort} on:click={sort}>{$_("words.Date")}</span>
@@ -55,18 +79,8 @@
   {#each info.records as list, idx}
     {#if list} <!-- When deleting an exclusion, this protects an error condition. -->
     <SelectRow {updating} bind:selected id={info.records[idx].id} item={list}>
-    {#if starrApp == "Lidarr"}
-      <td>{list.artist.artistName}</td>
-    {:else if starrApp == "Radarr"}
-      <td class="nowrap">{list.movie.title}</td>
-      <td>{list.sourceTitle}</td>
-      <td class="nowrap">{list.quality.quality.name}</td>
-    {:else if starrApp == "Readarr"}
-      <td>{list.author.authorName}</td>
-    {:else if starrApp == "Sonarr"}
-      <td> {list.series.title}</td>
-    {/if}
-      <td class="nowrap">{date(list.date)}</td>
+      <!-- This sub page contains the content specific to each app. -->
+      <BlockList {idx} {list} {starrApp} {qualityProfiles}/>
     </SelectRow>
     {/if}
   {/each}
@@ -76,10 +90,3 @@
 <Footer noForce {instance} {tab}
   bind:selected bind:updating bind:form bind:str 
   bind:info={info.records} on:delete={()=>info.totalRecords--}/>
-
-<style>
-  .nowrap {
-    white-space: nowrap;
-    width: max-content;
-  }
-</style>
