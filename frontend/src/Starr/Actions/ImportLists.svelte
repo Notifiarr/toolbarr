@@ -1,8 +1,9 @@
 <script lang="ts">
   export let info
-  export let instance
+  export let instance: Instance
   export let tab: Tab
 
+  import type { Instance } from "../../libs/config"
   import type { Tab } from "./fragments/tabs.svelte"
   import { toast } from "../../libs/funcs"
   import { _ } from "../../libs/Translate.svelte"
@@ -206,7 +207,7 @@
 
 <Card class="p-1" color="secondary">
   <!-- <Tooltip target="exclusions">Close this card to reset the Exclusions form.</Tooltip> -->
-  <h5 style="cursor:pointer" on:keyup={()=>{}} on:click={()=>{exclusionsOpen=!exclusionsOpen}}>
+  <h5 style="cursor:pointer" on:keyup={()=>{exclusionsOpen=!exclusionsOpen}} on:click={()=>{exclusionsOpen=!exclusionsOpen}}>
     <span id="exclusions">Import List Exclusions</span>
     <Icon class="text-info" name={exclusionsOpen?"caret-down-fill":"caret-up"}/>
   </h5>

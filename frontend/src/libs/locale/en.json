@@ -15,6 +15,7 @@
         "Protocol": "Protocol",
         "Implementation": "Implementation",
         "All": "All",
+        "Quality": "Quality",
         "Type": "Type",
         "Close": "Close",
         "Priority": "Priority",
@@ -45,6 +46,7 @@
         "Download": "Download",
         "Settings": "Settings",
         "Links": "Links",
+        "Date": "Date",
         "About": "About",
         "Current": "Current",
         "None": "None",
@@ -128,7 +130,8 @@
         "ArtistName": "Artist Name",
         "AuthorName": "Author Name",
         "ForeignID": "Foreign ID",
-        "MovieTitle": "Movie Title"
+        "MovieTitle": "Movie Title",
+        "SourceTitle": "Source Title"
     },
     "aboutPage": {
         "justWaitin": "Just waitin' for somethin' to happen.",
@@ -183,7 +186,7 @@
         "QualityProfiles": "Quality Profiles",
         "qualityProfileIdTitle": "Quality Profile",
         "metadataProfileIdTitle": "Metadata Profile",
-        "BlockList": "Block List",
+        "BlockLists": "Block Lists",
         "DBTools": "DB&nbsp;Tools",
         "DBTool": "DB Tool",
         "seriesTypeTitle": "Series Type",
@@ -261,6 +264,16 @@
         "monitorNewItemsDesc": "Monitor items added from this list.",
         "applyAllimportList": "Apply this setting to all import lists in {starrApp}.",
         "ImportListExclusions": "Import List Exclusions",
-        "DeletingExclusions": "Deleting Exclusions"
+        "DeletingExclusions": "Deleting Exclusions",
+        "DeletingBlockLists": "Deleting Block Lists"
+    },
+    "paginate": {
+        "FirstPage": "First Page",
+        "PreviousPage": "Previous Page",
+        "NextPage": "Next Page",
+        "LastPage": "Last Page: {pages}",
+        "Pageof": "Page {page} of {pages}",
+        "ItemsPerPage": "Items per Page",
+        "RecordsOf": "Records: {records} of {total}"
     }
 }

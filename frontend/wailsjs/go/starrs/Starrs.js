@@ -6,8 +6,8 @@ export function AppProfiles(arg1) {
   return window['go']['starrs']['Starrs']['AppProfiles'](arg1);
 }
 
-export function BlockList(arg1) {
-  return window['go']['starrs']['Starrs']['BlockList'](arg1);
+export function BlockList(arg1, arg2, arg3, arg4, arg5) {
+  return window['go']['starrs']['Starrs']['BlockList'](arg1, arg2, arg3, arg4, arg5);
 }
 
 export function CustomFilters(arg1) {

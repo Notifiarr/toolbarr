@@ -3,7 +3,7 @@
 
 export function AppProfiles(arg1:any):Promise<any>;
 
-export function BlockList(arg1:any):Promise<any>;
+export function BlockList(arg1:any,arg2:number,arg3:number,arg4:string,arg5:string):Promise<any>;
 
 export function CustomFilters(arg1:any):Promise<any>;
 

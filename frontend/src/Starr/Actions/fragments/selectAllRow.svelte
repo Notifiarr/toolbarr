@@ -10,7 +10,7 @@
 </script>
 
 <tr class={selected[id]?"bg-secondary":""}>
-  <td>
+  <td style="padding:0">
     <div class="switch">
       <Input disabled={updating} invalid={selected[id]} type="switch" bind:checked={selected[id]}/>
     </div>
@@ -33,7 +33,6 @@
 
 <style>
   .switch {
-    height:20px;
-    margin-top: -10px !important;
+    padding:0 5px;
   }
 </style>
