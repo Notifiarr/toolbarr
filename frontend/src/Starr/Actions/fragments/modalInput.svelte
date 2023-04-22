@@ -2,7 +2,7 @@
   export let info: any
   export let form: any
   export let idx: number
-  export let field: string 
+  export let field: string
   export let applyAll: string = "" // Apply this setting to all import lists in {instance.Name}.
   export let desc: string = "" // translation key
   export let name: string = "" // translation key

@@ -9,14 +9,16 @@
   import Fa from "svelte-fa"
   import { faCircleInfo } from "@fortawesome/free-solid-svg-icons"
   import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Tooltip } from "sveltestrap"
-  import type { StarrApp } from "../../..//libs/config";
+  import type { StarrApp } from "../../..//libs/config"
+  import { onOnce } from "../../../libs/funcs"
 
   $: title = name ? $_(name) : $_(`instances.${field}Title`)
   let dropdown
 
   function toggleAll(key, on) {
-    form.forEach((_, i) => {
-      form[i][key] = on
+    var idx = 0.15 // initial delay to click.
+    form.forEach((_, i) => { // progressively faster.
+      onOnce(() => {form[i][key] = on}, idx += 0.08 - (idx/14))
     })
   }
 </script>

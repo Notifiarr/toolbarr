@@ -59,7 +59,7 @@
   export let showTitle = false
   export let updating: boolean
   export let tab: Tab // bind this and pass in startTab.
- 
+
   import T, { _ } from "../../../libs/Translate.svelte"
   import { Fade, Nav, NavItem, NavLink } from "sveltestrap"
 

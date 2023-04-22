@@ -86,7 +86,7 @@
         <!-- Display the nav links in the side bar when the screen is not small. -->
         <div class="left">
           <Collapse horizontal isOpen={menuOpen}>
-            <Card color={$conf.Dark?"dark":"light"}>
+            <Card color={$conf.Dark?"dark":"secondary"}>
               <Tabs bind:tab={tab} showTitle vertical pills {starrApp} {updating}/>
             </Card>
           </Collapse>
@@ -112,7 +112,7 @@
   }
 
   .left {
-    margin-top: 5px;
+    margin-top: 1px;
     margin-right: 2px;
     float: left;
     width: max-content;

@@ -35,7 +35,7 @@
   }
 
   function setPage(e: any, newPage: number) {
-    e?.preventDefault()
+    if (e) e.preventDefault()
     endPage = max(newPage<4 ? 6 : newPage+2 > pages ? pages : newPage+2, pages)
     if (page == newPage) return
     page = newPage

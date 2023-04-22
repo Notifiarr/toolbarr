@@ -27,7 +27,7 @@
   function showMsg(idx, msg, data) {
     goodMsg += `<li>${$_("instances.SuccessMsg", {values:{"msg": msg}})}</li>`
     let kind = "update"
-    
+
     if (data) { // update client (repalce in place)
       form[idx] = JSON.parse(JSON.stringify(data))
     } else {   // delete list item (remove in place)

@@ -66,7 +66,7 @@
   }
 </script>
 
-<Card outline color="dark" class="mt-1">
+<Card color={$conf.Dark?"secondary":"light"} class="mt-1">
   {#if showTitle}
     <CardHeader>
       <CardTitle class="mb-0">{$_("instances."+tab.id)}</CardTitle>
@@ -75,13 +75,13 @@
 
   <CardBody>
     {#if info}
-    <div id="container">
+    <div id="container" class={$conf.Dark?"dark-mode":""}>
       <!-- We have all the pieces we need. Load the selected tab's component. -->
       {#if !tab.page}
       <svelte:component this={tab.component} {instance} {tab} bind:info bind:updating />
       {:else}<!-- tab is pagable-->
         <svelte:component {instance} {tab}
-          bind:info bind:updating bind:sortKey bind:sortDir
+          bind:info bind:updating bind:sortKey bind:sortDir 
           this={tab.component} on:update={update}/>
         <Paginate {updating} {pages}
           bind:pageSize bind:page records={info.records.length}
@@ -120,5 +120,10 @@
   #container :global(.link) {
     cursor: pointer;
     text-decoration: underline;
+    color: rgb(19, 87, 87)
+  }
+
+  #container.dark-mode :global(.link) {
+    color: rgb(31, 144, 144)
   }
 </style>
