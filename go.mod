@@ -2,8 +2,6 @@ module github.com/Notifiarr/toolbarr
 
 go 1.20
 
-replace golift.io/starr => ../../../golift.io/starr
-
 require (
 	github.com/gorilla/schema v1.2.0
 	github.com/jmoiron/sqlx v1.3.5
