@@ -18,8 +18,8 @@ And several other features:
 - Mass Indexer management.
 - Mass Import List management.
 - Mass Import List Exclsions management.
-- Mass Download Client manegement.
-- Mass Block List manegement.
+- Mass Download Client management.
+- Mass Block List management.
 
 # How?
 
@@ -34,7 +34,7 @@ Download the latest file for your OS and install it. Once installed,
 you can use the `About` menu to check for updates.~~
 
 **While things are under development, grab a copy of the Windows or macOS installer
-@ https://unsable.golift.io/toolbarr**
+@ [https://unstable.golift.io/toolbarr](https://unstable.golift.io/toolbarr)**
 
 Linux users may not have great luck with the binaries provided.
 They only work on a specific version of `glibc`.
