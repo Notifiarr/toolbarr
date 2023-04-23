@@ -1597,6 +1597,411 @@
                     "expr": "err.Error()"
                 }
             ]
+        },
+        {
+            "id": "Updated {Name} download client {ClientName} ({ClientID}).",
+            "message": "Updated {Name} download client {ClientName} ({ClientID}).",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "{Name} downloadclient {ClientName} ({ClientID}) bijgewerkt.",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "ClientName",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "clientName"
+                },
+                {
+                    "id": "ClientID",
+                    "string": "%[3]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 3,
+                    "expr": "clientID"
+                }
+            ]
+        },
+        {
+            "id": "Updating {Name} download client: {ClientName} ({ClientID}): {Error}",
+            "message": "Updating {Name} download client: {ClientName} ({ClientID}): {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "{Name} downloadclient wordt bijgewerkt: {ClientName} ({ClientID}): {Error}",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "ClientName",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "clientName"
+                },
+                {
+                    "id": "ClientID",
+                    "string": "%[3]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 3,
+                    "expr": "clientID"
+                },
+                {
+                    "id": "Error",
+                    "string": "%[4]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 4,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Getting import list exclusions: {Error}",
+            "message": "Getting import list exclusions: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Uitsluitingen voor importlijst ophalen: {Error}",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Deleting {Name} import list exclusion: {ExclusionID}: {Error}",
+            "message": "Deleting {Name} import list exclusion: {ExclusionID}: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Uitsluiting importlijst {Name} verwijderen: {ExclusionID}: {Error}",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "ExclusionID",
+                    "string": "%[2]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 2,
+                    "expr": "exclusionID"
+                },
+                {
+                    "id": "Error",
+                    "string": "%[3]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 3,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Deleted {Name} import list exclusion with ID {ExclusionID}.",
+            "message": "Deleted {Name} import list exclusion with ID {ExclusionID}.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Uitsluiting importlijst {Name} verwijderd met ID {ExclusionID}.",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "ExclusionID",
+                    "string": "%[2]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 2,
+                    "expr": "exclusionID"
+                }
+            ]
+        },
+        {
+            "id": "Updated {Name} import list exclusion {ExclusionName} ({ExclusionID}).",
+            "message": "Updated {Name} import list exclusion {ExclusionName} ({ExclusionID}).",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "{Name} importlijstuitsluiting {ExclusionName} ({ExclusionID}) bijgewerkt.",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "ExclusionName",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "exclusionName"
+                },
+                {
+                    "id": "ExclusionID",
+                    "string": "%[3]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 3,
+                    "expr": "exclusionID"
+                }
+            ]
+        },
+        {
+            "id": "Updating {Name} import list exclusion: {ExclusionName} ({ExclusionID}): {Error}",
+            "message": "Updating {Name} import list exclusion: {ExclusionName} ({ExclusionID}): {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Updaten van {Name} importlijstuitsluiting: {ExclusionName} ({ExclusionID}): {Error}",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "ExclusionName",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "exclusionName"
+                },
+                {
+                    "id": "ExclusionID",
+                    "string": "%[3]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 3,
+                    "expr": "exclusionID"
+                },
+                {
+                    "id": "Error",
+                    "string": "%[4]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 4,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Updated {Name} import list {ListName} ({ListID}).",
+            "message": "Updated {Name} import list {ListName} ({ListID}).",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "{Name} importlijst {ListName} ({ListID}) bijgewerkt.",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "ListName",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "listName"
+                },
+                {
+                    "id": "ListID",
+                    "string": "%[3]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 3,
+                    "expr": "listID"
+                }
+            ]
+        },
+        {
+            "id": "Updating {Name} import list: {ListName} ({ListID}): {Error}",
+            "message": "Updating {Name} import list: {ListName} ({ListID}): {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "{Name} importlijst bijwerken: {ListName} ({ListID}): {Error}",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "ListName",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "listName"
+                },
+                {
+                    "id": "ListID",
+                    "string": "%[3]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 3,
+                    "expr": "listID"
+                },
+                {
+                    "id": "Error",
+                    "string": "%[4]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 4,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Getting metadata profiles: {Error}",
+            "message": "Getting metadata profiles: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Metadataprofielen ophalen: {Error}",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Updated {Name} quality profile {Profile} ({ProfileID}).",
+            "message": "Updated {Name} quality profile {Profile} ({ProfileID}).",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Bijgewerkt {Name} kwaliteitsprofiel {Profile} ({ProfileID}).",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "Profile",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "profile"
+                },
+                {
+                    "id": "ProfileID",
+                    "string": "%[3]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 3,
+                    "expr": "profileID"
+                }
+            ]
+        },
+        {
+            "id": "Updating {Name} quality profile: {Profile} ({ProfileID}): {Error}",
+            "message": "Updating {Name} quality profile: {Profile} ({ProfileID}): {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Kwaliteitsprofiel {Name} bijwerken: {Profile} ({ProfileID}): {Error}",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "Profile",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "profile"
+                },
+                {
+                    "id": "ProfileID",
+                    "string": "%[3]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 3,
+                    "expr": "profileID"
+                },
+                {
+                    "id": "Error",
+                    "string": "%[4]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 4,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Getting root folders: {Error}",
+            "message": "Getting root folders: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Hoofdmappen ophalen: {Error}",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
         }
     ]
 }
