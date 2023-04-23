@@ -10,18 +10,23 @@ import (
 	"golift.io/starr/sonarr"
 )
 
-const getBlockLists = 10000
-
 // DataReply is a generic reply with a message and data.
 type DataReply struct {
 	Msg  string
 	Data any
 }
 
-func (s *Starrs) BlockList(config *AppConfig) (any, error) {
+func (s *Starrs) BlockList(config *AppConfig, pageSize, page int, sortKey, sortDir string) (any, error) {
 	s.log.Tracef("Call:BlockList(%s, %s)", config.App, config.Name)
 
-	list, err := s.blockList(config)
+	params := &starr.PageReq{
+		PageSize: pageSize,
+		Page:     page,
+		SortKey:  sortKey,
+		SortDir:  starr.Sorting(sortDir),
+	}
+
+	list, err := s.blockList(config, params)
 	if err != nil {
 		msg := s.log.Translate("Getting block lists: %v", err.Error())
 		s.log.Wails.Error(msg)
@@ -32,7 +37,7 @@ func (s *Starrs) BlockList(config *AppConfig) (any, error) {
 	return list, nil
 }
 
-func (s *Starrs) blockList(config *AppConfig) (any, error) {
+func (s *Starrs) blockList(config *AppConfig, params *starr.PageReq) (any, error) {
 	instance, err := s.newAPIinstance(config)
 	if err != nil {
 		return nil, err
@@ -40,15 +45,15 @@ func (s *Starrs) blockList(config *AppConfig) (any, error) {
 
 	switch starr.App(config.App) {
 	case starr.Lidarr:
-		return lidarr.New(instance.Config).GetBlockListContext(s.ctx, getBlockLists)
+		return lidarr.New(instance.Config).GetBlockListPageContext(s.ctx, params)
 	case starr.Radarr:
-		return radarr.New(instance.Config).GetBlockListContext(s.ctx, getBlockLists)
+		return radarr.New(instance.Config).GetBlockListPageContext(s.ctx, params)
 	case starr.Readarr:
-		return readarr.New(instance.Config).GetBlockListContext(s.ctx, getBlockLists)
+		return readarr.New(instance.Config).GetBlockListPageContext(s.ctx, params)
 	case starr.Sonarr:
-		return sonarr.New(instance.Config).GetBlockListContext(s.ctx, getBlockLists)
+		return sonarr.New(instance.Config).GetBlockListPageContext(s.ctx, params)
 	case starr.Whisparr:
-		return sonarr.New(instance.Config).GetBlockListContext(s.ctx, getBlockLists)
+		return sonarr.New(instance.Config).GetBlockListPageContext(s.ctx, params)
 	default:
 		return nil, fmt.Errorf("%w: missing app", starr.ErrRequestError)
 	}
@@ -75,15 +80,15 @@ func (s *Starrs) deleteBlockList(config *AppConfig, listID int64) error {
 
 	switch starr.App(config.App) {
 	case starr.Lidarr:
-		return lidarr.New(instance.Config).DeleteBlockListsContext(s.ctx, []int64{listID})
+		return lidarr.New(instance.Config).DeleteBlockListContext(s.ctx, listID)
 	case starr.Radarr:
-		return radarr.New(instance.Config).DeleteBlockListsContext(s.ctx, []int64{listID})
+		return radarr.New(instance.Config).DeleteBlockListContext(s.ctx, listID)
 	case starr.Readarr:
-		return readarr.New(instance.Config).DeleteBlockListsContext(s.ctx, []int64{listID})
+		return readarr.New(instance.Config).DeleteBlockListContext(s.ctx, listID)
 	case starr.Sonarr:
-		return sonarr.New(instance.Config).DeleteBlockListsContext(s.ctx, []int64{listID})
+		return sonarr.New(instance.Config).DeleteBlockListContext(s.ctx, listID)
 	case starr.Whisparr:
-		return sonarr.New(instance.Config).DeleteBlockListsContext(s.ctx, []int64{listID})
+		return sonarr.New(instance.Config).DeleteBlockListContext(s.ctx, listID)
 	default:
 		return fmt.Errorf("%w: missing app", starr.ErrRequestError)
 	}

@@ -8,6 +8,7 @@
   import T, { _ } from "../../../libs/Translate.svelte"
   import { MigratorInfo } from "../../../../wailsjs/go/starrs/Starrs"
   import { toast } from "../../../libs/funcs"
+  import { conf } from "../../../libs/config"
   import Form from "./Form.svelte"
 
   let info: any
@@ -19,7 +20,7 @@
   }
 </script>
 
-<Card outline color="dark" class="mt-2">
+<Card color={$conf.Dark?"dark":"light"} class="mt-2">
   <span class={showTitle?"":"d-none"}>
     <CardHeader>
       <CardTitle class="mb-0">{$_("instances.FilesystemPathsMigrator")}</CardTitle>

@@ -1,7 +1,8 @@
 <script lang="ts">
-  import type { Color } from "sveltestrap/src/shared";
+  import type { Color } from "sveltestrap/src/shared"
   import { _ } from "../../../libs/Translate.svelte"
   import { Icon } from "sveltestrap"
+  import { onOnce } from "../../../libs/funcs"
 
   export let updating: boolean
   export let all: boolean
@@ -13,8 +14,10 @@
   function selectAll() {
     if (updating) return
     all = !all
-    Object.keys(selected).forEach((key) => {
-       selected[key] = all
+    var idx = 0.08 // initial delay to click.
+
+    Object.keys(selected).forEach((key) => { // gets faster and faster.
+      onOnce(() => {selected[key] = all}, idx += 0.077 - (idx/24))
     })
   }
 </script>

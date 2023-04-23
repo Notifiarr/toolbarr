@@ -14,8 +14,10 @@
   import T, { _ } from "../../../libs/Translate.svelte"
   import { toast, count } from "../../../libs/funcs"
   import { update, remove, fixFieldValues } from "../methods"
-  import type { Instance } from "../../../libs/config";
+  import type { Instance } from "../../../libs/config"
+  import { createEventDispatcher } from "svelte"
 
+  const dispatch = createEventDispatcher()
   let badMsg = ""
   let goodMsg = ""
   $: selectedCount = count(selected)        // How many items are selected.
@@ -23,15 +25,19 @@
   let button
 
   function showMsg(idx, msg, data) {
+    goodMsg += `<li>${$_("instances.SuccessMsg", {values:{"msg": msg}})}</li>`
+    let kind = "update"
+
     if (data) { // update client (repalce in place)
       form[idx] = JSON.parse(JSON.stringify(data))
     } else {   // delete list item (remove in place)
-      delete form[idx]
+      form.splice(idx, 1)
+      kind = "delete"
     }
 
-    goodMsg += `<li>${$_("instances.SuccessMsg", {values:{"msg": msg}})}</li>`
     str = JSON.stringify(form)
     info = JSON.parse(str)
+    dispatch(kind)
   }
 
   function showError(idx, err) {
@@ -70,9 +76,9 @@
     goodMsg = badMsg = ""
     updating = true
 
-    for (var idx = form.length-1; idx >= 0; idx--) {
-      if (!selected[form[idx].id]) continue // Not selected.
-      await remove[tab.id][instance.App](instance, form[idx].id).then(
+    for (var idx = info.length-1; idx >= 0; idx--) {
+      if (!selected[info[idx].id]) continue // Not selected.
+      await remove[tab.id][instance.App](instance, info[idx].id).then(
         (msg) => showMsg(idx, msg, false),
         (err) => showError(idx, err)
       )

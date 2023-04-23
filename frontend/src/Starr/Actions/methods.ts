@@ -1,4 +1,5 @@
 import {
+  DeleteBlockList,
   DeleteDownloader,
   DeleteExclusion,
   DeleteIndexer,
@@ -45,6 +46,14 @@ export function fixFieldValues(info) {
 }
 
 export const remove = {
+  "BlockLists": {
+    "Lidarr":   DeleteBlockList,
+    "Prowlarr": DeleteBlockList,
+    "Radarr":   DeleteBlockList,
+    "Readarr":  DeleteBlockList,
+    "Sonarr":   DeleteBlockList,
+    "Whisparr": DeleteBlockList,
+  },
   "DownloadClients": {
     "Lidarr":   DeleteDownloader,
     "Prowlarr": DeleteDownloader,

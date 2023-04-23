@@ -7,10 +7,11 @@
 </script>
 
 <script lang="ts">
-  export let info
-  export let instance
+  export let info: any
+  export let instance: Instance
   export let updating: boolean = false // True while doing updates.
 
+  import type { Instance } from "../../libs/config"
   import { _ } from "../../libs/Translate.svelte"
   import Footer from "./fragments/footer.svelte"
   import TDInput from "./fragments/tableInput.svelte"
@@ -18,7 +19,6 @@
   import SelectRow from "./fragments/selectAllRow.svelte"
   import { Table } from "sveltestrap"
 
-  let isOpen: any = {}          // Modal toggle control.
   let all: boolean = false      // Toggle for select-all link.
   let selected: any = {}        // Rows selected by key: ID.
   let str: string = JSON.stringify(info) // Used for equivalence comparison.
