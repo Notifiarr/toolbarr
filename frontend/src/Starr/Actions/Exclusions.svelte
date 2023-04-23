@@ -9,7 +9,7 @@
 <script lang="ts">
   export let info: any
   export let instance: Instance
-  export let updating: boolean = false // True while doing updates.
+  export let updating: boolean
 
   import type { Instance } from "../../libs/config"
   import { _ } from "../../libs/Translate.svelte"

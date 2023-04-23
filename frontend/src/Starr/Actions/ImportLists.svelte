@@ -2,6 +2,7 @@
   export let info
   export let instance: Instance
   export let tab: Tab
+  export let updating: boolean
 
   import type { Instance } from "../../libs/config"
   import type { Tab } from "./fragments/tabs.svelte"
@@ -26,7 +27,6 @@
   import { Card, Table, Tooltip, Icon, Collapse } from "sveltestrap"
 
   let isOpen: any = {}       // Modal toggle control.
-  let updating: boolean = false  // True while doing updates.
   let all: boolean = false       // Toggle for select-all link.
   let selected: any = {}     // Rows selected by key: ID.
   let str: string = fixFieldValues(info) // Used for equivalence comparison.
@@ -54,7 +54,7 @@
 
 <Table bordered>
   <tr>
-    <SelectAll bind:all bind:selected bind:updating={updating}/>
+    <SelectAll bind:all bind:selected bind:updating icon="check2-all"/>
     <th class="d-none d-sm-table-cell">
       <Tooltip target="il{instance.App}Type">{$_("words.Implementation")}</Tooltip>
       <span id="il{instance.App}Type">{$_("words.Type")}

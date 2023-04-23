@@ -88,6 +88,82 @@ func (s *Starrs) deleteDownloader(config *AppConfig, clientID int64) error {
 	}
 }
 
+func (s *Starrs) TestLidarrDownloadClient(config *AppConfig, client *lidarr.DownloadClientInput) (string, error) {
+	s.log.Tracef("Call:TestLidarrDownloadClient(%s, %s, %d)", config.App, config.Name, client.ID)
+	return s.testDownloadClientReply(config.Name, client.Name, client.ID, s.testDownloadClient(config, client))
+}
+
+func (s *Starrs) TestProwlarrDownloadClient(config *AppConfig, client *prowlarr.DownloadClientInput) (string, error) {
+	s.log.Tracef("Call:TestProwlarrDownloadClient(%s, %s, %d)", config.App, config.Name, client.ID)
+	return s.testDownloadClientReply(config.Name, client.Name, client.ID, s.testDownloadClient(config, client))
+}
+
+func (s *Starrs) TestRadarrDownloadClient(config *AppConfig, client *radarr.DownloadClientInput) (string, error) {
+	s.log.Tracef("Call:TestRadarrDownloadClient(%s, %s, %d)", config.App, config.Name, client.ID)
+	return s.testDownloadClientReply(config.Name, client.Name, client.ID, s.testDownloadClient(config, client))
+}
+
+func (s *Starrs) TestReadarrDownloadClient(config *AppConfig, client *readarr.DownloadClientInput) (string, error) {
+	s.log.Tracef("Call:TestReadarrDownloadClient(%s, %s, %d)", config.App, config.Name, client.ID)
+	return s.testDownloadClientReply(config.Name, client.Name, client.ID, s.testDownloadClient(config, client))
+}
+
+func (s *Starrs) TestSonarrDownloadClient(config *AppConfig, client *sonarr.DownloadClientInput) (string, error) {
+	s.log.Tracef("Call:TestSonarrDownloadClient(%s, %s, %d)", config.App, config.Name, client.ID)
+	return s.testDownloadClientReply(config.Name, client.Name, client.ID, s.testDownloadClient(config, client))
+}
+
+func (s *Starrs) TestWhisparrDownloadClient(config *AppConfig, client *sonarr.DownloadClientInput) (string, error) {
+	s.log.Tracef("Call:TestWhisparrDownloadClient(%s, %s, %d)", config.App, config.Name, client.ID)
+	return s.testDownloadClientReply(config.Name, client.Name, client.ID, s.testDownloadClient(config, client))
+}
+
+func (s *Starrs) testDownloadClient(config *AppConfig, client any) error {
+	instance, err := s.newAPIinstance(config)
+	if err != nil {
+		return err
+	}
+
+	switch data := client.(type) {
+	case *lidarr.DownloadClientInput:
+		return lidarr.New(instance.Config).TestDownloadClientContext(s.ctx, data)
+	case *prowlarr.DownloadClientInput:
+		return prowlarr.New(instance.Config).TestDownloadClientContext(s.ctx, data)
+	case *radarr.DownloadClientInput:
+		return radarr.New(instance.Config).TestDownloadClientContext(s.ctx, data)
+	case *readarr.DownloadClientInput:
+		return readarr.New(instance.Config).TestDownloadClientContext(s.ctx, data)
+	case *sonarr.DownloadClientInput:
+		return sonarr.New(instance.Config).TestDownloadClientContext(s.ctx, data)
+	default:
+		return fmt.Errorf("%w: missing app", starr.ErrRequestError)
+	}
+}
+
+func (s *Starrs) testDownloadClientReply(
+	name, clientName string,
+	clientID int64,
+	err error,
+) (string, error) {
+	if err == nil {
+		msg := s.log.Translate("Tested %s download client %s (%d).", name, clientName, clientID)
+		s.log.Wails.Info(msg)
+
+		return msg, nil
+	}
+
+	reqError := &starr.ReqError{}
+
+	if errors.As(err, &reqError) && reqError.Msg != "" {
+		err = fmt.Errorf("%s: %s", reqError.Name, reqError.Msg)
+	}
+
+	msg := s.log.Translate("Testing %s download client: %s (%d): %s", name, clientName, clientID, err.Error())
+	s.log.Wails.Error(msg)
+
+	return "", fmt.Errorf(msg)
+}
+
 func (s *Starrs) UpdateLidarrDownloadClient(
 	config *AppConfig,
 	force bool,

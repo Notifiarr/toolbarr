@@ -269,7 +269,11 @@
         "applyAllimportList": "Apply this setting to all import lists in {starrApp}.",
         "ImportListExclusions": "Import List Exclusions",
         "DeletingExclusions": "Deleting Exclusions",
-        "DeletingBlockLists": "Deleting Block Lists"
+        "DeletingBlockLists": "Deleting Block Lists",
+        "TestSelected": "Test {count} Selected",
+        "TestingIndexers": "Testing Indexers",
+        "TestingDownloadClients": "Testing Download Clients",
+        "TestingImportLists": "Testing Import Lists"
     },
     "paginate": {
         "FirstPage": "First Page",
