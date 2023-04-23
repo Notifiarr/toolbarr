@@ -9,31 +9,22 @@
   import { _, date } from "../../libs/Translate.svelte"
   import { conf } from "../../libs/config"
 
-  function qp(id) {
+  function getName(id, list) {
     let name = id
-    qualityProfiles.forEach((qp) => {
-      if (qp.id == id) {
-        name = qp.name
+    list.forEach((item) => {
+      if (item.id == id) {
+        name = item.name
         return name
       }
     })
     return name
   }
 
-  function mp(id) {
-    let name = id
-    metadataProfiles.forEach((mp) => {
-      if (mp.id == id) {
-        name = mp.name
-        return name
-      }
-    })
-    return name
-  }
-
+  // max elipses the middle of a string to a max length.
   function max(max: number, str: string): string {
     if (str.length < max+4) return str
-    return `${str.substring(0, max/2)}<i class="text-warning">...</i>${str.substring(str.length-max/2)}`
+    return str.substring(0, max/2) + `<i class="text-warning">...</i>` +
+      str.substring(str.length-max/2)
   }
 
   let item: any
@@ -59,6 +50,7 @@
 
 <svelte:window bind:innerWidth={width}/>
 
+<!-- This is 1 table cell. It contains a popover that containers another table. -->
 <td {id} class="pop nowrap">{name}
   <div class="popover-content {$conf.Dark?"dark-mode":""}">
     <Popover container="inline" trigger="hover" placement="top" target={id}>
@@ -66,32 +58,39 @@
       <Table striped size="sm" class="m-0">
         <tbody>
           <tr><th class="nowrap">{$_("words.Quality")}</th><td>{list.quality.quality.name}</td></tr>
-          <tr><th class="nowrap">{$_("words.Source")}</th><td class="break">{list.sourceTitle}</td></tr>
+          <tr><th class="nowrap">{$_("words.Source")}</th><td style="max-width:700px" class="break">{list.sourceTitle}</td></tr>
           <tr><th class="nowrap">{$_("words.Protocol")}</th><td>{list.protocol}</td></tr>
           <tr><th class="nowrap">{$_("words.Indexer")}</th><td>{list.indexer}</td></tr>
-          {#if qualityProfiles !== undefined}
-          <tr><th class="nowrap">{$_("instances.qualityProfileIdTitle")}</th><td>{qp(item.qualityProfileId)}</td></tr>
+          {#if qualityProfiles !== undefined}<!-- Lidarr / Readarr -->
+            <tr>
+              <th class="nowrap">{$_("instances.qualityProfileIdTitle")}</th>
+              <td>{getName(item.qualityProfileId, qualityProfiles)}</td>
+            </tr>
           {/if}
-          {#if metadataProfiles !== undefined}
-          <tr><th class="nowrap">{$_("instances.metadataProfileIdTitle")}</th><td>{mp(item.metadataProfileId)}</td></tr>
+          {#if metadataProfiles !== undefined}<!-- Lidarr / Readarr -->
+            <tr>
+              <th class="nowrap">{$_("instances.metadataProfileIdTitle")}</th>
+              <td>{getName(item.metadataProfileId, qualityProfiles)}</td>
+            </tr>
           {/if}
-          {#if list.languages}
-          <tr>
-            <th class="nowrap">{$_("words.Languages")}</th>
-            <td>{#each list.languages as lang}<Badge>{lang.name}</Badge> {/each}</td>
-          </tr>
+          {#if list.languages}<!-- Sonarr / Radarr -->
+            <tr>
+              <th class="nowrap">{$_("words.Languages")}</th>
+              <td>{#each list.languages as lang}<Badge>{lang.name}</Badge> {/each}</td>
+            </tr>
           {/if}
-          <tr><th class="nowrap">{$_("words.Message")}</th><td>{list.message}</td></tr>
+          <tr><th class="nowrap">{$_("words.Message")}</th><td style="max-width:500px">{list.message}</td></tr>
         </tbody>
       </Table>
     </Popover>
   </div>
 </td>
 
+<!-- This one disappears on smaller widths. -->
 <td class="nowrap d-none d-md-table-cell" id="sourceTitle{id}">
   {@html max(maxTDlen, list.sourceTitle)}
   {#if list.sourceTitle.length > maxTDlen+3}
-  <Tooltip target="sourceTitle{id}">{list.sourceTitle}</Tooltip>
+    <Tooltip target="sourceTitle{id}">{list.sourceTitle}</Tooltip>
   {/if}
 </td>
 <td class="nowrap">{list.quality.quality.name}</td>
@@ -119,6 +118,10 @@
   }
   .popover-content.dark-mode :global(.popover-header) {
     background-color: #2c6757;
+  }
+
+  .popover-content :global(.popover-body) {
+    padding: 5px;
   }
 
   .popover-content :global(.popover) {

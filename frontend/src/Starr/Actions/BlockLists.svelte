@@ -18,27 +18,44 @@
   import { createEventDispatcher } from "svelte"
   import BlockList from "./blockListsRow.svelte"
 
+  let qualityProfiles: any
+  let metadataProfiles: any
+  // Fetch extra data to populate the modals.
+  $: if (instance && instance.URL != "") {
+    QualityProfiles(instance).then(resp => qualityProfiles = resp, err => { toast("error", err) })
+    if (["Lidarr","Readarr"].includes(starrApp))
+      MetadataProfiles(instance).then(resp => metadataProfiles = resp, err => { toast("error", err) })
+  }
+
   const dispatch = createEventDispatcher()
+  const starrApp = instance.App
+  const caret = sortDir ? "caret-up" : "caret-down"
   let all = false
   let selected: any = {}
   let str: string = JSON.stringify(info.records)
   let form: any = JSON.parse(str)
-  const starrApp = instance.App
+
+  let id: string = ""
+  let cv: string = ""
+  // Set app-specific values.
+  if (starrApp == "Lidarr") {
+    id = "artists.sortName"
+    cv = $_("configvalues.ArtistName")
+  } else if (starrApp == "Radarr") {
+    id = "movies.sortTitle"
+    cv = $_("configvalues.MovieTitle")
+  } else if (starrApp == "Readarr") {
+    id = "authorMetadata.sortName"
+    cv = $_("configvalues.AuthorName")
+  } else if (starrApp == "Sonarr") {
+    id = "series.sortTitle"
+    cv = $_("configvalues.SeriesTitle")
+  }
 
   function sort(e) {
     if (e.target.id == sortKey) sortDir = !sortDir
     sortKey = e.target.id
     dispatch("update", true)
-  }
-
-  let qualityProfiles: any
-  let metadataProfiles: any
-
-  // Fetch extra data to populate the form.
-  $: if (instance && instance.URL != "") {
-    QualityProfiles(instance).then(resp => qualityProfiles = resp, err => { toast("error", err) })
-    if (["Lidarr","Readarr"].includes(starrApp))
-      MetadataProfiles(instance).then(resp => metadataProfiles = resp, err => { toast("error", err) })
   }
 </script>
 
@@ -48,37 +65,20 @@
     <SelectAll bind:all bind:selected bind:updating />
 
     <!-- App Specific -->
-    {#if starrApp == "Lidarr"}
     <th>
-      <span class="link" id="artists.sortName" on:keyup={sort} on:click={sort}>{$_("configvalues.ArtistName")}</span>
-      {#if sortKey == "artists.sortName"} <Icon name="caret-{sortDir?"up":"down"}"/> {/if}
+      <span class="link" {id} on:keyup={sort} on:click={sort}>{cv}</span>
+      <Icon name={sortKey==id?caret:""}/>
     </th>
-    {:else if starrApp == "Radarr"}
-    <th>
-      <span class="link" id="movies.sortTitle" on:keyup={sort} on:click={sort}>{$_("configvalues.MovieTitle")}</span>
-      {#if sortKey == "movies.sortTitle"} <Icon name="caret-{sortDir?"up":"down"}"/> {/if}
-    </th>
-    {:else if starrApp == "Readarr"}
-      <th>
-        <span class="link" id="authorMetadata.sortName" on:keyup={sort} on:click={sort}>{$_("configvalues.AuthorName")}</span>
-        {#if sortKey == "authorMetadata.sortName"} <Icon name="caret-{sortDir?"up":"down"}"/> {/if}
-      </th>
-    {:else if starrApp == "Sonarr"}
-    <th>
-      <span class="link" id="series.sortTitle" on:keyup={sort} on:click={sort}>{$_("configvalues.SeriesTitle")}</span>
-      {#if sortKey == "series.sortTitle"} <Icon name="caret-{sortDir?"up":"down"}"/> {/if}
-    </th>
-    {/if}
 
     <!-- All Apps -->
     <th class="d-none d-md-table-cell">
       <span class="link" id="sourceTitle" on:keyup={sort} on:click={sort}>{$_("configvalues.SourceTitle")}</span>
-      {#if sortKey == "sourceTitle"} <Icon name="caret-{sortDir?"up":"down"}"/> {/if}
+      <Icon name={sortKey=="sourceTitle"?caret:""}/>
     </th>
     <th>{$_("words.Quality")}</th>
       <th>
         <span class="link" id="date" on:keyup={sort} on:click={sort}>{$_("words.Date")}</span>
-        {#if sortKey == "date"} <Icon name="caret-{sortDir?"up":"down"}"/> {/if}
+        <Icon name={sortKey=="date"?caret:""}/>
       </th>
     </tr>
   </thead>
