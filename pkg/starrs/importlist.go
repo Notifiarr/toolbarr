@@ -82,6 +82,71 @@ func (s *Starrs) deleteImportList(config *AppConfig, listID int64) error {
 	}
 }
 
+func (s *Starrs) TestLidarrImportList(config *AppConfig, list *lidarr.ImportListInput) (string, error) {
+	s.log.Tracef("Call:TestLidarrImportList(%s, %s, %d)", config.App, config.Name, list.ID)
+	return s.testImportListReply(config.Name, list.Name, list.ID, s.testImportList(config, list))
+}
+
+func (s *Starrs) TestRadarrImportList(config *AppConfig, list *radarr.ImportListInput) (string, error) {
+	s.log.Tracef("Call:TestRadarrImportList(%s, %s, %d)", config.App, config.Name, list.ID)
+	return s.testImportListReply(config.Name, list.Name, list.ID, s.testImportList(config, list))
+}
+
+func (s *Starrs) TestReadarrImportList(config *AppConfig, list *readarr.ImportListInput) (string, error) {
+	s.log.Tracef("Call:TestReadarrImportList(%s, %s, %d)", config.App, config.Name, list.ID)
+	return s.testImportListReply(config.Name, list.Name, list.ID, s.testImportList(config, list))
+}
+
+func (s *Starrs) TestSonarrImportList(config *AppConfig, list *sonarr.ImportListInput) (string, error) {
+	s.log.Tracef("Call:TestSonarrImportList(%s, %s, %d)", config.App, config.Name, list.ID)
+	return s.testImportListReply(config.Name, list.Name, list.ID, s.testImportList(config, list))
+}
+
+func (s *Starrs) TestWhisparrImportList(config *AppConfig, list *sonarr.ImportListInput) (string, error) {
+	s.log.Tracef("Call:TestWhisparrImportList(%s, %s, %d)", config.App, config.Name, list.ID)
+	return s.testImportListReply(config.Name, list.Name, list.ID, s.testImportList(config, list))
+}
+
+func (s *Starrs) testImportList(config *AppConfig, list any) error {
+	instance, err := s.newAPIinstance(config)
+	if err != nil {
+		return err
+	}
+
+	switch data := list.(type) {
+	case *lidarr.ImportListInput:
+		return lidarr.New(instance.Config).TestImportListContextt(s.ctx, data)
+	case *radarr.ImportListInput:
+		return radarr.New(instance.Config).TestImportListContextt(s.ctx, data)
+	case *readarr.ImportListInput:
+		return readarr.New(instance.Config).TestImportListContextt(s.ctx, data)
+	case *sonarr.ImportListInput:
+		return sonarr.New(instance.Config).TestImportListContextt(s.ctx, data)
+	default:
+		return fmt.Errorf("%w: missing app", starr.ErrRequestError)
+	}
+}
+
+func (s *Starrs) testImportListReply(name, listName string, listID int64, err error) (string, error) {
+	if err == nil {
+		msg := s.log.Translate("Tested %s import list %s (%d).", name, listName, listID)
+		s.log.Wails.Info(msg)
+
+		return msg, nil
+	}
+
+	reqError := &starr.ReqError{}
+
+	if errors.As(err, &reqError) && reqError.Msg != "" {
+		err = fmt.Errorf("%s: %s", reqError.Name, reqError.Msg)
+	}
+
+	msg := s.log.Translate("Testing %s import list: %s (%d): %s", name, listName, listID, err.Error())
+	s.log.Wails.Error(msg)
+
+	return "", fmt.Errorf(msg)
+}
+
 func (s *Starrs) UpdateLidarrImportList(
 	config *AppConfig,
 	force bool,

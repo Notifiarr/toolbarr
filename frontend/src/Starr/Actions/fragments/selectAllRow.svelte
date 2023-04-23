@@ -10,12 +10,13 @@
 </script>
 
 <tr class={selected[id]?"bg-secondary":""}>
-  <td>
+  <td class="p-0">
     <div class="switch">
       <Input disabled={updating} invalid={selected[id]} type="switch" bind:checked={selected[id]}/>
     </div>
   </td>
   <td class="d-none d-md-table-cell">{id}</td>
+
   {#if item && item.infoLink}
     <td class="d-none d-sm-table-cell">
       <Tooltip target={link}>
@@ -28,12 +29,12 @@
       </span>
     </td>
   {/if}
+
   <slot/>
 </tr>
 
 <style>
   .switch {
-    height:20px;
-    margin-top: -10px !important;
+    padding: 0 5px;
   }
 </style>

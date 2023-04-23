@@ -19,30 +19,30 @@
   } from "../../../../wailsjs/go/starrs/Starrs"
 
   export type Tab = {
-    data: (any) => Promise<any>
+    data: (instance: any, pageSize?: number, page?: number, sortKey?: string, sortDir?: string) => Promise<any>
     id: string
     component?: ComponentType
+    page?: boolean
   }
 
   // All apps have these tabs.
   const commonTabs: Tab[] = [
-    {data: Indexers, id: "Indexers", component: indexers},
-    {data: Downloaders, id: "DownloadClients", component: downloadClients},
+    { data: Indexers, id: "Indexers", component: indexers },
+    { data: Downloaders, id: "DownloadClients", component: downloadClients },
   ]
 
   // Everything but Prowlarr.
   const starrTabs = commonTabs.concat([
-    {data: BlockList, id: "BlockList", component: blockList},
-    {data: QualityProfiles, id: "QualityProfiles", component: qualityProfiles},
-    {data: ImportLists, id: "ImportLists", component: importLists},
+    { data: BlockList, id: "BlockLists", component: blockList, page: true },
+    { data: QualityProfiles, id: "QualityProfiles", component: qualityProfiles },
+    { data: ImportLists, id: "ImportLists", component: importLists },
   ])
-
 
   const tabs = {
     "Lidarr": starrTabs,
     "Prowlarr": commonTabs.concat([
-      {data: AppProfiles, id: "AppProfiles", component: appProfiles},
-      {data: CustomFilters, id: "CustomFilters", component: customFilters},
+      { data: AppProfiles, id: "AppProfiles", component: appProfiles },
+      { data: CustomFilters, id: "CustomFilters", component: customFilters },
     ]),
     "Radarr": starrTabs,
     "Readarr": starrTabs,
@@ -59,7 +59,7 @@
   export let showTitle = false
   export let updating: boolean
   export let tab: Tab // bind this and pass in startTab.
- 
+
   import T, { _ } from "../../../libs/Translate.svelte"
   import { Fade, Nav, NavItem, NavLink } from "sveltestrap"
 

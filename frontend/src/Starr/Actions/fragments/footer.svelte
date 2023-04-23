@@ -13,9 +13,11 @@
   import Loading from "../../loading.svelte"
   import T, { _ } from "../../../libs/Translate.svelte"
   import { toast, count } from "../../../libs/funcs"
-  import { update, remove, fixFieldValues } from "../methods"
-  import type { Instance } from "../../../libs/config";
+  import { update, remove, test, fixFieldValues } from "../methods"
+  import type { Instance } from "../../../libs/config"
+  import { createEventDispatcher } from "svelte"
 
+  const dispatch = createEventDispatcher()
   let badMsg = ""
   let goodMsg = ""
   $: selectedCount = count(selected)        // How many items are selected.
@@ -23,15 +25,19 @@
   let button
 
   function showMsg(idx, msg, data) {
+    goodMsg += `<li>${$_("instances.SuccessMsg", {values:{"msg": msg}})}</li>`
+    let kind = "update"
+
     if (data) { // update client (repalce in place)
       form[idx] = JSON.parse(JSON.stringify(data))
     } else {   // delete list item (remove in place)
-      delete form[idx]
+      form.splice(idx, 1)
+      kind = "delete"
     }
 
-    goodMsg += `<li>${$_("instances.SuccessMsg", {values:{"msg": msg}})}</li>`
     str = JSON.stringify(form)
     info = JSON.parse(str)
+    dispatch(kind)
   }
 
   function showError(idx, err) {
@@ -66,13 +72,13 @@
   }
 
   async function deleteItem() {
-    toast("info", $_("instances.Deleting"+tab.id, { values:{"count": count(selected)} }))
+    toast("info", $_("instances.Deleting"+tab.id, { values:{"count": count(selected)} }), "", 4)
     goodMsg = badMsg = ""
     updating = true
 
-    for (var idx = form.length-1; idx >= 0; idx--) {
-      if (!selected[form[idx].id]) continue // Not selected.
-      await remove[tab.id][instance.App](instance, form[idx].id).then(
+    for (var idx = info.length-1; idx >= 0; idx--) {
+      if (!selected[info[idx].id]) continue // Not selected.
+      await remove[tab.id][instance.App](instance, info[idx].id).then(
         (msg) => showMsg(idx, msg, false),
         (err) => showError(idx, err)
       )
@@ -80,6 +86,22 @@
 
     updating = false
     Object.keys(selected).forEach(k => selected[k] = false)
+  }
+
+  async function testItem() {
+    toast("info", $_("instances.Testing"+tab.id, { values:{"count": count(selected)} }), "", 3)
+    goodMsg = badMsg = ""
+    updating = true
+
+    for (var idx = info.length-1; idx >= 0; idx--) {
+      if (!selected[info[idx].id]) continue // Not selected.
+      await test[tab.id][instance.App](instance, info[idx]).then(
+        (msg) => {goodMsg += `<li>${$_("instances.SuccessMsg", {values:{"msg": msg}})}</li>`},
+        (err) => {badMsg += `<li>${$_("instances.ErrorMsg", {values:{"msg": err}})}</li>`},
+      )
+    }
+
+    updating = false
   }
 </script>
 
@@ -104,6 +126,7 @@
         <Icon class="text-danger" name="exclamation-circle"/>
         {$_("configvalues.UnsavedChanges")}
       </span><br>
+      <!-- Save and Force Save Buttons -->
       <Button class="actions" color="success" on:click={() => updateItems(false)}>
         {$_(noForce?"words.Save":"instances.TestandSave")}
       </Button>
@@ -114,7 +137,13 @@
         </Button>
       </span>
     </Fade>
+    <!-- Test and Delete Buttons-->
     <Fade style="display:inline-block" isOpen={selectedCount > 0}>
+      {#if !noForce}
+      <Button class="actions" color="primary" on:click={testItem}>
+        <T id="instances.TestSelected" count={selectedCount}/>
+      </Button>
+      {/if}
       <Button class="actions" color="danger" on:click={deleteItem}>
         <T id="instances.DeleteSelected" count={selectedCount}/>
       </Button>

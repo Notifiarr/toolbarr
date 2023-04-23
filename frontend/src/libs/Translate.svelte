@@ -2,9 +2,17 @@
 
 <script context="module" lang="ts">
   import { derived } from "svelte/store"
-  import { _, locale } from "svelte-i18n"
+  import { _, date as dt, locale } from "svelte-i18n"
   export { _ } // pass it through
-  export const isReady = derived(locale, $locale => typeof $locale === 'string');
+  export const isReady = derived(locale, $locale => typeof $locale === 'string')
+
+  let formatDate
+  dt.subscribe((val) => formatDate = val)
+
+  export function date(date: string|Date): string {
+    if (typeof date !== "string") return formatDate(date)
+    return formatDate(new Date(0).setUTCMilliseconds(Date.parse(date)))
+  }
 </script>
 
 <script lang="ts">

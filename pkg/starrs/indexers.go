@@ -90,6 +90,82 @@ func (s *Starrs) deleteIndexer(config *AppConfig, indexerID int64) error {
 	}
 }
 
+func (s *Starrs) TestLidarrIndexer(config *AppConfig, indexer *lidarr.IndexerInput) (string, error) {
+	s.log.Tracef("Call:TestLidarrIndexer(%s, %s, %d)", config.App, config.Name, indexer.ID)
+	return s.testIndexerReply(config.Name, indexer.Name, indexer.ID, s.testIndexer(config, indexer))
+}
+
+func (s *Starrs) TestProwlarrIndexer(config *AppConfig, indexer *prowlarr.IndexerInput) (string, error) {
+	s.log.Tracef("Call:TestProwlarrIndexer(%s, %s, %d)", config.App, config.Name, indexer.ID)
+	return s.testIndexerReply(config.Name, indexer.Name, indexer.ID, s.testIndexer(config, indexer))
+}
+
+func (s *Starrs) TestRadarrIndexer(config *AppConfig, indexer *radarr.IndexerInput) (string, error) {
+	s.log.Tracef("Call:TestRadarrIndexer(%s, %s, %d)", config.App, config.Name, indexer.ID)
+	return s.testIndexerReply(config.Name, indexer.Name, indexer.ID, s.testIndexer(config, indexer))
+}
+
+func (s *Starrs) TestReadarrIndexer(config *AppConfig, indexer *readarr.IndexerInput) (string, error) {
+	s.log.Tracef("Call:TestReadarrIndexer(%s, %s, %d)", config.App, config.Name, indexer.ID)
+	return s.testIndexerReply(config.Name, indexer.Name, indexer.ID, s.testIndexer(config, indexer))
+}
+
+func (s *Starrs) TestSonarrIndexer(config *AppConfig, indexer *sonarr.IndexerInput) (string, error) {
+	s.log.Tracef("Call:TestSonarrIndexer(%s, %s, %d)", config.App, config.Name, indexer.ID)
+	return s.testIndexerReply(config.Name, indexer.Name, indexer.ID, s.testIndexer(config, indexer))
+}
+
+func (s *Starrs) TestWhisparrIndexer(config *AppConfig, indexer *sonarr.IndexerInput) (string, error) {
+	s.log.Tracef("Call:TestWhisparrIndexer(%s, %s, %d)", config.App, config.Name, indexer.ID)
+	return s.testIndexerReply(config.Name, indexer.Name, indexer.ID, s.testIndexer(config, indexer))
+}
+
+func (s *Starrs) testIndexer(config *AppConfig, indexer any) error {
+	instance, err := s.newAPIinstance(config)
+	if err != nil {
+		return err
+	}
+
+	switch data := indexer.(type) {
+	case *lidarr.IndexerInput:
+		return lidarr.New(instance.Config).TestIndexerContext(s.ctx, data)
+	case *prowlarr.IndexerInput:
+		return prowlarr.New(instance.Config).TestIndexerContext(s.ctx, data)
+	case *radarr.IndexerInput:
+		return radarr.New(instance.Config).TestIndexerContext(s.ctx, data)
+	case *readarr.IndexerInput:
+		return readarr.New(instance.Config).TestIndexerContext(s.ctx, data)
+	case *sonarr.IndexerInput:
+		return sonarr.New(instance.Config).TestIndexerContext(s.ctx, data)
+	default:
+		return fmt.Errorf("%w: missing app", starr.ErrRequestError)
+	}
+}
+
+func (s *Starrs) testIndexerReply(
+	name, indexerName string,
+	indexerID int64,
+	err error,
+) (string, error) {
+	if err == nil {
+		msg := s.log.Translate("Tested %s indexer %s (%d).", name, indexerName, indexerID)
+		s.log.Wails.Info(msg)
+
+		return msg, nil
+	}
+
+	reqError := &starr.ReqError{}
+
+	if errors.As(err, &reqError) && reqError.Msg != "" {
+		err = fmt.Errorf("%s: %s", reqError.Name, reqError.Msg)
+	}
+
+	msg := s.log.Translate("Testing %s indexer: %s (%d): %s", name, indexerName, indexerID, err.Error())
+	s.log.Wails.Error(msg)
+
+	return "", fmt.Errorf(msg)
+}
+
 func (s *Starrs) UpdateLidarrIndexer(
 	config *AppConfig,
 	force bool,

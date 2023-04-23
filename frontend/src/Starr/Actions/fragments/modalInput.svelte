@@ -2,18 +2,17 @@
   export let info: any
   export let form: any
   export let idx: number
-  export let field: string 
+  export let field: string
   export let applyAll: string = "" // Apply this setting to all import lists in {instance.Name}.
   export let desc: string = "" // translation key
   export let name: string = "" // translation key
-  export let starrApp: undefined | StarrApp = undefined
+  export let starrApp: undefined | string = undefined
   export let type: InputType
 
   import { _ } from "../../../libs/Translate.svelte"
   import Fa from "svelte-fa"
   import { faGroupArrowsRotate } from "@fortawesome/free-solid-svg-icons"
   import { Button, Input, InputGroup, InputGroupText, Tooltip } from "sveltestrap"
-  import type { StarrApp } from "src/libs/config"
   import type { InputType } from "sveltestrap/src/Input"
 
   const vals = { values:{"starrApp": starrApp} }

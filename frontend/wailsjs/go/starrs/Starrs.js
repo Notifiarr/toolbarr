@@ -6,8 +6,8 @@ export function AppProfiles(arg1) {
   return window['go']['starrs']['Starrs']['AppProfiles'](arg1);
 }
 
-export function BlockList(arg1) {
-  return window['go']['starrs']['Starrs']['BlockList'](arg1);
+export function BlockList(arg1, arg2, arg3, arg4, arg5) {
+  return window['go']['starrs']['Starrs']['BlockList'](arg1, arg2, arg3, arg4, arg5);
 }
 
 export function CustomFilters(arg1) {
@@ -80,6 +80,74 @@ export function Tags(arg1) {
 
 export function TestInstance(arg1) {
   return window['go']['starrs']['Starrs']['TestInstance'](arg1);
+}
+
+export function TestLidarrDownloadClient(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['TestLidarrDownloadClient'](arg1, arg2);
+}
+
+export function TestLidarrImportList(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['TestLidarrImportList'](arg1, arg2);
+}
+
+export function TestLidarrIndexer(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['TestLidarrIndexer'](arg1, arg2);
+}
+
+export function TestProwlarrDownloadClient(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['TestProwlarrDownloadClient'](arg1, arg2);
+}
+
+export function TestProwlarrIndexer(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['TestProwlarrIndexer'](arg1, arg2);
+}
+
+export function TestRadarrDownloadClient(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['TestRadarrDownloadClient'](arg1, arg2);
+}
+
+export function TestRadarrImportList(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['TestRadarrImportList'](arg1, arg2);
+}
+
+export function TestRadarrIndexer(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['TestRadarrIndexer'](arg1, arg2);
+}
+
+export function TestReadarrDownloadClient(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['TestReadarrDownloadClient'](arg1, arg2);
+}
+
+export function TestReadarrImportList(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['TestReadarrImportList'](arg1, arg2);
+}
+
+export function TestReadarrIndexer(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['TestReadarrIndexer'](arg1, arg2);
+}
+
+export function TestSonarrDownloadClient(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['TestSonarrDownloadClient'](arg1, arg2);
+}
+
+export function TestSonarrImportList(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['TestSonarrImportList'](arg1, arg2);
+}
+
+export function TestSonarrIndexer(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['TestSonarrIndexer'](arg1, arg2);
+}
+
+export function TestWhisparrDownloadClient(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['TestWhisparrDownloadClient'](arg1, arg2);
+}
+
+export function TestWhisparrImportList(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['TestWhisparrImportList'](arg1, arg2);
+}
+
+export function TestWhisparrIndexer(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['TestWhisparrIndexer'](arg1, arg2);
 }
 
 export function UpdateInvalidItems(arg1, arg2, arg3, arg4) {

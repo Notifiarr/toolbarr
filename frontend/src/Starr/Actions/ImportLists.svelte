@@ -1,8 +1,10 @@
 <script lang="ts">
   export let info
-  export let instance
+  export let instance: Instance
   export let tab: Tab
+  export let updating: boolean
 
+  import type { Instance } from "../../libs/config"
   import type { Tab } from "./fragments/tabs.svelte"
   import { toast } from "../../libs/funcs"
   import { _ } from "../../libs/Translate.svelte"
@@ -25,7 +27,6 @@
   import { Card, Table, Tooltip, Icon, Collapse } from "sveltestrap"
 
   let isOpen: any = {}       // Modal toggle control.
-  let updating: boolean = false  // True while doing updates.
   let all: boolean = false       // Toggle for select-all link.
   let selected: any = {}     // Rows selected by key: ID.
   let str: string = fixFieldValues(info) // Used for equivalence comparison.
@@ -53,7 +54,7 @@
 
 <Table bordered>
   <tr>
-    <SelectAll bind:all bind:selected bind:updating={updating}/>
+    <SelectAll bind:all bind:selected bind:updating icon="check2-all"/>
     <th class="d-none d-sm-table-cell">
       <Tooltip target="il{instance.App}Type">{$_("words.Implementation")}</Tooltip>
       <span id="il{instance.App}Type">{$_("words.Type")}
@@ -206,7 +207,7 @@
 
 <Card class="p-1" color="secondary">
   <!-- <Tooltip target="exclusions">Close this card to reset the Exclusions form.</Tooltip> -->
-  <h5 style="cursor:pointer" on:keyup={()=>{}} on:click={()=>{exclusionsOpen=!exclusionsOpen}}>
+  <h5 style="cursor:pointer" on:keyup={()=>{exclusionsOpen=!exclusionsOpen}} on:click={()=>{exclusionsOpen=!exclusionsOpen}}>
     <span id="exclusions">Import List Exclusions</span>
     <Icon class="text-info" name={exclusionsOpen?"caret-down-fill":"caret-up"}/>
   </h5>

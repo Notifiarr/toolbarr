@@ -71,7 +71,7 @@
     </FormGroup>
 
     <!-- Display the nav links in the accordion header when the screen is small. -->
-    {#if small} <Tabs bind:tab={tab} fill pills {starrApp} {updating}/> {/if}
+    {#if small} <Tabs bind:tab fill pills {starrApp} {updating}/> {/if}
   </AccordionItem>
 </Accordion>
 
@@ -86,15 +86,15 @@
         <!-- Display the nav links in the side bar when the screen is not small. -->
         <div class="left">
           <Collapse horizontal isOpen={menuOpen}>
-            <Card color={$conf.Dark?"dark":"light"}>
-              <Tabs bind:tab={tab} showTitle vertical pills {starrApp} {updating}/>
+            <Card color={$conf.Dark?"dark":"secondary"}>
+              <Tabs bind:tab showTitle vertical pills {starrApp} {updating}/>
             </Card>
           </Collapse>
         </div>
       {/if}
       <div class="right">
         <!-- Display the selected tool, pass in selected instance. -->
-        <Action bind:updating={updating} {starrApp} {showTitle} {tab} {hidden} {instance} />
+        <Action bind:updating {starrApp} {showTitle} {tab} {hidden} {instance} />
       </div>
     </Col>
   </div>
@@ -112,7 +112,7 @@
   }
 
   .left {
-    margin-top: 5px;
+    margin-top: 1px;
     margin-right: 2px;
     float: left;
     width: max-content;

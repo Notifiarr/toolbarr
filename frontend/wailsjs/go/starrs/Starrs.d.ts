@@ -3,7 +3,7 @@
 
 export function AppProfiles(arg1:any):Promise<any>;
 
-export function BlockList(arg1:any):Promise<any>;
+export function BlockList(arg1:any,arg2:number,arg3:number,arg4:string,arg5:string):Promise<any>;
 
 export function CustomFilters(arg1:any):Promise<any>;
 
@@ -40,6 +40,40 @@ export function RootFolders(arg1:any):Promise<any>;
 export function Tags(arg1:any):Promise<{[key: number]: string}>;
 
 export function TestInstance(arg1:any):Promise<string>;
+
+export function TestLidarrDownloadClient(arg1:any,arg2:any):Promise<string>;
+
+export function TestLidarrImportList(arg1:any,arg2:any):Promise<string>;
+
+export function TestLidarrIndexer(arg1:any,arg2:any):Promise<string>;
+
+export function TestProwlarrDownloadClient(arg1:any,arg2:any):Promise<string>;
+
+export function TestProwlarrIndexer(arg1:any,arg2:any):Promise<string>;
+
+export function TestRadarrDownloadClient(arg1:any,arg2:any):Promise<string>;
+
+export function TestRadarrImportList(arg1:any,arg2:any):Promise<string>;
+
+export function TestRadarrIndexer(arg1:any,arg2:any):Promise<string>;
+
+export function TestReadarrDownloadClient(arg1:any,arg2:any):Promise<string>;
+
+export function TestReadarrImportList(arg1:any,arg2:any):Promise<string>;
+
+export function TestReadarrIndexer(arg1:any,arg2:any):Promise<string>;
+
+export function TestSonarrDownloadClient(arg1:any,arg2:any):Promise<string>;
+
+export function TestSonarrImportList(arg1:any,arg2:any):Promise<string>;
+
+export function TestSonarrIndexer(arg1:any,arg2:any):Promise<string>;
+
+export function TestWhisparrDownloadClient(arg1:any,arg2:any):Promise<string>;
+
+export function TestWhisparrImportList(arg1:any,arg2:any):Promise<string>;
+
+export function TestWhisparrIndexer(arg1:any,arg2:any):Promise<string>;
 
 export function UpdateInvalidItems(arg1:any,arg2:string,arg3:string,arg4:{[key: number]: boolean}):Promise<any>;
 
