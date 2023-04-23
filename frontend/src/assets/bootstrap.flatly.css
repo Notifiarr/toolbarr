@@ -12,7 +12,6 @@
  * Copyright 2011-2022 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
-@import url("./lato.css2");
 :root {
   --bs-blue: #2c3e50;
   --bs-indigo: #6610f2;

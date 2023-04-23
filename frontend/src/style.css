@@ -6,7 +6,7 @@ body {
   background-image: url(assets/images/vintage-background.png);
   background-color: #fffeee;
   transition: background-image 0.6s;
-  background-position: top; 
+  background-position: top;
   background-repeat: repeat;
   background-size: cover;
   text-align: center;
@@ -71,4 +71,20 @@ body.dark-mode .nav-link:hover {
 .card {
   margin-top: 3px;
   --bs-bg-opacity: 0.5 !important;
+}
+
+/*
+ * Moved the following lines out of their corresponding css libraries
+ * because the resources would not load from those locations.
+ */
+
+/* Taken out of boostrap.*.css files. */
+@import url("./assets/lato.css2");
+
+/* Taken out of bootstrap-icon.css */
+@font-face {
+  font-display: block;
+  font-family: "bootstrap-icons";
+  src: url("./assets/bootstrap-icons.woff2") format("woff2"),
+       url("./assets/bootstrap-icons.woff") format("woff");
 }
