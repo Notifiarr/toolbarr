@@ -28,7 +28,7 @@ packagejson:
 	mv frontend/package.json.new frontend/package.json
 
 build: wailsjson packagejson
-	wails build -ldflags "$(VERSION_LDFLAGS)"
+	wails build -debug -ldflags "$(VERSION_LDFLAGS)"
 
 windows: wailsjson packagejson
 	wails build -platform windows/amd64 -nsis -ldflags "$(VERSION_LDFLAGS)"
