@@ -772,6 +772,80 @@
             "fuzzy": true
         },
         {
+            "id": "Tested {Name} download client {ClientName} ({ClientID}).",
+            "message": "Tested {Name} download client {ClientName} ({ClientID}).",
+            "translation": "Tested {Name} download client {ClientName} ({ClientID}).",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "ClientName",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "clientName"
+                },
+                {
+                    "id": "ClientID",
+                    "string": "%[3]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 3,
+                    "expr": "clientID"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Testing {Name} download client: {ClientName} ({ClientID}): {Error}",
+            "message": "Testing {Name} download client: {ClientName} ({ClientID}): {Error}",
+            "translation": "Testing {Name} download client: {ClientName} ({ClientID}): {Error}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "ClientName",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "clientName"
+                },
+                {
+                    "id": "ClientID",
+                    "string": "%[3]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 3,
+                    "expr": "clientID"
+                },
+                {
+                    "id": "Error",
+                    "string": "%[4]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 4,
+                    "expr": "err.Error()"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
             "id": "Updated {Name} download client {ClientName} ({ClientID}).",
             "message": "Updated {Name} download client {ClientName} ({ClientID}).",
             "translation": "Updated {Name} download client {ClientName} ({ClientID}).",
@@ -1070,6 +1144,80 @@
             "fuzzy": true
         },
         {
+            "id": "Tested {Name} import list {ListName} ({ListID}).",
+            "message": "Tested {Name} import list {ListName} ({ListID}).",
+            "translation": "Tested {Name} import list {ListName} ({ListID}).",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "ListName",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "listName"
+                },
+                {
+                    "id": "ListID",
+                    "string": "%[3]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 3,
+                    "expr": "listID"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Testing {Name} import list: {ListName} ({ListID}): {Error}",
+            "message": "Testing {Name} import list: {ListName} ({ListID}): {Error}",
+            "translation": "Testing {Name} import list: {ListName} ({ListID}): {Error}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "ListName",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "listName"
+                },
+                {
+                    "id": "ListID",
+                    "string": "%[3]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 3,
+                    "expr": "listID"
+                },
+                {
+                    "id": "Error",
+                    "string": "%[4]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 4,
+                    "expr": "err.Error()"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
             "id": "Updated {Name} import list {ListName} ({ListID}).",
             "message": "Updated {Name} import list {ListName} ({ListID}).",
             "translation": "Updated {Name} import list {ListName} ({ListID}).",
@@ -1214,6 +1362,80 @@
                     "underlyingType": "int64",
                     "argNum": 2,
                     "expr": "indexerID"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Tested {Name} indexer {IndexerName} ({IndexerID}).",
+            "message": "Tested {Name} indexer {IndexerName} ({IndexerID}).",
+            "translation": "Tested {Name} indexer {IndexerName} ({IndexerID}).",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "IndexerName",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "indexerName"
+                },
+                {
+                    "id": "IndexerID",
+                    "string": "%[3]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 3,
+                    "expr": "indexerID"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Testing {Name} indexer: {IndexerName} ({IndexerID}): {Error}",
+            "message": "Testing {Name} indexer: {IndexerName} ({IndexerID}): {Error}",
+            "translation": "Testing {Name} indexer: {IndexerName} ({IndexerID}): {Error}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "IndexerName",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "indexerName"
+                },
+                {
+                    "id": "IndexerID",
+                    "string": "%[3]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 3,
+                    "expr": "indexerID"
+                },
+                {
+                    "id": "Error",
+                    "string": "%[4]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 4,
+                    "expr": "err.Error()"
                 }
             ],
             "fuzzy": true

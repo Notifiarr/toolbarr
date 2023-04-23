@@ -2,6 +2,7 @@
   export let tab: Tab
   export let info
   export let instance
+  export let updating: boolean
 
   import type { Tab } from "./fragments/tabs.svelte"
   import { _ } from "../../libs/Translate.svelte"
@@ -14,10 +15,9 @@
   import SelectAll from "./fragments/selectAllHeader.svelte"
   import SelectRow from "./fragments/selectAllRow.svelte"
   import { fixFieldValues } from "./methods"
-  import { Table, Tooltip, Icon, Button } from "sveltestrap"
+  import { Table, Tooltip, Icon } from "sveltestrap"
 
   let isOpen: any = {}       // Modal toggle control.
-  let updating = false  // True while doing updates.
   let all = false       // Toggle for select-all link.
   let selected: any = {}     // Rows selected by key: ID.
   let str = fixFieldValues(info) // Used for equivalence comparison.
@@ -27,7 +27,7 @@
 
 <Table bordered>
   <tr>
-    <SelectAll bind:all bind:selected bind:updating />
+    <SelectAll bind:all bind:selected bind:updating icon="check2-all" />
     <th class="d-none d-sm-table-cell">
       <Tooltip target="indexer{starrApp}Type">{$_("words.Protocol")}</Tooltip>
       <span id="indexer{starrApp}Type">
@@ -42,7 +42,7 @@
 
   {#each info as indexer, idx}
     {#if indexer} <!-- When deleting an indexer, this protects an error condition. -->
-    <SelectRow {updating} {selected} id={info[idx].id} item={indexer}>
+    <SelectRow {updating} bind:selected id={info[idx].id} item={indexer}>
       <td class={JSON.stringify(form[idx]) != JSON.stringify(info[idx])?"border-warning":""}>
         <a href="/" style="padding-left:0" on:click|preventDefault={() => isOpen[idx]=!updating}>{indexer.name}</a>
         <ConfigModal {info} {form} {idx} {str} id={indexer.id} name={indexer.implementation} bind:isOpen={isOpen[idx]}

@@ -14,7 +14,7 @@
   function selectAll() {
     if (updating) return
     all = !all
-    var idx = 0.08 // initial delay to click.
+    var idx = 0.05 // initial delay to click.
 
     Object.keys(selected).forEach((key) => { // gets faster and faster.
       onOnce(() => {selected[key] = all}, idx += 0.077 - (idx/24))

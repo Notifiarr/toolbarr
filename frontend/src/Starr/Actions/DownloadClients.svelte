@@ -2,6 +2,7 @@
   export let tab: Tab
   export let info
   export let instance
+  export let updating: boolean
 
   import type { Tab } from "./fragments/tabs.svelte"
   import { _ } from "../../libs/Translate.svelte"
@@ -17,7 +18,6 @@
   import { Table, Tooltip, Icon } from "sveltestrap"
 
   let isOpen: any = {}           // Modal toggle control.
-  let updating: boolean = false  // True while doing updates.
   let all: boolean = false       // Toggle for select-all link.
   let selected: any = {}         // Rows selected by key: ID.
   let str: string = fixFieldValues(info) // Used for equivalence comparison.
@@ -27,7 +27,7 @@
 
 <Table bordered>
   <tr>
-    <SelectAll bind:all={all} bind:selected={selected} bind:updating={updating}/>
+    <SelectAll bind:all bind:selected bind:updating icon="check2-all"/>
     <th class="d-none d-sm-table-cell">
       <Tooltip target="dc{starrApp}Type">{$_("words.Protocol")}</Tooltip>
       <span id="dc{instance.App}Type">{$_("words.Type")}
@@ -36,10 +36,10 @@
     </th>
     <th>{$_("words.Name")}</th>
     {#if starrApp == "Readarr"}
-      <th><Dropdown bind:form={form} {updating} {starrApp} field="enable" name="configvalues.Enabled"/></th>
+      <th><Dropdown bind:form {updating} {starrApp} field="enable" name="configvalues.Enabled"/></th>
     {:else}
-      <th><Dropdown bind:form={form} {updating} {starrApp} field="removeCompletedDownloads"/></th>
-      <th><Dropdown bind:form={form} {updating} {starrApp} field="removeFailedDownloads"/></th>
+      <th><Dropdown bind:form {updating} {starrApp} field="removeCompletedDownloads"/></th>
+      <th><Dropdown bind:form {updating} {starrApp} field="removeFailedDownloads"/></th>
     {/if}
     <th><span>{$_("words.Priority")}</span></th>
   </tr>
@@ -48,24 +48,24 @@
     {#if client} <!-- When deleting a client, this protects an error condition. -->
     <ConfigModal {info} {form} {idx} {str} id={client.id} name={client.implementation} bind:isOpen={isOpen[idx]}
       disabled={starrApp=="Prowlarr"?$_("instances.ProwlarrNotSupported"):""}>
-      <ModalInput {info} bind:form={form} {idx} field="name" name="words.Name" type="text"/>
-      <ModalInput {info} bind:form={form} {idx} field="priority" name="words.Priority" type="number"/>
+      <ModalInput {info} bind:form {idx} field="name" name="words.Name" type="text"/>
+      <ModalInput {info} bind:form {idx} field="priority" name="words.Priority" type="number"/>
       {#each info[idx].fields as item, itemIdx}
-        <FieldInput {item} {itemIdx} {info} {idx} bind:form={form}/>
+        <FieldInput {item} {itemIdx} {info} {idx} bind:form/>
       {/each}
     </ConfigModal>
 
-    <SelectRow {updating} {selected} id={info[idx].id} item={client}>
+    <SelectRow {updating} bind:selected id={info[idx].id} item={client}>
       <td class={JSON.stringify(form[idx]) != JSON.stringify(info[idx])?"border-warning":""}>
         <a href="/" style="padding-left:0" on:click|preventDefault={() => isOpen[idx]=!updating}>{client.name}</a>
       </td>
       {#if instance.App == "Readarr"}
-      <TDInput {idx} {info} {updating} bind:form={form} field="enable" type="switch"/>
+      <TDInput {idx} {info} {updating} bind:form field="enable" type="switch"/>
       {:else}
-      <TDInput {idx} {info} {updating} bind:form={form} field="removeCompletedDownloads" type="switch"/>
-      <TDInput {idx} {info} {updating} bind:form={form} field="removeFailedDownloads" type="switch"/>
+      <TDInput {idx} {info} {updating} bind:form field="removeCompletedDownloads" type="switch"/>
+      <TDInput {idx} {info} {updating} bind:form field="removeFailedDownloads" type="switch"/>
       {/if}
-      <TDInput {idx} {info} {updating} bind:form={form} field="priority" type="range"/>
+      <TDInput {idx} {info} {updating} bind:form field="priority" type="range"/>
     </SelectRow>
     {/if}<!-- /if (client) -->
   {/each}<!-- /each info as client, idx -->

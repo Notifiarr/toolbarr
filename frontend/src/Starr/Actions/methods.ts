@@ -32,6 +32,23 @@ import {
   UpdateReadarrExclusion,
   UpdateSonarrExclusion,
   UpdateWhisparrExclusion,
+  TestLidarrIndexer,
+  TestProwlarrIndexer,
+  TestReadarrIndexer,
+  TestRadarrIndexer,
+  TestSonarrIndexer,
+  TestWhisparrIndexer,
+  TestLidarrDownloadClient,
+  TestProwlarrDownloadClient,
+  TestReadarrDownloadClient,
+  TestRadarrDownloadClient,
+  TestSonarrDownloadClient,
+  TestWhisparrDownloadClient,
+  TestLidarrImportList,
+  TestRadarrImportList,
+  TestReadarrImportList,
+  TestSonarrImportList,
+  TestWhisparrImportList,
 } from "../../../wailsjs/go/starrs/Starrs"
 
 export function fixFieldValues(info) {
@@ -132,5 +149,31 @@ export const update = {
     "Readarr": UpdateReadarrExclusion,
     "Sonarr": UpdateSonarrExclusion,
     "Whisparr": UpdateWhisparrExclusion,
+  },
+}
+
+export const test = {
+  "DownloadClients": {
+    "Lidarr":   TestLidarrDownloadClient,
+    "Prowlarr": TestProwlarrDownloadClient,
+    "Radarr":   TestRadarrDownloadClient,
+    "Readarr":  TestReadarrDownloadClient,
+    "Sonarr":   TestSonarrDownloadClient,
+    "Whisparr": TestWhisparrDownloadClient,
+  },
+  "Indexers": {
+    "Lidarr":   TestLidarrIndexer,
+    "Prowlarr": TestProwlarrIndexer,
+    "Radarr":   TestRadarrIndexer,
+    "Readarr":  TestReadarrIndexer,
+    "Sonarr":   TestSonarrIndexer,
+    "Whisparr": TestWhisparrIndexer,
+  },
+  "ImportLists": {
+    "Lidarr":   TestLidarrImportList,
+    "Radarr":   TestRadarrImportList,
+    "Readarr":  TestReadarrImportList,
+    "Sonarr":   TestSonarrImportList,
+    "Whisparr": TestWhisparrImportList,
   },
 }

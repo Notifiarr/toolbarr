@@ -2,6 +2,7 @@
   export let tab: Tab
   export let info
   export let instance
+  export let updating: boolean
 
   import type { Tab } from "./fragments/tabs.svelte"
   import { _ } from "../../libs/Translate.svelte"
@@ -16,7 +17,6 @@
   import SelectRow from "./fragments/selectAllRow.svelte"
 
   let isOpen: any = {}           // Modal toggle control.
-  let updating: boolean = false  // True while doing updates.
   let all: boolean = false       // Toggle for select-all link.
   let selected: any = {}         // Rows selected by key: ID.
   let str: string = JSON.stringify(info) // Used for equivalence comparison.
@@ -25,22 +25,22 @@
 
 <Table bordered>
   <tr>
-    <SelectAll bind:all={all} bind:selected={selected} bind:updating={updating}/>
+    <SelectAll bind:all bind:selected bind:updating/>
     <th>{$_("words.Name")}</th>
-    <th><Dropdown bind:form={form} {updating} starrApp={instance.App} field="upgradeAllowed"/></th>
+    <th><Dropdown bind:form {updating} starrApp={instance.App} field="upgradeAllowed"/></th>
     <th>{$_("instances.UpgradeUntil")}</th>
   </tr>
 
   {#each info as profile, idx}
     {#if profile} <!-- When deleting a profile, this protects an error condition. -->
-    <SelectRow {updating} {selected} id={info[idx].id}>
+    <SelectRow {updating} bind:selected id={info[idx].id}>
       <td class={JSON.stringify(form[idx]) != JSON.stringify(profile)?"border-warning":""}>
         <span>
           <Badge color="primary" class="superbadge">{count(profile.items, "allowed")}</Badge>
           <a href="/" style="padding-left:0" on:click|preventDefault={() => isOpen[idx]=!updating}>{profile.name}</a>
         </span>
         <ConfigModal {info} {form} {idx} {str} id={profile.id} name={profile.name} bind:isOpen={isOpen[idx]}>
-          <ModalInput {info} bind:form={form} {idx} field="name" name="words.Name" type="text"/>
+          <ModalInput {info} bind:form {idx} field="name" name="words.Name" type="text"/>
           <h5>{$_("words.Profiles")} <div style="float:right"><Badge>{$_("words.Qualities")}</Badge></div></h5>
 
           {#each profile.items as item, itemIdx}
@@ -62,8 +62,8 @@
         </ConfigModal>
       </td>
 
-      <TDInput {idx} {info} {updating} bind:form={form} field="upgradeAllowed" type="switch"/>
-      <TDInput {idx} {info} {updating} bind:form={form} field="cutoff" type="select">
+      <TDInput {idx} {info} {updating} bind:form field="upgradeAllowed" type="switch"/>
+      <TDInput {idx} {info} {updating} bind:form field="cutoff" type="select">
         {#each profile.items as item}
           {#if item.allowed}
             <option disabled={!form[idx].upgradeAllowed} value={item.id!==undefined?item.id:item.quality.id}>

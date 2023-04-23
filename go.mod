@@ -2,6 +2,8 @@ module github.com/Notifiarr/toolbarr
 
 go 1.20
 
+replace golift.io/starr => ../../../golift.io/starr
+
 require (
 	github.com/gorilla/schema v1.2.0
 	github.com/jmoiron/sqlx v1.3.5
@@ -11,7 +13,7 @@ require (
 	golang.org/x/text v0.9.0
 	golift.io/datacounter v1.0.4
 	golift.io/rotatorr v0.0.0-20230317103044-d974d22ee164
-	golift.io/starr v0.14.1-0.20230422172653-5d06c9a2453c
+	golift.io/starr v0.14.1-0.20230423075646-c1ab04058489
 	golift.io/version v0.0.2
 	modernc.org/sqlite v1.22.0
 )

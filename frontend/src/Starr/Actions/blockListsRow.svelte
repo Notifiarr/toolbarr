@@ -20,7 +20,7 @@
     return name
   }
 
-  // max elipses the middle of a string to a max length.
+  // max ellipses the middle of a string to a max length.
   function max(max: number, str: string): string {
     if (str.length < max+4) return str
     return str.substring(0, max/2) + `<i class="text-warning">...</i>` +
