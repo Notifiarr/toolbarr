@@ -134,6 +134,7 @@
         "AuthorName": "Author Name",
         "ForeignID": "Foreign ID",
         "MovieTitle": "Movie Title",
+        "SeriesTitle": "Series Title",
         "SourceTitle": "Source Title"
     },
     "aboutPage": {

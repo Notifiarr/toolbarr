@@ -3,88 +3,83 @@
   export let idx: number
   export let starrApp: string
   export let qualityProfiles: any
+  export let metadataProfiles: any
 
-  import { Table, Popover, Badge, Icon } from "sveltestrap"
+  import { Table, Popover, Badge, Icon, Tooltip } from "sveltestrap"
   import { _, date } from "../../libs/Translate.svelte"
   import { conf } from "../../libs/config"
-
 
   function qp(id) {
     let name = id
     qualityProfiles.forEach((qp) => {
-      if (qp.id == id) { 
+      if (qp.id == id) {
         name = qp.name
         return name
       }
     })
     return name
   }
+
+  function mp(id) {
+    let name = id
+    metadataProfiles.forEach((mp) => {
+      if (mp.id == id) {
+        name = mp.name
+        return name
+      }
+    })
+    return name
+  }
+
+  function max(max: number, str: string): string {
+    if (str.length < max+4) return str
+    return `${str.substring(0, max/2)}<i class="text-warning">...</i>${str.substring(str.length-max/2)}`
+  }
+
+  let item: any
+  let name: string
+  if (starrApp == "Lidarr") {
+    item = list.artist
+    name = list.artist.artistName
+  } else if (starrApp == "Radarr") {
+    item = list.movie
+    name = list.movie.title
+  } else if (starrApp == "Readarr") {
+    item = list.author
+    name = list.author.authorName
+  } else if (starrApp == "Sonarr") {
+    item = list.series
+    name = list.series.title
+  }
+
+  let id = `blRecord${starrApp}${idx}`
+  let width: number
+  $: maxTDlen = width < 1000 ? 30 : width < 1400 ? 50 : 80
 </script>
 
-{#if starrApp == "Lidarr"}<!-- LIDARR PAGE-->
-<td id="record{idx}" class="pop nowrap">{list.artist.artistName}
+<svelte:window bind:innerWidth={width}/>
+
+<td {id} class="pop nowrap">{name}
   <div class="popover-content {$conf.Dark?"dark-mode":""}">
-    <Popover container="inline" trigger="hover" placement="top" target="record{idx}">
-      <span slot="title"><Icon name={list.artist.monitored?"bookmark-fill":"bookmark"}/> {list.artist.artistName}</span>
-      <Table striped size="sm">
+    <Popover container="inline" trigger="hover" placement="top" target={id}>
+      <span slot="title"><Icon name={item.monitored?"bookmark-fill":"bookmark"}/> {name}</span>
+      <Table striped size="sm" class="m-0">
         <tbody>
           <tr><th class="nowrap">{$_("words.Quality")}</th><td>{list.quality.quality.name}</td></tr>
-          <tr><th class="nowrap">{$_("words.Source")}</th><td>{list.sourceTitle}</td></tr>
+          <tr><th class="nowrap">{$_("words.Source")}</th><td class="break">{list.sourceTitle}</td></tr>
           <tr><th class="nowrap">{$_("words.Protocol")}</th><td>{list.protocol}</td></tr>
           <tr><th class="nowrap">{$_("words.Indexer")}</th><td>{list.indexer}</td></tr>
           {#if qualityProfiles !== undefined}
-            <tr><th class="nowrap">{$_("instances.qualityProfileIdTitle")}</th><td>{qp(list.artist.qualityProfileId)}</td></tr>
+          <tr><th class="nowrap">{$_("instances.qualityProfileIdTitle")}</th><td>{qp(item.qualityProfileId)}</td></tr>
           {/if}
-          <tr><th class="nowrap">{$_("words.Message")}</th><td>{list.message}</td></tr>
-        </tbody>
-      </Table>
-    </Popover>
-  </div>
-</td>
-<td>{list.sourceTitle}</td>
-<td class="nowrap">{list.quality.quality.name}</td>
-
-{:else if starrApp == "Radarr"}<!-- RADARR PAGE-->
-<td id="record{idx}" class="pop nowrap">{list.movie.title}</td>
-<td>{list.sourceTitle}</td>
-<td class="nowrap">{list.quality.quality.name}
-  <div class="popover-content {$conf.Dark?"dark-mode":""}">
-    <Popover container="inline" trigger="hover" placement="top" target="record{idx}">
-      <span slot="title"><Icon name={list.movie.monitored?"bookmark-fill":"bookmark"}/>
-        {list.movie.title} ({list.movie.year})
-      </span>
-      <Table striped size="sm">
-        <tbody>
-          <tr><th class="nowrap">{$_("words.Source")}</th><td>{list.sourceTitle}</td></tr>
-          <tr><th class="nowrap">{$_("words.Protocol")}</th><td>{list.protocol}</td></tr>
-          <tr><th class="nowrap">{$_("words.Indexer")}</th><td>{list.indexer}</td></tr>
-          {#if qualityProfiles !== undefined}
-            <tr><th class="nowrap">{$_("instances.qualityProfileIdTitle")}</th><td>{qp(list.movie.qualityProfileId)}</td></tr>
+          {#if metadataProfiles !== undefined}
+          <tr><th class="nowrap">{$_("instances.metadataProfileIdTitle")}</th><td>{mp(item.metadataProfileId)}</td></tr>
           {/if}
+          {#if list.languages}
           <tr>
             <th class="nowrap">{$_("words.Languages")}</th>
             <td>{#each list.languages as lang}<Badge>{lang.name}</Badge> {/each}</td>
           </tr>
-          <tr><th class="nowrap">{$_("words.Message")}</th><td>{list.message}</td></tr>
-        </tbody>
-      </Table>
-    </Popover>
-  </div>
-</td>
-
-{:else if starrApp == "Readarr"}<!-- READARR PAGE-->
-<td id="record{idx}" class="pop nowrap">{list.author.authorName}
-  <div class="popover-content {$conf.Dark?"dark-mode":""}">
-    <Popover container="inline" trigger="hover" placement="top" target="record{idx}">
-      <span slot="title"><Icon name={list.author.monitored?"bookmark-fill":"bookmark"}/> {list.author.authorName}</span>
-      <Table striped size="sm">
-        <tbody>
-          <tr><th class="nowrap">{$_("words.Quality")}</th><td>{list.quality.quality.name}</td></tr>
-          <tr><th class="nowrap">{$_("words.Source")}</th><td>{list.sourceTitle}</td></tr>
-          <tr><th class="nowrap">{$_("words.Protocol")}</th><td>{list.protocol}</td></tr>
-          <tr><th class="nowrap">{$_("words.Indexer")}</th><td>{list.indexer}</td></tr>
-          {#if qualityProfiles !== undefined}
-            <tr><th class="nowrap">{$_("instances.qualityProfileIdTitle")}</th><td>{qp(list.author.qualityProfileId)}</td></tr>
           {/if}
           <tr><th class="nowrap">{$_("words.Message")}</th><td>{list.message}</td></tr>
         </tbody>
@@ -92,38 +87,14 @@
     </Popover>
   </div>
 </td>
-<td>{list.sourceTitle}</td>
-<td class="nowrap">{list.quality.quality.name}</td>
 
-{:else if starrApp == "Sonarr"}<!-- SONARR PAGE-->
-<td id="record{idx}" class="pop nowrap"> {list.series.title}
-  <div class="popover-content {$conf.Dark?"dark-mode":""}">
-    <Popover container="inline" trigger="hover" placement="top" target="record{idx}">
-      <span slot="title"><Icon name={list.series.monitored?"bookmark-fill":"bookmark"}/>
-        {list.series.title} ({list.series.year})
-      </span>
-      <Table striped size="sm">
-        <tbody>
-          <tr><th class="nowrap">{$_("words.Source")}</th><td>{list.sourceTitle}</td></tr>
-          <tr><th class="nowrap">{$_("words.Protocol")}</th><td>{list.protocol}</td></tr>
-          <tr><th class="nowrap">{$_("words.Indexer")}</th><td>{list.indexer}</td></tr>
-          {#if qualityProfiles !== undefined}
-            <tr><th class="nowrap">{$_("instances.qualityProfileIdTitle")}</th><td>{qp(list.series.qualityProfileId)}</td></tr>
-          {/if}
-          <tr>
-            <th class="nowrap">{$_("words.Languages")}</th>
-            <td>{#each list.languages as lang}<Badge>{lang.name}</Badge> {/each}</td>
-          </tr>
-          <tr><th class="nowrap">{$_("words.Message")}</th><td>{list.message}</td></tr>
-        </tbody>
-      </Table>
-    </Popover>
-  </div>
+<td class="nowrap d-none d-md-table-cell" id="sourceTitle{id}">
+  {@html max(maxTDlen, list.sourceTitle)}
+  {#if list.sourceTitle.length > maxTDlen+3}
+  <Tooltip target="sourceTitle{id}">{list.sourceTitle}</Tooltip>
+  {/if}
 </td>
-<td>{list.sourceTitle}</td>
 <td class="nowrap">{list.quality.quality.name}</td>
-{/if}
-
 <td class="nowrap">{date(list.date)}</td>
 
 <style>
@@ -138,7 +109,11 @@
     text-decoration-line: underline;
     text-decoration-color: rgb(113, 156, 247);
   }
-  
+
+  .break {
+    word-break: break-all;
+  }
+
   .popover-content.dark-mode :global(.popover) {
     background-color: #527d6e;
   }
@@ -148,8 +123,12 @@
 
   .popover-content :global(.popover) {
     background-color: #cdf6dd;
-    max-width: 700px
+    max-width: calc(100vw - 10px);
+    width: max-content;
+    min-width: 470px;
+    margin: 5px !important;
   }
+
   .popover-content :global(.popover-header) {
     background-color: rgb(142, 214, 178);
   }
