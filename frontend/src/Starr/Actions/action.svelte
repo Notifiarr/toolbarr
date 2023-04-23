@@ -78,7 +78,7 @@
     <div id="container" class={$conf.Dark?"dark-mode":""}>
       <!-- We have all the pieces we need. Load the selected tab's component. -->
       {#if !tab.page}
-      <svelte:component this={tab.component} {instance} {tab} bind:info bind:updating />
+        <svelte:component this={tab.component} {instance} {tab} bind:info bind:updating />
       {:else}<!-- tab is pagable-->
         <svelte:component {instance} {tab}
           bind:info bind:updating bind:sortKey bind:sortDir 

@@ -78,7 +78,7 @@ body.dark-mode .nav-link:hover {
  * because the resources would not load from those locations.
  */
 
-/* Taken out of boostrap.*.css files. */
+/* Taken out of bootstrap.*.css files. */
 @import url("./assets/lato.css2");
 
 /* Taken out of bootstrap-icon.css */
