@@ -26,7 +26,7 @@
   const starrApp = instance.App
 
   function sort(e) {
-    if (e.target.id == sortKey) sortDir = !sortDir 
+    if (e.target.id == sortKey) sortDir = !sortDir
     sortKey = e.target.id
     dispatch("update", true)
   }
@@ -40,43 +40,39 @@
     if (["Lidarr","Readarr"].includes(starrApp))
       MetadataProfiles(instance).then(resp => metadataProfiles = resp, err => { toast("error", err) })
   }
-
-  function qp(id) {
-    let name = id
-    qualityProfiles.forEach((qp) => {
-      if (qp.id == id) name = qp.name
-    })
-    return name
-  }
 </script>
 
 <Table striped responsive size="sm">
   <thead>
     <tr>
     <SelectAll bind:all bind:selected bind:updating />
+
+    <!-- App Specific -->
     {#if starrApp == "Lidarr"}
     <th>
-      <span class="link" id="artistMetadata.sortName" on:keyup={sort} on:click={sort}> {$_("configvalues.ArtistName")}</span>
-      {#if sortKey == "artistMetadata.sortName"} <Icon name="caret-{sortDir?"up":"down"}"/> {/if}
+      <span class="link" id="artists.sortName" on:keyup={sort} on:click={sort}>{$_("configvalues.ArtistName")}</span>
+      {#if sortKey == "artists.sortName"} <Icon name="caret-{sortDir?"up":"down"}"/> {/if}
     </th>
     {:else if starrApp == "Radarr"}
     <th>
-      <span class="link" id="movies.sortTitle" on:keyup={sort} on:click={sort}> {$_("configvalues.MovieTitle")}</span>
+      <span class="link" id="movies.sortTitle" on:keyup={sort} on:click={sort}>{$_("configvalues.MovieTitle")}</span>
       {#if sortKey == "movies.sortTitle"} <Icon name="caret-{sortDir?"up":"down"}"/> {/if}
     </th>
     {:else if starrApp == "Readarr"}
       <th>
-        <span class="link" id="authorMetadata.sortName" on:keyup={sort} on:click={sort}> {$_("configvalues.AuthorName")}</span>
+        <span class="link" id="authorMetadata.sortName" on:keyup={sort} on:click={sort}>{$_("configvalues.AuthorName")}</span>
         {#if sortKey == "authorMetadata.sortName"} <Icon name="caret-{sortDir?"up":"down"}"/> {/if}
       </th>
     {:else if starrApp == "Sonarr"}
     <th>
-      <span class="link" id="series.sortTitle" on:keyup={sort} on:click={sort}> {$_("configvalues.SeriesTitle")}</span>
+      <span class="link" id="series.sortTitle" on:keyup={sort} on:click={sort}>{$_("configvalues.SeriesTitle")}</span>
       {#if sortKey == "series.sortTitle"} <Icon name="caret-{sortDir?"up":"down"}"/> {/if}
     </th>
     {/if}
+
+    <!-- All Apps -->
     <th class="d-none d-md-table-cell">
-      <span class="link" id="sourceTitle" on:keyup={sort} on:click={sort}> {$_("configvalues.SourceTitle")}</span>
+      <span class="link" id="sourceTitle" on:keyup={sort} on:click={sort}>{$_("configvalues.SourceTitle")}</span>
       {#if sortKey == "sourceTitle"} <Icon name="caret-{sortDir?"up":"down"}"/> {/if}
     </th>
     <th>{$_("words.Quality")}</th>
@@ -100,6 +96,5 @@
 </Table>
 
 <Footer noForce {instance} {tab}
-  bind:selected bind:updating bind:form bind:str 
+  bind:selected bind:updating bind:form bind:str
   bind:info={info.records} on:delete={()=>info.totalRecords--}/>
-  
