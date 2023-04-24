@@ -61,18 +61,24 @@ func (i Instances) Copy() Instances {
 }
 
 func (s *Starrs) newInstance(config *AppConfig) *instance {
+	starrConfig := &starr.Config{
+		APIKey: config.Key,
+		URL:    strings.TrimSuffix(config.URL, "/") + "/",
+		Client: starr.Client(config.Timeout, config.SSL),
+	}
+
+	if config.Form {
+		starrConfig.Username = config.User
+		starrConfig.Password = config.Pass
+	} else {
+		starrConfig.HTTPUser = config.User
+		starrConfig.HTTPPass = config.Pass
+	}
+
 	return &instance{
 		Starrs: s,
 		config: config,
-		Config: &starr.Config{
-			APIKey: config.Key,
-			URL:    strings.TrimSuffix(config.URL, "/") + "/",
-			// HTTPPass: instance.Pass,
-			// HTTPUser: instance.User,
-			Username: config.User,
-			Password: config.Pass,
-			Client:   starr.Client(timeout, config.SSL),
-		},
+		Config: starrConfig,
 	}
 }
 

@@ -15,7 +15,8 @@
   const tabs: {title: string, target: ComponentType}[] = []
   if (starrApp != "Prowlarr") tabs.push({title: "instances.FilesystemPathsMigrator", target: Migrator})
   tabs.push({title: "instances.SQLite3DatabaseInspector", target: Inspector})
-  let instance: Instance = $conf.Instances[starrApp] ? $conf.Instances[starrApp][0] : undefined
+   // Start with default instance.
+  let instance: Instance = $conf.Instances[starrApp] ? $conf.Instances[starrApp][$conf.Instance[starrApp]] : undefined
   let activeTab = tabs[0]
   let showTitle = true
 </script>

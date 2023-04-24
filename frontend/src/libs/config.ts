@@ -35,6 +35,7 @@ export type AppConfig = {
     Lang:      string
     Instances: {[key: string]: Instance[]}
     Hide:      {[key: string]: boolean}
+    Instance:  {[key: string]: number} // Default Instance.
 }
 
 export type AppData = {
@@ -62,6 +63,7 @@ let config: AppConfig = {
 	Lang: "en",
 	Instances: {},
 	Hide: {},
+	Instance: {},
 }
 
 let appData: Partial<AppData> = {}

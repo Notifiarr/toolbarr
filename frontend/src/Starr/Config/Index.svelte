@@ -20,18 +20,18 @@
 <Accordion stayOpen>
   {#if $conf.Instances != undefined && $conf.Instances[starrApp]}
     <!-- Create a list of configured starrApp instances. -->
-    {#each $conf.Instances[starrApp] as instance, i }
-      <AccordionItem active={id==i} on:toggle={(e) => {id = i;open = e.detail}}>
+    {#each $conf.Instances[starrApp] as instance, idx }
+      <AccordionItem active={id==idx} on:toggle={(e) => {id = idx;open = e.detail}}>
         <span slot="header">
-          <Badge class="superbadge" color={id==i&&open?"success":"secondary"}>{i}</Badge>
+          <Badge class="superbadge" color={id==idx&&open?"success":"secondary"}>{idx}</Badge>
           <h4 class="d-inline-block accordian-header">{instance.Name}</h4>
           <Badge color="primary">{instance.URL}</Badge>
         </span> 
-        <Instance index={i} {starrApp} {instance} />
+        <Instance index={idx} {starrApp} {instance} defaultInstance={$conf.Instance[starrApp] == idx}/>
       </AccordionItem>
     {/each}
   {/if}
-  
+
   <!-- add new instance option -->
   <AccordionItem active={id==count} on:toggle={(e) => {id = count;open = e.detail}}>
     <span slot="header">

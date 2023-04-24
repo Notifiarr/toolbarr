@@ -58,8 +58,8 @@ export function SaveConfigItem(arg1, arg2, arg3) {
   return window['go']['app']['App']['SaveConfigItem'](arg1, arg2, arg3);
 }
 
-export function SaveInstance(arg1, arg2) {
-  return window['go']['app']['App']['SaveInstance'](arg1, arg2);
+export function SaveInstance(arg1, arg2, arg3) {
+  return window['go']['app']['App']['SaveInstance'](arg1, arg2, arg3);
 }
 
 export function Version() {

@@ -2,9 +2,10 @@
   export let starrApp: StarrApp
   export let index: number
   export let instance: Instance|undefined = undefined
+  export let defaultInstance: boolean = false
 
   import type { StarrApp, Instance } from "../../libs/config"
-  import { Input, InputGroup, InputGroupText, Button, Form, Alert, FormGroup, Badge } from "sveltestrap"
+  import { Input, InputGroup, InputGroupText, Button, Form, Alert, FormGroup, Tooltip } from "sveltestrap"
   import { app, conf } from "../../libs/config"
   import { port } from "../../libs/info"
   import Fa from "svelte-fa"
@@ -13,8 +14,9 @@
   import { TestInstance } from "../../../wailsjs/go/starrs/Starrs"
   import { toast } from "../../libs/funcs"
   import { onDestroy } from "svelte"
-  import { _ } from "../../libs/Translate.svelte"
+  import T, { _ } from "../../libs/Translate.svelte"
 
+  let isDefault = defaultInstance
   let newInstance = false
   if (instance == undefined || Object.keys(instance).length == 0) {
     newInstance = true
@@ -28,7 +30,7 @@
       URL: `http://127.0.0.1:${port[starrApp]}/${starrApp.toLowerCase()}`,
       SSL: false,
       Form: false,
-      Timeout: 999999999,
+      Timeout: 120000000000,
     }
   }
 
@@ -76,11 +78,13 @@
         err => {toast("error", err)},
       )
     } else {
-      SaveInstance(index, instance).then(
+      SaveInstance(index, instance, defaultInstance).then(
         resp => {
           if (resp.List) $conf.Instances[starrApp] = resp.List
           if (resp.Msg) toast("success", resp.Msg)
           Object.keys(instance).map((k) =>{ reset[k] = instance[k] })
+          if (defaultInstance) $conf.Instance[starrApp] = index
+          isDefault = defaultInstance
         },
         err => {toast("error", err)},
       )
@@ -89,7 +93,6 @@
 </script>
 
 {$_("instances.instanceConfig")}
-
 <div id="container">
   {#if instance}
   <Form on:submit={saveInstance}>
@@ -127,6 +130,9 @@
       <InputGroup>
         <InputGroupText class="setting-name">{$_("words.Username")}</InputGroupText>
         <Input invalid={reset.User != instance.User}  type="text" id="User" placeholder="admin" bind:value={instance.User}/>
+        <InputGroupText id="form{index}{starrApp}">{$_("words.Form")}</InputGroupText>
+        <Tooltip target="form{index}{starrApp}">{$_("configtooltip.Form")}</Tooltip>
+        <InputGroupText color="success"><Input type="switch" invalid={instance.Form!=reset.Form} bind:checked={instance.Form}/></InputGroupText>
       </InputGroup>
     </FormGroup>
     <!-- Password -->
@@ -140,10 +146,29 @@
         <Input invalid={reset.Pass != instance.Pass} type={passLocked?"password":"text"} id="Pass" placeholder="******" bind:value={instance.Pass}/>
       </InputGroup>
     </FormGroup>
+    <!-- Timeout -->
+    <FormGroup floating>
+      <div class="text-danger input-label" slot="label" style="display:{reset.Timeout != instance.Timeout?"block":"none"}">{$_("words.Unsaved")}</div>
+      <InputGroup>
+        <InputGroupText class="setting-name">{$_("words.Timeout")}</InputGroupText>
+        <Input invalid={reset.Timeout != instance.Timeout} type="select" id="Timeout" bind:value={instance.Timeout}>
+          <option value={30000000000}><T id="configvalues.CountSeconds" count={30}/></option>
+          <option value={45000000000}><T id="configvalues.CountSeconds" count={45}/></option>
+          <option value={60000000000}><T id="configvalues.CountMinutes" count={1}/></option>
+          <option value={120000000000}><T id="configvalues.CountMinutes" count={2}/></option>
+          <option value={180000000000}><T id="configvalues.CountMinutes" count={3}/></option>
+          <option value={240000000000}><T id="configvalues.CountMinutes" count={4}/></option>
+          <option value={300000000000}><T id="configvalues.CountMinutes" count={5}/></option>
+        </Input>
+        <InputGroupText id="default{index}{starrApp}">{$_("words.Default")}</InputGroupText>
+        <Tooltip target="default{index}{starrApp}">{$_("configtooltip.AfterRestarting")}</Tooltip>
+        <InputGroupText color="success"><Input type="switch" disabled={defaultInstance&&isDefault} invalid={defaultInstance!=isDefault} bind:checked={defaultInstance}/></InputGroupText>
+      </InputGroup>
+    </FormGroup>
     <!-- DB file path -->
     <FormGroup floating>
       <InputGroup>
-        <Button class="setting-name" color="secondary" on:click={(e) => {e.preventDefault(); pickDbFile(instance.DBPath)}}>
+        <Button style="text-align:left" class="setting-name" color="secondary" on:click={(e) => {e.preventDefault(); pickDbFile(instance.DBPath)}}>
           <Fa icon="{faFolderOpen}" /> {$_("words.DBPath")}
         </Button>
         <Input feedback={$_("words.Unsaved")} invalid={reset.DBPath != instance.DBPath} 

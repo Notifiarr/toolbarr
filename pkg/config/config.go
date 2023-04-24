@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"time"
 
 	"github.com/Notifiarr/toolbarr/pkg/logs"
 	"github.com/Notifiarr/toolbarr/pkg/mnd"
@@ -100,6 +101,9 @@ func (i *Input) newConfig(settings *Settings) *Config {
 				Files: 10,
 				Lang:  language.English.String(),
 			},
+			Default: Default{
+				Instance: make(map[string]int),
+			},
 			Instances: make(starrs.Instances),
 			Hide:      make(map[string]bool),
 			Updates:   "production",
@@ -193,7 +197,27 @@ func (i *Input) setDefaults(s *Settings) *Settings { //nolint:varnamelen
 		s.Lang = language.English.String()
 	}
 
+	if s.Default.Instance == nil {
+		s.Default.Instance = make(map[string]int)
+	}
+
+	setInstanceDefaults(s)
+
 	return s
+}
+
+func setInstanceDefaults(s *Settings) { //nolint:varnamelen
+	for app := range s.Instances {
+		for idx := range s.Instances[app] {
+			if s.Instance[app] == 0 || s.Instance[app] >= len(s.Instances[app]) {
+				s.Instance[app] = 0
+			}
+
+			if s.Instances[app][idx].Timeout < 1 {
+				s.Instances[app][idx].Timeout = time.Minute * 2
+			}
+		}
+	}
 }
 
 // findConfigFileFolder checks the app/exe directory for a config file.

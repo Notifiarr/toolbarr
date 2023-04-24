@@ -37,6 +37,8 @@
         "Activity": "Activity",
         "Languages": "Languages",
         "Library": "Library",
+        "Default": "Default",
+        "Form": "Form",
         "Actions": "Actions",
         "Toolbox": "Toolbox",
         "debug": "debug",
@@ -45,6 +47,7 @@
         "Attribution": "Attribution",
         "Configuration": "Configuration",
         "Directions": "Directions",
+        "Timeout": "Timeout",
         "Downloading": "Downloading",
         "Download": "Download",
         "Settings": "Settings",
@@ -115,7 +118,9 @@
         "Lang": "Only English works.",
         "DevMode": "Enable this when a developer instructs you to do so.",
         "Updates": "Production gets updates from GitHub, unstable gets them from unstable.golift.io",
-        "File": "Can only be changed on application launch"
+        "File": "Can only be changed on application launch",
+        "Form": "Use Form login instead of Basic Auth.",
+        "DefaultInstance": "Takes affects after restarting Toolbarr."
     },
     "configvalues": {
         "Enabled": "Enabled",
@@ -135,7 +140,9 @@
         "ForeignID": "Foreign ID",
         "MovieTitle": "Movie Title",
         "SeriesTitle": "Series Title",
-        "SourceTitle": "Source Title"
+        "SourceTitle": "Source Title",
+        "CountMinutes": "{count} minute{count, plural, =0 {s} one {} other {s}}",
+        "CountSeconds": "{count} second{count, plural, =0 {s} one {} other {s}}"
     },
     "aboutPage": {
         "justWaitin": "Just waitin' for somethin' to happen.",

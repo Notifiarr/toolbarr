@@ -3,7 +3,6 @@ package starrs
 
 import (
 	"fmt"
-	"time"
 
 	"golift.io/starr"
 	"golift.io/starr/lidarr"
@@ -18,9 +17,6 @@ import (
  * This file is for testing starr instances.
  * Testing, as in, making a request to see if it's up and the API key works.
  */
-
-// timeout is how long to wait for an instance to respond.
-const timeout = 30 * time.Second
 
 func (s *Starrs) TestInstance(config *AppConfig) (string, error) {
 	s.log.Tracef("Call:TestInstance(%s, %s)", config.App, config.Name)
