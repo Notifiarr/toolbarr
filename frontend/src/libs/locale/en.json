@@ -120,7 +120,7 @@
         "Updates": "Production gets updates from GitHub, unstable gets them from unstable.golift.io",
         "File": "Can only be changed on application launch",
         "Form": "Use Form login instead of Basic Auth.",
-        "DefaultInstance": "Takes affects after restarting Toolbarr."
+        "AfterRestarting": "Takes affects after restarting Toolbarr."
     },
     "configvalues": {
         "Enabled": "Enabled",
