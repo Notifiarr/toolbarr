@@ -14,7 +14,7 @@
   import { TestInstance } from "../../../wailsjs/go/starrs/Starrs"
   import { toast } from "../../libs/funcs"
   import { onDestroy } from "svelte"
-  import { _ } from "../../libs/Translate.svelte"
+  import T, { _ } from "../../libs/Translate.svelte"
 
   let isDefault = defaultInstance
   let newInstance = false
@@ -130,8 +130,8 @@
       <InputGroup>
         <InputGroupText class="setting-name">{$_("words.Username")}</InputGroupText>
         <Input invalid={reset.User != instance.User}  type="text" id="User" placeholder="admin" bind:value={instance.User}/>
-        <InputGroupText id="form{index}{starrApp}">Form</InputGroupText>
-        <Tooltip target="form{index}{starrApp}">Use Form login instead of Basic Auth.</Tooltip>
+        <InputGroupText id="form{index}{starrApp}">{$_("words.Form")}</InputGroupText>
+        <Tooltip target="form{index}{starrApp}">{$_("configtooltip.Form")}</Tooltip>
         <InputGroupText color="success"><Input type="switch" invalid={instance.Form!=reset.Form} bind:checked={instance.Form}/></InputGroupText>
       </InputGroup>
     </FormGroup>
@@ -152,15 +152,16 @@
       <InputGroup>
         <InputGroupText class="setting-name">{$_("words.Timeout")}</InputGroupText>
         <Input invalid={reset.Timeout != instance.Timeout} type="select" id="Timeout" bind:value={instance.Timeout}>
-          <option value={30000000000}>30 seconds</option>
-          <option value={60000000000}>1 minute</option>
-          <option value={120000000000}>2 minutes</option>
-          <option value={180000000000}>3 minutes</option>
-          <option value={240000000000}>4 minutes</option>
-          <option value={300000000000}>5 minutes</option>
+          <option value={30000000000}><T id="configvalues.CountSeconds" count={30}/></option>
+          <option value={45000000000}><T id="configvalues.CountSeconds" count={45}/></option>
+          <option value={60000000000}><T id="configvalues.CountMinutes" count={1}/></option>
+          <option value={120000000000}><T id="configvalues.CountMinutes" count={2}/></option>
+          <option value={180000000000}><T id="configvalues.CountMinutes" count={3}/></option>
+          <option value={240000000000}><T id="configvalues.CountMinutes" count={4}/></option>
+          <option value={300000000000}><T id="configvalues.CountMinutes" count={5}/></option>
         </Input>
-        <InputGroupText id="default{index}{starrApp}">Default</InputGroupText>
-        <Tooltip target="default{index}{starrApp}">Takes affects after restarting Toolbarr.</Tooltip>
+        <InputGroupText id="default{index}{starrApp}">{$_("words.Default")}</InputGroupText>
+        <Tooltip target="default{index}{starrApp}">{$_("configtooltip.AfterRestarting")}</Tooltip>
         <InputGroupText color="success"><Input type="switch" disabled={defaultInstance&&isDefault} invalid={defaultInstance!=isDefault} bind:checked={defaultInstance}/></InputGroupText>
       </InputGroup>
     </FormGroup>
