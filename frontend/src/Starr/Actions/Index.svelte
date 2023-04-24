@@ -28,8 +28,7 @@
   let menuOpen = true
   let showTitle = true
   let tab = startTab
-  // Pick the first instance on first load.
-  let idx = 0
+  let idx = $conf.Instance[starrApp] // Start with default instance.
   let instance: Instance
   $: instance = $conf.Instances[starrApp] ? $conf.Instances[starrApp][idx] : undefined
 

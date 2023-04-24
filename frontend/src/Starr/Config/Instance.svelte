@@ -2,9 +2,10 @@
   export let starrApp: StarrApp
   export let index: number
   export let instance: Instance|undefined = undefined
+  export let defaultInstance: boolean = false
 
   import type { StarrApp, Instance } from "../../libs/config"
-  import { Input, InputGroup, InputGroupText, Button, Form, Alert, FormGroup, Badge } from "sveltestrap"
+  import { Input, InputGroup, InputGroupText, Button, Form, Alert, FormGroup, Tooltip } from "sveltestrap"
   import { app, conf } from "../../libs/config"
   import { port } from "../../libs/info"
   import Fa from "svelte-fa"
@@ -15,6 +16,7 @@
   import { onDestroy } from "svelte"
   import { _ } from "../../libs/Translate.svelte"
 
+  let isDefault = defaultInstance
   let newInstance = false
   if (instance == undefined || Object.keys(instance).length == 0) {
     newInstance = true
@@ -28,7 +30,7 @@
       URL: `http://127.0.0.1:${port[starrApp]}/${starrApp.toLowerCase()}`,
       SSL: false,
       Form: false,
-      Timeout: 999999999,
+      Timeout: 120000000000,
     }
   }
 
@@ -76,11 +78,13 @@
         err => {toast("error", err)},
       )
     } else {
-      SaveInstance(index, instance).then(
+      SaveInstance(index, instance, defaultInstance).then(
         resp => {
           if (resp.List) $conf.Instances[starrApp] = resp.List
           if (resp.Msg) toast("success", resp.Msg)
           Object.keys(instance).map((k) =>{ reset[k] = instance[k] })
+          if (defaultInstance) $conf.Instance[starrApp] = index
+          isDefault = defaultInstance
         },
         err => {toast("error", err)},
       )
@@ -89,7 +93,6 @@
 </script>
 
 {$_("instances.instanceConfig")}
-
 <div id="container">
   {#if instance}
   <Form on:submit={saveInstance}>
@@ -127,6 +130,9 @@
       <InputGroup>
         <InputGroupText class="setting-name">{$_("words.Username")}</InputGroupText>
         <Input invalid={reset.User != instance.User}  type="text" id="User" placeholder="admin" bind:value={instance.User}/>
+        <InputGroupText id="form{index}{starrApp}">Form</InputGroupText>
+        <Tooltip target="form{index}{starrApp}">Use Form login instead of Basic Auth.</Tooltip>
+        <InputGroupText color="success"><Input type="switch" invalid={instance.Form!=reset.Form} bind:checked={instance.Form}/></InputGroupText>
       </InputGroup>
     </FormGroup>
     <!-- Password -->
@@ -140,10 +146,28 @@
         <Input invalid={reset.Pass != instance.Pass} type={passLocked?"password":"text"} id="Pass" placeholder="******" bind:value={instance.Pass}/>
       </InputGroup>
     </FormGroup>
+    <!-- Timeout -->
+    <FormGroup floating>
+      <div class="text-danger input-label" slot="label" style="display:{reset.Timeout != instance.Timeout?"block":"none"}">{$_("words.Unsaved")}</div>
+      <InputGroup>
+        <InputGroupText class="setting-name">{$_("words.Timeout")}</InputGroupText>
+        <Input invalid={reset.Timeout != instance.Timeout} type="select" id="Timeout" bind:value={instance.Timeout}>
+          <option value={30000000000}>30 seconds</option>
+          <option value={60000000000}>1 minute</option>
+          <option value={120000000000}>2 minutes</option>
+          <option value={180000000000}>3 minutes</option>
+          <option value={240000000000}>4 minutes</option>
+          <option value={300000000000}>5 minutes</option>
+        </Input>
+        <InputGroupText id="default{index}{starrApp}">Default</InputGroupText>
+        <Tooltip target="default{index}{starrApp}">Takes affects after restarting Toolbarr.</Tooltip>
+        <InputGroupText color="success"><Input type="switch" disabled={defaultInstance&&isDefault} invalid={defaultInstance!=isDefault} bind:checked={defaultInstance}/></InputGroupText>
+      </InputGroup>
+    </FormGroup>
     <!-- DB file path -->
     <FormGroup floating>
       <InputGroup>
-        <Button class="setting-name" color="secondary" on:click={(e) => {e.preventDefault(); pickDbFile(instance.DBPath)}}>
+        <Button style="text-align:left" class="setting-name" color="secondary" on:click={(e) => {e.preventDefault(); pickDbFile(instance.DBPath)}}>
           <Fa icon="{faFolderOpen}" /> {$_("words.DBPath")}
         </Button>
         <Input feedback={$_("words.Unsaved")} invalid={reset.DBPath != instance.DBPath} 

@@ -51,7 +51,7 @@
 <svelte:window bind:innerWidth={width}/>
 
 <!-- This is 1 table cell. It contains a popover that containers another table. -->
-<td {id} class="pop nowrap">{name}
+<td class="pop nowrap"><span {id}>{name}
   <div class="popover-content {$conf.Dark?"dark-mode":""}">
     <Popover container="inline" trigger="hover" placement="top" target={id}>
       <span slot="title"><Icon name={item.monitored?"bookmark-fill":"bookmark"}/> {name}</span>
@@ -84,7 +84,7 @@
       </Table>
     </Popover>
   </div>
-</td>
+</span></td>
 
 <!-- This one disappears on smaller widths. -->
 <td class="nowrap d-none d-md-table-cell" id="sourceTitle{id}">

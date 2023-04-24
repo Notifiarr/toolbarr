@@ -18,7 +18,14 @@ type Settings struct {
 	Updates   string
 	File      string // should not be changed.
 	Instances starrs.Instances
-	Hide      map[string]bool
+	Default
+	Hide map[string]bool
+}
+
+// Default holds items that can have default values.
+type Default struct {
+	// Instance is a map of app => array id. map key is app name. eg. Sonarr.
+	Instance map[string]int
 }
 
 func (c *Config) Stop() {
@@ -90,10 +97,16 @@ func (c *Config) watch() {
 
 func (s *Settings) copy() *Settings {
 	settings := *s
+	settings.Hide = make(map[string]bool)
+	settings.Instance = make(map[string]int)
 	settings.Instances = s.Instances.Copy()
 
-	for k, v := range settings.Hide {
+	for k, v := range s.Hide {
 		settings.Hide[k] = v
+	}
+
+	for k, v := range s.Instance {
+		settings.Instance[k] = v
 	}
 
 	return &settings

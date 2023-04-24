@@ -13,8 +13,8 @@ type SavedInstance struct {
 }
 
 // SaveInstance saves the configuration for an instance.
-func (a *App) SaveInstance(idx int, instance starrs.AppConfig) (*SavedInstance, error) {
-	a.log.Tracef("Call:SaveInstance(%d,%s,%s)", idx, instance.App, instance.Name)
+func (a *App) SaveInstance(idx int, instance starrs.AppConfig, defaultInstance bool) (*SavedInstance, error) {
+	a.log.Tracef("Call:SaveInstance(%d,%s,%s,%v)", idx, instance.App, instance.Name, defaultInstance)
 
 	msg := a.log.Translate("Saved %s instance configuration!", instance.App)
 	settings := a.config.Settings()
@@ -22,8 +22,13 @@ func (a *App) SaveInstance(idx int, instance starrs.AppConfig) (*SavedInstance, 
 	if idx >= len(settings.Instances[instance.App]) { // new instance.
 		settings.Instances[instance.App] = append(settings.Instances[instance.App], instance)
 		msg = a.log.Translate("Added new %s instance!", instance.App)
+		idx = len(settings.Instances[instance.App]) - 1
 	} else { // updating an instance.
 		settings.Instances[instance.App][idx] = instance
+	}
+
+	if defaultInstance || len(settings.Instances[instance.App]) == 1 {
+		settings.Instance[instance.App] = idx
 	}
 
 	settings, err := a.config.Write(settings)
@@ -61,6 +66,10 @@ func (a *App) RemoveInstance(idx int, starrApp string) (*SavedInstance, error) {
 	settings, err := a.config.Write(settings)
 	if err != nil {
 		return nil, fmt.Errorf(a.log.Translate("Error writing config: %v", err.Error()))
+	}
+
+	if settings.Instance[starrApp] >= len(settings.Instances[starrApp]) {
+		settings.Instance[starrApp] = 0
 	}
 
 	return &SavedInstance{
