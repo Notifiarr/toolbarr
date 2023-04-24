@@ -68,7 +68,15 @@
         "Year": "Jaar",
         "Profiles": "profielen",
         "Qualities": "Kwaliteiten",
-        "Readonly": "Alleen lezen"
+        "Readonly": "Alleen lezen",
+        "Timeout": "Time-out",
+        "Default": "Standaard",
+        "Form": "Formulier",
+        "Indexer": "Indexeerder",
+        "Languages": "Talen",
+        "Message": "Bericht",
+        "Quality": "Kwaliteit",
+        "Date": "Datum"
     },
     "general_application_settings": "Algemene toepassingsinstellingen.",
     "OtherTools": "Ander gereedschap",
@@ -128,7 +136,11 @@
         "MovieTitle": "Film titel",
         "ArtistName": "Artiestennaam",
         "UnsavedChanges": "Niet-opgeslagen wijzigingen!",
-        "ForeignID": "Externe ID"
+        "ForeignID": "Externe ID",
+        "CountMinutes": "{count} minuut{count, plural, =0 {s} one {} other {s}}",
+        "SeriesTitle": "Titel van de serie",
+        "SourceTitle": "Bron titel",
+        "CountSeconds": "{count} seconde{count, plural, =0 {s} one {} other {s}}"
     },
     "customconfig": {
         "CreateShortcut": "Snelkoppeling maken",
@@ -149,7 +161,9 @@
         "Size": "Roteer het logbestand wanneer het deze grootte bereikt",
         "File": "Kan alleen worden gewijzigd bij het starten van de applicatie",
         "Files": "Hoeveel back-up bestanden moeten worden bewaard bij roteren",
-        "DevMode": "Schakel dit in wanneer een ontwikkelaar u dat vraagt."
+        "DevMode": "Schakel dit in wanneer een ontwikkelaar u dat vraagt.",
+        "DefaultInstance": "Heeft effecten na het herstarten van Toolbarr.",
+        "Form": "Gebruik Form in plaats van Basic Auth."
     },
     "20charactermax": "Maximaal 20 tekens",
     "instances": {
@@ -259,11 +273,26 @@
         "metadataProfileIdTitle": "Metadataprofiel",
         "qualityProfileIdTitle": "Kwaliteitsprofiel",
         "UpdatingImportLists": "Importlijsten bijwerken",
-        "UpdatingQualityProfiles": "Kwaliteitsprofielen bijwerken"
+        "UpdatingQualityProfiles": "Kwaliteitsprofielen bijwerken",
+        "TestingImportLists": "Importlijsten testen",
+        "BlockLists": "Blokkeer lijsten",
+        "DeletingBlockLists": "Blokkeerlijsten verwijderen",
+        "TestSelected": "Test {count} geselecteerd",
+        "TestingDownloadClients": "Downloadclients testen",
+        "TestingIndexers": "Indexeerders testen"
     },
     "advanced_application_settings": "Deze instellingen regelen geavanceerde aspecten van deze toepassing, en moeten waarschijnlijk niet worden gewijzigd.",
     "TranslationInformation": "Vertaalinformatie",
     "LanguageHelpText": "Hoewel deze applicatie veel talen ondersteunt, zijn er niet veel vertalingen beschikbaar. Als u tekst kunt vertalen, help ons dan op <a href=\"{url}\">Notifiarr Translations</a>.",
     "32characterhash": "32 karakters hash",
-    "incompletePage": "Deze tool of pagina is onvolledig."
+    "incompletePage": "Deze tool of pagina is onvolledig.",
+    "paginate": {
+        "FirstPage": "Eerste pagina",
+        "ItemsPerPage": "Artikelen per pagina",
+        "LastPage": "Laatste pagina: {pages}",
+        "NextPage": "Volgende bladzijde",
+        "Pageof": "Pagina {page} van {pages}",
+        "PreviousPage": "Vorige bladzijde",
+        "RecordsOf": "Records: {records} van {total}"
+    }
 }
