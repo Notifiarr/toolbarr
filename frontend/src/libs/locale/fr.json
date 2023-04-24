@@ -84,7 +84,7 @@
         "Lang": "Seul l'anglais fonctionne.",
         "DevMode": "Activez cette option lorsqu'un développeur vous demande de le faire.",
         "File": "Modifiable uniquement au lancement de l'application",
-        "DefaultInstance": "Prend effet après le redémarrage de Toolbarr.",
+        "AfterRestarting": "Prend effet après le redémarrage de Toolbarr.",
         "Form": "Utilisez la connexion par formulaire au lieu de l'authentification de base."
     },
     "main_application_settings": "C'est là que se trouvent les paramètres de l'application.",
