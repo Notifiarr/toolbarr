@@ -10,11 +10,11 @@
 
   import type { Tab } from "./tabs.svelte"
   import { Alert, Button, Collapse, Fade, Tooltip, Icon, Card } from "sveltestrap"
-  import Loading from "../../loading.svelte"
-  import T, { _ } from "../../../libs/Translate.svelte"
-  import { toast, count } from "../../../libs/funcs"
+  import Loading from "/src/Starr/loading.svelte"
+  import T, { _ } from "/src/libs/Translate.svelte"
+  import { toast, count } from "/src/libs/funcs"
   import { update, remove, test, fixFieldValues } from "../methods"
-  import type { Instance } from "../../../libs/config"
+  import type { Instance } from "/src/libs/config"
   import { createEventDispatcher } from "svelte"
 
   const dispatch = createEventDispatcher()

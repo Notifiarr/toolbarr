@@ -8,7 +8,7 @@
   export let min = 1
   export let max = 100
 
-  import { _ } from "../../../libs/Translate.svelte"
+  import { _ } from "/src/libs/Translate.svelte"
   import { Button, Input, InputGroup, Tooltip } from "sveltestrap"
   import type { InputType } from "sveltestrap/src/Input"
 

@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-  import { Exclusions } from "../../../wailsjs/go/starrs/Starrs"
+  import { Exclusions } from "/wailsjs/go/starrs/Starrs"
   import type { Tab } from "./fragments/tabs.svelte"
 
   export const tab: Tab = { data: Exclusions, id: "Exclusions" }
@@ -11,8 +11,8 @@
   export let instance: Instance
   export let updating: boolean
 
-  import type { Instance } from "../../libs/config"
-  import { _ } from "../../libs/Translate.svelte"
+  import type { Instance } from "/src/libs/config"
+  import { _ } from "/src/libs/Translate.svelte"
   import Footer from "./fragments/footer.svelte"
   import TDInput from "./fragments/tableInput.svelte"
   import SelectAll from "./fragments/selectAllHeader.svelte"

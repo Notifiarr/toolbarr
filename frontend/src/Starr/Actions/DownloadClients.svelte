@@ -5,7 +5,7 @@
   export let updating: boolean
 
   import type { Tab } from "./fragments/tabs.svelte"
-  import { _ } from "../../libs/Translate.svelte"
+  import { _ } from "/src/libs/Translate.svelte"
   import Footer from "./fragments/footer.svelte"
   import Dropdown from "./fragments/dropdown.svelte"
   import TDInput from "./fragments/tableInput.svelte"

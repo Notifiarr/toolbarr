@@ -3,23 +3,12 @@
  * css libraries because the resources would not load from those locations.
  */
 
-/* Taken out of bootstrap.*.css files. */
-@import url("./assets/lato.css2");
-
-/* Taken out of bootstrap-icon.css */
-@font-face {
-  font-display: block;
-  font-family: "bootstrap-icons";
-  src: url("./assets/bootstrap-icons.woff2") format("woff2"),
-       url("./assets/bootstrap-icons.woff") format("woff");
-}
-
 body {
   margin: 0;
   font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
   "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
   sans-serif;
-  background-image: url(assets/images/vintage-background.png);
+  background-image: url(/src/assets/images/vintage-background.png);
   background-color: #fffeee;
   transition: background-image 0.6s;
   background-position: top;
@@ -30,7 +19,7 @@ body {
 
 body.dark-mode {
   transition: background-image 0.4s;
-  background-image: url(assets/images/dark-background.png);
+  background-image: url(/src/assets/images/dark-background.png);
   background-color: #1d3040;
 }
 
@@ -45,7 +34,7 @@ html, body, #app {
   font-style: normal;
   font-weight: 400;
   src: local(""),
-  url("assets/fonts/nunito-v16-latin-regular.woff2") format("woff2");
+  url(/src/assets/fonts/nunito-v16-latin-regular.woff2) format("woff2");
 }
 
 /* Make top-navbar background look cool. */

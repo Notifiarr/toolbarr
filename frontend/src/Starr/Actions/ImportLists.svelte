@@ -4,10 +4,10 @@
   export let tab: Tab
   export let updating: boolean
 
-  import type { Instance } from "../../libs/config"
+  import type { Instance } from "/src/libs/config"
   import type { Tab } from "./fragments/tabs.svelte"
-  import { toast } from "../../libs/funcs"
-  import { _ } from "../../libs/Translate.svelte"
+  import { toast } from "/src/libs/funcs"
+  import { _ } from "/src/libs/Translate.svelte"
   import Footer from "./fragments/footer.svelte"
   import { fixFieldValues } from "./methods"
   import {
@@ -15,7 +15,7 @@
     MetadataProfiles,
     RootFolders,
     Exclusions as GetExclusions,
-  } from "../../../wailsjs/go/starrs/Starrs"
+  } from "/wailsjs/go/starrs/Starrs"
   import Exclusions from "./Exclusions.svelte"
   import ModalInput from "./fragments/modalInput.svelte"
   import Dropdown from "./fragments/dropdown.svelte"

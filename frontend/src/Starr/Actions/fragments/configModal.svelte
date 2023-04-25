@@ -8,7 +8,7 @@
   export let str: string
   export let disabled = ""
 
-  import { _ } from "../../../libs/Translate.svelte"
+  import { _ } from "/src/libs/Translate.svelte"
   import { Badge, Button, Modal, ModalBody, ModalFooter, ModalHeader } from "sveltestrap"
 
   function reset(e) {

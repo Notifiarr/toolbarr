@@ -5,12 +5,12 @@
   export let field: string
   export let name = ""
 
-  import T, { _ } from "../../../libs/Translate.svelte"
+  import T, { _ } from "/src/libs/Translate.svelte"
   import Fa from "svelte-fa"
   import { faCircleInfo } from "@fortawesome/free-solid-svg-icons"
   import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Tooltip } from "sveltestrap"
-  import type { StarrApp } from "../../..//libs/config"
-  import { onOnce } from "../../../libs/funcs"
+  import type { StarrApp } from "/src/libs/config"
+  import { onOnce } from "/src/libs/funcs"
 
   $: title = name ? $_(name) : $_(`instances.${field}Title`)
   let dropdown

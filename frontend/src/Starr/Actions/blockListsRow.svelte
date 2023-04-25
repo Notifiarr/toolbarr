@@ -6,8 +6,8 @@
   export let metadataProfiles: any
 
   import { Table, Popover, Badge, Icon, Tooltip } from "sveltestrap"
-  import { _, date } from "../../libs/Translate.svelte"
-  import { conf } from "../../libs/config"
+  import { _, date } from "/src/libs/Translate.svelte"
+  import { conf } from "/src/libs/config"
 
   function poster(data): string {
     let url = "."

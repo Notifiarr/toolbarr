@@ -16,11 +16,11 @@
     CardTitle,
     Collapse,
   } from "sveltestrap"
-  import T, { _ } from "../../libs/Translate.svelte"
-  import { toast } from "../../libs/funcs"
-  import Loading  from "../loading.svelte"
+  import T, { _ } from "/src/libs/Translate.svelte"
+  import { toast } from "/src/libs/funcs"
+  import Loading from "/src/Starr/loading.svelte"
   import Paginate  from "./fragments/paginate.svelte"
-  import { conf, type Instance, type StarrApp } from "../../libs/config"
+  import { conf, type Instance, type StarrApp } from "/src/libs/config"
   import Fa from "svelte-fa"
   import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons"
 

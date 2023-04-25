@@ -1,9 +1,9 @@
 <script lang="ts">
   export let hidden = false
 
-  import mainLogo from "./assets/images/logo.png"
-  import BGLogo from "./libs/BackgroundLogo.svelte"
-  import { _ } from "./libs/Translate.svelte"
+  import mainLogo from "/src/assets/images/logo.png"
+  import BGLogo from "/src/libs/BackgroundLogo.svelte"
+  import { _ } from "/src/libs/Translate.svelte"
 </script>
 
 <BGLogo {hidden}>

@@ -1,8 +1,8 @@
 <script lang="ts">
   import type { Color } from "sveltestrap/src/shared"
-  import { _ } from "../../../libs/Translate.svelte"
+  import { _ } from "/src/libs/Translate.svelte"
   import { Icon } from "sveltestrap"
-  import { onOnce } from "../../../libs/funcs"
+  import { onOnce } from "/src/libs/funcs"
 
   export let updating: boolean
   export let all: boolean

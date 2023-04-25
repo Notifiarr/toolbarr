@@ -4,13 +4,13 @@
   import Fa from "svelte-fa"
   import { faGithub, faDiscord } from "@fortawesome/free-brands-svg-icons"
   import { faGear } from "@fortawesome/free-solid-svg-icons"
-  import { EventsOn, EventsOff } from "../wailsjs/runtime"
-  import { CheckUpdate, DownloadUpdate, LaunchInstaller, OpenFolder } from "../wailsjs/go/app/App"
+  import { EventsOn, EventsOff } from "/wailsjs/runtime"
+  import { CheckUpdate, DownloadUpdate, LaunchInstaller, OpenFolder } from "/wailsjs/go/app/App"
   import { Container, Row, Table, Col, Card, Tooltip, Button, Progress, Badge } from "sveltestrap"
-  import BGLogo from "./libs/BackgroundLogo.svelte"
-  import { app, conf } from "./libs/config"
-  import { toast, onOnce, onInterval } from "./libs/funcs"
-  import T, { _ } from "./libs/Translate.svelte"
+  import BGLogo from "/src/libs/BackgroundLogo.svelte"
+  import { app, conf } from "/src/libs/config"
+  import { toast, onOnce, onInterval } from "/src/libs/funcs"
+  import T, { _ } from "/src/libs/Translate.svelte"
 
   let update = {
     Downloading: "",

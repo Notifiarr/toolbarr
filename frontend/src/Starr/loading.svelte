@@ -2,7 +2,7 @@
   export let isOpen = true
 
   import { Card, Collapse, Spinner } from "sveltestrap"
-  import { _ } from "../libs/Translate.svelte"
+  import { _ } from "/src/libs/Translate.svelte"
 </script>
 
 <Collapse expand {isOpen}>

@@ -5,7 +5,7 @@
   export let item: any
   export let itemIdx: number
 
-  import { _ } from "../../../libs/Translate.svelte"
+  import { _ } from "/src/libs/Translate.svelte"
   import { Input, InputGroup, InputGroupText, Tooltip } from "sveltestrap"
 
   let input
