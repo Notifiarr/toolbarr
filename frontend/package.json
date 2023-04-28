@@ -12,7 +12,7 @@
     "@fortawesome/free-brands-svg-icons": "6.4.0",
     "@fortawesome/free-regular-svg-icons": "6.4.0",
     "@fortawesome/free-solid-svg-icons": "6.4.0",
-    "@sveltejs/vite-plugin-svelte": "2.1.0",
+    "@sveltejs/vite-plugin-svelte": "2.1.1",
     "@tsconfig/svelte": "4.0.1",
     "svelte": "3.58.0",
     "svelte-check": "3.2.0",
