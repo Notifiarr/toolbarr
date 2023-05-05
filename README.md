@@ -28,12 +28,12 @@ Configure it with your starr app details (url/api key), and an optional sqlite3 
 
 # Installation
 
-~~There's a DMG for mac users and an EXE installer for Windows users on the
+There's a DMG for mac users and an EXE installer for Windows users on the
 [Releases](https://github.com/Notifiarr/toolbarr/releases) page.
 Download the latest file for your OS and install it. Once installed,
-you can use the `About` menu to check for updates.~~
+you can use the `About` menu to check for updates.
 
-**While things are under development, grab a copy of the Windows or macOS installer
+**While things are under development, you can grab a copy of the Windows or macOS installer
 @ [https://unstable.golift.io/toolbarr](https://unstable.golift.io/toolbarr)**
 
 Linux users may not have great luck with the binaries provided.
