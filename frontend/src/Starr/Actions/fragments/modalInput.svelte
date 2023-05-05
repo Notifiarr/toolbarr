@@ -9,7 +9,7 @@
   export let starrApp: undefined | string = undefined
   export let type: InputType
 
-  import { _ } from "../../../libs/Translate.svelte"
+  import { _ } from "/src/libs/Translate.svelte"
   import Fa from "svelte-fa"
   import { faGroupArrowsRotate } from "@fortawesome/free-solid-svg-icons"
   import { Button, Input, InputGroup, InputGroupText, Tooltip } from "sveltestrap"

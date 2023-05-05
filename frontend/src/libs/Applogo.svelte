@@ -3,18 +3,18 @@
   export let size: number | string | undefined
   export let style = ""
   
-  import logo from "../assets/images/logo.png"
-  import toolboxLogo from "../assets/images/Toolbox.png"
-  import settingsLogo from "../assets/images/settings.png"
-  import lidarrLogo from "../assets/images/Lidarr.png"
-  import prowlarrLogo from "../assets/images/Prowlarr.png"
-  import radarrLogo from "../assets/images/Radarr.png"
-  import readarrLogo from "../assets/images/Readarr.png"
-  import sonarrLogo from "../assets/images/Sonarr.png"
-  import whisparrLogo from "../assets/images/Whisparr.png"
+  import logo from "/src/assets/images/logo.png"
+  import toolboxLogo from "/src/assets/images/Toolbox.png"
+  import settingsLogo from "/src/assets/images/settings.png"
+  import lidarrLogo from "/src/assets/images/Lidarr.png"
+  import prowlarrLogo from "/src/assets/images/Prowlarr.png"
+  import radarrLogo from "/src/assets/images/Radarr.png"
+  import readarrLogo from "/src/assets/images/Readarr.png"
+  import sonarrLogo from "/src/assets/images/Sonarr.png"
+  import whisparrLogo from "/src/assets/images/Whisparr.png"
   import Fa from "svelte-fa"
   import { faBookBible, faLink } from "@fortawesome/free-solid-svg-icons"
-  import { _ } from "./Translate.svelte"
+  import { _ } from "/src/libs//Translate.svelte"
 </script>
 
 {#if app == "Lidarr"}

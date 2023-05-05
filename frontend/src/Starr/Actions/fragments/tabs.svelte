@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-  import type { StarrApp } from "src/libs/config"
+  import type { StarrApp } from "/src/libs/config"
   import type { ComponentType } from "svelte"
   import appProfiles from "../AppProfiles.svelte"
   import indexers from "../Indexers.svelte"

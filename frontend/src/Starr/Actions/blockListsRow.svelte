@@ -6,8 +6,16 @@
   export let metadataProfiles: any
 
   import { Table, Popover, Badge, Icon, Tooltip } from "sveltestrap"
-  import { _, date } from "../../libs/Translate.svelte"
-  import { conf } from "../../libs/config"
+  import { _, date } from "/src/libs/Translate.svelte"
+  import { conf } from "/src/libs/config"
+
+  function poster(data): string {
+    let url = "."
+    data.forEach(item => {
+      if (item.coverType == "poster") url = item.url?item.url:item.remoteUrl
+    })
+    return url
+  }
 
   function getName(id, list) {
     let name = id
@@ -54,7 +62,9 @@
 <td class="pop nowrap"><span {id}>{name}
   <div class="popover-content {$conf.Dark?"dark-mode":""}">
     <Popover container="inline" trigger="hover" placement="top" target={id}>
-      <span slot="title"><Icon name={item.monitored?"bookmark-fill":"bookmark"}/> {name}</span>
+      <div slot="title"><Icon name={item.monitored?"bookmark-fill":"bookmark"}/> {name}</div>
+      <div style="float:left;width:103px;"><img width="100px" alt="poster" src={poster(item.images)}/><br><Badge>{item.status}</Badge></div>
+      <div style="float:right;width:calc(100% - 103px)">
       <Table striped size="sm" class="m-0">
         <tbody>
           <tr><th class="nowrap">{$_("words.Quality")}</th><td>{list.quality.quality.name}</td></tr>
@@ -82,6 +92,7 @@
           <tr><th class="nowrap">{$_("words.Message")}</th><td style="max-width:500px">{list.message}</td></tr>
         </tbody>
       </Table>
+      </div>
     </Popover>
   </div>
 </span></td>
@@ -126,9 +137,9 @@
 
   .popover-content :global(.popover) {
     background-color: #cdf6dd;
-    max-width: calc(100vw - 10px);
+    max-width: calc(100vw - 15px);
     width: max-content;
-    min-width: 470px;
+    min-width: 465px;
     margin: 5px !important;
   }
 

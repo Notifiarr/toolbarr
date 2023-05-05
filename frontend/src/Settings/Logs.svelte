@@ -2,10 +2,10 @@
   import { Button, InputGroup } from "sveltestrap"
   import Fa from "svelte-fa"
   import { faFolderOpen } from "@fortawesome/free-solid-svg-icons"
-  import { PickFolder } from "../../wailsjs/go/app/App"
-  import { app, conf } from "../libs/config"
-  import ConfigInput from "../libs/Input.svelte"
-  import T, { _ } from "../libs/Translate.svelte"
+  import { PickFolder } from "/wailsjs/go/app/App"
+  import { app, conf } from "/src/libs/config"
+  import ConfigInput from "/src/libs/Input.svelte"
+  import T, { _ } from "/src/libs/Translate.svelte"
 
   let confPath
   // This func opens a "pick a folder" dialog and populates the Log File Path with the current config file folder.

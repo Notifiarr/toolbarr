@@ -1,7 +1,7 @@
 <script lang="ts">
-  import golift from "../assets/images/golift.png"
-  import starr from "../assets/images/servarr.png"
-  import notifiarr from "../assets/images/notifiarr.png"
+  import golift from "/src/assets/images/golift.png"
+  import starr from "/src/assets/images/servarr.png"
+  import notifiarr from "/src/assets/images/notifiarr.png"
 
   export let url: string = golift
   export let hidden: boolean = false

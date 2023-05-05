@@ -6,9 +6,9 @@
   import Actions from "./Actions/Index.svelte"
   import Config from "./Config/Index.svelte"
   import Database from "./Database/Index.svelte"
-  import { _ } from "../libs/Translate.svelte"
-  import BackgroundLogo from "../libs/BackgroundLogo.svelte"
-  import type { StarrApp } from "../libs/config"
+  import { _ } from "/src/libs/Translate.svelte"
+  import BackgroundLogo from "/src/libs/BackgroundLogo.svelte"
+  import type { StarrApp } from "/src/libs/config"
 
   // Keep track of the active tab.
   let tab: string | number

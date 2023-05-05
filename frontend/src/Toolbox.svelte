@@ -2,8 +2,8 @@
   export let hidden: boolean = false
 
   import { Container, Row } from "sveltestrap"
-  import BGLogo from "./libs/BackgroundLogo.svelte"
-  import { _ } from "./libs/Translate.svelte"
+  import BGLogo from "/src/libs/BackgroundLogo.svelte"
+  import { _ } from "/src/libs/Translate.svelte"
   import { Card } from "sveltestrap"
 </script>
 

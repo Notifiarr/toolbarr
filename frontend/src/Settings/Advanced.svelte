@@ -1,8 +1,8 @@
 <script lang="ts">
   import { Input, InputGroup, InputGroupText } from "sveltestrap"
-  import ConfigInput from "../libs/Input.svelte"
-  import { app } from "../libs/config"
-  import { _ } from "../libs/Translate.svelte"
+  import ConfigInput from "/src/libs/Input.svelte"
+  import { app } from "/src/libs/config"
+  import { _ } from "/src/libs/Translate.svelte"
 </script>
 
 <p>{$_("advanced_application_settings")}</p>

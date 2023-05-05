@@ -3,9 +3,9 @@
   export let instance: Instance
   export let showTitle: boolean | undefined
 
-  import type { Instance, StarrApp } from "../../libs/config"
+  import type { Instance, StarrApp } from "/src/libs/config"
   import { Alert, Card, CardBody, CardFooter, CardHeader, CardTitle } from "sveltestrap"
-  import T, { _ } from "../../libs/Translate.svelte"
+  import T, { _ } from "/src/libs/Translate.svelte"
 </script>
 
 <Card outline class="mt-2">

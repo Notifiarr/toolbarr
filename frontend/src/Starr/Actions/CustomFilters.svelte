@@ -3,8 +3,8 @@
   export let instance
 
   import { Card } from "sveltestrap"
-  import T, { _ } from "../../libs/Translate.svelte"
-  import { toast } from "../../libs/funcs"
+  import T, { _ } from "/src/libs/Translate.svelte"
+  import { toast } from "/src/libs/funcs"
 </script>
 
 <Card body color="danger">{$_("incompletePage")}</Card>

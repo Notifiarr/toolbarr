@@ -4,17 +4,17 @@
   export let instance: Instance|undefined = undefined
   export let defaultInstance: boolean = false
 
-  import type { StarrApp, Instance } from "../../libs/config"
+  import type { StarrApp, Instance } from "/src/libs/config"
   import { Input, InputGroup, InputGroupText, Button, Form, Alert, FormGroup, Tooltip } from "sveltestrap"
-  import { app, conf } from "../../libs/config"
-  import { port } from "../../libs/info"
+  import { app, conf } from "/src/libs/config"
+  import { port } from "/src/libs/info"
   import Fa from "svelte-fa"
   import { faFolderOpen, faLock, faUnlock, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons"
-  import { PickFile, SaveInstance, RemoveInstance } from "../../../wailsjs/go/app/App"
-  import { TestInstance } from "../../../wailsjs/go/starrs/Starrs"
-  import { toast } from "../../libs/funcs"
+  import { PickFile, SaveInstance, RemoveInstance } from "/wailsjs/go/app/App"
+  import { TestInstance } from "/wailsjs/go/starrs/Starrs"
+  import { toast } from "/src/libs/funcs"
   import { onDestroy } from "svelte"
-  import T, { _ } from "../../libs/Translate.svelte"
+  import T, { _ } from "/src/libs/Translate.svelte"
 
   let isDefault = defaultInstance
   let newInstance = false

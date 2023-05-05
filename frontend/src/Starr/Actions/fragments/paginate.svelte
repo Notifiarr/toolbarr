@@ -12,7 +12,7 @@
     Tooltip,
   } from "sveltestrap"
   import { createEventDispatcher } from "svelte"
-  import T, { _ } from "../../../libs/Translate.svelte"
+  import T, { _ } from "/src/libs/Translate.svelte"
 
   export let page: number = 1
   export let pageSize: number = 25

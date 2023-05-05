@@ -2,10 +2,10 @@
   export let starrApp: StarrApp
   export let hidden: boolean // Avoid querying backends if hidden.
 
-  import type { StarrApp, Instance } from "../../libs/config"
-  import Applogo from "../../libs/Applogo.svelte"
-  import { conf } from "../../libs/config"
-  import T, { _ } from "../../libs/Translate.svelte"
+  import type { StarrApp, Instance } from "/src/libs/config"
+  import Applogo from "/src/libs/Applogo.svelte"
+  import { conf } from "/src/libs/config"
+  import T, { _ } from "/src/libs/Translate.svelte"
   import Action from "./action.svelte"
   import Tabs, { startTab } from "./fragments/tabs.svelte"
   import Fa from "svelte-fa"

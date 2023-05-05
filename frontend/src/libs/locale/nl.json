@@ -162,7 +162,7 @@
         "File": "Kan alleen worden gewijzigd bij het starten van de applicatie",
         "Files": "Hoeveel back-up bestanden moeten worden bewaard bij roteren",
         "DevMode": "Schakel dit in wanneer een ontwikkelaar u dat vraagt.",
-        "DefaultInstance": "Heeft effecten na het herstarten van Toolbarr.",
+        "AfterRestarting": "Heeft effecten na het herstarten van Toolbarr.",
         "Form": "Gebruik Form in plaats van Basic Auth."
     },
     "20charactermax": "Maximaal 20 tekens",

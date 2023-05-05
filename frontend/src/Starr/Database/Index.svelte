@@ -2,11 +2,11 @@
   export let starrApp: StarrApp
   export let hidden: boolean = false
 
-  import Applogo from "../../libs/Applogo.svelte"
+  import Applogo from "/src/libs/Applogo.svelte"
   import { Accordion, AccordionItem, Badge, Input, InputGroup, InputGroupText } from "sveltestrap"
-  import type { Instance, StarrApp } from "../../libs/config"
-  import { conf } from "../../libs/config"
-  import T, { _ } from "../../libs/Translate.svelte"
+  import type { Instance, StarrApp } from "/src/libs/config"
+  import { conf } from "/src/libs/config"
+  import T, { _ } from "/src/libs/Translate.svelte"
   import Inspector from "./Inspector.svelte"
   import Migrator from "./Migrator/Index.svelte"
   import type { ComponentType } from "svelte"

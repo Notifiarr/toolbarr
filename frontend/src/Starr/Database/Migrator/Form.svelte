@@ -20,16 +20,16 @@
     DeleteRootFolder,
     UpdateRecycleBin,
     UpdateInvalidItems,
-  } from "../../../../wailsjs/go/starrs/Starrs"
-  import { PickFolder } from "../../../../wailsjs/go/app/App"
-  import T, { _ } from "../../../libs/Translate.svelte"
+  } from "/wailsjs/go/starrs/Starrs"
+  import { PickFolder } from "/wailsjs/go/app/App"
+  import T, { _ } from "/src/libs/Translate.svelte"
   import { faClose, faFolderOpen } from "@fortawesome/free-solid-svg-icons"
   import Fa from "svelte-fa"
-  import type { Instance } from "../../../libs/config"
-  import { app } from "../../../libs/config"
-  import { EventsOff, EventsOn } from "../../../../wailsjs/runtime/runtime"
-  import { onOnce } from "../../../libs/funcs"
-  import Loading from "../../loading.svelte"
+  import type { Instance } from "/src/libs/config"
+  import { app } from "/src/libs/config"
+  import { EventsOff, EventsOn } from "/wailsjs/runtime/runtime"
+  import { onOnce } from "/src/libs/funcs"
+  import Loading from "/src/Starr/loading.svelte"
   import type { Color } from "sveltestrap/src/shared"
 
   // Used when updating root folder paths.

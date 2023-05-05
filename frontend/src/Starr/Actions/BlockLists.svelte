@@ -7,14 +7,14 @@
   export let sortDir: boolean
 
   import type { Tab } from "./fragments/tabs.svelte"
-  import type { Instance } from "../../libs/config"
-  import { toast } from "../../libs/funcs"
+  import type { Instance } from "/src/libs/config"
+  import { toast } from "/src/libs/funcs"
   import { Table, Icon } from "sveltestrap"
-  import { _ } from "../../libs/Translate.svelte"
+  import { _ } from "/src/libs/Translate.svelte"
   import SelectAll from "./fragments/selectAllHeader.svelte"
   import SelectRow from "./fragments/selectAllRow.svelte"
   import Footer from "./fragments/footer.svelte"
-  import { QualityProfiles, MetadataProfiles } from "../../../wailsjs/go/starrs/Starrs"
+  import { QualityProfiles, MetadataProfiles } from "/wailsjs/go/starrs/Starrs"
   import { createEventDispatcher } from "svelte"
   import BlockList from "./blockListsRow.svelte"
 

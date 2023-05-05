@@ -1,9 +1,9 @@
 <script lang="ts">
   import { Badge, Input, InputGroupText, Tooltip } from "sveltestrap"
-  import { toast, onOnce } from "./funcs"
-  import { SaveConfigItem } from "../../wailsjs/go/app/App"
-  import { conf } from "./config"
-  import { _ } from "./Translate.svelte"
+  import { toast, onOnce } from "/src/libs/funcs"
+  import { SaveConfigItem } from "/wailsjs/go/app/App"
+  import { conf } from "/src/libs/config"
+  import { _ } from "/src/libs/Translate.svelte"
   import { createEventDispatcher } from "svelte"
 
   // Like `text` or `select`.

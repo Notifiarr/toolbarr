@@ -3,12 +3,12 @@
   export let instance: Instance
   export let showTitle: boolean | undefined
 
-  import type { StarrApp, Instance } from "../../../libs/config"
+  import type { StarrApp, Instance } from "/src/libs/config"
   import { Card, CardBody, CardFooter, CardHeader, CardTitle, Spinner } from "sveltestrap"
-  import T, { _ } from "../../../libs/Translate.svelte"
-  import { MigratorInfo } from "../../../../wailsjs/go/starrs/Starrs"
-  import { toast } from "../../../libs/funcs"
-  import { conf } from "../../../libs/config"
+  import T, { _ } from "/src/libs/Translate.svelte"
+  import { MigratorInfo } from "/wailsjs/go/starrs/Starrs"
+  import { toast } from "/src/libs/funcs"
+  import { conf } from "/src/libs/config"
   import Form from "./Form.svelte"
 
   let info: any

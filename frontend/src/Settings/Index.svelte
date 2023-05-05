@@ -2,18 +2,18 @@
   export let hidden = false
 
   import { Button, Container, Form, InputGroup, Nav, NavLink, Offcanvas, Row } from "sveltestrap"
-  import Logs from "./Logs.svelte"
-  import Advanced from "./Advanced.svelte"
-  import { CreateShortcut } from "../../wailsjs/go/app/App"
-  import BGLogo from "../libs/BackgroundLogo.svelte"
+  import Logs from "/src/Settings/Logs.svelte"
+  import Advanced from "/src/Settings/Advanced.svelte"
+  import General from "/src/Settings/General.svelte"
+  import { CreateShortcut } from "/wailsjs/go/app/App"
+  import BGLogo from "/src/libs/BackgroundLogo.svelte"
   import Fa from "svelte-fa"
   import { faQuestion } from "@fortawesome/free-solid-svg-icons"
-  import { conf, app } from "../libs/config"
-  import windowsConf from "../assets/images/windows-conf-file.png"
-  import { toast } from "../libs/funcs"
-  import ConfigInput from "../libs/Input.svelte"
-  import General from "./General.svelte"
-  import T, { _ } from "../libs/Translate.svelte"
+  import { conf, app } from "/src/libs/config"
+  import windowsConf from "/src/assets/images/windows-conf-file.png"
+  import { toast } from "/src/libs/funcs"
+  import ConfigInput from "/src/libs/Input.svelte"
+  import T, { _ } from "/src/libs/Translate.svelte"
 
   let activeTab = Logs
   let confHelp = false

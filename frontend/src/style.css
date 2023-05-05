@@ -1,25 +1,9 @@
-/*
- * Moved the following import and font-face lines out of their corresponding
- * css libraries because the resources would not load from those locations.
- */
-
-/* Taken out of bootstrap.*.css files. */
-@import url("./assets/lato.css2");
-
-/* Taken out of bootstrap-icon.css */
-@font-face {
-  font-display: block;
-  font-family: "bootstrap-icons";
-  src: url("./assets/bootstrap-icons.woff2") format("woff2"),
-       url("./assets/bootstrap-icons.woff") format("woff");
-}
-
 body {
   margin: 0;
   font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
   "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
   sans-serif;
-  background-image: url(assets/images/vintage-background.png);
+  background-image: url(/src/assets/images/vintage-background.png);
   background-color: #fffeee;
   transition: background-image 0.6s;
   background-position: top;
@@ -30,22 +14,13 @@ body {
 
 body.dark-mode {
   transition: background-image 0.4s;
-  background-image: url(assets/images/dark-background.png);
+  background-image: url(/src/assets/images/dark-background.png);
   background-color: #1d3040;
 }
 
 /* These need to be 100% so their contents can fill the page. */
 html, body, #app {
   height: 100%;
-}
-
-/* a dope font. */
-@font-face {
-  font-family: "Nunito";
-  font-style: normal;
-  font-weight: 400;
-  src: local(""),
-  url("assets/fonts/nunito-v16-latin-regular.woff2") format("woff2");
 }
 
 /* Make top-navbar background look cool. */
@@ -89,3 +64,49 @@ body.dark-mode .nav-link:hover {
   --bs-bg-opacity: 0.5 !important;
 }
 
+/* a dope font. */
+@font-face {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 400;
+  src: url(/src/assets/fonts/nunito-v16-latin-regular.woff2) format("woff2");
+}
+
+/*
+ * Moved the following import and font-face lines out of their corresponding
+ * css libraries because the resources would not load from those locations.
+ */
+
+/* Taken out of bootstrap.*.css files. */
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/src/assets/fonts/S6u8w4BMUTPHjxswWw.ttf?url) format('truetype');
+  /* src: url(https://fonts.gstatic.com/s/lato/v23/S6u8w4BMUTPHjxswWw.ttf) format('truetype'); */
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/src/assets/fonts/S6uyw4BMUTPHvxk.ttf) format('truetype');
+  /* src: url(https://fonts.gstatic.com/s/lato/v23/S6uyw4BMUTPHvxk.ttf) format('truetype'); */
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(/src/assets/fonts/S6u9w4BMUTPHh6UVew8.ttf) format('truetype');
+  /* src: url(https://fonts.gstatic.com/s/lato/v23/S6u9w4BMUTPHh6UVew8.ttf) format('truetype'); */
+}
+
+/* Taken out of bootstrap-icon.css */
+@font-face {
+  font-display: block;
+  font-family: "bootstrap-icons";
+  src: url("/src/assets/fonts/bootstrap-icons.woff2") format("woff2"),
+       url("/src/assets/fonts/bootstrap-icons.woff") format("woff");
+}
