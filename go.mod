@@ -6,7 +6,7 @@ require (
 	github.com/gorilla/schema v1.2.0
 	github.com/jmoiron/sqlx v1.3.5
 	github.com/mitchellh/go-homedir v1.1.0
-	github.com/wailsapp/wails/v2 v2.4.1
+	github.com/wailsapp/wails/v2 v2.5.1
 	golang.org/x/mod v0.10.0
 	golang.org/x/text v0.9.0
 	golift.io/datacounter v1.0.4
@@ -39,15 +39,15 @@ require (
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasttemplate v1.2.2 // indirect
 	github.com/wailsapp/mimetype v1.4.1 // indirect
-	golang.org/x/crypto v0.8.0 // indirect
-	golang.org/x/exp v0.0.0-20230420155640-133eef4313cb // indirect
-	golang.org/x/net v0.9.0 // indirect
-	golang.org/x/sys v0.7.0 // indirect
-	golang.org/x/tools v0.8.0 // indirect
+	golang.org/x/crypto v0.9.0 // indirect
+	golang.org/x/exp v0.0.0-20230515195305-f3d0a9c9a5cc // indirect
+	golang.org/x/net v0.10.0 // indirect
+	golang.org/x/sys v0.8.0 // indirect
+	golang.org/x/tools v0.9.1 // indirect
 	lukechampine.com/uint128 v1.3.0 // indirect
 	modernc.org/cc/v3 v3.40.0 // indirect
 	modernc.org/ccgo/v3 v3.16.13 // indirect
-	modernc.org/libc v1.22.5 // indirect
+	modernc.org/libc v1.22.6 // indirect
 	modernc.org/mathutil v1.5.0 // indirect
 	modernc.org/memory v1.5.0 // indirect
 	modernc.org/opt v0.1.3 // indirect
