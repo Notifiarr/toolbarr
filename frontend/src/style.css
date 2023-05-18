@@ -42,10 +42,10 @@ body .nav-tabs {
   --bs-nav-tabs-link-active-border-color: #495057 #495057 #495057;
 }
 body.dark-mode .nav-link.active {
-  color: #fff !important;
- }
+  color: #ece7dd !important;
+}
 body.dark-mode .nav-link:hover {
- color: #13967d;
+  color: #67a69a;
 }
 
 /* Make tooltips a bit wider. */

@@ -14,7 +14,7 @@
   import whisparrLogo from "/src/assets/images/Whisparr.png"
   import Fa from "svelte-fa"
   import { faBookBible, faLink } from "@fortawesome/free-solid-svg-icons"
-  import { _ } from "/src/libs//Translate.svelte"
+  import { _ } from "/src/libs/Translate.svelte"
 </script>
 
 {#if app == "Lidarr"}
