@@ -14,6 +14,7 @@ init({fallbackLocale: initialLocale, initialLocale})
 
 // Keep it up to date in case the user changes the conf.
 conf.subscribe(val => {
+  // The ../locale is intentional for vite to work properly.
   register(val.Lang, () => import(`../locale/${val.Lang}.json`))
   locale.set(val.Lang)
 })

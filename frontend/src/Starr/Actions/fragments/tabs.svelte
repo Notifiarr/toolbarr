@@ -16,7 +16,7 @@
     CustomFilters,
     BlockList,
     QualityProfiles,
-  } from "../../../../wailsjs/go/starrs/Starrs"
+  } from "/wailsjs/go/starrs/Starrs"
 
   export type Tab = {
     data: (instance: any, pageSize?: number, page?: number, sortKey?: string, sortDir?: string) => Promise<any>

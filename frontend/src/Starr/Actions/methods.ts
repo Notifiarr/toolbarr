@@ -49,7 +49,7 @@ import {
   TestReadarrImportList,
   TestSonarrImportList,
   TestWhisparrImportList,
-} from "../../../wailsjs/go/starrs/Starrs"
+} from "/wailsjs/go/starrs/Starrs"
 
 export function fixFieldValues(info) {
   info.forEach((item, idx) => {

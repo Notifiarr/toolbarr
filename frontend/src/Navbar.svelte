@@ -23,7 +23,7 @@
   import Settings from "/src/Settings/Index.svelte"
   import Applogo from "/src/libs/Applogo.svelte"
   import { ToastContainer, FlatToast }  from "svelte-toasts"
-  import { app, conf, AllStarrs } from "./libs/config"
+  import { app, conf, AllStarrs } from "/src/libs/config"
   import ConfigInput from "/src/libs/Input.svelte"
   import bgVint from "/src/assets/images/vintage-background.png"
   import bgDark from "/src/assets/images/dark-background.png"

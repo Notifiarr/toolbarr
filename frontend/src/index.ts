@@ -1,7 +1,7 @@
-import "./style.css"
-import "./libs/Link.svelte"
-import "./libs/locale/locale"
-import Navbar from './Navbar.svelte'
+import "/src/style.css"
+import "/src/libs/Link.svelte"
+import "/src/libs/locale"
+import Navbar from "./Navbar.svelte"
 
 /* 
  * index.html imports this file. 
