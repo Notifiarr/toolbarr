@@ -1,7 +1,7 @@
 import { toasts }  from "svelte-toasts"
-import { conf } from "./config"
 import { onDestroy } from "svelte"
-import { _, isReady } from "./Translate.svelte"
+import { conf } from "/src/libs/config"
+import { _, isReady } from "/src/libs/Translate.svelte"
 
 // Keep track of toasts so their theme may be kept up to date.
 const sentToasts = []

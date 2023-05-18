@@ -1,5 +1,5 @@
 import { writable, readable } from "svelte/store"
-import { GetConfig, Version } from "../../wailsjs/go/app/App"
+import { GetConfig, Version } from "/wailsjs/go/app/App"
 
 // This controls tabs and other various pieces of the app.
 export type StarrApp = 
