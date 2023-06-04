@@ -11,7 +11,7 @@ require (
 	golang.org/x/text v0.9.0
 	golift.io/datacounter v1.0.4
 	golift.io/rotatorr v0.0.0-20230317103044-d974d22ee164
-	golift.io/starr v0.14.1-0.20230423075646-c1ab04058489
+	golift.io/starr v0.14.1-0.20230604034814-504c41a52f9b
 	golift.io/version v0.0.2
 	modernc.org/sqlite v1.22.1
 )
