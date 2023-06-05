@@ -13,7 +13,7 @@ require (
 	golift.io/rotatorr v0.0.0-20230520191821-3b26224a1624
 	golift.io/starr v0.14.1-0.20230423075646-c1ab04058489
 	golift.io/version v0.0.2
-	modernc.org/sqlite v1.22.1
+	modernc.org/sqlite v1.23.0
 )
 
 require (
