@@ -19,7 +19,7 @@
     "svelte-fa": "3.0.4",
     "svelte-preprocess": "5.0.4",
     "svelte-toasts": "1.1.2",
-    "sveltestrap": "5.10.0",
+    "sveltestrap": "5.11.1",
     "tslib": "2.6.1",
     "typescript": "5.1.6",
     "vite": "4.3.9"
