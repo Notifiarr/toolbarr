@@ -16,7 +16,7 @@
   export let disabled = false
   // Similar to readonly, but the update method will not work.
   export let locked = false
-  // Avoid relaoding running config when saving? Most things need to.
+  // Avoid reloading running config when saving? Most things need to.
   export let noreload = false
   // Avoid sending a toast when not in dev mode?
   export let notoast = false

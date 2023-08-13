@@ -1,21 +1,21 @@
 <script lang="ts">
-  import { 
-      Collapse, 
-      Dropdown, 
-      DropdownItem,
-      DropdownMenu, 
-      DropdownToggle,
-      Nav,
-      Navbar,
-      NavbarBrand, 
-      NavbarToggler,
-      NavLink, 
-      Tooltip
-  } from "sveltestrap" 
+  import {
+	  Collapse,
+	  Dropdown,
+	  DropdownItem,
+	  DropdownMenu,
+	  DropdownToggle,
+	  Nav,
+	  Navbar,
+	  NavbarBrand,
+	  NavbarToggler,
+	  NavLink,
+	  Tooltip
+  } from "sveltestrap"
   import { EventsOn } from "/wailsjs/runtime"
   import Fa from "svelte-fa"
   import { faGear, faBookBible, faLink } from "@fortawesome/free-solid-svg-icons"
-  import About from "/src/About.svelte" 
+  import About from "/src/About.svelte"
   import Landing from "/src/Landing.svelte"
   import Starr from "/src/Starr/Index.svelte"
   import Toolbox from "/src/Toolbox.svelte"
@@ -53,7 +53,7 @@
   function blockRightClick(e) { if (!$conf.DevMode) e.preventDefault() }
   document.removeEventListener("contextmenu", blockRightClick)
   document.addEventListener("contextmenu", blockRightClick)
-</script> 
+</script>
 
 <svelte:head>
   <!-- Preload these to prevent a white page for a moment when switching dark on/off. -->
@@ -70,11 +70,11 @@
 {#if Object.keys($conf).length > 0 && $isReady == true}
 <Navbar color="secondary" dark={$conf.Dark} expand="md py-0">
   <NavbarBrand on:click={(e) => (pageName = $app.Title,e.preventDefault())}>
-    <Applogo size="25px" app={pageName} /> 
+    <Applogo size="25px" app={pageName} />
     {$_("words."+pageName) == "words."+pageName ? pageName : $_("words."+pageName)}
   </NavbarBrand>
   {#if $conf.Hide.Dark != true}
-    <ConfigInput type="switch" id="Dark" notoast noreload></ConfigInput>
+  <ConfigInput type="switch" id="Dark" notoast noreload></ConfigInput>
   {/if}
   <NavbarToggler on:click={() => (isOpen = !isOpen)} />
   <Collapse {isOpen} navbar expand="md">
