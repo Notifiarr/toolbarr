@@ -9,9 +9,9 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "@fortawesome/free-brands-svg-icons": "6.4.0",
-    "@fortawesome/free-regular-svg-icons": "6.4.0",
-    "@fortawesome/free-solid-svg-icons": "6.4.0",
+    "@fortawesome/free-brands-svg-icons": "6.4.2",
+    "@fortawesome/free-regular-svg-icons": "6.4.2",
+    "@fortawesome/free-solid-svg-icons": "6.4.2",
     "@sveltejs/vite-plugin-svelte": "2.4.5",
     "@tsconfig/svelte": "4.0.1",
     "svelte": "3.59.1",
