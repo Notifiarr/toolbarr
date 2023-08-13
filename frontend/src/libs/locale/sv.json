@@ -85,7 +85,8 @@
         "Updates": "Produktionen får uppdateringar från GitHub, unstable hämtar dem från unstable.golift.io",
         "Size": "Rotera loggfilen när den når denna storlek",
         "DefaultInstance": "Träder i kraft efter omstart av Toolbarr.",
-        "Form": "Använd formulärinloggning istället för Basic Auth."
+        "Form": "Använd formulärinloggning istället för Basic Auth.",
+        "AfterRestarting": "Tar effekt efter omstart av Toolbarr."
     },
     "aboutPage": {
         "Checkingforupdate": "Söker efter uppdatering...",
