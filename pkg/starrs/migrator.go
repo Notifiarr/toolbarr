@@ -297,7 +297,7 @@ func (s *Starrs) updateRootFolder(appTable AppTable, sql *sqlConn, oldPath, newP
 	msg := s.log.Translate("Success! Changed Root Folder from '%s' to '%s'.", oldPath, newPath)
 
 	for table, items := range tables {
-		rows, err := s.updateFilesRootFolder(sql, items, table, oldPath, newPath)
+		rows, err := s.updateFilesRootFolder(sql, items, table, trailingSlash(oldPath), newPath)
 		if err != nil {
 			return "", err
 		}
@@ -422,11 +422,34 @@ func itemInRoot(item string, folders []string) ([]string, bool) {
 	found := false
 
 	for _, folder := range folders {
-		if strings.HasPrefix(item, folder) {
+		if strings.HasPrefix(item, trailingSlash(folder)) {
 			dirs = append(dirs, folder)
 			found = true
 		}
 	}
 
 	return dirs, found
+}
+
+func trailingSlash(str string) string {
+	if strings.HasSuffix(str, "/") || strings.HasSuffix(str, `\`) {
+		return str
+	}
+
+	return str + pickSlash(str)
+}
+
+func pickSlash(str string) string {
+	if len(str) == 0 || str[0] == '/' {
+		return "/"
+	}
+
+	forward := strings.Count(str, `/`)
+	reverse := strings.Count(str, `\`)
+
+	if reverse > forward {
+		return `\`
+	}
+
+	return "/"
 }
