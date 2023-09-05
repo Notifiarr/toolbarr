@@ -72,6 +72,7 @@ github.com/stretchr/testify v1.7.1/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/
 github.com/stretchr/testify v1.8.0/go.mod h1:yNjHg4UonilssWZ8iaSj1OCr/vHnekPRkoO+kdMU+MU=
 github.com/stretchr/testify v1.8.3 h1:RP3t2pwF7cMEbC1dqtB6poj3niw/9gnV4Cjg5oW5gtY=
 github.com/stretchr/testify v1.8.3/go.mod h1:sz/lmYIOXD/1dqDmKjjqLyZ2RngseejIcXlSw2iwfAo=
+github.com/stretchr/testify v1.8.4/go.mod h1:sz/lmYIOXD/1dqDmKjjqLyZ2RngseejIcXlSw2iwfAo=
 github.com/tkrajina/go-reflector v0.5.6 h1:hKQ0gyocG7vgMD2M3dRlYN6WBBOmdoOzJ6njQSepKdE=
 github.com/tkrajina/go-reflector v0.5.6/go.mod h1:ECbqLgccecY5kPmPmXg1MrHW585yMcDkVl6IvJe64T4=
 github.com/valyala/bytebufferpool v1.0.0 h1:GqA5TC/0021Y/b9FG4Oi9Mr3q7XYx6KllzawFIhcdPw=
@@ -138,6 +139,8 @@ golift.io/datacounter v1.0.4 h1:b2gLQCs8WYRtKjOMG0qM82rF1o0+oKUXB9QH7kjmxZ4=
 golift.io/datacounter v1.0.4/go.mod h1:79Yf1ucynYvZzVS/hpfrAFt6y/w82FMlOJgh+MBaZvs=
 golift.io/rotatorr v0.0.0-20230520191821-3b26224a1624 h1:gPe9Rl6e6Lbp5pbanmn2ADlQEBFVoKgGbmPJJtURCbk=
 golift.io/rotatorr v0.0.0-20230520191821-3b26224a1624/go.mod h1:mXltnLJV69BHLXCexH3uulsIUBCzq8v69Bh77FMXYBo=
+golift.io/rotatorr v0.0.0-20230904231327-afb48f79641b h1:2lrBa5q3kE2qrNCTT0m0OLBZu2CcvC5ReT0yr+L5fE0=
+golift.io/rotatorr v0.0.0-20230904231327-afb48f79641b/go.mod h1:59bC4ue06MetIY4iiHu3PCqVbzW0leGoCONZhH8dPZ8=
 golift.io/starr v0.14.1-0.20230423075646-c1ab04058489 h1:CdXL/MDLBEv3h4mF98d6eadfa7mlBBSP5ozElEAAk9c=
 golift.io/starr v0.14.1-0.20230423075646-c1ab04058489/go.mod h1:Ku4I4OXDQDPOS4j/Ol414+FGg6vCJOc8oS8sg/liFNU=
 golift.io/starr v1.0.0 h1:IDSaSL+ZYxdLT/Lg//dg/iwZ39LHO3D5CmbLCOgSXbI=

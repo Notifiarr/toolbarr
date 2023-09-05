@@ -10,7 +10,7 @@ require (
 	golang.org/x/mod v0.12.0
 	golang.org/x/text v0.13.0
 	golift.io/datacounter v1.0.4
-	golift.io/rotatorr v0.0.0-20230520191821-3b26224a1624
+	golift.io/rotatorr v0.0.0-20230904231327-afb48f79641b
 	golift.io/starr v1.0.0
 	golift.io/version v0.0.2
 	modernc.org/sqlite v1.25.0
