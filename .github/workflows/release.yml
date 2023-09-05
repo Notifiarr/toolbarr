@@ -16,7 +16,7 @@ jobs:
       version: ${{ steps.version.outputs.version }}
       revision: ${{ steps.version.outputs.revision }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           # we need the whole thing so we can count commits.
           fetch-depth: '0'
