@@ -4,7 +4,7 @@
         {
             "id": "Dialog Failed: {Err}",
             "message": "Dialog Failed: {Err}",
-            "translation": "",
+            "translation": "Falha no diálogo: {Err}",
             "placeholders": [
                 {
                     "id": "Err",
@@ -19,7 +19,7 @@
         {
             "id": "Writing config: decoding '{Name}' value '{Value}' error: {Err}",
             "message": "Writing config: decoding '{Name}' value '{Value}' error: {Err}",
-            "translation": "",
+            "translation": "Escrevendo configuração: decodificando '{Name}' valor '{Value}' erro: {Err}",
             "placeholders": [
                 {
                     "id": "Name",
@@ -73,7 +73,7 @@
         {
             "id": "Error writing config: {Error}",
             "message": "Error writing config: {Error}",
-            "translation": "",
+            "translation": "Erro ao gravar configuração: {Error}",
             "placeholders": [
                 {
                     "id": "Error",
@@ -88,7 +88,7 @@
         {
             "id": "Saved: '{Name}' Value: {Value}",
             "message": "Saved: '{Name}' Value: {Value}",
-            "translation": "",
+            "translation": "Salvou: '{Name}' Valor: {Value}",
             "placeholders": [
                 {
                     "id": "Name",
@@ -111,7 +111,7 @@
         {
             "id": "Config {Msg}",
             "message": "Config {Msg}",
-            "translation": "",
+            "translation": "Configuração {Msg}",
             "placeholders": [
                 {
                     "id": "Msg",
@@ -126,12 +126,12 @@
         {
             "id": "Choose Folder",
             "message": "Choose Folder",
-            "translation": ""
+            "translation": "Escolher pasta"
         },
         {
             "id": "Opening directory browser: {Err}",
             "message": "Opening directory browser: {Err}",
-            "translation": "",
+            "translation": "Abrindo o navegador de pastas: {Err}",
             "placeholders": [
                 {
                     "id": "Err",
@@ -146,7 +146,7 @@
         {
             "id": "Saved {App} instance configuration!",
             "message": "Saved {App} instance configuration!",
-            "translation": "",
+            "translation": "Configuração da instância {App} salva!",
             "placeholders": [
                 {
                     "id": "App",
@@ -161,7 +161,7 @@
         {
             "id": "Added new {App} instance!",
             "message": "Added new {App} instance!",
-            "translation": "",
+            "translation": "Adicionada uma nova instância {App}!",
             "placeholders": [
                 {
                     "id": "App",
@@ -176,7 +176,7 @@
         {
             "id": "Provided {StarrApp} instance {Idx} does not exist",
             "message": "Provided {StarrApp} instance {Idx} does not exist",
-            "translation": "",
+            "translation": "Instância {Idx} fornecida de {StarrApp} não existe",
             "placeholders": [
                 {
                     "id": "StarrApp",
@@ -199,7 +199,7 @@
         {
             "id": "Really delete {StarrApp} instance? Name: {Name}",
             "message": "Really delete {StarrApp} instance? Name: {Name}",
-            "translation": "",
+            "translation": "Tem certeza que quer remover a instância {StarrApp} ? Nome: {Name}",
             "placeholders": [
                 {
                     "id": "StarrApp",
@@ -222,12 +222,12 @@
         {
             "id": "Remove Instance",
             "message": "Remove Instance",
-            "translation": ""
+            "translation": "Remover Instância"
         },
         {
             "id": "Removed {StarrApp} Instance",
             "message": "Removed {StarrApp} Instance",
-            "translation": "",
+            "translation": "Instância {StarrApp} removida",
             "placeholders": [
                 {
                     "id": "StarrApp",
@@ -304,17 +304,17 @@
         {
             "id": "Config Problem",
             "message": "Config Problem",
-            "translation": ""
+            "translation": "Problema de configuração"
         },
         {
             "id": "Hide",
             "message": "Hide",
-            "translation": ""
+            "translation": "Esconder"
         },
         {
             "id": "Checking for current {Updates} release: {Err}",
             "message": "Checking for current {Updates} release: {Err}",
-            "translation": "",
+            "translation": "Verifique a atual {Updates} release: {Err}",
             "placeholders": [
                 {
                     "id": "Updates",
@@ -642,6 +642,47 @@
             "id": "closing log rotator:",
             "message": "closing log rotator:",
             "translation": ""
+        },
+        {
+            "id": "Getting user data: {Error}",
+            "message": "Getting user data: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Obtendo dados do usuário: {Error}",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Choose File",
+            "message": "Choose File",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Escolher arquivo"
+        },
+        {
+            "id": "Opening file browser: {Err}",
+            "message": "Opening file browser: {Err}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Abrindo o navegador de arquivos: {Err}",
+            "placeholders": [
+                {
+                    "id": "Err",
+                    "string": "%[1]v",
+                    "type": "error",
+                    "underlyingType": "interface{Error() string}",
+                    "argNum": 1,
+                    "expr": "err"
+                }
+            ]
         }
     ]
 }
