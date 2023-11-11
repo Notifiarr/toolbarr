@@ -337,7 +337,7 @@
         {
             "id": "Checked Current {Updates} release: {Version} ({RelSize})",
             "message": "Checked Current {Updates} release: {Version} ({RelSize})",
-            "translation": "",
+            "translation": "Versão atual de {Updates} verificada: {Version} ({RelSize})",
             "placeholders": [
                 {
                     "id": "Updates",
@@ -368,17 +368,17 @@
         {
             "id": "Downloading File",
             "message": "Downloading File",
-            "translation": ""
+            "translation": "Baixando arquivo"
         },
         {
             "id": "Missing release, check first?",
             "message": "Missing release, check first?",
-            "translation": ""
+            "translation": "Faltando o lançamento, verifique primeiro?"
         },
         {
             "id": "Downloading {Updates} update failed: {Error}",
             "message": "Downloading {Updates} update failed: {Error}",
-            "translation": "",
+            "translation": "Falha ao baixar a atualização de {Updates}: {Error}",
             "placeholders": [
                 {
                     "id": "Updates",
@@ -401,7 +401,7 @@
         {
             "id": "Downloading {Updates} release from {CurrURL} to {Path} ({Size})",
             "message": "Downloading {Updates} release from {CurrURL} to {Path} ({Size})",
-            "translation": "",
+            "translation": "Fazendo download da versão {Updates} de {CurrURL} para {Path} ({Size})",
             "placeholders": [
                 {
                     "id": "Updates",
@@ -440,7 +440,7 @@
         {
             "id": "Downloading {Size} to {Path}",
             "message": "Downloading {Size} to {Path}",
-            "translation": "",
+            "translation": "Baixando {Size} para {Path}",
             "placeholders": [
                 {
                     "id": "Size",
@@ -463,7 +463,7 @@
         {
             "id": "Launching installer: {Path}: {Err}",
             "message": "Launching installer: {Path}: {Err}",
-            "translation": "",
+            "translation": "Iniciando o instalador: {Path}: {Err}",
             "placeholders": [
                 {
                     "id": "Path",
@@ -486,7 +486,7 @@
         {
             "id": "Launching Installer: {Path}",
             "message": "Launching Installer: {Path}",
-            "translation": "",
+            "translation": "Iniciando o instalador: {Path}",
             "placeholders": [
                 {
                     "id": "Path",
@@ -501,7 +501,7 @@
         {
             "id": "Opening Folder: {Path}: {Err}",
             "message": "Opening Folder: {Path}: {Err}",
-            "translation": "",
+            "translation": "Pasta de abertura: {Path}: {Err}",
             "placeholders": [
                 {
                     "id": "Path",
@@ -524,7 +524,7 @@
         {
             "id": "Opening Path: {Path}",
             "message": "Opening Path: {Path}",
-            "translation": "",
+            "translation": "Caminho de Abertura: {Path}",
             "placeholders": [
                 {
                     "id": "Path",
@@ -539,37 +539,37 @@
         {
             "id": "ERROR",
             "message": "ERROR",
-            "translation": ""
+            "translation": "ERRO"
         },
         {
             "id": "WARN",
             "message": "WARN",
-            "translation": ""
+            "translation": "AVISO"
         },
         {
             "id": "INFO",
             "message": "INFO",
-            "translation": ""
+            "translation": "INFO"
         },
         {
             "id": "DEBUG",
             "message": "DEBUG",
-            "translation": ""
+            "translation": "DEPURAR"
         },
         {
             "id": "TRACE",
             "message": "TRACE",
-            "translation": ""
+            "translation": "VESTÍGIO"
         },
         {
             "id": "FATAL",
             "message": "FATAL",
-            "translation": ""
+            "translation": "FATAL"
         },
         {
             "id": "Logger Error: {Err}",
             "message": "Logger Error: {Err}",
-            "translation": "",
+            "translation": "Erro do Logger: {Err}",
             "placeholders": [
                 {
                     "id": "Err",
@@ -584,12 +584,12 @@
         {
             "id": "...continuing:",
             "message": "...continuing:",
-            "translation": ""
+            "translation": "..continuando:"
         },
         {
             "id": "Go Panic! This is a bug!\n{Version}-{Revision} {Branch} {R}\n{Stack}",
             "message": "Go Panic! This is a bug!\n{Version}-{Revision} {Branch} {R}\n{Stack}",
-            "translation": "",
+            "translation": "Pânico no Go! Isso é um bug!\n{Version}-{Revision} {Branch} {R}\n{Stack}",
             "placeholders": [
                 {
                     "id": "Version",
@@ -636,12 +636,12 @@
         {
             "id": "Closing Logger",
             "message": "Closing Logger",
-            "translation": ""
+            "translation": "Fechando o Logger"
         },
         {
             "id": "closing log rotator:",
             "message": "closing log rotator:",
-            "translation": ""
+            "translation": "fechando o rotador de log:"
         },
         {
             "id": "Getting user data: {Error}",
@@ -681,6 +681,23 @@
                     "underlyingType": "interface{Error() string}",
                     "argNum": 1,
                     "expr": "err"
+                }
+            ]
+        },
+        {
+            "id": "Getting block lists: {Error}",
+            "message": "Getting block lists: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Obtendo listas de bloqueio: {Error}",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
                 }
             ]
         }
