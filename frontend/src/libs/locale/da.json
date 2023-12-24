@@ -247,7 +247,8 @@
         "File": "Kan kun ændres ved applikationsstart",
         "Lang": "Kun engelsk virker.",
         "DefaultInstance": "Træder i kraft efter genstart af Toolbar.",
-        "Form": "Brug formularlogin i stedet for Basic Auth."
+        "Form": "Brug formularlogin i stedet for Basic Auth.",
+        "AfterRestarting": "Får effekter efter genstart af Toolbar"
     },
     "configvalues": {
         "Enabled": "Aktiveret",
