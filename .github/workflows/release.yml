@@ -137,7 +137,7 @@ jobs:
           gzip -9 build/bin/toolbarr.*64
 
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: toolbarr-${{ matrix.platform }}
           path: build/bin/*
@@ -150,7 +150,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download release files
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: toolbarr-ubuntu-latest
       - uses: golift/upload-packagecloud@v1
@@ -172,7 +172,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Download files: ${{ matrix.files }}"
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: ${{ matrix.files }}
       - name: Upload files to unstable.golift.io
@@ -193,7 +193,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download release files
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: toolbarr-ubuntu-latest
       - uses: golift/upload-packagecloud@v1
@@ -217,7 +217,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download ${{ matrix.files }} Files
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: ${{ matrix.files }}
       - name: Publish ${{ matrix.files }} artifacts to github
