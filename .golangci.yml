@@ -21,9 +21,7 @@ linters:
     - containedctx
     - nlreturn
     - contextcheck
-    # # unneeded (broken because of generics)
-    - rowserrcheck
-    - wastedassign
-    - gomoddirectives # broken
+    - depguard
+    - perfsprint
 run:
   timeout: 5m
