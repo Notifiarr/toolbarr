@@ -6,7 +6,7 @@
   export let itemIdx: number
 
   import { _ } from "/src/libs/Translate.svelte"
-  import { Input, InputGroup, InputGroupText, Tooltip } from "sveltestrap"
+  import { Input, InputGroup, InputGroupText, Tooltip } from "@sveltestrap/sveltestrap"
 
   let input
   // changed.

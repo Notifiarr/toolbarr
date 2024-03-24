@@ -5,7 +5,7 @@
   export let defaultInstance: boolean = false
 
   import type { StarrApp, Instance } from "/src/libs/config"
-  import { Input, InputGroup, InputGroupText, Button, Form, Alert, FormGroup, Tooltip } from "sveltestrap"
+  import { Input, InputGroup, InputGroupText, Button, Form, Alert, FormGroup, Tooltip } from "@sveltestrap/sveltestrap"
   import { app, conf } from "/src/libs/config"
   import { port } from "/src/libs/info"
   import Fa from "svelte-fa"

@@ -2,7 +2,7 @@
   export let starrApp: StarrApp
 
   import type { StarrApp } from "/src/libs/config"
-  import { Accordion, AccordionItem, Badge} from "sveltestrap"
+  import { Accordion, AccordionItem, Badge} from "@sveltestrap/sveltestrap"
   import { conf } from "/src/libs/config"
   import Fa from "svelte-fa"
   import { faPlus } from "@fortawesome/free-solid-svg-icons"

@@ -22,7 +22,7 @@
     InputGroup,
     InputGroupText,
     Row,
-  } from "sveltestrap"
+  } from "@sveltestrap/sveltestrap"
 
   let updating = false
   let menuOpen = true

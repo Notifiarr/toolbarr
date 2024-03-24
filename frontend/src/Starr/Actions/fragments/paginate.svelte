@@ -10,7 +10,7 @@
     DropdownToggle,
     ButtonDropdown,
     Tooltip,
-  } from "sveltestrap"
+  } from "@sveltestrap/sveltestrap"
   import { createEventDispatcher } from "svelte"
   import T, { _ } from "/src/libs/Translate.svelte"
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Badge, Input, InputGroupText, Tooltip } from "sveltestrap"
+  import { Badge, Input, InputGroupText, Tooltip } from "@sveltestrap/sveltestrap"
   import { toast, onOnce } from "/src/libs/funcs"
   import { SaveConfigItem } from "/wailsjs/go/app/App"
   import { conf } from "/src/libs/config"

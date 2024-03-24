@@ -11,7 +11,7 @@
 	  NavbarToggler,
 	  NavLink,
 	  Tooltip
-  } from "sveltestrap"
+  } from "@sveltestrap/sveltestrap"
   import { EventsOn } from "/wailsjs/runtime"
   import Fa from "svelte-fa"
   import { faGear, faBookBible, faLink } from "@fortawesome/free-solid-svg-icons"

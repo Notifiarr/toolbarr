@@ -3,7 +3,7 @@
   export let hidden: boolean = false
 
   import Applogo from "/src/libs/Applogo.svelte"
-  import { Accordion, AccordionItem, Badge, Input, InputGroup, InputGroupText } from "sveltestrap"
+  import { Accordion, AccordionItem, Badge, Input, InputGroup, InputGroupText } from "@sveltestrap/sveltestrap"
   import type { Instance, StarrApp } from "/src/libs/config"
   import { conf } from "/src/libs/config"
   import T, { _ } from "/src/libs/Translate.svelte"

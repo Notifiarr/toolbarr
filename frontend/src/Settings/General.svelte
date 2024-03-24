@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Button, InputGroup, Offcanvas } from "sveltestrap"
+  import { Button, InputGroup, Offcanvas } from "@sveltestrap/sveltestrap"
   import ConfigInput from "/src/libs/Input.svelte"
   import { conf } from "/src/libs/config"
   import { Languages } from "/wailsjs/go/app/App"

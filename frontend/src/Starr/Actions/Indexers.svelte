@@ -15,7 +15,7 @@
   import SelectAll from "./fragments/selectAllHeader.svelte"
   import SelectRow from "./fragments/selectAllRow.svelte"
   import { fixFieldValues } from "./methods"
-  import { Table, Tooltip, Icon } from "sveltestrap"
+  import { Table, Tooltip, Icon } from "@sveltestrap/sveltestrap"
 
   let isOpen: any = {}       // Modal toggle control.
   let all = false       // Toggle for select-all link.
