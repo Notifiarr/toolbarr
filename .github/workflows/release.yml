@@ -23,7 +23,7 @@ jobs:
       - name: Install Go
         uses: actions/setup-go@v4
         with:
-          go-version: latest
+          go-version-file: 'go.mod'
       - name: setup node
         uses: actions/setup-node@v4
         with:
