@@ -1,7 +1,7 @@
 <script lang="ts">
   export let isOpen = true
 
-  import { Card, Collapse, Spinner } from "sveltestrap"
+  import { Card, Collapse, Spinner } from "@sveltestrap/sveltestrap"
   import { _ } from "/src/libs/Translate.svelte"
 </script>
 

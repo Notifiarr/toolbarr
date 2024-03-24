@@ -1,10 +1,10 @@
 <script lang="ts">
   export let hidden: boolean = false
 
-  import { Container, Row } from "sveltestrap"
+  import { Container, Row } from "@sveltestrap/sveltestrap"
   import BGLogo from "/src/libs/BackgroundLogo.svelte"
   import { _ } from "/src/libs/Translate.svelte"
-  import { Card } from "sveltestrap"
+  import { Card } from "@sveltestrap/sveltestrap"
 </script>
 
 <BGLogo {hidden} url="notifiarr">

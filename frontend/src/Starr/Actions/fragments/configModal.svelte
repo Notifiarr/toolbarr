@@ -9,7 +9,7 @@
   export let disabled = ""
 
   import { _ } from "/src/libs/Translate.svelte"
-  import { Badge, Button, Modal, ModalBody, ModalFooter, ModalHeader } from "sveltestrap"
+  import { Badge, Button, Modal, ModalBody, ModalFooter, ModalHeader } from "@sveltestrap/sveltestrap"
 
   function reset(e) {
     e.preventDefault()

@@ -14,7 +14,7 @@
     Progress,
     Spinner,
     Table,
-  } from "sveltestrap"
+  } from "@sveltestrap/sveltestrap"
   import {
     UpdateRootFolder,
     DeleteRootFolder,

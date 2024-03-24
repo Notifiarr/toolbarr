@@ -17,7 +17,7 @@
   import TDInput from "./fragments/tableInput.svelte"
   import SelectAll from "./fragments/selectAllHeader.svelte"
   import SelectRow from "./fragments/selectAllRow.svelte"
-  import { Table } from "sveltestrap"
+  import { Table } from "@sveltestrap/sveltestrap"
 
   let all: boolean = false      // Toggle for select-all link.
   let selected: any = {}        // Rows selected by key: ID.

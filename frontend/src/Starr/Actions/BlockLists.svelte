@@ -9,7 +9,7 @@
   import type { Tab } from "./fragments/tabs.svelte"
   import type { Instance } from "/src/libs/config"
   import { toast } from "/src/libs/funcs"
-  import { Table, Icon } from "sveltestrap"
+  import { Table, Icon } from "@sveltestrap/sveltestrap"
   import { _ } from "/src/libs/Translate.svelte"
   import SelectAll from "./fragments/selectAllHeader.svelte"
   import SelectRow from "./fragments/selectAllRow.svelte"

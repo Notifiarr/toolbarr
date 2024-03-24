@@ -6,7 +6,7 @@
   import { faGear } from "@fortawesome/free-solid-svg-icons"
   import { EventsOn, EventsOff } from "/wailsjs/runtime"
   import { CheckUpdate, DownloadUpdate, LaunchInstaller, OpenFolder } from "/wailsjs/go/app/App"
-  import { Container, Row, Table, Col, Card, Tooltip, Button, Progress, Badge } from "sveltestrap"
+  import { Container, Row, Table, Col, Card, Tooltip, Button, Progress, Badge } from "@sveltestrap/sveltestrap"
   import BGLogo from "/src/libs/BackgroundLogo.svelte"
   import { app, conf } from "/src/libs/config"
   import { toast, onOnce, onInterval } from "/src/libs/funcs"

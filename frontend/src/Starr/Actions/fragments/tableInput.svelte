@@ -9,7 +9,7 @@
   export let max = 100
 
   import { _ } from "/src/libs/Translate.svelte"
-  import { Button, Input, InputGroup, Tooltip } from "sveltestrap"
+  import { Button, Input, InputGroup, Tooltip } from "@sveltestrap/sveltestrap"
   import type { InputType } from "sveltestrap/src/Input"
 
   function edit(editable: boolean) {
