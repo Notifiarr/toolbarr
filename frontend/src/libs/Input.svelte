@@ -8,7 +8,7 @@
 
   // Like `text` or `select`.
   export let type
-  // Used to update the valie in Go. Needs full struct path for gorilla/schema.
+  // Used to update the value in Go. Needs full struct path for gorilla/schema.
   export let id
   // Used if you do not want this value changed directly.
   export let readonly = false
