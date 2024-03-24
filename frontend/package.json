@@ -17,7 +17,7 @@
     "svelte": "3.59.2",
     "svelte-check": "3.6.8",
     "svelte-fa": "3.0.4",
-    "svelte-preprocess": "5.0.4",
+    "svelte-preprocess": "5.1.3",
     "svelte-toasts": "1.1.2",
     "sveltestrap": "5.11.2",
     "tslib": "2.6.2",
