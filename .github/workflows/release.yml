@@ -21,7 +21,7 @@ jobs:
           # we need the whole thing so we can count commits.
           fetch-depth: '0'
       - name: Install Go
-        uses: actions/setup-go@v4
+        uses: actions/setup-go@v5
         with:
           go-version-file: 'go.mod'
       - name: setup node
