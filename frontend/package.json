@@ -22,7 +22,7 @@
     "@sveltestrap/sveltestrap": "^6.2.7",
     "tslib": "2.6.2",
     "typescript": "5.4.3",
-    "vite": "4.5.2"
+    "vite": "4.5.3"
   },
   "dependencies": {
     "svelte-i18n": "4.0.0"
