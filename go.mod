@@ -7,7 +7,7 @@ require (
 	github.com/jmoiron/sqlx v1.3.5
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/wailsapp/wails/v2 v2.8.0
-	golang.org/x/mod v0.16.0
+	golang.org/x/mod v0.17.0
 	golang.org/x/text v0.14.0
 	golift.io/datacounter v1.0.4
 	golift.io/rotatorr v0.0.0-20230911015553-cd2abbd726c7
