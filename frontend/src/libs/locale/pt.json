@@ -1,1 +1,9 @@
-{}
+{
+    "words": {
+        "Activity": "Atividade",
+        "Actions": "Ações",
+        "About": "Sobre"
+    },
+    "20charactermax": "Máximo de 20 caracteres",
+    "32characterhash": "Hash de 32 caracteres"
+}
