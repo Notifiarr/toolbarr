@@ -42,9 +42,9 @@ func main() {
 	})
 
 	if mnd.IsWindows {
-		fileMenu.AddText("Exit", keys.OptionOrAlt("f4"), func(a *menu.CallbackData) { app.Quit() })
+		fileMenu.AddText("Exit", keys.OptionOrAlt("f4"), func(_ *menu.CallbackData) { app.Quit() })
 	} else {
-		fileMenu.AddText("Quit", keys.CmdOrCtrl("q"), func(a *menu.CallbackData) { app.Quit() })
+		fileMenu.AddText("Quit", keys.CmdOrCtrl("q"), func(_ *menu.CallbackData) { app.Quit() })
 	}
 
 	// Create application with options

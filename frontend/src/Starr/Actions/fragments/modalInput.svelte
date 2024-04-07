@@ -12,7 +12,7 @@
   import { _ } from "/src/libs/Translate.svelte"
   import Fa from "svelte-fa"
   import { faGroupArrowsRotate } from "@fortawesome/free-solid-svg-icons"
-  import { Button, Input, InputGroup, InputGroupText, Tooltip } from "sveltestrap"
+  import { Button, Input, InputGroup, InputGroupText, Tooltip } from "@sveltestrap/sveltestrap"
   import type { InputType } from "sveltestrap/src/Input"
 
   const vals = { values:{"starrApp": starrApp} }

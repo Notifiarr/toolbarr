@@ -1,4 +1,4 @@
-// Package mnd provides re-usable constants for the Notifiarr application packages.
+// Package mnd provides reusable constants for the Notifiarr application packages.
 package mnd
 
 import (

@@ -42,7 +42,7 @@ type AppConfig struct {
 	DBPath  string        // path to database for app.
 }
 
-// Startup runs after wails inializes so we can save the context.
+// Startup runs after wails initializes so we can save the context.
 func Startup(ctx context.Context, starrs *Starrs, log *logs.Logger, app mnd.App) {
 	starrs.ctx = ctx
 	starrs.app = app

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Badge, Input, Tooltip } from "sveltestrap"
+  import { Badge, Input, Tooltip } from "@sveltestrap/sveltestrap"
 
   export let updating: boolean
   export let id: string

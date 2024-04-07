@@ -2,7 +2,7 @@
   export let starrApp: StarrApp
   export let hidden = true
 
-  import { TabContent, TabPane } from "sveltestrap"
+  import { TabContent, TabPane } from "@sveltestrap/sveltestrap"
   import Actions from "./Actions/Index.svelte"
   import Config from "./Config/Index.svelte"
   import Database from "./Database/Index.svelte"

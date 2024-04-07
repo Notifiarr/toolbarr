@@ -8,7 +8,7 @@
   import T, { _ } from "/src/libs/Translate.svelte"
   import Fa from "svelte-fa"
   import { faCircleInfo } from "@fortawesome/free-solid-svg-icons"
-  import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Tooltip } from "sveltestrap"
+  import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Tooltip } from "@sveltestrap/sveltestrap"
   import type { StarrApp } from "/src/libs/config"
   import { onOnce } from "/src/libs/funcs"
 

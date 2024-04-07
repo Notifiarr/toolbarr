@@ -4,7 +4,7 @@
   export let showTitle: boolean | undefined
 
   import type { Instance, StarrApp } from "/src/libs/config"
-  import { Alert, Card, CardBody, CardFooter, CardHeader, CardTitle } from "sveltestrap"
+  import { Alert, Card, CardBody, CardFooter, CardHeader, CardTitle } from "@sveltestrap/sveltestrap"
   import T, { _ } from "/src/libs/Translate.svelte"
 </script>
 

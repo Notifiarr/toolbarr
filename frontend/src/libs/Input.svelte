@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Badge, Input, InputGroupText, Tooltip } from "sveltestrap"
+  import { Badge, Input, InputGroupText, Tooltip } from "@sveltestrap/sveltestrap"
   import { toast, onOnce } from "/src/libs/funcs"
   import { SaveConfigItem } from "/wailsjs/go/app/App"
   import { conf } from "/src/libs/config"
@@ -8,7 +8,7 @@
 
   // Like `text` or `select`.
   export let type
-  // Used to update the valie in Go. Needs full struct path for gorilla/schema.
+  // Used to update the value in Go. Needs full struct path for gorilla/schema.
   export let id
   // Used if you do not want this value changed directly.
   export let readonly = false

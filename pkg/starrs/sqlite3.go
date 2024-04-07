@@ -116,7 +116,7 @@ func (s *sqlConn) GetEntries(ctx context.Context, tcd *TableColumn) ([]*Entry, e
 
 	for rows.Next() {
 		var row Entry
-		if err = rows.StructScan(&row); err != nil {
+		if err = rows.StructScan(&row); err != nil { //nolint:musttag
 			return nil, fmt.Errorf("%s: %w", sql, err)
 		}
 
@@ -238,7 +238,7 @@ func (s *sqlConn) RowInt64(ctx context.Context, sql string) (int64, error) {
 func Escape(sql string) string {
 	dest := make([]byte, 0, 2*len(sql)) //nolint:gomnd
 
-	for pos := 0; pos < len(sql); pos++ {
+	for pos := range len(sql) {
 		switch sql[pos] {
 		case 0: /* Must be escaped for 'mysql' */
 			dest = append(dest, '\\', '0')

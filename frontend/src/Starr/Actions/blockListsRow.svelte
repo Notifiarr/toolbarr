@@ -5,7 +5,7 @@
   export let qualityProfiles: any
   export let metadataProfiles: any
 
-  import { Table, Popover, Badge, Icon, Tooltip } from "sveltestrap"
+  import { Table, Popover, Badge, Icon, Tooltip } from "@sveltestrap/sveltestrap"
   import { _, date } from "/src/libs/Translate.svelte"
   import { conf } from "/src/libs/config"
 

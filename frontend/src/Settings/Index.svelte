@@ -1,7 +1,7 @@
 <script lang="ts">
   export let hidden = false
 
-  import { Button, Container, Form, InputGroup, Nav, NavLink, Offcanvas, Row } from "sveltestrap"
+  import { Button, Container, Form, InputGroup, Nav, NavLink, Offcanvas, Row } from "@sveltestrap/sveltestrap"
   import Logs from "/src/Settings/Logs.svelte"
   import Advanced from "/src/Settings/Advanced.svelte"
   import General from "/src/Settings/General.svelte"

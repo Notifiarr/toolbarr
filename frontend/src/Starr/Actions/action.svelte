@@ -15,7 +15,7 @@
     CardHeader,
     CardTitle,
     Collapse,
-  } from "sveltestrap"
+  } from "@sveltestrap/sveltestrap"
   import T, { _ } from "/src/libs/Translate.svelte"
   import { toast } from "/src/libs/funcs"
   import Loading from "/src/Starr/loading.svelte"

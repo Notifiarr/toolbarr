@@ -9,7 +9,7 @@
   export let noForce = false
 
   import type { Tab } from "./tabs.svelte"
-  import { Alert, Button, Collapse, Fade, Tooltip, Icon, Card } from "sveltestrap"
+  import { Alert, Button, Collapse, Fade, Tooltip, Icon, Card } from "@sveltestrap/sveltestrap"
   import Loading from "/src/Starr/loading.svelte"
   import T, { _ } from "/src/libs/Translate.svelte"
   import { toast, count } from "/src/libs/funcs"

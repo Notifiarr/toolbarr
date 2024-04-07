@@ -72,17 +72,17 @@ export namespace lidarr {
 	    shouldSearch: boolean;
 	    listOrder: number;
 	    id?: number;
-	    qualityProfileId: number;
-	    metadataProfileId: number;
-	    configContract: string;
-	    implementation: string;
-	    listType: string;
-	    monitorNewItems: string;
-	    name: string;
-	    rootFolderPath: string;
-	    shouldMonitor: string;
-	    tags: number[];
-	    fields: starr.FieldInput[];
+	    qualityProfileId?: number;
+	    metadataProfileId?: number;
+	    configContract?: string;
+	    implementation?: string;
+	    listType?: string;
+	    monitorNewItems?: string;
+	    name?: string;
+	    rootFolderPath?: string;
+	    shouldMonitor?: string;
+	    tags?: number[];
+	    fields?: starr.FieldInput[];
 	
 	    static createFrom(source: any = {}) {
 	        return new ImportListInput(source);
@@ -399,19 +399,19 @@ export namespace radarr {
 	    enabled: boolean;
 	    searchOnAdd: boolean;
 	    listOrder: number;
-	    id: number;
-	    qualityProfileId: number;
-	    configContract: string;
-	    implementation: string;
-	    implementationName: string;
-	    infoLink: string;
-	    listType: string;
-	    monitor: string;
-	    name: string;
-	    rootFolderPath: string;
-	    minimumAvailability: string;
-	    tags: number[];
-	    fields: starr.FieldInput[];
+	    id?: number;
+	    qualityProfileId?: number;
+	    configContract?: string;
+	    implementation?: string;
+	    implementationName?: string;
+	    infoLink?: string;
+	    listType?: string;
+	    monitor?: string;
+	    name?: string;
+	    rootFolderPath?: string;
+	    minimumAvailability?: string;
+	    tags?: number[];
+	    fields?: starr.FieldInput[];
 	
 	    static createFrom(source: any = {}) {
 	        return new ImportListInput(source);
@@ -629,17 +629,17 @@ export namespace readarr {
 	    shouldSearch: boolean;
 	    listOrder: number;
 	    id?: number;
-	    metadataProfileId: number;
-	    qualityProfileId: number;
-	    listType: string;
-	    configContract: string;
-	    implementation: string;
-	    name: string;
-	    rootFolderPath: string;
-	    shouldMonitor: string;
-	    monitorNewItems: string;
-	    tags: number[];
-	    fields: starr.FieldInput[];
+	    metadataProfileId?: number;
+	    qualityProfileId?: number;
+	    listType?: string;
+	    configContract?: string;
+	    implementation?: string;
+	    name?: string;
+	    rootFolderPath?: string;
+	    shouldMonitor?: string;
+	    monitorNewItems?: string;
+	    tags?: number[];
+	    fields?: starr.FieldInput[];
 	
 	    static createFrom(source: any = {}) {
 	        return new ImportListInput(source);
@@ -852,20 +852,20 @@ export namespace sonarr {
 	    enableAutomaticAdd: boolean;
 	    seasonFolder: boolean;
 	    listOrder: number;
-	    qualityProfileId: number;
+	    qualityProfileId?: number;
 	    id?: number;
-	    configContract: string;
-	    implementation: string;
-	    implementationName: string;
-	    infoLink: string;
-	    listType: string;
-	    minRefreshInterval: string;
-	    name: string;
-	    rootFolderPath: string;
-	    seriesType: string;
-	    shouldMonitor: string;
-	    tags: number[];
-	    fields: starr.FieldInput[];
+	    configContract?: string;
+	    implementation?: string;
+	    implementationName?: string;
+	    infoLink?: string;
+	    listType?: string;
+	    minRefreshInterval?: string;
+	    name?: string;
+	    rootFolderPath?: string;
+	    seriesType?: string;
+	    shouldMonitor?: string;
+	    tags?: number[];
+	    fields?: starr.FieldInput[];
 	
 	    static createFrom(source: any = {}) {
 	        return new ImportListInput(source);

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Button, InputGroup } from "sveltestrap"
+  import { Button, InputGroup } from "@sveltestrap/sveltestrap"
   import Fa from "svelte-fa"
   import { faFolderOpen } from "@fortawesome/free-solid-svg-icons"
   import { PickFolder } from "/wailsjs/go/app/App"

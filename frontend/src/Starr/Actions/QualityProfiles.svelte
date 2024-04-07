@@ -12,7 +12,7 @@
   import TDInput from "./fragments/tableInput.svelte"
   import ModalInput from "./fragments/modalInput.svelte"
   import ConfigModal from "./fragments/configModal.svelte"
-  import { Badge, Input, InputGroup, InputGroupText, Table, Tooltip } from "sveltestrap"
+  import { Badge, Input, InputGroup, InputGroupText, Table, Tooltip } from "@sveltestrap/sveltestrap"
   import SelectAll from "./fragments/selectAllHeader.svelte"
   import SelectRow from "./fragments/selectAllRow.svelte"
 
