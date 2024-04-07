@@ -1,7 +1,7 @@
 <script lang="ts">
   export let tab: Tab
-  export let info
-  export let instance
+  export let info: any
+  export let instance: Instance
   export let updating: boolean
 
   import type { Tab } from "./fragments/tabs.svelte"
@@ -16,6 +16,7 @@
   import SelectRow from "./fragments/selectAllRow.svelte"
   import { fixFieldValues } from "./methods"
   import { Table, Tooltip, Icon } from "@sveltestrap/sveltestrap"
+  import type { Instance } from "/src/libs/config"
 
   let isOpen: any = {}       // Modal toggle control.
   let all = false       // Toggle for select-all link.

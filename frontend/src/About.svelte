@@ -29,7 +29,7 @@
   let progress = 0.0
   let msg = $_("aboutPage.justWaitin")
 
-  function checkUpdate(e) {
+  function checkUpdate(e: MouseEvent) {
     e.preventDefault()
     update.Downloading = $_("aboutPage.Checkingforupdate")
 
@@ -48,7 +48,7 @@
     })
   }
 
-  function installUpdate(e) {
+  function installUpdate(e: MouseEvent) {
     e.preventDefault()
     update.Downloading = $_("aboutPage.Launchinginstaller")
     LaunchInstaller(release.FilePath).then(result => {
@@ -56,12 +56,12 @@
     })
   }
 
-  function openFolder(e) {
+  function openFolder(e: MouseEvent) {
     e.preventDefault()
     OpenFolder(release.FilePath).then(msg => (toast("info", msg)))
   }
 
-  function downloadUpdate(e) {
+  function downloadUpdate(e: MouseEvent) {
     e.preventDefault()
     update.Downloading = $_("aboutPage.Downloadingtheupdate")
 
@@ -85,8 +85,8 @@
     })
   }
 
-  $: timer = (new Date()).getTime()/1000-$app.StartTime
-  onInterval(() => { timer = (new Date()).getTime()/1000-$app.StartTime }, 1)
+  $: timer = (new Date()).getTime()/1000-($app.StartTime?$app.StartTime:0)
+  onInterval(() => { timer = (new Date()).getTime()/1000-($app.StartTime?$app.StartTime:0)}, 1)
   /* All of this is to create a "running" timer. */
   $: days = Math.floor(timer / 86400);
   $: hours = Math.floor((timer - (days * 86400)) / 3600);
@@ -133,7 +133,7 @@
     <Col md="6">
       <h3>{$_("aboutPage.AppInfo")}</h3><!-- following line shows an error but actually works. -->
       <Card color={$conf.Dark ? "secondary" : "light"} body>
-        <Table dark={$conf.Dark} responsive>
+        <Table responsive>
           <tr><td>{$_("words.Version")}</td><td>v{$app.Version}-{$app.Revision} ({$app.GoVersion})</td></tr>
           <tr><td>{$_("words.Branch")}</td><td>{$app.Branch}</td></tr>
           <tr><td>{$_("words.Created")}</td><td>{$app.BuildDate} {$_("words.by")} {$app.BuildUser}</td></tr>

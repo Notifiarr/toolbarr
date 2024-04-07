@@ -2,7 +2,7 @@
   export let starrApp: StarrApp
   export let hidden: boolean // Avoid querying backends if hidden.
 
-  import type { StarrApp, Instance } from "/src/libs/config"
+  import type { StarrApp } from "/src/libs/config"
   import Applogo from "/src/libs/Applogo.svelte"
   import { conf } from "/src/libs/config"
   import T, { _ } from "/src/libs/Translate.svelte"
@@ -28,9 +28,12 @@
   let menuOpen = true
   let showTitle = true
   let tab = startTab
+
   let idx = $conf.Instance[starrApp] // Start with default instance.
-  let instance: Instance
-  $: instance = $conf.Instances[starrApp] ? $conf.Instances[starrApp][idx] : undefined
+  let instance = $conf.Instances[starrApp][idx]
+  $: if (!$conf.Instances[starrApp].includes(instance)) {
+    instance = $conf.Instances[starrApp][0]
+  }
 
   let width: number
   $: small = width < 1200
@@ -54,15 +57,11 @@
      <FormGroup>
       <InputGroup>
         <InputGroupText class="setting-name">{$_("words.Instance")}</InputGroupText>
-        <Input invalid={!instance} type="select" bind:value={idx}>
-        {#if $conf.Instances[starrApp] != null}
-          {#each $conf.Instances[starrApp] as val, index}
-            <option value={index}>{val.Name}: {val.URL}</option>
-          {/each}
-          {#if $conf.Instances[starrApp].length == 0}
-            <option disabled>- {$_("instances.noInstancesConfigured")} -</option>
-          {/if}
-        {:else}
+        <Input invalid={!instance||!instance.URL} type="select" bind:value={instance}>
+        {#each $conf.Instances[starrApp] as i}
+          <option value={i}>{i.Name}: {i.URL}</option>
+        {/each}
+        {#if $conf.Instances[starrApp].length < 1}
           <option disabled>- {$_("instances.noInstancesConfigured")} -</option>
         {/if}
         </Input>
