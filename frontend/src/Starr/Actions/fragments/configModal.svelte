@@ -11,21 +11,20 @@
   import { _ } from "/src/libs/Translate.svelte"
   import { Badge, Button, Modal, ModalBody, ModalFooter, ModalHeader } from "@sveltestrap/sveltestrap"
 
-  function reset(e) {
+  function reset(e: MouseEvent) {
     e.preventDefault()
     form[idx] = JSON.parse(JSON.stringify(info[idx]))
   }
 
-  function toggle(e?: any) {
-    e?.preventDefault()
+  function toggle() {
     isOpen = false
   }
 
-  function onkeydown(e) {
+  function onkeydown(e: KeyboardEvent) {
     if (e.key == "Escape") if (isOpen) e.preventDefault()
   }
 
-  function onkeyup(e) {
+  function onkeyup(e: KeyboardEvent) {
     if (e.key == "Escape") isOpen = false
   }
 </script>
@@ -33,7 +32,7 @@
 <svelte:window on:keyup={onkeyup} on:keydown={onkeydown}/>
 
 <Modal body size="lg" scrollable isOpen={isOpen}>
-  <ModalHeader {toggle}>
+  <ModalHeader toggle={toggle}>
     <Badge color="info">{id}</Badge> {name}
   </ModalHeader>
 

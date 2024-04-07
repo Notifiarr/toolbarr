@@ -4,9 +4,9 @@
   export let updating: boolean
   export let id: string
   export let selected: {[key: string]: boolean}
-  export let item = undefined
+  export let item: any = undefined
 
-  let link
+  let link: any
 </script>
 
 <tr class={selected[id]?"bg-secondary":""}>

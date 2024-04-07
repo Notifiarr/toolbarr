@@ -10,7 +10,7 @@
 
   import { _ } from "/src/libs/Translate.svelte"
   import { Button, Input, InputGroup, Tooltip } from "@sveltestrap/sveltestrap"
-  import type { InputType } from "sveltestrap/src/Input"
+  import type { InputType } from "@sveltestrap/sveltestrap"
 
   function edit(editable: boolean) {
     plaintext = !editable

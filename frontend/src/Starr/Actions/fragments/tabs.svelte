@@ -63,7 +63,7 @@
   import T, { _ } from "../../../libs/Translate.svelte"
   import { Fade, Nav, NavItem, NavLink } from "@sveltestrap/sveltestrap"
 
-  function changeTab(e, newTab) {
+  function changeTab(e: MouseEvent, newTab: Tab) {
     e.preventDefault()
     if (!updating) tab = newTab
   }

@@ -30,18 +30,18 @@
   import { EventsOff, EventsOn } from "/wailsjs/runtime/runtime"
   import { onOnce } from "/src/libs/funcs"
   import Loading from "/src/Starr/loading.svelte"
-  import type { Color } from "sveltestrap/src/shared"
+  import type { Color } from "@sveltestrap/sveltestrap/src/shared"
 
   // Used when updating root folder paths.
   let newPath: string
   let oldPath: string
   // Progress for root folder updates.
-  let progress = undefined
-  let totals
+  let progress: any = undefined
+  let totals: any
    // Used for root folder and recycle bin changes.
   let updating = false
   // Controls the Modal for updating root folder paths.
-  let action
+  let action: any
   // Message shows up after an action completes.
   let msg = ""
   let msgType: Color
@@ -74,7 +74,7 @@
     if (resp.Info) {info = resp.Info; ewPa()} // update db info
   }
 
-  function error(err) {
+  function error(err: string) {
     disableEvents()      // disable events
     action = undefined   // close action modal
     msgType = "danger"   // update message color
@@ -103,7 +103,7 @@
     EventsOn("DBfileCount", v => progress = { ...progress, ...v })
   }
 
-  function updateInvalid(table) {
+  function updateInvalid(table: string) {
     startEvents()
     UpdateInvalidItems(instance, table, newPath, invalidIDs[table]).then(
       resp => {
@@ -122,49 +122,49 @@
     UpdateRootFolder(instance, oldPath, newPath).then(success, error)
   }
 
-  function pickFolder(e) {
+  function pickFolder(e: MouseEvent) {
     e.preventDefault()
-    PickFolder($app.Home).then((path) => {
+    PickFolder($app.Home?$app.Home:"/").then((path) => {
       // PickFolder does not append a slash, and we need one here, so add it.
       if (path != "") newPath = path + ($app.IsWindows?"\\":"/")
     })
   }
 
-  function updateRecycleBin(e) {
+  function updateRecycleBin(e: MouseEvent) {
     e.preventDefault()
     updating = true
     UpdateRecycleBin(instance, newPath).then(success, error)
   }
 
-  function unsetReycleBin(e) {
+  function unsetReycleBin(e: MouseEvent) {
     e.preventDefault()
     updating = true
     UpdateRecycleBin(instance, "").then(success, error)
   }
 
-  function openRecycleChanger(e) {
+  function openRecycleChanger(e: MouseEvent) {
     e.preventDefault()
     oldPath = newPath = info.Recycle
     action = updateRecycleBin
   }
 
-  function deleteFolder(rf) {
+  function deleteFolder(rf: string) {
     updating = true
     DeleteRootFolder(instance, rf).then(success, error)
   }
 
-  function selectAll(table, all) {
+  function selectAll(table: string, all: boolean) {
     Object.keys(invalidIDs[table]).map(id => invalidIDs[table][id] = all)
   }
 
-  function openInvalidModal(e, table) {
+  function openInvalidModal(e: MouseEvent, table: string) {
     e.preventDefault()
     invalidModals[table] = true
     newPath = info.RootFolders[0] ? info.RootFolders[0] : ""
   }
 
-  function onkeydown(e) { if (e.key == "Escape") e.preventDefault() }
-  function onkeyup(e) {
+  function onkeydown(e: KeyboardEvent) { if (e.key == "Escape") e.preventDefault() }
+  function onkeyup(e: KeyboardEvent) {
     if (e.key != "Escape") return
     e.preventDefault()
     // Close all modals when escape is pressed.

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Color } from "sveltestrap/src/shared"
+  import type { Color } from "@sveltestrap/sveltestrap/src/shared"
   import { _ } from "/src/libs/Translate.svelte"
   import { Icon } from "@sveltestrap/sveltestrap"
   import { onOnce } from "/src/libs/funcs"

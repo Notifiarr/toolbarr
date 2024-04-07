@@ -4,7 +4,7 @@
 
   import Applogo from "/src/libs/Applogo.svelte"
   import { Accordion, AccordionItem, Badge, Input, InputGroup, InputGroupText } from "@sveltestrap/sveltestrap"
-  import type { Instance, StarrApp } from "/src/libs/config"
+  import type { StarrApp } from "/src/libs/config"
   import { conf } from "/src/libs/config"
   import T, { _ } from "/src/libs/Translate.svelte"
   import Inspector from "./Inspector.svelte"
@@ -16,9 +16,13 @@
   if (starrApp != "Prowlarr") tabs.push({title: "instances.FilesystemPathsMigrator", target: Migrator})
   tabs.push({title: "instances.SQLite3DatabaseInspector", target: Inspector})
    // Start with default instance.
-  let instance: Instance = $conf.Instances[starrApp] ? $conf.Instances[starrApp][$conf.Instance[starrApp]] : undefined
   let activeTab = tabs[0]
   let showTitle = true
+
+  let instance = $conf.Instances[starrApp][$conf.Instance[starrApp]]
+  $: if (!$conf.Instances[starrApp].includes(instance)) {
+    instance = $conf.Instances[starrApp][0]
+  }
 </script>
 
 <Accordion>
@@ -44,15 +48,11 @@
     <!-- Instance selector menu. -->
     <InputGroup>
       <InputGroupText class="setting-name">{$_("words.Instance")}</InputGroupText>
-      <Input type="select" id="instance" invalid={!instance} bind:value={instance}>
-        {#if $conf.Instances[starrApp] != null}
-          {#each $conf.Instances[starrApp] as instance}
-            <option value={instance}>{instance.Name}: {instance.URL}</option>
-          {/each}
-          {#if $conf.Instances[starrApp].length == 0}
-            <option disabled>- {$_("instances.noInstancesConfigured")} -</option>
-          {/if}
-        {:else}
+      <Input type="select" id="instance" invalid={!instance||!instance.DBPath} bind:value={instance}>
+        {#each $conf.Instances[starrApp] as i}
+          <option value={i}>{i.Name}: {i.URL}</option>
+        {/each}
+        {#if $conf.Instances[starrApp].length < 1}
           <option disabled>- {$_("instances.noInstancesConfigured")} -</option>
         {/if}
       </Input>

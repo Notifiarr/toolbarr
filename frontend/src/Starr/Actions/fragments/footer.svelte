@@ -22,13 +22,13 @@
   let goodMsg = ""
   $: selectedCount = count(selected)        // How many items are selected.
   $: unSaved = JSON.stringify(form) !== str // True when something changed.
-  let button
+  let button: any
 
-  function showMsg(idx, msg, data) {
+  function showMsg(idx: number, msg: string, data) {
     goodMsg += `<li>${$_("instances.SuccessMsg", {values:{"msg": msg}})}</li>`
     let kind = "update"
 
-    if (data) { // update client (repalce in place)
+    if (data) { // update client (replace in place)
       form[idx] = JSON.parse(JSON.stringify(data))
     } else {   // delete list item (remove in place)
       form.splice(idx, 1)
@@ -40,12 +40,12 @@
     dispatch(kind)
   }
 
-  function showError(idx, err) {
+  function showError(idx: number, err: string) {
     form[idx] = JSON.parse(JSON.stringify(info[idx]))
     badMsg += `<li>${$_("instances.ErrorMsg", {values:{"msg": err}})}</li>`
   }
 
-  async function updateItems(force) {
+  async function updateItems(force: boolean) {
     toast("info", $_("instances.Updating"+tab.id))
     goodMsg = badMsg = ""
     updating = true

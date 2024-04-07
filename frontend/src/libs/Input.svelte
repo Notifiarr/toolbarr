@@ -1,5 +1,7 @@
 <script lang="ts">
   import { Badge, Input, InputGroupText, Tooltip } from "@sveltestrap/sveltestrap"
+  import type { TooltipPlacement } from "@sveltestrap/sveltestrap/dist/Tooltip/Tooltip";
+  import type { InputType } from "@sveltestrap/sveltestrap/src/shared";
   import { toast, onOnce } from "/src/libs/funcs"
   import { SaveConfigItem } from "/wailsjs/go/app/App"
   import { conf } from "/src/libs/config"
@@ -7,9 +9,9 @@
   import { createEventDispatcher } from "svelte"
 
   // Like `text` or `select`.
-  export let type
+  export let type: InputType|undefined
   // Used to update the value in Go. Needs full struct path for gorilla/schema.
-  export let id
+  export let id: string
   // Used if you do not want this value changed directly.
   export let readonly = false
   // Similar to readonly, but the input dims/greys out.
@@ -23,14 +25,14 @@
   // Optional tooptip to bind to input. Derived automatically from language file.
   export let tooltip = $_("configtooltip."+id)
   // Where the tooltip goes.
-  export let placement = undefined
+  export let placement: TooltipPlacement|undefined = undefined
   // Optional value. Should only be used for binding.
-  export let value = undefined
+  export let value: any = undefined
 
   // Set this here to avoid a type-warning.
   placement = placement ? placement : "top"
 
-  let valid // Controls the green/red on success/error of a change.
+  let valid: boolean|undefined // Controls the green/red on success/error of a change.
   let timer // Allows clearing the green/red marks after an interval.
   let input // Allows importers to call the exported functions.
   let last  // This stays simple to trigger the reactive if block.
@@ -61,7 +63,7 @@
   }
 
   // This runs when the save to config file fails.
-  function failed(err) {
+  function failed(err: string) {
     valid = false // set red X mark, does not clear
     toast("error", err, $_("configvalues.CONFIGERROR"), 9)
     dispatch("error", {val: value});

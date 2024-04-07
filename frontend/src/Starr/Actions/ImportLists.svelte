@@ -1,5 +1,5 @@
 <script lang="ts">
-  export let info
+  export let info: any
   export let instance: Instance
   export let tab: Tab
   export let updating: boolean

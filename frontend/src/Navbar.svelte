@@ -34,7 +34,7 @@
   import icons from "/src/assets/bootstrap-icons.css?url"
 
   let isOpen = false // nav open/closer tracker (mobile)
-  $: pageName = $app.Title
+  $: pageName = $app.Title ? $app.Title : "Unknown"
   // Keep dark-mode class up to date with dark config setting.
   $: $conf.Dark ? window.document.body.classList.add("dark-mode") : window.document.body.classList.remove("dark-mode")
 
@@ -50,7 +50,7 @@
   })
 
   /* Prevent right-click when dev mode is disabled. */
-  function blockRightClick(e) { if (!$conf.DevMode) e.preventDefault() }
+  function blockRightClick(e: MouseEvent) { if (!$conf.DevMode) e.preventDefault() }
   document.removeEventListener("contextmenu", blockRightClick)
   document.addEventListener("contextmenu", blockRightClick)
 </script>
@@ -69,7 +69,7 @@
 <!-- This if statement prevents the app from loading until the config and locale is retrieved from the backend. -->
 {#if Object.keys($conf).length > 0 && $isReady == true}
 <Navbar color="secondary" dark={$conf.Dark} expand="md py-0">
-  <NavbarBrand on:click={(e) => (pageName = $app.Title,e.preventDefault())}>
+  <NavbarBrand on:click={(e) => (pageName =$app.Title ? $app.Title : "Unknown",e.preventDefault())}>
     <Applogo size="25px" app={pageName} />
     {$_("words."+pageName) == "words."+pageName ? pageName : $_("words."+pageName)}
   </NavbarBrand>
@@ -92,7 +92,7 @@
         <DropdownToggle nav>
           <Applogo size="20px" app="Settings" /> <span class="d-md-none">{$_("words.Configuration")}</span>
         </DropdownToggle>
-        <DropdownMenu dark={$conf.Dark} end>
+        <DropdownMenu end>
           <DropdownItem active={pageName=="Settings"} on:click={()=>nav("Settings")}>
             <Fa primaryColor="sienna" icon={faGear} /> {$_("words.Settings")}
           </DropdownItem>
