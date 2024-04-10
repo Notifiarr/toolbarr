@@ -52,8 +52,8 @@
     cv = $_("configvalues.SeriesTitle")
   }
 
-  function sort(e) {
-    if (e.target.id == sortKey) sortDir = !sortDir
+  function sort(e: any) {
+    if (e.target && e.target.id == sortKey) sortDir = !sortDir
     sortKey = e.target.id
     dispatch("update", true)
   }
@@ -66,18 +66,18 @@
 
     <!-- App Specific -->
     <th>
-      <span class="link" {id} on:keyup={sort} on:click={sort}>{cv}</span>
+      <span class="link" {id} on:keyup={sort} on:click={sort} role="link" tabindex="-1">{cv}</span>
       <Icon name={sortKey==id?caret:""}/>
     </th>
 
     <!-- All Apps -->
     <th class="d-none d-md-table-cell">
-      <span class="link" id="sourceTitle" on:keyup={sort} on:click={sort}>{$_("configvalues.SourceTitle")}</span>
+      <span class="link" id="sourceTitle" on:keyup={sort} on:click={sort} role="link" tabindex="-2">{$_("configvalues.SourceTitle")}</span>
       <Icon name={sortKey=="sourceTitle"?caret:""}/>
     </th>
     <th>{$_("words.Quality")}</th>
       <th>
-        <span class="link" id="date" on:keyup={sort} on:click={sort}>{$_("words.Date")}</span>
+        <span class="link" id="date" on:keyup={sort} on:click={sort} role="link" tabindex="-3">{$_("words.Date")}</span>
         <Icon name={sortKey=="date"?caret:""}/>
       </th>
     </tr>

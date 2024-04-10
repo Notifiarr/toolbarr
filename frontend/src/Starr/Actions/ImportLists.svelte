@@ -207,10 +207,10 @@
 
 <Card class="p-1" color="secondary">
   <!-- <Tooltip target="exclusions">Close this card to reset the Exclusions form.</Tooltip> -->
-  <h5 style="cursor:pointer" on:keyup={()=>{exclusionsOpen=!exclusionsOpen}} on:click={()=>{exclusionsOpen=!exclusionsOpen}}>
+  <h5><span on:keyup={()=>{exclusionsOpen=!exclusionsOpen}} on:click={()=>{exclusionsOpen=!exclusionsOpen}} role="link" tabindex="-1">
     <span id="exclusions">Import List Exclusions</span>
     <Icon class="text-info" name={exclusionsOpen?"caret-down-fill":"caret-up"}/>
-  </h5>
+  </span></h5>
   <Collapse isOpen={exclusions != undefined && exclusionsOpen}>
     <Exclusions bind:updating info={exclusions} {instance}/>
   </Collapse>

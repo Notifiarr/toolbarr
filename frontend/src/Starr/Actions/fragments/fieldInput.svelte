@@ -8,7 +8,7 @@
   import { _ } from "/src/libs/Translate.svelte"
   import { Input, InputGroup, InputGroupText, Tooltip } from "@sveltestrap/sveltestrap"
 
-  let input
+  let input: HTMLElement
   // changed.
   $: invalid = info[idx].fields[itemIdx].value != form[idx].fields[itemIdx].value
 </script>

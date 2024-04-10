@@ -1,9 +1,10 @@
 <script lang="ts">
   export let tab: Tab
-  export let info
-  export let instance
+  export let info: any
+  export let instance: Instance
   export let updating: boolean
 
+  import type { Instance } from "/src/libs/config"
   import type { Tab } from "./fragments/tabs.svelte"
   import { _ } from "/src/libs/Translate.svelte"
   import Footer from "./fragments/footer.svelte"

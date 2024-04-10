@@ -25,7 +25,7 @@
 <th>
   <span>
     <Icon class="small text-{color}" name={icon}/>
-    <span class={updating?"":"link"} on:keypress={selectAll} on:click={selectAll}>
+    <span class={updating?"":"link"} on:keypress={selectAll} on:click={selectAll} role="link" tabindex="-1">
       {$_("words.All")}
     </span>
   </span>

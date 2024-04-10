@@ -25,7 +25,7 @@
   import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons"
 
   let rawOpen = false
-  let info = undefined
+  let info: any = undefined
   let prevTab = tab
   let prevURL = ""
   // These are only used for pageable content.
@@ -38,7 +38,7 @@
   // update info when tab or instance changes.
   $: if (tab&&instance&&!hidden) update({})
 
-  async function update(e) {
+  async function update(e: any) {
     if (prevURL === instance.URL && prevTab === tab && info && !e.detail) return
 
     prevTab = tab
@@ -46,8 +46,8 @@
     info = undefined
 
     if (instance.URL=="") return
-    if (tab.page) {
-      await tab.data(instance, pageSize, page, sortKey, sortDir?"ascending":"descending").then(
+    if (tab.pageData) {
+      await tab.pageData(instance, pageSize, page, sortKey, sortDir?"ascending":"descending").then(
         rep => {
           info = rep
           prevURL = instance.URL
@@ -55,7 +55,7 @@
         },
         err => toast("error", err),
       )
-    } else {
+    } else if (tab.data) {
       await tab.data(instance).then(
         rep => { info = rep; prevURL = instance.URL },
         err => toast("error", err),
@@ -77,7 +77,7 @@
     {#if info}
     <div id="container" class={$conf.Dark?"dark-mode":""}>
       <!-- We have all the pieces we need. Load the selected tab's component. -->
-      {#if !tab.page}
+      {#if !tab.pageData}
         <svelte:component this={tab.component} {instance} {tab} bind:info bind:updating />
       {:else}<!-- tab is pagable-->
         <svelte:component {instance} {tab}

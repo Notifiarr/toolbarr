@@ -22,9 +22,9 @@
   let goodMsg = ""
   $: selectedCount = count(selected)        // How many items are selected.
   $: unSaved = JSON.stringify(form) !== str // True when something changed.
-  let button: any
+  let button: HTMLElement
 
-  function showMsg(idx: number, msg: string, data) {
+  function showMsg(idx: number, msg: string, data: any) {
     goodMsg += `<li>${$_("instances.SuccessMsg", {values:{"msg": msg}})}</li>`
     let kind = "update"
 
@@ -54,13 +54,13 @@
       if (JSON.stringify(form[idx]) == JSON.stringify(info[idx])) continue // not changed
       if (noForce) {
         await update[tab.id][instance.App](instance, form[idx]).then(
-          (resp) => showMsg(idx, resp.Msg, resp.Data),
-          (err) => showError(idx, err)
+          (resp: any) => showMsg(idx, resp.Msg, resp.Data),
+          (err: string) => showError(idx, err)
         )
       } else {
         await update[tab.id][instance.App](instance, force, form[idx]).then(
-          (resp) => showMsg(idx, resp.Msg, resp.Data),
-          (err) => showError(idx, err)
+          (resp: any) => showMsg(idx, resp.Msg, resp.Data),
+          (err: string) => showError(idx, err)
         )
       }
     }
@@ -79,8 +79,8 @@
     for (var idx = info.length-1; idx >= 0; idx--) {
       if (!selected[info[idx].id]) continue // Not selected.
       await remove[tab.id][instance.App](instance, info[idx].id).then(
-        (msg) => showMsg(idx, msg, false),
-        (err) => showError(idx, err)
+        (msg: string) => showMsg(idx, msg, false),
+        (err: string) => showError(idx, err)
       )
     }
 
@@ -96,8 +96,8 @@
     for (var idx = info.length-1; idx >= 0; idx--) {
       if (!selected[info[idx].id]) continue // Not selected.
       await test[tab.id][instance.App](instance, info[idx]).then(
-        (msg) => {goodMsg += `<li>${$_("instances.SuccessMsg", {values:{"msg": msg}})}</li>`},
-        (err) => {badMsg += `<li>${$_("instances.ErrorMsg", {values:{"msg": err}})}</li>`},
+        (msg: string) => {goodMsg += `<li>${$_("instances.SuccessMsg", {values:{"msg": msg}})}</li>`},
+        (err: string) => {badMsg += `<li>${$_("instances.ErrorMsg", {values:{"msg": err}})}</li>`},
       )
     }
 

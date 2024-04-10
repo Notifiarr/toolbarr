@@ -19,21 +19,21 @@
   } from "/wailsjs/go/starrs/Starrs"
 
   export type Tab = {
-    data: (instance: any, pageSize?: number, page?: number, sortKey?: string, sortDir?: string) => Promise<any>
+    data?: (instance: any) => Promise<any>
+    pageData?: (instance: any, pageSize: number, page: number, sortKey: string, sortDir: string) => Promise<any>
     id: string
     component?: ComponentType
-    page?: boolean
   }
 
   // All apps have these tabs.
   const commonTabs: Tab[] = [
     { data: Indexers, id: "Indexers", component: indexers },
-    { data: Downloaders, id: "DownloadClients", component: downloadClients },
+    { data: Downloaders, id: "DownloadClients", component: downloadClients }
   ]
 
   // Everything but Prowlarr.
   const starrTabs = commonTabs.concat([
-    { data: BlockList, id: "BlockLists", component: blockList, page: true },
+    { pageData: BlockList, id: "BlockLists", component: blockList },
     { data: QualityProfiles, id: "QualityProfiles", component: qualityProfiles },
     { data: ImportLists, id: "ImportLists", component: importLists },
   ])

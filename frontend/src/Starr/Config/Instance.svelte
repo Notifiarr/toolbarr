@@ -34,26 +34,23 @@
     }
   }
 
-  let info
+  let info: any
   let testOK = false
   let passLocked = true
   let keyLocked = !newInstance
 
-  const reset: any = {}
-  Object.keys(instance).map((k) =>{ reset[k] = instance[k] })
-  onDestroy(() => Object.keys(reset).map((k) => {
-    instance[k] = reset[k]
-  }))
+  let reset: Instance = {...instance}
+  onDestroy(() => (instance = {...reset}))
 
-  function pickDbFile(start) {
-    PickFile(start?start:$app.Home, "sqlite3 (*.db)", "*.db").then(
-      path => { if (path != "") instance.DBPath = path },
+  function pickDbFile(start?: string) {
+    PickFile(start?start:$app.Home?$app.Home:"/", "sqlite3 (*.db)", "*.db").then(
+      path => { if (path != "" && instance) instance.DBPath = path },
     )
   }
 
-  function saveInstance(e) {
+  function saveInstance(e: SubmitEvent) {
     e.preventDefault()
-    const val = new FormData(e.target)
+    const val = new FormData(e.target as HTMLFormElement)
 
     if (val.get("Reset")) {
       instance = {...reset}
@@ -77,12 +74,12 @@
         },
         err => {toast("error", err)},
       )
-    } else {
+    } else if (instance) {
       SaveInstance(index, instance, defaultInstance).then(
         resp => {
           if (resp.List) $conf.Instances[starrApp] = resp.List
           if (resp.Msg) toast("success", resp.Msg)
-          Object.keys(instance).map((k) =>{ reset[k] = instance[k] })
+          if (instance) reset = {...instance}
           if (defaultInstance) $conf.Instance[starrApp] = index
           isDefault = defaultInstance
         },
@@ -168,7 +165,7 @@
     <!-- DB file path -->
     <FormGroup floating>
       <InputGroup>
-        <Button style="text-align:left" class="setting-name" color="secondary" on:click={(e) => {e.preventDefault(); pickDbFile(instance.DBPath)}}>
+        <Button style="text-align:left" class="setting-name" color="secondary" on:click={(e) => {e.preventDefault(); pickDbFile(instance?.DBPath)}}>
           <Fa icon="{faFolderOpen}" /> {$_("words.DBPath")}
         </Button>
         <Input feedback={$_("words.Unsaved")} invalid={reset.DBPath != instance.DBPath} 
@@ -178,10 +175,10 @@
     </FormGroup>
     <!-- action buttons -->
     <Button class="actions" color="primary">{$_("words.Save")}</Button>
-    <Button class="actions" color="success" name="Test" value={true}>{$_("words.Test")}</Button>
+    <Button class="actions" color="success" name="Test" value="true">{$_("words.Test")}</Button>
     {#if !newInstance}
-      <Button class="actions delete" disabled={newInstance} color="danger" name="Delete" value={true}>{$_("words.Delete")}</Button>
-      <Button class="actions" disabled={newInstance} color="warning" name="Reset" value={true}>{$_("words.Reset")}</Button>
+      <Button class="actions delete" disabled={newInstance} color="danger" name="Delete" value="true">{$_("words.Delete")}</Button>
+      <Button class="actions" disabled={newInstance} color="warning" name="Reset" value="true">{$_("words.Reset")}</Button>
     {/if}
     <Alert isOpen={info!=undefined} color={testOK?"success":"danger"} dismissible>{@html info}</Alert>
   </Form>

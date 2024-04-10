@@ -29,7 +29,7 @@
       {#if type == "switch"}
         <Input disabled={updating} type="switch" bind:checked={form[idx][field]} />
       {:else if type == "text"}
-      <div class="link"
+      <div class="link" role="link" tabindex="-1"
         on:focusout={() => edit(false)}
         on:focusin={() => edit(true)}
         on:keyup={() => edit(true)}

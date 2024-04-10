@@ -13,11 +13,11 @@
   import { onOnce } from "/src/libs/funcs"
 
   $: title = name ? $_(name) : $_(`instances.${field}Title`)
-  let dropdown
+  let dropdown: HTMLElement
 
-  function toggleAll(key, on) {
+  function toggleAll(key: string, on: boolean) {
     var idx = 0.15 // initial delay to click.
-    form.forEach((_, i) => { // progressively faster.
+    form.forEach((_: any, i: number) => { // progressively faster.
       onOnce(() => {form[i][key] = on}, idx += 0.08 - (idx/14))
     })
   }
@@ -29,7 +29,7 @@
 <Dropdown size="sm">
   <DropdownToggle tag="span" class="link">
     <span bind:this={dropdown}>
-      {title.match(/\b(\w)/g).join('').substring(0,2)} <Fa primaryColor="darkCyan" icon={faCircleInfo}/>
+      {title.match(/\b(\w)/g)?.join('').substring(0,2)} <Fa primaryColor="darkCyan" icon={faCircleInfo}/>
     </span>
   </DropdownToggle>
   <DropdownMenu>
