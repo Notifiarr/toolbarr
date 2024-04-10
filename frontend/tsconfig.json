@@ -34,9 +34,9 @@
   },
     
   "include": [
+    "./vite.config.js",
     "src/**/*.d.ts",
     "src/**/*.d.js",
     "src/**/*.svelte"
-  ],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  ]
 }
