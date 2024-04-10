@@ -1,4 +1,4 @@
-<svelte:options tag="open-browser"/>
+<svelte:options customElement="open-browser"/>
 
 <!-- This allows us to open an external link in a browser. -->
 <script lang="ts">

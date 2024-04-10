@@ -18,7 +18,7 @@ function isWebComponentSvelte(code) {
   if(svelteOptionsIdx < 0) return false
 
   // Check if `tag=` exists as a prop in svelte:options.
-  const tagOptionIdx = code.indexOf('tag=', svelteOptionsIdx)
+  const tagOptionIdx = code.indexOf('customElement=', svelteOptionsIdx)
   const svelteOptionsEndIdx = code.indexOf('>',svelteOptionsIdx);
   return tagOptionIdx > svelteOptionsIdx && tagOptionIdx < svelteOptionsEndIdx
 }

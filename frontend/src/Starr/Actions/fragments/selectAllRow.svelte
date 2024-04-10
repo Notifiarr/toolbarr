@@ -6,7 +6,7 @@
   export let selected: {[key: string]: boolean}
   export let item: any = undefined
 
-  let link: any
+  let link: HTMLElement
 </script>
 
 <tr class={selected[id]?"bg-secondary":""}>

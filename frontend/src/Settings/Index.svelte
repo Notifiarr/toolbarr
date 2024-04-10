@@ -36,7 +36,7 @@
       <Form class="Settings">
         <div on:mouseenter={() => {confSpin=true}} on:mouseleave={() => {confSpin=false}} role="link" tabindex="-1">
           <InputGroup>
-            <ConfigInput locked type="text" id="Unused" placement="bottom" />
+            <ConfigInput locked type="text" id="File" placement="bottom" />
             <Button on:click={(e) => {e.preventDefault();confHelp = !confHelp}}>
               <Fa primaryColor="cyan" spin={confSpin} icon="{faQuestion}" />
             </Button>

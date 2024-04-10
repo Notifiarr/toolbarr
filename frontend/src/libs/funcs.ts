@@ -2,9 +2,10 @@ import { toasts }  from "svelte-toasts"
 import { onDestroy } from "svelte"
 import { conf } from "/src/libs/config"
 import { _, isReady } from "/src/libs/Translate.svelte"
+import type { ToastProps, ToastType }  from "svelte-toasts/types/common"
 
 // Keep track of toasts so their theme may be kept up to date.
-const sentToasts = []
+const sentToasts: ToastProps[] = []
 
 let errorWord = "ERROR"
 isReady.subscribe(ready => {
@@ -18,14 +19,14 @@ conf.subscribe((value) => {
   sentToasts.forEach(t => t.theme = isDark ? "dark" : "light")
 })
 
-export function toast(type, msg, title="", seconds=7) {
+export function toast(type: ToastType, msg: string, title="", seconds=7) {
   const thisToast = toasts.add({
     title: title != "" ? title : type == "error" ? errorWord : "",
     description: msg,
     duration: seconds*1000,
     theme: isDark ? "dark" : "light",
     type: type,
-    onClick: () => {thisToast.remove()},
+    onClick: () => {thisToast.remove?thisToast.remove():''},
     showProgress: true,
     onRemove: () => { // Remove itself from the running list.
       const index = sentToasts.indexOf(thisToast)
@@ -37,7 +38,7 @@ export function toast(type, msg, title="", seconds=7) {
 }
 
 // onInterval sets an interval and destroys it when it when the page changes.
-export function onInterval(callback, seconds) {
+export function onInterval(callback: () => void, seconds: number) {
   const interval = setInterval(callback, seconds*1000)
   onDestroy(() => clearInterval(interval))
 
@@ -45,22 +46,22 @@ export function onInterval(callback, seconds) {
 }
 
 // onOnce sets a timer and expires it after one invocation.
-export function onOnce(callback, seconds) {
-  const interval = setInterval(input => {
+export function onOnce(callback: () => void, seconds: number) {
+  const interval = setInterval(() => {
     clearInterval(interval)
-    callback(input)
+    callback()
   }, seconds*1000)
 
   return interval
 }
 
-export function count(selected, key?): number {
+export function count(selected: Record<any, any>, key?: string): number {
   let counter = 0
 
   if (key) {
-    for (var k in selected) if (selected[k][key]) counter++
+    for (var k in selected) if (selected[k][key] === true) counter++
   } else {
-    for (var k in selected) if (selected[k]) counter++
+    for (var k in selected) if (selected[k] === true) counter++
   }
 
   return counter

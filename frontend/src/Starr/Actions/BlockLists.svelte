@@ -31,7 +31,7 @@
   const starrApp = instance.App
   const caret = sortDir ? "caret-up" : "caret-down"
   let all = false
-  let selected: any = {}
+  let selected: {[key: string]: boolean} = {}
   let str: string = JSON.stringify(info.records)
   let form: any = JSON.parse(str)
 

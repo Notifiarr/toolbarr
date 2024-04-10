@@ -32,7 +32,7 @@
   let idx = $conf.Instance[starrApp] // Start with default instance.
   let instance = $conf.Instances[starrApp][idx]
   $: if (!$conf.Instances[starrApp].includes(instance)) {
-    instance = $conf.Instances[starrApp][0]
+    instance = $conf.Instances[starrApp][$conf.Instance[starrApp]]
   }
 
   let width: number

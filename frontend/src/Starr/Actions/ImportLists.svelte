@@ -28,7 +28,7 @@
 
   let isOpen: any = {}       // Modal toggle control.
   let all: boolean = false       // Toggle for select-all link.
-  let selected: any = {}     // Rows selected by key: ID.
+  let selected: {[key: string]: boolean} = {} // Rows selected by key: ID.
   let str: string = fixFieldValues(info) // Used for equivalence comparison.
   let form: any = JSON.parse(str)     // Form changes go here.
   let starrApp = instance.App
@@ -207,10 +207,12 @@
 
 <Card class="p-1" color="secondary">
   <!-- <Tooltip target="exclusions">Close this card to reset the Exclusions form.</Tooltip> -->
-  <h5><span on:keyup={()=>{exclusionsOpen=!exclusionsOpen}} on:click={()=>{exclusionsOpen=!exclusionsOpen}} role="link" tabindex="-1">
-    <span id="exclusions">Import List Exclusions</span>
-    <Icon class="text-info" name={exclusionsOpen?"caret-down-fill":"caret-up"}/>
-  </span></h5>
+  <h5 style="cursor:pointer">
+    <span on:keyup={()=>{exclusionsOpen=!exclusionsOpen}} on:click={()=>{exclusionsOpen=!exclusionsOpen}} role="link" tabindex="-1">
+      <span id="exclusions">Import List Exclusions</span>
+      <Icon class="text-info" name={exclusionsOpen?"caret-down-fill":"caret-up"}/>
+    </span>
+  </h5>
   <Collapse isOpen={exclusions != undefined && exclusionsOpen}>
     <Exclusions bind:updating info={exclusions} {instance}/>
   </Collapse>
