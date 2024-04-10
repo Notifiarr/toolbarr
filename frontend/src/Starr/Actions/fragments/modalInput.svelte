@@ -19,14 +19,14 @@
   $: tooltip = desc ? $_(desc, vals) : $_(`instances.${field}Desc`, vals)
   $: title = name ? $_(name) : $_(`instances.${field}Title`)
 
-  function applyToAll(field, idx) {
+  function applyToAll(field: string, idx: number) {
     for (const listID in form) {
       form[listID][field] = form[idx][field]
     }
   }
 
-  let input
-  let button
+  let input: HTMLElement
+  let button: HTMLElement
 </script>
 
 {#if form[idx][field] !== undefined}

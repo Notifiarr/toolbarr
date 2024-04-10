@@ -4,9 +4,9 @@
   import type { InputType } from "@sveltestrap/sveltestrap/src/shared";
   import { toast, onOnce } from "/src/libs/funcs"
   import { SaveConfigItem } from "/wailsjs/go/app/App"
-  import { conf } from "/src/libs/config"
+  import { conf, type AppConfig } from "/src/libs/config"
   import { _ } from "/src/libs/Translate.svelte"
-  import { createEventDispatcher } from "svelte"
+  import { SvelteComponent, createEventDispatcher } from "svelte"
 
   // Like `text` or `select`.
   export let type: InputType|undefined
@@ -33,16 +33,16 @@
   placement = placement ? placement : "top"
 
   let valid: boolean|undefined // Controls the green/red on success/error of a change.
-  let timer // Allows clearing the green/red marks after an interval.
-  let input // Allows importers to call the exported functions.
-  let last  // This stays simple to trigger the reactive if block.
+  let timer: number|undefined // Allows clearing the green/red marks after an interval.
+  let input: SvelteComponent // Allows importers to call the exported functions.
+  let last: any  // This stays simple to trigger the reactive if block.
 
   // Messages get dispatched on update, change and error.
 	const dispatch = createEventDispatcher();
 
   // This reactive if block updates the config when the 'value' changes.
   $: if (value == undefined) {
-    value = last = $conf[id] // Set the initial value from the config.
+    value = last = $conf[id as keyof AppConfig] // Set the initial value from the config.
   } else if (value != last) {
     clearInterval(timer) // clears previous timer (if exists)
     last = value // prevent infinite loops.
@@ -51,9 +51,13 @@
   }
 
   // This runs on successful save to config file.
-  function saved(resp){
-    valid = true         // set green check mark
-    $conf[id] = value  // updates running config in javascript store
+  function saved(resp: any){
+    valid = true      // set green check mark
+    if ($conf[id as keyof AppConfig] !== undefined) {
+      // updates running config in javascript store
+      $conf[id as keyof AppConfig] = value
+    }
+
     timer = onOnce(() => {valid=undefined}, 5) // clears green check mark
     dispatch("change", {val: value});
     // Send only 1 toast.
@@ -70,7 +74,7 @@
   }
 
   // Allows updating/saving inputs (readonly or not) from other inputs.
-  export function update(val) { value = val }
+  export function update(val: any) { value = val }
 </script>
 
 {#if tooltip != "configtooltip."+id && tooltip != ""}

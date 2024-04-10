@@ -6,11 +6,12 @@
   import { app, conf } from "/src/libs/config"
   import ConfigInput from "/src/libs/Input.svelte"
   import T, { _ } from "/src/libs/Translate.svelte"
+  import type { SvelteComponent } from "svelte";
 
-  let confPath
+  let confPath: SvelteComponent
   // This func opens a "pick a folder" dialog and populates the Log File Path with the current config file folder.
-  function getLogFolder(event) {
-    event.preventDefault()
+  function getLogFolder(e: MouseEvent) {
+    e.preventDefault()
     PickFolder("").then(path => {if (path != "") confPath.update(path)})
   }
 </script>

@@ -46,9 +46,10 @@
     return endPage-5 > 0 ? endPage-5 : 1
   }
 
-  function setSize(e) {
+  function setSize(e: MouseEvent) {
     e.preventDefault()
-    const newSize = parseInt(e.target.value)
+    const target = e.target as HTMLSelectElement;
+    const newSize = parseInt(target.value)
     if (newSize == pageSize) return
     page = 1 // need to start the page over too.
     pageSize = newSize

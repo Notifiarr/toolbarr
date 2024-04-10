@@ -51,7 +51,7 @@ import {
   TestWhisparrImportList,
 } from "/wailsjs/go/starrs/Starrs"
 
-export function fixFieldValues(info) {
+export function fixFieldValues(info: {[key: string]: any}): string {
   info.forEach((item, idx) => {
     if (!item.fields) return
     item.fields.forEach((field, itemIdx) => {
@@ -62,7 +62,7 @@ export function fixFieldValues(info) {
   return JSON.stringify(info)
 }
 
-export const remove = {
+export const remove: {[key: string]: {[key: string]: (...args: any[]) => Promise<any>;}} = {
   "BlockLists": {
     "Lidarr":   DeleteBlockList,
     "Prowlarr": DeleteBlockList,
@@ -112,7 +112,7 @@ export const remove = {
   }
 }
 
-export const update = {
+export const update: {[key: string]: {[key: string]: (...args: any[]) => Promise<any>;}} = {
   "DownloadClients": {
     "Lidarr":   UpdateLidarrDownloadClient,
     "Prowlarr": UpdateProwlarrDownloadClient,
@@ -152,7 +152,7 @@ export const update = {
   },
 }
 
-export const test = {
+export const test:  {[key: string]: {[key: string]: (...args: any[]) => Promise<string>;}} = {
   "DownloadClients": {
     "Lidarr":   TestLidarrDownloadClient,
     "Prowlarr": TestProwlarrDownloadClient,

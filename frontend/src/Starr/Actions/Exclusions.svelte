@@ -20,7 +20,7 @@
   import { Table } from "@sveltestrap/sveltestrap"
 
   let all: boolean = false      // Toggle for select-all link.
-  let selected: any = {}        // Rows selected by key: ID.
+  let selected: {[key: string]: boolean} = {} // Rows selected by key: ID.
   let str: string = JSON.stringify(info) // Used for equivalence comparison.
   let form: any = JSON.parse(str)        // Form changes go here.
   let starrApp = instance.App

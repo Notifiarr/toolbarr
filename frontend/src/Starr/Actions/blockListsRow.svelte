@@ -9,17 +9,17 @@
   import { _, date } from "/src/libs/Translate.svelte"
   import { conf } from "/src/libs/config"
 
-  function poster(data): string {
+  function poster(data: any): string {
     let url = "."
-    data.forEach(item => {
+    data.forEach((item: any) => {
       if (item.coverType == "poster") url = item.url?item.url:item.remoteUrl
     })
     return url
   }
 
-  function getName(id, list) {
+  function getName(id: any, list: any) {
     let name = id
-    list.forEach((item) => {
+    list.forEach((item: any) => {
       if (item.id == id) {
         name = item.name
         return name

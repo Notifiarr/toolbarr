@@ -1,9 +1,10 @@
 <script lang="ts">
   export let tab: Tab
-  export let info
-  export let instance
+  export let info: any
+  export let instance: Instance
   export let updating: boolean
 
+  import type { Instance } from "/src/libs/config"
   import type { Tab } from "./fragments/tabs.svelte"
   import { _ } from "/src/libs/Translate.svelte"
   import Footer from "./fragments/footer.svelte"
@@ -18,7 +19,7 @@
 
   let isOpen: any = {}           // Modal toggle control.
   let all: boolean = false       // Toggle for select-all link.
-  let selected: any = {}         // Rows selected by key: ID.
+  let selected: {[key: string]: boolean} = {} // Rows selected by key: ID.
   let str: string = JSON.stringify(info) // Used for equivalence comparison.
   let form: any = JSON.parse(str)        // Form changes go here.
 </script>

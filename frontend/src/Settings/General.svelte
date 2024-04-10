@@ -8,7 +8,7 @@
   import T, { _ } from "/src/libs/Translate.svelte"
 
   let langHelp = false
-  let langs = undefined
+  let langs: {[key: string]: string;}
   const update = () => Languages().then(v => langs = v)
   update()
 </script>

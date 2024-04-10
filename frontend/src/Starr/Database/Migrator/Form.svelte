@@ -46,22 +46,22 @@
   let msg = ""
   let msgType: Color
   // Controls the Modals for invalid paths display.
-  let invalidModals = {}
-  let invalidIDs = {}
+  let invalidModals: {[key: string]: boolean} = {}
+  let invalidIDs: {[key: string]: {[key: string]: boolean}} = {}
 
   // Fill in the invalidIDs array.
   // This allows collecting check boxes for items to fix.
   function ewPa() {
     Object.keys(info.Invalid).map((table) => {
       invalidIDs[table] = {}
-      info.Invalid[table].map((invalidItem) => {
+      info.Invalid[table].map((invalidItem: any) => {
         invalidIDs[table][invalidItem.ID] = false
       })
     })
   }
   ewPa()
 
-  function success(resp) {
+  function success(resp: any) {
     disableEvents()      // turn off events
     onOnce(() => {       // wait ~1s for these
       action = undefined // close action modal
