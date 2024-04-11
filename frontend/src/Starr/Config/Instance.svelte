@@ -1,7 +1,18 @@
 <script lang="ts">
   export let starrApp: StarrApp
   export let index: number
-  export let instance: Instance|undefined = undefined
+  export let instance: Instance = { // It's new.
+    Key: "",
+    User: "",
+    Pass: "",
+    DBPath: "",
+    App: starrApp,
+    Name: starrApp+(index+1),
+    URL: `http://127.0.0.1:${port[starrApp]}/${starrApp.toLowerCase()}`,
+    SSL: false,
+    Form: false,
+    Timeout: 120000000000,
+  }
   export let defaultInstance: boolean = false
 
   import type { StarrApp, Instance } from "/src/libs/config"
@@ -16,24 +27,8 @@
   import { onDestroy } from "svelte"
   import T, { _ } from "/src/libs/Translate.svelte"
 
+  const newInstance = (instance === undefined || Object.keys(instance).length < 1)
   let isDefault = defaultInstance
-  let newInstance = false
-  if (instance == undefined || Object.keys(instance).length == 0) {
-    newInstance = true
-    instance = { // It's new.
-      Key: "",
-      User: "",
-      Pass: "",
-      DBPath: "",
-      App: starrApp,
-      Name: starrApp+(index+1),
-      URL: `http://127.0.0.1:${port[starrApp]}/${starrApp.toLowerCase()}`,
-      SSL: false,
-      Form: false,
-      Timeout: 120000000000,
-    }
-  }
-
   let info: any
   let testOK = false
   let passLocked = true
@@ -48,51 +43,56 @@
     )
   }
 
-  function saveInstance(e: SubmitEvent) {
+  function testInstance(e: MouseEvent) {
     e.preventDefault()
-    const val = new FormData(e.target as HTMLFormElement)
+    info = undefined
+    TestInstance(instance).then(
+      msg => {
+        info = msg
+        testOK = true
+      },
+      err => {
+        info = err
+        testOK = false
+      },
+    )
+  }
 
-    if (val.get("Reset")) {
-      instance = {...reset}
-    } else if (val.get("Test")) {
-      info = undefined
-      TestInstance(instance).then(
-        msg => {
-          info = msg
-          testOK = true
-        },
-        err => {
-          info = err
-          testOK = false
-        },
-      )
-    } else if (val.get("Delete")) {
-      RemoveInstance(index, starrApp).then(
+  function removeInstance(e: MouseEvent) {
+    e.preventDefault()
+    RemoveInstance(index, starrApp).then(
         resp => {
           if (resp.List) $conf.Instances[starrApp] = resp.List
           if (resp.Msg) toast("info", resp.Msg)
         },
         err => {toast("error", err)},
       )
-    } else if (instance) {
-      SaveInstance(index, instance, defaultInstance).then(
-        resp => {
-          if (resp.List) $conf.Instances[starrApp] = resp.List
-          if (resp.Msg) toast("success", resp.Msg)
-          if (instance) reset = {...instance}
-          if (defaultInstance) $conf.Instance[starrApp] = index
-          isDefault = defaultInstance
-        },
-        err => {toast("error", err)},
-      )
-    }
+  }
+
+  function resetInstance(e: MouseEvent) {
+    e.preventDefault()
+    instance = {...reset}
+  }
+
+  function saveInstance(e: MouseEvent) {
+    e.preventDefault()
+    SaveInstance(index, instance, defaultInstance).then(
+      resp => {
+        if (resp.List) $conf.Instances[starrApp] = resp.List
+        if (resp.Msg) toast("success", resp.Msg)
+        if (instance) reset = {...instance}
+        if (defaultInstance) $conf.Instance[starrApp] = index
+        isDefault = defaultInstance
+      },
+      err => {toast("error", err)},
+    )
   }
 </script>
 
 {$_("instances.instanceConfig")}
 <div id="container">
   {#if instance}
-  <Form on:submit={saveInstance}>
+  <Form>
     <Input type="text" hidden id="App" bind:value={instance.App} />
     <!-- Name -->
     <FormGroup floating>
@@ -174,11 +174,11 @@
       </InputGroup>
     </FormGroup>
     <!-- action buttons -->
-    <Button class="actions" color="primary">{$_("words.Save")}</Button>
-    <Button class="actions" color="success" name="Test" value="true">{$_("words.Test")}</Button>
+    <Button class="actions" color="primary" on:click={saveInstance}>{$_("words.Save")}</Button>
+    <Button class="actions" color="success" on:click={testInstance}>{$_("words.Test")}</Button>
     {#if !newInstance}
-      <Button class="actions delete" disabled={newInstance} color="danger" name="Delete" value="true">{$_("words.Delete")}</Button>
-      <Button class="actions" disabled={newInstance} color="warning" name="Reset" value="true">{$_("words.Reset")}</Button>
+      <Button class="actions delete" disabled={newInstance} color="danger" on:click={removeInstance}>{$_("words.Delete")}</Button>
+      <Button class="actions" disabled={newInstance} color="warning"  on:click={resetInstance}>{$_("words.Reset")}</Button>
     {/if}
     <Alert isOpen={info!=undefined} color={testOK?"success":"danger"} dismissible>{@html info}</Alert>
   </Form>

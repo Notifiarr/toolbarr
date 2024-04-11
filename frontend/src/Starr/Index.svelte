@@ -11,7 +11,7 @@
   import type { StarrApp } from "/src/libs/config"
 
   // Keep track of the active tab.
-  let tab: string | number
+  let tab: string | number = "Config"
 </script>
 
 <BackgroundLogo {hidden} url="starr">

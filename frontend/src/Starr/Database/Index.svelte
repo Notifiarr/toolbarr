@@ -4,7 +4,7 @@
 
   import Applogo from "/src/libs/Applogo.svelte"
   import { Accordion, AccordionItem, Badge, Input, InputGroup, InputGroupText } from "@sveltestrap/sveltestrap"
-  import type { StarrApp } from "/src/libs/config"
+  import type { Instance, StarrApp } from "/src/libs/config"
   import { conf } from "/src/libs/config"
   import T, { _ } from "/src/libs/Translate.svelte"
   import Inspector from "./Inspector.svelte"
@@ -15,13 +15,13 @@
   const tabs: {title: string, target: ComponentType}[] = []
   if (starrApp != "Prowlarr") tabs.push({title: "instances.FilesystemPathsMigrator", target: Migrator})
   tabs.push({title: "instances.SQLite3DatabaseInspector", target: Inspector})
-   // Start with default instance.
+
   let activeTab = tabs[0]
   let showTitle = true
-
-  let instance = $conf.Instances[starrApp][$conf.Instance[starrApp]]
-  $: if (!$conf.Instances[starrApp].includes(instance)) {
-    instance = $conf.Instances[starrApp][0]
+  let idx = $conf.Instance[starrApp] // Start with default instance.
+  let instance: Instance|undefined = $conf.Instances[starrApp]?$conf.Instances[starrApp][idx]:undefined
+  $: if (!instance || !$conf.Instances[starrApp].includes(instance)) {
+    instance = $conf.Instances[starrApp]?$conf.Instances[starrApp][$conf.Instance[starrApp]]:undefined
   }
 </script>
 

@@ -30,6 +30,10 @@ body .navbar {
 body.dark-mode .navbar {
   background-image: linear-gradient(to left, #334858 , #13171a);
 }
+/* Top navbar title color */
+body.dark-mode .navbar-brand {
+  color: #356158;
+}
 
 /* Make the nav tabs look better. */
 body .nav-tabs {
@@ -41,9 +45,15 @@ body .nav-tabs {
   --bs-nav-tabs-link-hover-border-color: #334858 #334858 #334858;
   --bs-nav-tabs-link-active-border-color: #495057 #495057 #495057;
 }
-body.dark-mode .nav-link.active {
-  color: #ece7dd !important;
+
+body.dark-mode .navbar-nav .nav-link {
+  color: #806f4e;
 }
+
+body.dark-mode .nav-link.active {
+  color: #b8dec6;
+}
+
 body.dark-mode .nav-link:hover {
   color: #67a69a;
 }
