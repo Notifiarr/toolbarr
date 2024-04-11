@@ -3,8 +3,10 @@ package starrs
 import (
 	"fmt"
 	"path/filepath"
+	"strconv"
 	"strings"
 
+	"github.com/Notifiarr/toolbarr/pkg/mnd"
 	wr "github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
@@ -239,7 +241,10 @@ func (s *Starrs) updateInvalidBasePath(
 		counter++
 		wr.EventsEmit(s.ctx, "DBfileCount", map[string]int{column.Table: counter})
 
-		res, err := sql.Update(column.Table, column.Column, newPath+(filepath.Base(FromSlash(entry.Path))), fmt.Sprint("Id=", entry.ID))
+		updatePath := newPath + filepath.Base(FromSlash(entry.Path))
+		idStr := "Id=" + strconv.FormatUint(entry.ID, mnd.Base10)
+
+		res, err := sql.Update(column.Table, column.Column, updatePath, idStr)
 		if err != nil {
 			return "", err
 		}
