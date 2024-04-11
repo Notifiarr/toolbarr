@@ -1,6 +1,6 @@
 <script lang="ts">
   export let starrApp: StarrApp
-  export let instance: Instance
+  export let instance: Instance|undefined
   export let tab: Tab
   export let showTitle: boolean
   export let updating: boolean
@@ -27,7 +27,7 @@
   let rawOpen = false
   let info: any = undefined
   let prevTab = tab
-  let prevURL = ""
+  let prevURL = instance?instance.URL:""
   // These are only used for pageable content.
   let page = 1
   let pages = 1
@@ -36,28 +36,28 @@
   let sortDir: boolean = false // descending
 
   // update info when tab or instance changes.
-  $: if (tab&&instance&&!hidden) update({})
+  $: if (tab&&instance&&!hidden) update(true)
 
-  async function update(e: any) {
-    if (prevURL === instance.URL && prevTab === tab && info && !e.detail) return
+  async function update(force: boolean|CustomEvent) {
+    if (instance === undefined) return
+    if (prevURL === instance.URL && prevTab === tab && force !== true) return
 
     prevTab = tab
     updating = true
     info = undefined
 
-    if (instance.URL=="") return
     if (tab.pageData) {
       await tab.pageData(instance, pageSize, page, sortKey, sortDir?"ascending":"descending").then(
         rep => {
           info = rep
-          prevURL = instance.URL
+          prevURL = instance!.URL
           pages = Math.ceil(info.totalRecords / info.pageSize)
         },
         err => toast("error", err),
       )
     } else if (tab.data) {
       await tab.data(instance).then(
-        rep => { info = rep; prevURL = instance.URL },
+        rep => { info = rep; prevURL = instance!.URL },
         err => toast("error", err),
       )
     }

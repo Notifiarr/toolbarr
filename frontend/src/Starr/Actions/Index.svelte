@@ -2,7 +2,7 @@
   export let starrApp: StarrApp
   export let hidden: boolean // Avoid querying backends if hidden.
 
-  import type { StarrApp } from "/src/libs/config"
+  import type { Instance, StarrApp } from "/src/libs/config"
   import Applogo from "/src/libs/Applogo.svelte"
   import { conf } from "/src/libs/config"
   import T, { _ } from "/src/libs/Translate.svelte"
@@ -30,9 +30,9 @@
   let tab = startTab
 
   let idx = $conf.Instance[starrApp] // Start with default instance.
-  let instance = $conf.Instances[starrApp][idx]
-  $: if (!$conf.Instances[starrApp].includes(instance)) {
-    instance = $conf.Instances[starrApp][$conf.Instance[starrApp]]
+  let instance: Instance|undefined = $conf.Instances[starrApp]?$conf.Instances[starrApp][idx]:undefined
+  $: if (!instance || !$conf.Instances[starrApp].includes(instance)) {
+    instance = $conf.Instances[starrApp]?$conf.Instances[starrApp][$conf.Instance[starrApp]]:undefined
   }
 
   let width: number
