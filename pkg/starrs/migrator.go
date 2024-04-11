@@ -2,9 +2,11 @@ package starrs
 
 import (
 	"fmt"
-	"path"
+	"path/filepath"
+	"strconv"
 	"strings"
 
+	"github.com/Notifiarr/toolbarr/pkg/mnd"
 	wr "github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
@@ -117,7 +119,7 @@ func (s *Starrs) DeleteRootFolder(config *AppConfig, folder string) (*RootFolder
 	return s.returnMessage(sql, config, s.log.Translate("Success! Deleted root folder: %s", folder))
 }
 
-// UpdateRootFolder changes the path for a root folder. It updates all the item with the folder.
+// UpdateRootFolder changes the path for a root folder. It updates all the items with the folder.
 func (s *Starrs) UpdateRootFolder(config *AppConfig, oldPath, newPath string) (*RootFolders, error) {
 	s.log.Tracef("Call:UpdateDBRootFolder(%s,%s,%s)", config.Name, oldPath, newPath)
 
@@ -239,7 +241,10 @@ func (s *Starrs) updateInvalidBasePath(
 		counter++
 		wr.EventsEmit(s.ctx, "DBfileCount", map[string]int{column.Table: counter})
 
-		res, err := sql.Update(column.Table, column.Column, newPath+path.Base(entry.Path), fmt.Sprint("Id=", entry.ID))
+		updatePath := newPath + filepath.Base(FromSlash(entry.Path))
+		idStr := "Id=" + strconv.FormatUint(entry.ID, mnd.Base10)
+
+		res, err := sql.Update(column.Table, column.Column, updatePath, idStr)
 		if err != nil {
 			return "", err
 		}
@@ -347,6 +352,7 @@ func (s *Starrs) updateFilesRootFolder(
 		wr.EventsEmit(s.ctx, "DBfileCount", map[string]int64{table.Table: counter})
 
 		if !strings.HasPrefix(entry.Path, oldPath) {
+			s.log.Debugf("Skipping path (wrong prefix): %s", entry.Path)
 			continue
 		}
 
@@ -452,4 +458,10 @@ func pickSlash(str string) string {
 	}
 
 	return "/"
+}
+
+// FromSlash returns the result of replacing each slash character in path with a separator character.
+func FromSlash(path string) string {
+	const sep = filepath.Separator
+	return strings.ReplaceAll(strings.ReplaceAll(path, `\`, string(sep)), "/", string(sep))
 }
