@@ -1696,6 +1696,23 @@
             "fuzzy": true
         },
         {
+            "id": "Skipping path (wrong prefix): {Path}",
+            "message": "Skipping path (wrong prefix): {Path}",
+            "translation": "Skipping path (wrong prefix): {Path}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Path",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "entry.Path"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
             "id": "Getting metadata profiles: {Error}",
             "message": "Getting metadata profiles: {Error}",
             "translation": "Getting metadata profiles: {Error}",
