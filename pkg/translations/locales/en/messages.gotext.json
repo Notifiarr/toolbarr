@@ -1671,6 +1671,38 @@
             "fuzzy": true
         },
         {
+            "id": "Would you like to merge {NewPath} with {OldPath}?",
+            "message": "Would you like to merge {NewPath} with {OldPath}?",
+            "translation": "Would you like to merge {NewPath} with {OldPath}?",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "NewPath",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "newPath"
+                },
+                {
+                    "id": "OldPath",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "oldPath"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Root Folder Already Exists",
+            "message": "Root Folder Already Exists",
+            "translation": "Root Folder Already Exists",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Success! Changed Root Folder from '{OldPath}' to '{NewPath}'.",
             "message": "Success! Changed Root Folder from '{OldPath}' to '{NewPath}'.",
             "translation": "Success! Changed Root Folder from '{OldPath}' to '{NewPath}'.",

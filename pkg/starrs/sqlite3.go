@@ -103,12 +103,12 @@ func (s *sqlConn) ItemPaths(ctx context.Context, table, column string) (map[int6
 
 // ItemPaths returns the ID=>Path mapping from any table.
 func (s *sqlConn) GetEntries(ctx context.Context, tcd *TableColumn) ([]*Entry, error) {
-	sql := fmt.Sprintf("SELECT Id AS id, %s AS name, %s As path FROM %s", tcd.Name, tcd.Column, tcd.Table)
-	s.log.Debugf("Running Query: %s", sql)
+	query := fmt.Sprintf("SELECT Id AS id, %s AS name, %s As path FROM %s", tcd.Name, tcd.Column, tcd.Table)
+	s.log.Debugf("Running Query: %s", query)
 
-	rows, err := s.conn.QueryxContext(ctx, sql)
+	rows, err := s.conn.QueryxContext(ctx, query)
 	if err != nil {
-		return nil, fmt.Errorf("%s: %w", sql, err)
+		return nil, fmt.Errorf("%s: %w", query, err)
 	}
 	defer rows.Close()
 
@@ -117,7 +117,7 @@ func (s *sqlConn) GetEntries(ctx context.Context, tcd *TableColumn) ([]*Entry, e
 	for rows.Next() {
 		var row Entry
 		if err = rows.StructScan(&row); err != nil { //nolint:musttag
-			return nil, fmt.Errorf("%s: %w", sql, err)
+			return nil, fmt.Errorf("%s: %w", query, err)
 		}
 
 		output = append(output, &row)
