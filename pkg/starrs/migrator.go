@@ -307,12 +307,14 @@ func (s *Starrs) updateRootFolder(appTable AppTable, sql *sqlConn, oldPath, newP
 		}
 
 		// The root folder already exists, so user may be trying to merge them. Ask.
-		question := s.log.Translate("Would you like to merge %s with %s?\n", newPath, oldPath)
+		question := s.log.Translate("Would you like to merge these paths?\n%s\n%s\n", newPath, oldPath)
 		if !s.app.Ask(s.log.Translate("Root Folder Already Exists"), question) {
 			return "", sqlErr
 		}
 		// Merging them. Delete the old path now.
-		sql.Delete("RootFolders", fmt.Sprintf("Path='%s'", oldPath))
+		if _, err := sql.Delete("RootFolders", fmt.Sprintf("Path='%s'", oldPath)); err != nil {
+			return "", err
+		}
 	}
 
 	msg := s.log.Translate("Success! Changed Root Folder from '%s' to '%s'.", oldPath, newPath)

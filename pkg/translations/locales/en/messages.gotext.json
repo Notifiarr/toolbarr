@@ -1671,9 +1671,9 @@
             "fuzzy": true
         },
         {
-            "id": "Would you like to merge {NewPath} with {OldPath}?",
-            "message": "Would you like to merge {NewPath} with {OldPath}?",
-            "translation": "Would you like to merge {NewPath} with {OldPath}?",
+            "id": "Would you like to merge these paths?\n{NewPath}\n{OldPath}",
+            "message": "Would you like to merge these paths?\n{NewPath}\n{OldPath}",
+            "translation": "Would you like to merge these paths?\n{NewPath}\n{OldPath}",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
