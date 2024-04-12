@@ -84,11 +84,11 @@ func (a *App) setupMenu() {
 }
 
 // toggleMenuItem powers the app 'Hide' menu.
-func (a *App) toggleMenuItem(item string, checked bool) {
+func (a *App) toggleMenuItem(item string, value bool) {
 	settings := a.config.Settings()
-	settings.Hide[item] = checked
+	settings.Hide[item] = value
 	name := "Hide." + item
-	msg := a.log.Translate("Saved: '%s' Value: %v", name, checked)
+	msg := a.log.Translate("Saved: '%s' Value: %v", name, value)
 
 	settings, err := a.config.Write(settings)
 	if err != nil {

@@ -12,7 +12,7 @@
   import Form from "./Form.svelte"
 
   let info: any
-  if (instance && instance.DBPath) {
+  $: if (instance && instance.DBPath) {
     MigratorInfo(instance).then(
       rep => info = rep,
       err => toast("error", err),
