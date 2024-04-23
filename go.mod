@@ -4,7 +4,7 @@ go 1.22
 
 require (
 	github.com/gorilla/schema v1.3.0
-	github.com/jmoiron/sqlx v1.3.5
+	github.com/jmoiron/sqlx v1.4.0
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/wailsapp/wails/v2 v2.8.1
 	golang.org/x/mod v0.17.0
