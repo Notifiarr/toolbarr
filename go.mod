@@ -4,7 +4,7 @@ go 1.22
 
 require (
 	github.com/gorilla/schema v1.3.0
-	github.com/jmoiron/sqlx v1.3.5
+	github.com/jmoiron/sqlx v1.4.0
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/wailsapp/wails/v2 v2.8.2
 	golang.org/x/mod v0.17.0
@@ -13,7 +13,7 @@ require (
 	golift.io/rotatorr v0.0.0-20230911015553-cd2abbd726c7
 	golift.io/starr v1.0.0
 	golift.io/version v0.0.2
-	modernc.org/sqlite v1.29.6
+	modernc.org/sqlite v1.29.10
 )
 
 require (
