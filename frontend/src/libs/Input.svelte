@@ -22,7 +22,7 @@
   export let noreload = false
   // Avoid sending a toast when not in dev mode?
   export let notoast = false
-  // Optional tooptip to bind to input. Derived automatically from language file.
+  // Optional tooltip to bind to input. Derived automatically from language file.
   export let tooltip = $_("configtooltip."+id)
   // Where the tooltip goes.
   export let placement: TooltipPlacement|undefined = undefined
