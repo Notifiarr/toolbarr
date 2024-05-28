@@ -10,10 +10,20 @@
   import T from "/src/libs/Translate.svelte"
 
   let count: number
-  let id: number
+  let oldCount: number = 0
+  let id: number = 0
   // Keep UI up to date with existing count of instances.
   $: count = $conf.Instances[starrApp] ? $conf.Instances[starrApp].length : 0
-  $: id = count<2 ? 0 : count-1
+  $: if (count > oldCount) {
+    // we added a new instance
+    id = count-1
+    oldCount = count
+  }
+  $: if (count < oldCount) {
+    // we removed an instance
+    id = count
+    oldCount = count
+  }
   let open = true
 </script>
 
@@ -40,7 +50,7 @@
         <T id="instances.addNewInstance" {starrApp}/>
       </h5>
     </span>
-    <Instance index={count} {starrApp} />
+    <Instance index={count} {starrApp} newInstance/>
   </AccordionItem>
 </Accordion>
 

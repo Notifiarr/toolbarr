@@ -14,6 +14,7 @@
     Timeout: 120000000000,
   }
   export let defaultInstance: boolean = false
+  export let newInstance: boolean = false
 
   import type { StarrApp, Instance } from "/src/libs/config"
   import { Input, InputGroup, InputGroupText, Button, Form, Alert, FormGroup, Tooltip } from "@sveltestrap/sveltestrap"
@@ -24,18 +25,15 @@
   import { PickFile, SaveInstance, RemoveInstance } from "/wailsjs/go/app/App"
   import { TestInstance } from "/wailsjs/go/starrs/Starrs"
   import { toast } from "/src/libs/funcs"
-  import { onDestroy } from "svelte"
   import T, { _ } from "/src/libs/Translate.svelte"
 
-  const newInstance = (instance === undefined || Object.keys(instance).length < 1)
   let isDefault = defaultInstance
-  let info: any
+  let info: string = ""
   let testOK = false
   let passLocked = true
   let keyLocked = !newInstance
 
   let reset: Instance = {...instance}
-  onDestroy(() => (instance = {...reset}))
 
   function pickDbFile(start?: string) {
     PickFile(start?start:$app.Home?$app.Home:"/", "sqlite3 (*.db)", "*.db").then(
@@ -45,17 +43,20 @@
 
   function testInstance(e: MouseEvent) {
     e.preventDefault()
-    info = undefined
-    TestInstance(instance).then(
-      msg => {
-        info = msg
-        testOK = true
-      },
-      err => {
-        info = err
-        testOK = false
-      },
-    )
+    info = ""
+    const interval = setInterval(() => {
+      clearInterval(interval)
+      TestInstance(instance).then(
+        msg => {
+          info = msg
+          testOK = true
+        },
+        err => {
+          info = err
+          testOK = false
+        },
+      )
+    }, 200)
   }
 
   function removeInstance(e: MouseEvent) {
@@ -177,10 +178,10 @@
     <Button class="actions" color="primary" on:click={saveInstance}>{$_("words.Save")}</Button>
     <Button class="actions" color="success" on:click={testInstance}>{$_("words.Test")}</Button>
     {#if !newInstance}
-      <Button class="actions delete" disabled={newInstance} color="danger" on:click={removeInstance}>{$_("words.Delete")}</Button>
-      <Button class="actions" disabled={newInstance} color="warning"  on:click={resetInstance}>{$_("words.Reset")}</Button>
+    <Button class="actions ml" color="warning" on:click={resetInstance}>{$_("words.Reset")}</Button>
+    <Button class="actions" disabled={newInstance} color="danger" on:click={removeInstance}>{$_("words.Delete")}</Button>
     {/if}
-    <Alert isOpen={info!=undefined} color={testOK?"success":"danger"} dismissible>{@html info}</Alert>
+    <Alert fade={false} isOpen={info!=""} color={testOK?"success":"danger"} dismissible>{@html info}</Alert>
   </Form>
   {/if}
 </div>
@@ -192,8 +193,8 @@
     margin:4px 1px;
   }
 
-  /* move delete button over a few pixels */
-  #container :global(button.delete) {
+  /* move a button over a few pixels */
+  #container :global(button.ml) {
     margin-left:20px;
   }
 
