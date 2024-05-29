@@ -1,4 +1,4 @@
-//go:generate /usr/bin/env bash build.sh
+//go:generate bash build.sh
 //
 
 // Package translations provides all the backend translations for Toolbarr.

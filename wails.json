@@ -21,6 +21,6 @@
     "*/*": "go generate ../../..."
   },
   "postBuildHooks": {
-    "windows/*": "../../build/windows/signexe.sh ${bin}"
+    "windows/*": "bash ../../build/windows/signexe.sh ${bin}"
   }
 }

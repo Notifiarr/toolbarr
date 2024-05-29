@@ -7,7 +7,7 @@ set -e -o pipefail
 function sign() {
   if [ -z "${EXE_SIGNING_KEY}" ] || [ -z "${EXE_SIGNING_KEY_PASSWORD}" ]; then
     echo "Skipped ${FILE} .." >&2
-    exit 1
+    exit 0
   fi
 
   rm -f "${FILE}.signed"
