@@ -94,13 +94,13 @@
 <div id="container">
   {#if instance}
   <Form>
-    <Input type="text" hidden id="App" bind:value={instance.App} />
+    <Input type="text" hidden bind:value={instance.App} />
     <!-- Name -->
     <FormGroup floating>
       <div class="text-danger input-label" slot="label" style="display:{reset.Name != instance.Name?"block":"none"}">{$_("words.Unsaved")}</div>
       <InputGroup>
         <InputGroupText class="setting-name">{$_("words.Name")}</InputGroupText>
-        <Input invalid={reset.Name != instance.Name} type="text" placeholder={$_("20charactermax")} maxlength={20} id="Name" bind:value={instance.Name} />
+        <Input invalid={reset.Name != instance.Name} type="text" placeholder={$_("20charactermax")} maxlength={20}  bind:value={instance.Name} />
       </InputGroup>
     </FormGroup>
     <!-- URL -->
@@ -108,7 +108,7 @@
       <div class="text-danger input-label" slot="label" style="display:{reset.URL != instance.URL?"block":"none"}">{$_("words.Unsaved")}</div>
       <InputGroup>
         <InputGroupText class="setting-name">{$_("words.URL")}</InputGroupText>
-        <Input invalid={reset.URL != instance.URL} type="text" id="URL" bind:value={instance.URL} />
+        <Input invalid={reset.URL != instance.URL} type="text" bind:value={instance.URL} />
       </InputGroup>
     </FormGroup>
     <!-- API Key -->
@@ -119,7 +119,7 @@
         <Button color={keyLocked?"success":"danger"} on:click={(e) => {e.preventDefault();keyLocked=!keyLocked}}>
           <Fa style="width:20px" icon={keyLocked?faLock:faUnlock} />
         </Button>
-        <Input invalid={reset.Key != instance.Key} type={keyLocked?"password":"text"} readonly={keyLocked} id="Key" placeholder={$_("32characterhash")} bind:value={instance.Key}/>
+        <Input invalid={reset.Key != instance.Key} type={keyLocked?"password":"text"} readonly={keyLocked}  placeholder={$_("32characterhash")} bind:value={instance.Key}/>
       </InputGroup>
     </FormGroup>
     <!-- Username -->
@@ -127,10 +127,12 @@
       <div class="text-danger input-label" slot="label" style="display:{reset.User != instance.User?"block":"none"}">{$_("words.Unsaved")}</div>
       <InputGroup>
         <InputGroupText class="setting-name">{$_("words.Username")}</InputGroupText>
-        <Input invalid={reset.User != instance.User}  type="text" id="User" placeholder="admin" bind:value={instance.User}/>
+        <Input invalid={reset.User != instance.User} type="text" placeholder="admin" bind:value={instance.User}/>
         <InputGroupText id="form{index}{starrApp}">{$_("words.Form")}</InputGroupText>
         <Tooltip target="form{index}{starrApp}">{$_("configtooltip.Form")}</Tooltip>
-        <InputGroupText color="success"><Input type="switch" invalid={instance.Form!=reset.Form} bind:checked={instance.Form}/></InputGroupText>
+        <InputGroupText color="success">
+          <Input type="switch" id="form{index}{starrApp}switch" invalid={instance.Form!=reset.Form} bind:checked={instance.Form}/>
+        </InputGroupText>
       </InputGroup>
     </FormGroup>
     <!-- Password -->
@@ -141,7 +143,7 @@
         <Button color={passLocked?"danger":"success"} outline on:click={(e) => {e.preventDefault();passLocked=!passLocked}}>
           <Fa style="width:20px" primaryColor={passLocked?"green":"red"} icon={passLocked?faEyeSlash:faEye} />
         </Button>
-        <Input invalid={reset.Pass != instance.Pass} type={passLocked?"password":"text"} id="Pass" placeholder="******" bind:value={instance.Pass}/>
+        <Input invalid={reset.Pass != instance.Pass} type={passLocked?"password":"text"} placeholder="******" bind:value={instance.Pass}/>
       </InputGroup>
     </FormGroup>
     <!-- Timeout -->
@@ -149,7 +151,7 @@
       <div class="text-danger input-label" slot="label" style="display:{reset.Timeout != instance.Timeout?"block":"none"}">{$_("words.Unsaved")}</div>
       <InputGroup>
         <InputGroupText class="setting-name">{$_("words.Timeout")}</InputGroupText>
-        <Input invalid={reset.Timeout != instance.Timeout} type="select" id="Timeout" bind:value={instance.Timeout}>
+        <Input invalid={reset.Timeout != instance.Timeout} type="select" bind:value={instance.Timeout}>
           <option value={30000000000}><T id="configvalues.CountSeconds" count={30}/></option>
           <option value={45000000000}><T id="configvalues.CountSeconds" count={45}/></option>
           <option value={60000000000}><T id="configvalues.CountMinutes" count={1}/></option>
@@ -160,7 +162,7 @@
         </Input>
         <InputGroupText id="default{index}{starrApp}">{$_("words.Default")}</InputGroupText>
         <Tooltip target="default{index}{starrApp}">{$_("configtooltip.AfterRestarting")}</Tooltip>
-        <InputGroupText color="success"><Input type="switch" disabled={defaultInstance&&isDefault} invalid={defaultInstance!=isDefault} bind:checked={defaultInstance}/></InputGroupText>
+        <InputGroupText color="success"><Input type="switch" id="default{index}{starrApp}switch" disabled={defaultInstance&&isDefault} invalid={defaultInstance!=isDefault} bind:checked={defaultInstance}/></InputGroupText>
       </InputGroup>
     </FormGroup>
     <!-- DB file path -->
@@ -169,8 +171,8 @@
         <Button style="text-align:left" class="setting-name" color="secondary" on:click={(e) => {e.preventDefault(); pickDbFile(instance?.DBPath)}}>
           <Fa icon="{faFolderOpen}" /> {$_("words.DBPath")}
         </Button>
-        <Input feedback={$_("words.Unsaved")} invalid={reset.DBPath != instance.DBPath} 
-          type="text" id="DBPath" bind:value={instance.DBPath} 
+        <Input feedback={$_("words.Unsaved")} invalid={reset.DBPath != instance.DBPath}
+          type="text" bind:value={instance.DBPath}
           placeholder="{($app.IsWindows?"C:\\some\\path\\":"/some/path/")+instance.App.toLowerCase()+".db"}" />
       </InputGroup>
     </FormGroup>

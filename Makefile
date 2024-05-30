@@ -31,7 +31,7 @@ build: wailsjson packagejson
 	wails build -debug -ldflags "$(VERSION_LDFLAGS)"
 
 windows: wailsjson packagejson
-	wails build -platform windows/amd64 -nsis -ldflags "$(VERSION_LDFLAGS)"
+	wails build -debug -platform windows/amd64 -nsis -ldflags "$(VERSION_LDFLAGS)"
 
 dev: wailsjson packagejson
 	wails dev -nosyncgomod -race -ldflags "$(VERSION_LDFLAGS)"

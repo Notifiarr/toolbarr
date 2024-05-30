@@ -15,7 +15,7 @@
   // Keep UI up to date with existing count of instances.
   $: count = $conf.Instances[starrApp] ? $conf.Instances[starrApp].length : 0
   $: if (count > oldCount) {
-    // we added a new instance
+    // we added a new instance (or page opened)
     id = count-1
     oldCount = count
   }
