@@ -18,10 +18,10 @@
 
   let activeTab = tabs[0]
   let showTitle = true
-  let idx = $conf.Instance[starrApp] // Start with default instance.
-  let instance: Instance|undefined = $conf.Instances[starrApp]?$conf.Instances[starrApp][idx]:undefined
+  // Start with default instance.
+  let instance = $conf.Instances[starrApp][$conf.Instance[starrApp]]
   $: if (!instance || !$conf.Instances[starrApp].includes(instance)) {
-    instance = $conf.Instances[starrApp]?$conf.Instances[starrApp][$conf.Instance[starrApp]]:undefined
+    instance = $conf.Instances[starrApp][$conf.Instance[starrApp]]
   }
 </script>
 
