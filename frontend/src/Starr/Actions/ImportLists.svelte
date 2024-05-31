@@ -203,7 +203,7 @@
   {/each}<!-- /each info as client, idx -->
 </Table>
 
-<Footer {instance} bind:selected {tab} bind:updating bind:info bind:form bind:str/>
+<Footer {instance} bind:selected {tab} bind:updating bind:info bind:form bind:str importable/>
 
 <Card class="p-1" color="secondary">
   <!-- <Tooltip target="exclusions">Close this card to reset the Exclusions form.</Tooltip> -->

@@ -1515,6 +1515,115 @@
             "fuzzy": true
         },
         {
+            "id": "Getting Indexers from {Name}: {Err}",
+            "message": "Getting Indexers from {Name}: {Err}",
+            "translation": "Getting Indexers from {Name}: {Err}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "Err",
+                    "string": "%[2]v",
+                    "type": "error",
+                    "underlyingType": "interface{Error() string}",
+                    "argNum": 2,
+                    "expr": "err"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Save {Count} {App} Indexers",
+            "message": "Save {Count} {App} Indexers",
+            "translation": "Save {Count} {App} Indexers",
+            "translatorComment": "Title for file save dialog box.",
+            "placeholders": [
+                {
+                    "id": "Count",
+                    "string": "%[1]d",
+                    "type": "int",
+                    "underlyingType": "int",
+                    "argNum": 1,
+                    "expr": "count"
+                },
+                {
+                    "id": "App",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "config.App"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Opening file: {Err}",
+            "message": "Opening file: {Err}",
+            "translation": "Opening file: {Err}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Err",
+                    "string": "%[1]v",
+                    "type": "error",
+                    "underlyingType": "interface{Error() string}",
+                    "argNum": 1,
+                    "expr": "err"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Encoding and writing file: {Err}",
+            "message": "Encoding and writing file: {Err}",
+            "translation": "Encoding and writing file: {Err}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Err",
+                    "string": "%[1]v",
+                    "type": "error",
+                    "underlyingType": "interface{Error() string}",
+                    "argNum": 1,
+                    "expr": "err"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Saved {Count} indexers to {FilePath}",
+            "message": "Saved {Count} indexers to {FilePath}",
+            "translation": "Saved {Count} indexers to {FilePath}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Count",
+                    "string": "%[1]d",
+                    "type": "int",
+                    "underlyingType": "int",
+                    "argNum": 1,
+                    "expr": "count"
+                },
+                {
+                    "id": "FilePath",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "filePath"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
             "id": "Querying Sqlite3 DB: {Error}",
             "message": "Querying Sqlite3 DB: {Error}",
             "translation": "Querying Sqlite3 DB: {Error}",

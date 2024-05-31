@@ -7,13 +7,14 @@
   export let selected: {[key: string]: boolean}
   export let tab: Tab
   export let noForce = false
+  export let importable = false
 
   import type { Tab } from "./tabs.svelte"
   import { Alert, Button, Collapse, Fade, Tooltip, Icon, Card } from "@sveltestrap/sveltestrap"
   import Loading from "/src/Starr/loading.svelte"
   import T, { _ } from "/src/libs/Translate.svelte"
   import { toast, count } from "/src/libs/funcs"
-  import { update, remove, test, fixFieldValues } from "../methods"
+  import { update, remove, test, exportFile, importFile, fixFieldValues } from "../methods"
   import type { Instance } from "/src/libs/config"
   import { createEventDispatcher } from "svelte"
 
@@ -103,6 +104,32 @@
 
     updating = false
   }
+
+  async function exportItems() {
+    toast("info", $_("instances.Exporting"+tab.id, { values:{"count": count(selected)} }), "", 3)
+    goodMsg = badMsg = ""
+    updating = true
+
+    await exportFile[tab.id][instance.App](instance, selected).then(
+      (msg: string) => {if (msg!="") goodMsg += `<li>${$_("instances.SuccessMsg", {values:{"msg": msg}})}</li>`},
+      (err: string) => {badMsg += `<li>${$_("instances.ErrorMsg", {values:{"msg": err}})}</li>`},
+    )
+
+    updating = false
+  }
+
+  async function importItems() {
+    toast("info", $_("instances.Importing"+tab.id, { values:{"count": count(selected)} }), "", 3)
+    goodMsg = badMsg = ""
+    updating = true
+
+    await importFile[tab.id][instance.App](instance).then(
+      (msg: string) => {goodMsg += `<li>${$_("instances.SuccessMsg", {values:{"msg": msg}})}</li>`},
+      (err: string) => {badMsg += `<li>${$_("instances.ErrorMsg", {values:{"msg": err}})}</li>`},
+    )
+
+    updating = false
+  }
 </script>
 
 <div id="footer">
@@ -114,13 +141,14 @@
   </Collapse>
   <Loading isOpen={updating}/>
 
-  <Collapse isOpen={!updating && (unSaved||selectedCount > 0)}>
+  <Collapse isOpen={!updating}>
     {#if instance.App == "Whisparr"}
     <Card color="warning" class="p-1">
       Toolbarr has not been tested with {instance.App}.
       Make a backup and save with caution!
     </Card>
     {/if}
+
     <Fade style="display:inline-block" isOpen={unSaved}>
       <span class="text-warning">
         <Icon class="text-danger" name="exclamation-circle"/>
@@ -137,13 +165,27 @@
         </Button>
       </span>
     </Fade>
-    <!-- Test and Delete Buttons-->
+
+    {#if importable}
+    <Button class="actions" color="warning" on:click={importItems}>
+      <T id="instances.ImportFile" />
+    </Button>
+    {/if}
+
     <Fade style="display:inline-block" isOpen={selectedCount > 0}>
+      {#if importable}
+      <Button class="actions" color="secondary" on:click={exportItems}>
+        <T id="instances.ExportSelected" count={selectedCount}/>
+      </Button>
+      {/if}
+
+      <!-- Test and Delete Buttons-->
       {#if !noForce}
       <Button class="actions" color="primary" on:click={testItem}>
         <T id="instances.TestSelected" count={selectedCount}/>
       </Button>
       {/if}
+
       <Button class="actions" color="danger" on:click={deleteItem}>
         <T id="instances.DeleteSelected" count={selectedCount}/>
       </Button>

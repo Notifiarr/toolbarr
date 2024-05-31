@@ -50,8 +50,56 @@ export function Exclusions(arg1) {
   return window['go']['starrs']['Starrs']['Exclusions'](arg1);
 }
 
+export function ExportLidarrIndexer(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['ExportLidarrIndexer'](arg1, arg2);
+}
+
+export function ExportProwlarrIndexer(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['ExportProwlarrIndexer'](arg1, arg2);
+}
+
+export function ExportRadarrIndexer(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['ExportRadarrIndexer'](arg1, arg2);
+}
+
+export function ExportReadarrIndexer(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['ExportReadarrIndexer'](arg1, arg2);
+}
+
+export function ExportSonarrIndexer(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['ExportSonarrIndexer'](arg1, arg2);
+}
+
+export function ExportWhisparrIndexer(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['ExportWhisparrIndexer'](arg1, arg2);
+}
+
+export function ImportLidarrIndexer(arg1) {
+  return window['go']['starrs']['Starrs']['ImportLidarrIndexer'](arg1);
+}
+
 export function ImportLists(arg1) {
   return window['go']['starrs']['Starrs']['ImportLists'](arg1);
+}
+
+export function ImportProwlarrIndexer(arg1) {
+  return window['go']['starrs']['Starrs']['ImportProwlarrIndexer'](arg1);
+}
+
+export function ImportRadarrIndexer(arg1) {
+  return window['go']['starrs']['Starrs']['ImportRadarrIndexer'](arg1);
+}
+
+export function ImportReadarrIndexer(arg1) {
+  return window['go']['starrs']['Starrs']['ImportReadarrIndexer'](arg1);
+}
+
+export function ImportSonarrIndexer(arg1) {
+  return window['go']['starrs']['Starrs']['ImportSonarrIndexer'](arg1);
+}
+
+export function ImportWhisparrIndexer(arg1) {
+  return window['go']['starrs']['Starrs']['ImportWhisparrIndexer'](arg1);
 }
 
 export function Indexers(arg1) {

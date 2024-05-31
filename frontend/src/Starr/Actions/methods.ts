@@ -49,6 +49,18 @@ import {
   TestReadarrImportList,
   TestSonarrImportList,
   TestWhisparrImportList,
+  ExportLidarrIndexer,
+  ExportProwlarrIndexer,
+  ExportRadarrIndexer,
+  ExportReadarrIndexer,
+  ExportSonarrIndexer,
+  ExportWhisparrIndexer,
+  ImportLidarrIndexer,
+  ImportProwlarrIndexer,
+  ImportRadarrIndexer,
+  ImportReadarrIndexer,
+  ImportSonarrIndexer,
+  ImportWhisparrIndexer,
 } from "/wailsjs/go/starrs/Starrs"
 
 export function fixFieldValues(info: {[key: string]: any}): string {
@@ -175,5 +187,39 @@ export const test:  {[key: string]: {[key: string]: (...args: any[]) => Promise<
     "Readarr":  TestReadarrImportList,
     "Sonarr":   TestSonarrImportList,
     "Whisparr": TestWhisparrImportList,
+  },
+}
+
+export const exportFile:  {[key: string]: {[key: string]: (...args: any[]) => Promise<string>;}} = {
+  "DownloadClients": {
+
+  },
+  "Indexers": {
+    "Lidarr":   ExportLidarrIndexer,
+    "Prowlarr": ExportProwlarrIndexer,
+    "Radarr":   ExportRadarrIndexer,
+    "Readarr":  ExportReadarrIndexer,
+    "Sonarr":   ExportSonarrIndexer,
+    "Whisparr": ExportWhisparrIndexer,
+  },
+  "ImportLists": {
+
+  },
+}
+
+export const importFile:  {[key: string]: {[key: string]: (...args: any[]) => Promise<string>;}} = {
+  "DownloadClients": {
+
+  },
+  "Indexers": {
+    "Lidarr":   ImportLidarrIndexer,
+    "Prowlarr": ImportProwlarrIndexer,
+    "Radarr":   ImportRadarrIndexer,
+    "Readarr":  ImportReadarrIndexer,
+    "Sonarr":   ImportSonarrIndexer,
+    "Whisparr": ImportWhisparrIndexer,
+  },
+  "ImportLists": {
+
   },
 }

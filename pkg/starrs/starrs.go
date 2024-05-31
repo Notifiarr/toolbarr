@@ -95,3 +95,15 @@ func (s *Starrs) newAPIinstance(config *AppConfig) (*instance, error) {
 
 	return instance, nil
 }
+
+type Selected map[int64]bool
+
+func (s Selected) Count() (count int) {
+	for _, b := range s {
+		if b {
+			count++
+		}
+	}
+
+	return count
+}

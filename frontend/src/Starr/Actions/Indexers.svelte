@@ -66,5 +66,5 @@
 {#if instance.App == "Prowlarr"}
   {$_("instances.ProwlarrNotSupported")}
 {:else}
-  <Footer {instance} {tab} bind:selected bind:updating bind:info bind:form bind:str />
+  <Footer {instance} {tab} bind:selected bind:updating bind:info bind:form bind:str importable />
 {/if}<!-- /if (instance.App) -->

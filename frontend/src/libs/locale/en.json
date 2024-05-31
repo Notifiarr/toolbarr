@@ -278,9 +278,18 @@
         "DeletingExclusions": "Deleting Exclusions",
         "DeletingBlockLists": "Deleting Block Lists",
         "TestSelected": "Test {count} Selected",
+        "ExportSelected": "Export {count} Selected",
         "TestingIndexers": "Testing Indexers",
         "TestingDownloadClients": "Testing Download Clients",
-        "TestingImportLists": "Testing Import Lists"
+        "TestingImportLists": "Testing Import Lists",
+        "ImportFile": "Import File",
+        "ExportingIndexers": "Exporting Indexers",
+        "ExportingDownloadClients": "Exporting Download Clients",
+        "ExportingImportLists": "Exporting Import Lists",
+        "ImportingIndexers": "Importing Indexers",
+        "ImportingImportLists": "Importing Import Lists",
+        "ImportingDownloadClients": "Importing Download Clients"
+
     },
     "paginate": {
         "FirstPage": "First Page",

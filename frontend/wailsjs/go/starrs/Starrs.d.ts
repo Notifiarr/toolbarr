@@ -31,7 +31,31 @@ export function Downloaders(arg1:starrs.AppConfig):Promise<any>;
 
 export function Exclusions(arg1:starrs.AppConfig):Promise<any>;
 
+export function ExportLidarrIndexer(arg1:starrs.AppConfig,arg2:starrs.Selected):Promise<string>;
+
+export function ExportProwlarrIndexer(arg1:starrs.AppConfig,arg2:starrs.Selected):Promise<string>;
+
+export function ExportRadarrIndexer(arg1:starrs.AppConfig,arg2:starrs.Selected):Promise<string>;
+
+export function ExportReadarrIndexer(arg1:starrs.AppConfig,arg2:starrs.Selected):Promise<string>;
+
+export function ExportSonarrIndexer(arg1:starrs.AppConfig,arg2:starrs.Selected):Promise<string>;
+
+export function ExportWhisparrIndexer(arg1:starrs.AppConfig,arg2:starrs.Selected):Promise<string>;
+
+export function ImportLidarrIndexer(arg1:starrs.AppConfig):Promise<string>;
+
 export function ImportLists(arg1:starrs.AppConfig):Promise<any>;
+
+export function ImportProwlarrIndexer(arg1:starrs.AppConfig):Promise<string>;
+
+export function ImportRadarrIndexer(arg1:starrs.AppConfig):Promise<string>;
+
+export function ImportReadarrIndexer(arg1:starrs.AppConfig):Promise<string>;
+
+export function ImportSonarrIndexer(arg1:starrs.AppConfig):Promise<string>;
+
+export function ImportWhisparrIndexer(arg1:starrs.AppConfig):Promise<string>;
 
 export function Indexers(arg1:starrs.AppConfig):Promise<any>;
 
