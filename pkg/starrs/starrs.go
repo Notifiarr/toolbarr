@@ -2,6 +2,7 @@ package starrs
 
 import (
 	"context"
+	"errors"
 	"strings"
 	"time"
 
@@ -10,6 +11,8 @@ import (
 	"golift.io/cache"
 	"golift.io/starr"
 )
+
+var ErrInvalidApp = errors.New("an invalid app was provided; this may be a bug")
 
 // Starrs holds the running data and provides the frontend a place
 // to interact with starr instances and their databases.

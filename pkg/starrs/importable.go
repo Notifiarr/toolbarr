@@ -22,6 +22,19 @@ import (
 // lastPickedDir makes the open/save dialog always start in the last picked folder.
 var lastPickedDir = getSavePath() //nolint:gochecknoglobals
 
+// getExportInstance abstracts some logic away from each export method.
+func (s *Starrs) getExportInstance(config *AppConfig, selected Selected, item string) (*instance, error) {
+	s.log.Tracef("Call:Export%s%s(%v)", config.App, item, selected)
+
+	instance, err := s.newAPIinstance(config)
+	if err != nil {
+		wr.LogError(s.ctx, err.Error())
+		return nil, err
+	}
+
+	return instance, nil
+}
+
 // filterListItemsByID removes items from a slice that are not selected by the user.
 func filterListItemsByID[N any](items []*N, selected Selected) []*N { //nolint:funlen,cyclop
 	itemID := func(i any) int64 {
