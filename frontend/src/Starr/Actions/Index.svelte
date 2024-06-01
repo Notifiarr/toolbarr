@@ -29,10 +29,10 @@
   let showTitle = true
   let tab = startTab
 
-  let idx = $conf.Instance[starrApp] // Start with default instance.
-  let instance: Instance|undefined = $conf.Instances[starrApp]?$conf.Instances[starrApp][idx]:undefined
+  // Start with default instance.
+  let instance = $conf.Instances[starrApp][$conf.Instance[starrApp]]
   $: if (!instance || !$conf.Instances[starrApp].includes(instance)) {
-    instance = $conf.Instances[starrApp]?$conf.Instances[starrApp][$conf.Instance[starrApp]]:undefined
+    instance = $conf.Instances[starrApp][$conf.Instance[starrApp]]
   }
 
   let width: number
@@ -58,10 +58,11 @@
       <InputGroup>
         <InputGroupText class="setting-name">{$_("words.Instance")}</InputGroupText>
         <Input invalid={!instance||!instance.URL} type="select" bind:value={instance}>
-        {#each $conf.Instances[starrApp] as i}
-          <option value={i}>{i.Name}: {i.URL}</option>
-        {/each}
-        {#if $conf.Instances[starrApp].length < 1}
+        {#if $conf.Instances != undefined && $conf.Instances[starrApp]}
+          {#each $conf.Instances[starrApp] as i}
+            <option value={i}>{i.Name}: {i.URL}</option>
+          {/each}
+        {:else}
           <option disabled>- {$_("instances.noInstancesConfigured")} -</option>
         {/if}
         </Input>

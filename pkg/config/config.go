@@ -14,6 +14,7 @@ import (
 	"github.com/Notifiarr/toolbarr/pkg/translations"
 	"github.com/mitchellh/go-homedir"
 	"golang.org/x/text/language"
+	"golift.io/starr"
 )
 
 const confExt = ".conf"
@@ -102,11 +103,25 @@ func (i *Input) newConfig(settings *Settings) *Config {
 				Lang:  language.English.String(),
 			},
 			Default: Default{
-				Instance: make(map[string]int),
+				Instance: map[string]int{
+					starr.Lidarr.String():   0,
+					starr.Prowlarr.String(): 0,
+					starr.Radarr.String():   0,
+					starr.Readarr.String():  0,
+					starr.Sonarr.String():   0,
+					starr.Whisparr.String(): 0,
+				},
 			},
-			Instances: make(starrs.Instances),
-			Hide:      make(map[string]bool),
-			Updates:   "production",
+			Instances: starrs.Instances{
+				starr.Lidarr.String():   []starrs.AppConfig{},
+				starr.Prowlarr.String(): []starrs.AppConfig{},
+				starr.Radarr.String():   []starrs.AppConfig{},
+				starr.Readarr.String():  []starrs.AppConfig{},
+				starr.Sonarr.String():   []starrs.AppConfig{},
+				starr.Whisparr.String(): []starrs.AppConfig{},
+			},
+			Hide:    make(map[string]bool),
+			Updates: "production",
 		}
 	}
 
@@ -186,7 +201,14 @@ func (i *Input) setDefaults(s *Settings) *Settings { //nolint:varnamelen
 	}
 
 	if s.Instances == nil {
-		s.Instances = make(starrs.Instances)
+		s.Instances = starrs.Instances{
+			starr.Lidarr.String():   []starrs.AppConfig{},
+			starr.Prowlarr.String(): []starrs.AppConfig{},
+			starr.Radarr.String():   []starrs.AppConfig{},
+			starr.Readarr.String():  []starrs.AppConfig{},
+			starr.Sonarr.String():   []starrs.AppConfig{},
+			starr.Whisparr.String(): []starrs.AppConfig{},
+		}
 	}
 
 	if s.Hide == nil {
