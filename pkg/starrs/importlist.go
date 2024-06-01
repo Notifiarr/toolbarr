@@ -4,12 +4,15 @@ import (
 	"errors"
 	"fmt"
 
+	wr "github.com/wailsapp/wails/v2/pkg/runtime"
 	"golift.io/starr"
 	"golift.io/starr/lidarr"
 	"golift.io/starr/radarr"
 	"golift.io/starr/readarr"
 	"golift.io/starr/sonarr"
 )
+
+const ImportLists = "ImportLists"
 
 func (s *Starrs) ImportLists(config *AppConfig) (any, error) {
 	s.log.Tracef("Call:ImportLists(%s, %s)", config.App, config.Name)
@@ -245,4 +248,99 @@ func (s *Starrs) updateImportListReply(
 	s.log.Wails.Error(msg)
 
 	return nil, fmt.Errorf(msg)
+}
+
+func (s *Starrs) ExportLidarrImportLists(config *AppConfig, selected Selected) (string, error) {
+	s.log.Tracef("Call:ExportLidarrImportList(%v)", selected)
+
+	instance, err := s.newAPIinstance(config)
+	if err != nil {
+		wr.LogError(s.ctx, err.Error())
+		return "", err
+	}
+
+	items, err := lidarr.New(instance.Config).GetImportListsContext(s.ctx)
+
+	return s.exportItems(ImportLists, config, filterListItemsByID(items, selected), selected.Count(), err)
+}
+
+func (s *Starrs) ExportRadarrImportLists(config *AppConfig, selected Selected) (string, error) {
+	s.log.Tracef("Call:ExportRadarrImportList(%v)", selected)
+
+	instance, err := s.newAPIinstance(config)
+	if err != nil {
+		wr.LogError(s.ctx, err.Error())
+		return "", err
+	}
+
+	items, err := radarr.New(instance.Config).GetImportListsContext(s.ctx)
+
+	return s.exportItems(ImportLists, config, filterListItemsByID(items, selected), selected.Count(), err)
+}
+
+func (s *Starrs) ExportReadarrImportLists(config *AppConfig, selected Selected) (string, error) {
+	s.log.Tracef("Call:ExportReadarrImportList(%v)", selected)
+
+	instance, err := s.newAPIinstance(config)
+	if err != nil {
+		wr.LogError(s.ctx, err.Error())
+		return "", err
+	}
+
+	items, err := readarr.New(instance.Config).GetImportListsContext(s.ctx)
+
+	return s.exportItems(ImportLists, config, filterListItemsByID(items, selected), selected.Count(), err)
+}
+
+func (s *Starrs) ExportSonarrImportLists(config *AppConfig, selected Selected) (string, error) {
+	s.log.Tracef("Call:ExportSonarrImportList(%v)", selected)
+
+	instance, err := s.newAPIinstance(config)
+	if err != nil {
+		wr.LogError(s.ctx, err.Error())
+		return "", err
+	}
+
+	items, err := sonarr.New(instance.Config).GetImportListsContext(s.ctx)
+
+	return s.exportItems(ImportLists, config, filterListItemsByID(items, selected), selected.Count(), err)
+}
+
+func (s *Starrs) ExportWhisparrImportLists(config *AppConfig, selected Selected) (string, error) {
+	s.log.Tracef("Call:ExportWhisparrImportList(%v)", selected)
+
+	instance, err := s.newAPIinstance(config)
+	if err != nil {
+		wr.LogError(s.ctx, err.Error())
+		return "", err
+	}
+
+	items, err := sonarr.New(instance.Config).GetImportListsContext(s.ctx)
+
+	return s.exportItems(ImportLists, config, filterListItemsByID(items, selected), selected.Count(), err)
+}
+
+func (s *Starrs) ImportLidarrImportLists(config *AppConfig) (map[string]any, error) {
+	var input []lidarr.ImportListInput
+	return importItems(s, ImportLists, config, input)
+}
+
+func (s *Starrs) ImportRadarrImportLists(config *AppConfig) (map[string]any, error) {
+	var input []radarr.ImportListInput
+	return importItems(s, ImportLists, config, input)
+}
+
+func (s *Starrs) ImportReadarrImportLists(config *AppConfig) (map[string]any, error) {
+	var input []readarr.ImportListInput
+	return importItems(s, ImportLists, config, input)
+}
+
+func (s *Starrs) ImportSonarrImportLists(config *AppConfig) (map[string]any, error) {
+	var input []sonarr.ImportListInput
+	return importItems(s, ImportLists, config, input)
+}
+
+func (s *Starrs) ImportWhisparrImportLists(config *AppConfig) (map[string]any, error) {
+	var input []sonarr.ImportListInput
+	return importItems(s, ImportLists, config, input)
 }

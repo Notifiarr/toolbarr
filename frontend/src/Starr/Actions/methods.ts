@@ -49,18 +49,50 @@ import {
   TestReadarrImportList,
   TestSonarrImportList,
   TestWhisparrImportList,
+  ExportLidarrDownloadClients,
+  ExportProwlarrDownloadClients,
+  ExportRadarrDownloadClients,
+  ExportReadarrDownloadClients,
+  ExportSonarrDownloadClients,
+  ExportWhisparrDownloadClients,
   ExportLidarrIndexer,
   ExportProwlarrIndexer,
   ExportRadarrIndexer,
   ExportReadarrIndexer,
   ExportSonarrIndexer,
   ExportWhisparrIndexer,
+  ExportLidarrImportLists,
+  ExportRadarrImportLists,
+  ExportReadarrImportLists,
+  ExportSonarrImportLists,
+  ExportWhisparrImportLists,
+  ExportLidarrExclusions,
+  ExportRadarrExclusions,
+  ExportReadarrExclusions,
+  ExportSonarrExclusions,
+  ExportWhisparrExclusions,
+  ImportLidarrDownloadClients,  
+  ImportProwlarrDownloadClients,
+  ImportRadarrDownloadClients,
+  ImportReadarrDownloadClients,
+  ImportSonarrDownloadClients,
+  ImportWhisparrDownloadClients,
   ImportLidarrIndexer,
   ImportProwlarrIndexer,
   ImportRadarrIndexer,
   ImportReadarrIndexer,
   ImportSonarrIndexer,
   ImportWhisparrIndexer,
+  ImportLidarrImportLists,
+  ImportRadarrImportLists,
+  ImportReadarrImportLists,
+  ImportSonarrImportLists,
+  ImportWhisparrImportLists,
+  ImportLidarrExclusions,
+  ImportRadarrExclusions,
+  ImportReadarrExclusions,
+  ImportSonarrExclusions,
+  ImportWhisparrExclusions,
 } from "/wailsjs/go/starrs/Starrs"
 
 export function fixFieldValues(info: {[key: string]: any}): string {
@@ -192,7 +224,12 @@ export const test:  {[key: string]: {[key: string]: (...args: any[]) => Promise<
 
 export const exportFile:  {[key: string]: {[key: string]: (...args: any[]) => Promise<string>;}} = {
   "DownloadClients": {
-
+    "Lidarr":   ExportLidarrDownloadClients,
+    "Prowlarr": ExportProwlarrDownloadClients,
+    "Radarr":   ExportRadarrDownloadClients,
+    "Readarr":  ExportReadarrDownloadClients,
+    "Sonarr":   ExportSonarrDownloadClients,
+    "Whisparr": ExportWhisparrDownloadClients,
   },
   "Indexers": {
     "Lidarr":   ExportLidarrIndexer,
@@ -203,13 +240,29 @@ export const exportFile:  {[key: string]: {[key: string]: (...args: any[]) => Pr
     "Whisparr": ExportWhisparrIndexer,
   },
   "ImportLists": {
-
+    "Lidarr":   ExportLidarrImportLists,
+    "Radarr":   ExportRadarrImportLists,
+    "Readarr":  ExportReadarrImportLists,
+    "Sonarr":   ExportSonarrImportLists,
+    "Whisparr": ExportWhisparrImportLists,
+  },
+  "Exclusions": {
+    "Lidarr":   ExportLidarrExclusions,
+    "Radarr":   ExportRadarrExclusions,
+    "Readarr":  ExportReadarrExclusions,
+    "Sonarr":   ExportSonarrExclusions,
+    "Whisparr": ExportWhisparrExclusions,
   },
 }
 
 export const importFile:  {[key: string]: {[key: string]: (...args: any[]) => Promise<string>;}} = {
   "DownloadClients": {
-
+    "Lidarr":   ImportLidarrDownloadClients,
+    "Prowlarr": ImportProwlarrDownloadClients,
+    "Radarr":   ImportRadarrDownloadClients,
+    "Readarr":  ImportReadarrDownloadClients,
+    "Sonarr":   ImportSonarrDownloadClients,
+    "Whisparr": ImportWhisparrDownloadClients,
   },
   "Indexers": {
     "Lidarr":   ImportLidarrIndexer,
@@ -220,6 +273,17 @@ export const importFile:  {[key: string]: {[key: string]: (...args: any[]) => Pr
     "Whisparr": ImportWhisparrIndexer,
   },
   "ImportLists": {
-
+    "Lidarr":   ImportLidarrImportLists,
+    "Radarr":   ImportRadarrImportLists,
+    "Readarr":  ImportReadarrImportLists,
+    "Sonarr":   ImportSonarrImportLists,
+    "Whisparr": ImportWhisparrImportLists,
+  },
+  "Exclusions": {
+    "Lidarr":   ImportLidarrExclusions,
+    "Radarr":   ImportRadarrExclusions,
+    "Readarr":  ImportReadarrExclusions,
+    "Sonarr":   ImportSonarrExclusions,
+    "Whisparr": ImportWhisparrExclusions,
   },
 }

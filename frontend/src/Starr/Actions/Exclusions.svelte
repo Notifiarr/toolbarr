@@ -67,4 +67,4 @@
     {/each}
 </Table>
 
-<Footer noForce {tab} {instance} bind:selected bind:updating bind:info bind:form bind:str />
+<Footer noForce {tab} {instance} bind:selected bind:updating bind:info bind:form bind:str importable />

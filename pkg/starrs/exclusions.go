@@ -4,12 +4,15 @@ import (
 	"errors"
 	"fmt"
 
+	wr "github.com/wailsapp/wails/v2/pkg/runtime"
 	"golift.io/starr"
 	"golift.io/starr/lidarr"
 	"golift.io/starr/radarr"
 	"golift.io/starr/readarr"
 	"golift.io/starr/sonarr"
 )
+
+const Exclusions = "Exclusions"
 
 func (s *Starrs) Exclusions(config *AppConfig) (any, error) {
 	s.log.Tracef("Call:Exclusions(%s, %s)", config.App, config.Name)
@@ -175,4 +178,99 @@ func (s *Starrs) updateExclusionReply(
 	s.log.Wails.Error(msg)
 
 	return nil, fmt.Errorf(msg)
+}
+
+func (s *Starrs) ExportLidarrExclusions(config *AppConfig, selected Selected) (string, error) {
+	s.log.Tracef("Call:ExportLidarrExclusions(%v)", selected)
+
+	instance, err := s.newAPIinstance(config)
+	if err != nil {
+		wr.LogError(s.ctx, err.Error())
+		return "", err
+	}
+
+	items, err := lidarr.New(instance.Config).GetExclusionsContext(s.ctx)
+
+	return s.exportItems(Exclusions, config, filterListItemsByID(items, selected), selected.Count(), err)
+}
+
+func (s *Starrs) ExportRadarrExclusions(config *AppConfig, selected Selected) (string, error) {
+	s.log.Tracef("Call:ExportRadarrExclusions(%v)", selected)
+
+	instance, err := s.newAPIinstance(config)
+	if err != nil {
+		wr.LogError(s.ctx, err.Error())
+		return "", err
+	}
+
+	items, err := radarr.New(instance.Config).GetExclusionsContext(s.ctx)
+
+	return s.exportItems(Exclusions, config, filterListItemsByID(items, selected), selected.Count(), err)
+}
+
+func (s *Starrs) ExportReadarrExclusions(config *AppConfig, selected Selected) (string, error) {
+	s.log.Tracef("Call:ExportReadarrExclusions(%v)", selected)
+
+	instance, err := s.newAPIinstance(config)
+	if err != nil {
+		wr.LogError(s.ctx, err.Error())
+		return "", err
+	}
+
+	items, err := readarr.New(instance.Config).GetExclusionsContext(s.ctx)
+
+	return s.exportItems(Exclusions, config, filterListItemsByID(items, selected), selected.Count(), err)
+}
+
+func (s *Starrs) ExportSonarrExclusions(config *AppConfig, selected Selected) (string, error) {
+	s.log.Tracef("Call:ExportSonarrExclusions(%v)", selected)
+
+	instance, err := s.newAPIinstance(config)
+	if err != nil {
+		wr.LogError(s.ctx, err.Error())
+		return "", err
+	}
+
+	items, err := sonarr.New(instance.Config).GetExclusionsContext(s.ctx)
+
+	return s.exportItems(Exclusions, config, filterListItemsByID(items, selected), selected.Count(), err)
+}
+
+func (s *Starrs) ExportWhisparrExclusions(config *AppConfig, selected Selected) (string, error) {
+	s.log.Tracef("Call:ExportWhisparrExclusions(%v)", selected)
+
+	instance, err := s.newAPIinstance(config)
+	if err != nil {
+		wr.LogError(s.ctx, err.Error())
+		return "", err
+	}
+
+	items, err := sonarr.New(instance.Config).GetExclusionsContext(s.ctx)
+
+	return s.exportItems(Exclusions, config, filterListItemsByID(items, selected), selected.Count(), err)
+}
+
+func (s *Starrs) ImportLidarrExclusions(config *AppConfig) (map[string]any, error) {
+	var input []lidarr.Exclusion
+	return importItems(s, Exclusions, config, input)
+}
+
+func (s *Starrs) ImportRadarrExclusions(config *AppConfig) (map[string]any, error) {
+	var input []radarr.Exclusion
+	return importItems(s, Exclusions, config, input)
+}
+
+func (s *Starrs) ImportReadarrExclusions(config *AppConfig) (map[string]any, error) {
+	var input []readarr.Exclusion
+	return importItems(s, Exclusions, config, input)
+}
+
+func (s *Starrs) ImportSonarrExclusions(config *AppConfig) (map[string]any, error) {
+	var input []sonarr.Exclusion
+	return importItems(s, Exclusions, config, input)
+}
+
+func (s *Starrs) ImportWhisparrExclusions(config *AppConfig) (map[string]any, error) {
+	var input []sonarr.Exclusion
+	return importItems(s, Exclusions, config, input)
 }

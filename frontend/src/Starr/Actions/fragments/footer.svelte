@@ -17,6 +17,7 @@
   import { update, remove, test, exportFile, importFile, fixFieldValues } from "../methods"
   import type { Instance } from "/src/libs/config"
   import { createEventDispatcher } from "svelte"
+  import ConfigModal from "./configModal.svelte"
 
   const dispatch = createEventDispatcher()
   let badMsg = ""
@@ -24,6 +25,9 @@
   $: selectedCount = count(selected)        // How many items are selected.
   $: unSaved = JSON.stringify(form) !== str // True when something changed.
   let button: HTMLElement
+
+  // Used by the importer.
+  let importData: any = undefined
 
   function showMsg(idx: number, msg: string, data: any) {
     goodMsg += `<li>${$_("instances.SuccessMsg", {values:{"msg": msg}})}</li>`
@@ -124,13 +128,22 @@
     updating = true
 
     await importFile[tab.id][instance.App](instance).then(
-      (msg: string) => {goodMsg += `<li>${$_("instances.SuccessMsg", {values:{"msg": msg}})}</li>`},
+      (resp: any) => {
+        goodMsg += `<li>${$_("instances.SuccessMsg", {values:{"msg": resp.msg}})}</li>`
+        // open a modal with list of stuff and checkboxes to select things to import.
+        importData = resp.data
+      },
       (err: string) => {badMsg += `<li>${$_("instances.ErrorMsg", {values:{"msg": err}})}</li>`},
     )
 
     updating = false
   }
 </script>
+
+<ConfigModal bind:info={importData} name={$_("instances.ImportSelection")} closeButton={$_("words.Import")}
+  id={$_("instances."+tab.id)} disabled={$_("instances.CloseImportModal")} isOpen={importData != undefined}>
+  {Object.keys(importData[0])}
+</ConfigModal>
 
 <div id="footer">
   <Collapse isOpen={goodMsg != ""}>

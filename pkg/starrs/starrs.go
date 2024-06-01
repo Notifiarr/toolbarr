@@ -7,15 +7,17 @@ import (
 
 	"github.com/Notifiarr/toolbarr/pkg/logs"
 	"github.com/Notifiarr/toolbarr/pkg/mnd"
+	"golift.io/cache"
 	"golift.io/starr"
 )
 
 // Starrs holds the running data and provides the frontend a place
 // to interact with starr instances and their databases.
 type Starrs struct {
-	ctx context.Context
-	app mnd.App
-	log *logs.Logger
+	ctx   context.Context
+	app   mnd.App
+	log   *logs.Logger
+	cache *cache.Cache
 }
 
 // instance allows interacting with the instances via HTTP API using a standard interface.
@@ -44,9 +46,16 @@ type AppConfig struct {
 
 // Startup runs after wails initializes so we can save the context.
 func Startup(ctx context.Context, starrs *Starrs, log *logs.Logger, app mnd.App) {
+	const pruneInterval = 10 * time.Minute
+
 	starrs.ctx = ctx
 	starrs.app = app
 	starrs.log = log
+	starrs.cache = cache.New(cache.Config{
+		RequestAccuracy: time.Minute,
+		MaxUnused:       time.Hour,
+		PruneInterval:   pruneInterval,
+	})
 }
 
 // Copy the instances list. Using copies provides thread safety at the risk of inconsistency.
@@ -98,7 +107,7 @@ func (s *Starrs) newAPIinstance(config *AppConfig) (*instance, error) {
 
 type Selected map[int64]bool
 
-func (s Selected) Count() (count int) {
+func (s Selected) Count() (count int) { //nolint:nonamedreturns
 	for _, b := range s {
 		if b {
 			count++

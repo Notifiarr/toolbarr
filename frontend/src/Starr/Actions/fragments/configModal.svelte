@@ -1,12 +1,13 @@
 <script lang="ts">
-  export let form: any
+  export let form: any = undefined
   export let isOpen = false
   export let id: number | string
   export let name: string
-  export let idx: number
-  export let info: any
-  export let str: string
+  export let idx: number = 0
+  export let info: any = undefined
+  export let str: string = ""
   export let disabled = ""
+  export let closeButton = $_("words.Close")
 
   import { _ } from "/src/libs/Translate.svelte"
   import { Badge, Button, Modal, ModalBody, ModalFooter, ModalHeader } from "@sveltestrap/sveltestrap"
@@ -17,6 +18,7 @@
   }
 
   function toggle() {
+    if (form == undefined && disabled != "") info = undefined
     isOpen = false
   }
 
@@ -49,7 +51,7 @@
       </Button>
     {/if}
     <Button size="sm" color="info" on:click={toggle}>
-      {$_("words.Close")}
+      {closeButton}
     </Button>
   </ModalFooter>
 </Modal>

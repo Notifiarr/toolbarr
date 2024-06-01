@@ -1,13 +1,9 @@
 package starrs
 
 import (
-	"encoding/json"
 	"errors"
 	"fmt"
-	"os"
-	"path/filepath"
 
-	"github.com/mitchellh/go-homedir"
 	wr "github.com/wailsapp/wails/v2/pkg/runtime"
 	"golift.io/starr"
 	"golift.io/starr/lidarr"
@@ -16,6 +12,8 @@ import (
 	"golift.io/starr/readarr"
 	"golift.io/starr/sonarr"
 )
+
+const Indexers = "Indexers"
 
 func (s *Starrs) Indexers(config *AppConfig) (any, error) {
 	s.log.Tracef("Call:Indexers(%s, %s)", config.App, config.Name)
@@ -293,9 +291,9 @@ func (s *Starrs) ExportLidarrIndexer(config *AppConfig, selected Selected) (stri
 		return "", err
 	}
 
-	indexers, err := lidarr.New(instance.Config).GetIndexersContext(s.ctx)
+	items, err := lidarr.New(instance.Config).GetIndexersContext(s.ctx)
 
-	return s.exportIndexers(config, filterIndexers(indexers, selected), selected.Count(), err)
+	return s.exportItems(Indexers, config, filterListItemsByID(items, selected), selected.Count(), err)
 }
 
 func (s *Starrs) ExportProwlarrIndexer(config *AppConfig, selected Selected) (string, error) {
@@ -307,9 +305,9 @@ func (s *Starrs) ExportProwlarrIndexer(config *AppConfig, selected Selected) (st
 		return "", err
 	}
 
-	indexers, err := prowlarr.New(instance.Config).GetIndexersContext(s.ctx)
+	items, err := prowlarr.New(instance.Config).GetIndexersContext(s.ctx)
 
-	return s.exportIndexers(config, filterIndexers(indexers, selected), selected.Count(), err)
+	return s.exportItems(Indexers, config, filterListItemsByID(items, selected), selected.Count(), err)
 }
 
 func (s *Starrs) ExportRadarrIndexer(config *AppConfig, selected Selected) (string, error) {
@@ -321,9 +319,9 @@ func (s *Starrs) ExportRadarrIndexer(config *AppConfig, selected Selected) (stri
 		return "", err
 	}
 
-	indexers, err := radarr.New(instance.Config).GetIndexersContext(s.ctx)
+	items, err := radarr.New(instance.Config).GetIndexersContext(s.ctx)
 
-	return s.exportIndexers(config, filterIndexers(indexers, selected), selected.Count(), err)
+	return s.exportItems(Indexers, config, filterListItemsByID(items, selected), selected.Count(), err)
 }
 
 func (s *Starrs) ExportReadarrIndexer(config *AppConfig, selected Selected) (string, error) {
@@ -335,9 +333,9 @@ func (s *Starrs) ExportReadarrIndexer(config *AppConfig, selected Selected) (str
 		return "", err
 	}
 
-	indexers, err := readarr.New(instance.Config).GetIndexersContext(s.ctx)
+	items, err := readarr.New(instance.Config).GetIndexersContext(s.ctx)
 
-	return s.exportIndexers(config, filterIndexers(indexers, selected), selected.Count(), err)
+	return s.exportItems(Indexers, config, filterListItemsByID(items, selected), selected.Count(), err)
 }
 
 func (s *Starrs) ExportSonarrIndexer(config *AppConfig, selected Selected) (string, error) {
@@ -349,9 +347,9 @@ func (s *Starrs) ExportSonarrIndexer(config *AppConfig, selected Selected) (stri
 		return "", err
 	}
 
-	indexers, err := sonarr.New(instance.Config).GetIndexersContext(s.ctx)
+	items, err := sonarr.New(instance.Config).GetIndexersContext(s.ctx)
 
-	return s.exportIndexers(config, filterIndexers(indexers, selected), selected.Count(), err)
+	return s.exportItems(Indexers, config, filterListItemsByID(items, selected), selected.Count(), err)
 }
 
 func (s *Starrs) ExportWhisparrIndexer(config *AppConfig, selected Selected) (string, error) {
@@ -363,105 +361,37 @@ func (s *Starrs) ExportWhisparrIndexer(config *AppConfig, selected Selected) (st
 		return "", err
 	}
 
-	indexers, err := sonarr.New(instance.Config).GetIndexersContext(s.ctx)
+	items, err := sonarr.New(instance.Config).GetIndexersContext(s.ctx)
 
-	return s.exportIndexers(config, filterIndexers(indexers, selected), selected.Count(), err)
+	return s.exportItems(Indexers, config, filterListItemsByID(items, selected), selected.Count(), err)
 }
 
-func filterIndexers[N any](indexers []*N, selected Selected) []*N {
-	id := func(i any) int64 {
-		switch indexer := i.(type) {
-		case *lidarr.IndexerOutput:
-			return indexer.ID
-		case *prowlarr.IndexerOutput:
-			return indexer.ID
-		case *radarr.IndexerOutput:
-			return indexer.ID
-		case *readarr.IndexerOutput:
-			return indexer.ID
-		case *sonarr.IndexerOutput:
-			return indexer.ID
-		default:
-			return 0
-		}
-	}
-
-	i := 0
-	for _, v := range indexers {
-		if selected[id(v)] {
-			indexers[i] = v
-			i++
-		}
-	}
-
-	for j := i; j < len(indexers); j++ {
-		indexers[j] = nil
-	}
-
-	return indexers[:i]
+func (s *Starrs) ImportLidarrIndexer(config *AppConfig) (map[string]any, error) {
+	var input []lidarr.IndexerInput
+	return importItems(s, Indexers, config, input)
 }
 
-func (s *Starrs) exportIndexers(config *AppConfig, indexers any, count int, err error) (string, error) {
-	if err != nil {
-		wr.LogError(s.ctx, err.Error())
-		return "", fmt.Errorf(s.log.Translate("Getting Indexers from %s: %v", config.Name, err))
-	}
-
-	homedir, _ := homedir.Dir()
-
-	filePath, err := wr.SaveFileDialog(s.ctx, wr.SaveDialogOptions{
-		DefaultDirectory:           filepath.Join(homedir, "Documents"),
-		DefaultFilename:            fmt.Sprintf("%d%sIndexers.json", count, config.App),
-		Title:                      s.log.Translate("Save %d %s Indexers", count, config.App),
-		ShowHiddenFiles:            false,
-		CanCreateDirectories:       true,
-		TreatPackagesAsDirectories: false,
-	})
-	if err != nil {
-		wr.LogError(s.ctx, err.Error())
-		return "", fmt.Errorf(s.log.Translate("Opening file browser: %v", err))
-	}
-
-	if filePath == "" {
-		return "", nil
-	}
-
-	fileOpen, err := os.OpenFile(filePath, os.O_CREATE|os.O_RDWR|os.O_TRUNC, 0o640)
-	if err != nil {
-		wr.LogError(s.ctx, err.Error())
-		return "", fmt.Errorf(s.log.Translate("Opening file: %v", err))
-	}
-
-	err = json.NewEncoder(fileOpen).Encode(indexers)
-	if err != nil {
-		wr.LogError(s.ctx, err.Error())
-		return "", fmt.Errorf(s.log.Translate("Encoding and writing file: %v", err))
-	}
-
-	return s.log.Translate("Saved %d indexers to %s", count, filePath), nil
+func (s *Starrs) ImportProwlarrIndexer(config *AppConfig) (map[string]any, error) {
+	var input []prowlarr.IndexerInput
+	return importItems(s, Indexers, config, input)
 }
 
-func (s *Starrs) ImportLidarrIndexer(config *AppConfig) (string, error) {
-	s.log.Tracef("Call:ImportLidarrIndexer()")
-	return "not working yet", nil
+func (s *Starrs) ImportRadarrIndexer(config *AppConfig) (map[string]any, error) {
+	var input []radarr.IndexerInput
+	return importItems(s, Indexers, config, input)
 }
-func (s *Starrs) ImportProwlarrIndexer(config *AppConfig) (string, error) {
-	s.log.Tracef("Call:ImportProwlarrIndexer()")
-	return "not working yet", nil
+
+func (s *Starrs) ImportReadarrIndexer(config *AppConfig) (map[string]any, error) {
+	var input []readarr.IndexerInput
+	return importItems(s, Indexers, config, input)
 }
-func (s *Starrs) ImportRadarrIndexer(config *AppConfig) (string, error) {
-	s.log.Tracef("Call:ImportRadarrIndexer()")
-	return "not working yet", nil
+
+func (s *Starrs) ImportSonarrIndexer(config *AppConfig) (map[string]any, error) {
+	var input []sonarr.IndexerInput
+	return importItems(s, Indexers, config, input)
 }
-func (s *Starrs) ImportReadarrIndexer(config *AppConfig) (string, error) {
-	s.log.Tracef("Call:ImportReadarrIndexer()")
-	return "not working yet", nil
-}
-func (s *Starrs) ImportSonarrIndexer(config *AppConfig) (string, error) {
-	s.log.Tracef("Call:ImportSonarrIndexer()")
-	return "not working yet", nil
-}
-func (s *Starrs) ImportWhisparrIndexer(config *AppConfig) (string, error) {
-	s.log.Tracef("Call:ImportWhisparrIndexer()")
-	return "not working yet", nil
+
+func (s *Starrs) ImportWhisparrIndexer(config *AppConfig) (map[string]any, error) {
+	var input []sonarr.IndexerInput
+	return importItems(s, Indexers, config, input)
 }

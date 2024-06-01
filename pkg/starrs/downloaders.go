@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 
+	wr "github.com/wailsapp/wails/v2/pkg/runtime"
 	"golift.io/starr"
 	"golift.io/starr/lidarr"
 	"golift.io/starr/prowlarr"
@@ -12,6 +13,8 @@ import (
 	"golift.io/starr/readarr"
 	"golift.io/starr/sonarr"
 )
+
+const DownloadClients = "DownloadClients"
 
 func (s *Starrs) Downloaders(config *AppConfig) (any, error) {
 	s.log.Tracef("Call:Downloaders(%s, %s)", config.App, config.Name)
@@ -275,4 +278,118 @@ func (s *Starrs) updateDownloadClientReply(
 	s.log.Wails.Error(msg)
 
 	return nil, fmt.Errorf(msg)
+}
+
+func (s *Starrs) ExportLidarrDownloadClients(config *AppConfig, selected Selected) (string, error) {
+	s.log.Tracef("Call:ExportLidarrDownloadClient(%v)", selected)
+
+	instance, err := s.newAPIinstance(config)
+	if err != nil {
+		wr.LogError(s.ctx, err.Error())
+		return "", err
+	}
+
+	items, err := lidarr.New(instance.Config).GetDownloadClientsContext(s.ctx)
+
+	return s.exportItems(DownloadClients, config, filterListItemsByID(items, selected), selected.Count(), err)
+}
+
+func (s *Starrs) ExportProwlarrDownloadClients(config *AppConfig, selected Selected) (string, error) {
+	s.log.Tracef("Call:ExportProwlarrDownloadClient(%v)", selected)
+
+	instance, err := s.newAPIinstance(config)
+	if err != nil {
+		wr.LogError(s.ctx, err.Error())
+		return "", err
+	}
+
+	items, err := prowlarr.New(instance.Config).GetDownloadClientsContext(s.ctx)
+
+	return s.exportItems(DownloadClients, config, filterListItemsByID(items, selected), selected.Count(), err)
+}
+
+func (s *Starrs) ExportRadarrDownloadClients(config *AppConfig, selected Selected) (string, error) {
+	s.log.Tracef("Call:ExportRadarrDownloadClient(%v)", selected)
+
+	instance, err := s.newAPIinstance(config)
+	if err != nil {
+		wr.LogError(s.ctx, err.Error())
+		return "", err
+	}
+
+	items, err := radarr.New(instance.Config).GetDownloadClientsContext(s.ctx)
+
+	return s.exportItems(DownloadClients, config, filterListItemsByID(items, selected), selected.Count(), err)
+}
+
+func (s *Starrs) ExportReadarrDownloadClients(config *AppConfig, selected Selected) (string, error) {
+	s.log.Tracef("Call:ExportReadarrDownloadClient(%v)", selected)
+
+	instance, err := s.newAPIinstance(config)
+	if err != nil {
+		wr.LogError(s.ctx, err.Error())
+		return "", err
+	}
+
+	items, err := readarr.New(instance.Config).GetDownloadClientsContext(s.ctx)
+
+	return s.exportItems(DownloadClients, config, filterListItemsByID(items, selected), selected.Count(), err)
+}
+
+func (s *Starrs) ExportSonarrDownloadClients(config *AppConfig, selected Selected) (string, error) {
+	s.log.Tracef("Call:ExportSonarrDownloadClient(%v)", selected)
+
+	instance, err := s.newAPIinstance(config)
+	if err != nil {
+		wr.LogError(s.ctx, err.Error())
+		return "", err
+	}
+
+	items, err := sonarr.New(instance.Config).GetDownloadClientsContext(s.ctx)
+
+	return s.exportItems(DownloadClients, config, filterListItemsByID(items, selected), selected.Count(), err)
+}
+
+func (s *Starrs) ExportWhisparrDownloadClients(config *AppConfig, selected Selected) (string, error) {
+	s.log.Tracef("Call:ExportWhisparrDownloadClient(%v)", selected)
+
+	instance, err := s.newAPIinstance(config)
+	if err != nil {
+		wr.LogError(s.ctx, err.Error())
+		return "", err
+	}
+
+	items, err := sonarr.New(instance.Config).GetDownloadClientsContext(s.ctx)
+
+	return s.exportItems(DownloadClients, config, filterListItemsByID(items, selected), selected.Count(), err)
+}
+
+func (s *Starrs) ImportLidarrDownloadClients(config *AppConfig) (map[string]any, error) {
+	var input []lidarr.DownloadClientInput
+	return importItems(s, DownloadClients, config, input)
+}
+
+func (s *Starrs) ImportProwlarrDownloadClients(config *AppConfig) (map[string]any, error) {
+	var input []prowlarr.DownloadClientInput
+	return importItems(s, DownloadClients, config, input)
+}
+
+func (s *Starrs) ImportRadarrDownloadClients(config *AppConfig) (map[string]any, error) {
+	var input []radarr.DownloadClientInput
+	return importItems(s, DownloadClients, config, input)
+}
+
+func (s *Starrs) ImportReadarrDownloadClients(config *AppConfig) (map[string]any, error) {
+	var input []readarr.DownloadClientInput
+	return importItems(s, DownloadClients, config, input)
+}
+
+func (s *Starrs) ImportSonarrDownloadClients(config *AppConfig) (map[string]any, error) {
+	var input []sonarr.DownloadClientInput
+	return importItems(s, DownloadClients, config, input)
+}
+
+func (s *Starrs) ImportWhisparrDownloadClients(config *AppConfig) (map[string]any, error) {
+	var input []sonarr.DownloadClientInput
+	return importItems(s, DownloadClients, config, input)
 }

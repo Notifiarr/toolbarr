@@ -32,6 +32,7 @@
         "ERROR": "ERROR",
         "Standard": "Standard",
         "Indexer": "Indexer",
+        "Import": "Import",
         "CONFIG": "CONFIG",
         "Config": "Config",
         "Activity": "Activity",
@@ -288,7 +289,9 @@
         "ExportingImportLists": "Exporting Import Lists",
         "ImportingIndexers": "Importing Indexers",
         "ImportingImportLists": "Importing Import Lists",
-        "ImportingDownloadClients": "Importing Download Clients"
+        "ImportingDownloadClients": "Importing Download Clients",
+        "ImportSelection": "Import Selection",
+        "CloseImportModal": "Closing the dialog modal begins importing the selected items."
 
     },
     "paginate": {
