@@ -227,3 +227,9 @@ func (s *Starrs) ImportExclusions(config *AppConfig) (map[string]any, error) {
 
 	return nil, ErrInvalidApp
 }
+
+func (s *Starrs) ImportSelectedExclusions(config *AppConfig, selected Selected) (map[string]any, error) {
+	return map[string]any{
+		"msg": fmt.Sprintf("imported %d Import List Exclusions for %s", selected.Count(), config.Name),
+	}, nil
+}

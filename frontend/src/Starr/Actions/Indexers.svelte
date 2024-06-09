@@ -18,8 +18,8 @@
   import { Table, Tooltip, Icon } from "@sveltestrap/sveltestrap"
   import type { Instance } from "/src/libs/config"
 
-  let isOpen: any = {}       // Modal toggle control.
-  let all = false       // Toggle for select-all link.
+  let isOpen: {[key: number]: boolean} = {} // Modal toggle control.
+  let all = false                           // Toggle for select-all link.
   let selected: {[key: string]: boolean} = {} // Rows selected by key: ID.
   let str = fixFieldValues(info) // Used for equivalence comparison.
   let form = JSON.parse(str)     // Form changes go here.

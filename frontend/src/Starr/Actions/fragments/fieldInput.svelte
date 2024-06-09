@@ -4,6 +4,7 @@
   export let idx: number
   export let item: any
   export let itemIdx: number
+  export let disabled = false
 
   import { _ } from "/src/libs/Translate.svelte"
   import { Input, InputGroup, InputGroupText, Tooltip } from "@sveltestrap/sveltestrap"
@@ -23,7 +24,7 @@
 
       {#if item.type == "select" || item.type == "tagSelect"}
         {#if item.selectOptions && typeof item.value != "object"}
-          <Input type="select" {invalid} bind:value={form[idx].fields[itemIdx].value}>
+          <Input type="select" {invalid} bind:value={form[idx].fields[itemIdx].value} {disabled}>
               {#each info[idx].fields[itemIdx].selectOptions as val}
                 <option value={val.name}>{val.name}</option>
               {/each}
@@ -40,12 +41,12 @@
           </select>
         {/if}<!-- /if (item.selectOptions) -->
       {:else if item.type == "checkbox"}
-      <Input type="select" {invalid} bind:value={form[idx].fields[itemIdx].value}>
+      <Input type="select" {invalid} bind:value={form[idx].fields[itemIdx].value} {disabled}>
         <option value={true}>{$_("configvalues.Enabled")}</option>
         <option value={false}>{$_("configvalues.Disabled")}</option>
       </Input>
       {:else}
-        <Input type={item.type} {invalid} bind:value={form[idx].fields[itemIdx].value}/>
+        <Input type={item.type} {invalid} bind:value={form[idx].fields[itemIdx].value} {disabled}/>
       {/if}<!-- /if (item.type) -->
     </InputGroup>
   </div>

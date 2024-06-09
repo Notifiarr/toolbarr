@@ -8,6 +8,7 @@
   export let str: string = ""
   export let disabled = ""
   export let closeButton = $_("words.Close")
+  export let callback: VoidFunction|undefined = undefined
 
   import { _ } from "/src/libs/Translate.svelte"
   import { Badge, Button, Modal, ModalBody, ModalFooter, ModalHeader } from "@sveltestrap/sveltestrap"
@@ -18,6 +19,7 @@
   }
 
   function toggle() {
+    if (callback) callback()
     if (form == undefined && disabled != "") info = undefined
     isOpen = false
   }

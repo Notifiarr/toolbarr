@@ -335,3 +335,7 @@ func (s *Starrs) ImportIndexer(config *AppConfig) (map[string]any, error) {
 
 	return nil, ErrInvalidApp
 }
+
+func (s *Starrs) ImportSelectedIndexer(config *AppConfig, selected Selected) (map[string]any, error) {
+	return map[string]any{"msg": fmt.Sprintf("imported %d indexers for %s", selected.Count(), config.Name)}, nil
+}

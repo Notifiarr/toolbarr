@@ -50,184 +50,56 @@ export function Exclusions(arg1) {
   return window['go']['starrs']['Starrs']['Exclusions'](arg1);
 }
 
-export function ExportLidarrDownloadClients(arg1, arg2) {
-  return window['go']['starrs']['Starrs']['ExportLidarrDownloadClients'](arg1, arg2);
+export function ExportDownloadClients(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['ExportDownloadClients'](arg1, arg2);
 }
 
-export function ExportLidarrExclusions(arg1, arg2) {
-  return window['go']['starrs']['Starrs']['ExportLidarrExclusions'](arg1, arg2);
+export function ExportExclusions(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['ExportExclusions'](arg1, arg2);
 }
 
-export function ExportLidarrImportLists(arg1, arg2) {
-  return window['go']['starrs']['Starrs']['ExportLidarrImportLists'](arg1, arg2);
+export function ExportImportLists(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['ExportImportLists'](arg1, arg2);
 }
 
-export function ExportLidarrIndexer(arg1, arg2) {
-  return window['go']['starrs']['Starrs']['ExportLidarrIndexer'](arg1, arg2);
+export function ExportIndexer(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['ExportIndexer'](arg1, arg2);
 }
 
-export function ExportProwlarrDownloadClients(arg1, arg2) {
-  return window['go']['starrs']['Starrs']['ExportProwlarrDownloadClients'](arg1, arg2);
+export function ImportDownloadClients(arg1) {
+  return window['go']['starrs']['Starrs']['ImportDownloadClients'](arg1);
 }
 
-export function ExportProwlarrIndexer(arg1, arg2) {
-  return window['go']['starrs']['Starrs']['ExportProwlarrIndexer'](arg1, arg2);
+export function ImportExclusions(arg1) {
+  return window['go']['starrs']['Starrs']['ImportExclusions'](arg1);
 }
 
-export function ExportRadarrDownloadClients(arg1, arg2) {
-  return window['go']['starrs']['Starrs']['ExportRadarrDownloadClients'](arg1, arg2);
+export function ImportImportLists(arg1) {
+  return window['go']['starrs']['Starrs']['ImportImportLists'](arg1);
 }
 
-export function ExportRadarrExclusions(arg1, arg2) {
-  return window['go']['starrs']['Starrs']['ExportRadarrExclusions'](arg1, arg2);
-}
-
-export function ExportRadarrImportLists(arg1, arg2) {
-  return window['go']['starrs']['Starrs']['ExportRadarrImportLists'](arg1, arg2);
-}
-
-export function ExportRadarrIndexer(arg1, arg2) {
-  return window['go']['starrs']['Starrs']['ExportRadarrIndexer'](arg1, arg2);
-}
-
-export function ExportReadarrDownloadClients(arg1, arg2) {
-  return window['go']['starrs']['Starrs']['ExportReadarrDownloadClients'](arg1, arg2);
-}
-
-export function ExportReadarrExclusions(arg1, arg2) {
-  return window['go']['starrs']['Starrs']['ExportReadarrExclusions'](arg1, arg2);
-}
-
-export function ExportReadarrImportLists(arg1, arg2) {
-  return window['go']['starrs']['Starrs']['ExportReadarrImportLists'](arg1, arg2);
-}
-
-export function ExportReadarrIndexer(arg1, arg2) {
-  return window['go']['starrs']['Starrs']['ExportReadarrIndexer'](arg1, arg2);
-}
-
-export function ExportSonarrDownloadClients(arg1, arg2) {
-  return window['go']['starrs']['Starrs']['ExportSonarrDownloadClients'](arg1, arg2);
-}
-
-export function ExportSonarrExclusions(arg1, arg2) {
-  return window['go']['starrs']['Starrs']['ExportSonarrExclusions'](arg1, arg2);
-}
-
-export function ExportSonarrImportLists(arg1, arg2) {
-  return window['go']['starrs']['Starrs']['ExportSonarrImportLists'](arg1, arg2);
-}
-
-export function ExportSonarrIndexer(arg1, arg2) {
-  return window['go']['starrs']['Starrs']['ExportSonarrIndexer'](arg1, arg2);
-}
-
-export function ExportWhisparrDownloadClients(arg1, arg2) {
-  return window['go']['starrs']['Starrs']['ExportWhisparrDownloadClients'](arg1, arg2);
-}
-
-export function ExportWhisparrExclusions(arg1, arg2) {
-  return window['go']['starrs']['Starrs']['ExportWhisparrExclusions'](arg1, arg2);
-}
-
-export function ExportWhisparrImportLists(arg1, arg2) {
-  return window['go']['starrs']['Starrs']['ExportWhisparrImportLists'](arg1, arg2);
-}
-
-export function ExportWhisparrIndexer(arg1, arg2) {
-  return window['go']['starrs']['Starrs']['ExportWhisparrIndexer'](arg1, arg2);
-}
-
-export function ImportLidarrDownloadClients(arg1) {
-  return window['go']['starrs']['Starrs']['ImportLidarrDownloadClients'](arg1);
-}
-
-export function ImportLidarrExclusions(arg1) {
-  return window['go']['starrs']['Starrs']['ImportLidarrExclusions'](arg1);
-}
-
-export function ImportLidarrImportLists(arg1) {
-  return window['go']['starrs']['Starrs']['ImportLidarrImportLists'](arg1);
-}
-
-export function ImportLidarrIndexer(arg1) {
-  return window['go']['starrs']['Starrs']['ImportLidarrIndexer'](arg1);
+export function ImportIndexer(arg1) {
+  return window['go']['starrs']['Starrs']['ImportIndexer'](arg1);
 }
 
 export function ImportLists(arg1) {
   return window['go']['starrs']['Starrs']['ImportLists'](arg1);
 }
 
-export function ImportProwlarrDownloadClients(arg1) {
-  return window['go']['starrs']['Starrs']['ImportProwlarrDownloadClients'](arg1);
+export function ImportSelectedDownloadClients(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['ImportSelectedDownloadClients'](arg1, arg2);
 }
 
-export function ImportProwlarrIndexer(arg1) {
-  return window['go']['starrs']['Starrs']['ImportProwlarrIndexer'](arg1);
+export function ImportSelectedExclusions(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['ImportSelectedExclusions'](arg1, arg2);
 }
 
-export function ImportRadarrDownloadClients(arg1) {
-  return window['go']['starrs']['Starrs']['ImportRadarrDownloadClients'](arg1);
+export function ImportSelectedImportLists(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['ImportSelectedImportLists'](arg1, arg2);
 }
 
-export function ImportRadarrExclusions(arg1) {
-  return window['go']['starrs']['Starrs']['ImportRadarrExclusions'](arg1);
-}
-
-export function ImportRadarrImportLists(arg1) {
-  return window['go']['starrs']['Starrs']['ImportRadarrImportLists'](arg1);
-}
-
-export function ImportRadarrIndexer(arg1) {
-  return window['go']['starrs']['Starrs']['ImportRadarrIndexer'](arg1);
-}
-
-export function ImportReadarrDownloadClients(arg1) {
-  return window['go']['starrs']['Starrs']['ImportReadarrDownloadClients'](arg1);
-}
-
-export function ImportReadarrExclusions(arg1) {
-  return window['go']['starrs']['Starrs']['ImportReadarrExclusions'](arg1);
-}
-
-export function ImportReadarrImportLists(arg1) {
-  return window['go']['starrs']['Starrs']['ImportReadarrImportLists'](arg1);
-}
-
-export function ImportReadarrIndexer(arg1) {
-  return window['go']['starrs']['Starrs']['ImportReadarrIndexer'](arg1);
-}
-
-export function ImportSonarrDownloadClients(arg1) {
-  return window['go']['starrs']['Starrs']['ImportSonarrDownloadClients'](arg1);
-}
-
-export function ImportSonarrExclusions(arg1) {
-  return window['go']['starrs']['Starrs']['ImportSonarrExclusions'](arg1);
-}
-
-export function ImportSonarrImportLists(arg1) {
-  return window['go']['starrs']['Starrs']['ImportSonarrImportLists'](arg1);
-}
-
-export function ImportSonarrIndexer(arg1) {
-  return window['go']['starrs']['Starrs']['ImportSonarrIndexer'](arg1);
-}
-
-export function ImportWhisparrDownloadClients(arg1) {
-  return window['go']['starrs']['Starrs']['ImportWhisparrDownloadClients'](arg1);
-}
-
-export function ImportWhisparrExclusions(arg1) {
-  return window['go']['starrs']['Starrs']['ImportWhisparrExclusions'](arg1);
-}
-
-export function ImportWhisparrImportLists(arg1) {
-  return window['go']['starrs']['Starrs']['ImportWhisparrImportLists'](arg1);
-}
-
-export function ImportWhisparrIndexer(arg1) {
-  return window['go']['starrs']['Starrs']['ImportWhisparrIndexer'](arg1);
+export function ImportSelectedIndexer(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['ImportSelectedIndexer'](arg1, arg2);
 }
 
 export function Indexers(arg1) {

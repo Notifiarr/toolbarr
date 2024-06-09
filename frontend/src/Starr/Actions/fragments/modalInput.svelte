@@ -8,6 +8,7 @@
   export let name: string = "" // translation key
   export let starrApp: undefined | string = undefined
   export let type: InputType
+  export let disabled = false
 
   import { _ } from "/src/libs/Translate.svelte"
   import Fa from "svelte-fa"
@@ -37,7 +38,7 @@
   <div id="input" bind:this={input}>
     <InputGroup>
       <InputGroupText class="setting-name">{title}</InputGroupText>
-      <Input invalid={form[idx][field] != info[idx][field]} bind:value={form[idx][field]} type={type=="checkbox"?"select":type}>
+      <Input invalid={form[idx][field] != info[idx][field]} bind:value={form[idx][field]} type={type=="checkbox"?"select":type} {disabled}>
         {#if type == "checkbox"}
           <option value={true}>{$_("configvalues.Enabled")}</option>
           <option value={false}>{$_("configvalues.Disabled")}</option>

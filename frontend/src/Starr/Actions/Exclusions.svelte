@@ -1,8 +1,9 @@
 <script context="module" lang="ts">
   import { Exclusions } from "/wailsjs/go/starrs/Starrs"
   import type { Tab } from "./fragments/tabs.svelte"
+  import importExclusions from "./fragments/importExclusions.svelte";
 
-  export const tab: Tab = { data: Exclusions, id: "Exclusions" }
+  export const tab: Tab = { data: Exclusions, id: "Exclusions", modal: importExclusions }
   const max = new Date().getFullYear()+25
 </script>
 

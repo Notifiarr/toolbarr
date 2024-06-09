@@ -276,6 +276,7 @@
         "monitorNewItemsDesc": "Monitor items added from this list.",
         "applyAllimportList": "Apply this setting to all import lists in {starrApp}.",
         "ImportListExclusions": "Import List Exclusions",
+        "Exclusions": "Exclusions",
         "DeletingExclusions": "Deleting Exclusions",
         "DeletingBlockLists": "Deleting Block Lists",
         "TestSelected": "Test {count} Selected",

@@ -333,3 +333,7 @@ func (s *Starrs) ImportDownloadClients(config *AppConfig) (map[string]any, error
 
 	return nil, ErrInvalidApp
 }
+
+func (s *Starrs) ImportSelectedDownloadClients(config *AppConfig, selected Selected) (map[string]any, error) {
+	return map[string]any{"msg": fmt.Sprintf("imported %d Download Clients for %s", selected.Count(), config.Name)}, nil
+}

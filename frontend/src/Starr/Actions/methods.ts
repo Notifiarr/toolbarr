@@ -57,6 +57,10 @@ import {
   ImportIndexer,
   ImportImportLists,
   ImportExclusions,
+  ImportSelectedDownloadClients,
+  ImportSelectedIndexer,
+  ImportSelectedImportLists,
+  ImportSelectedExclusions,
 } from "/wailsjs/go/starrs/Starrs"
 
 export function fixFieldValues(info: {[key: string]: any}): string {
@@ -186,16 +190,23 @@ export const test:  {[key: string]: {[key: string]: (...args: any[]) => Promise<
   },
 }
 
-export const exportFile:  {[key: string]: (...args: any[]) => Promise<string>;} = {
+export const exportFile:  {[key: string]: (...args: any[]) => Promise<any>;} = {
   "DownloadClients": ExportDownloadClients,
-  "Indexers": ExportIndexer,
-  "ImportLists": ExportImportLists,
-  "Exclusions": ExportExclusions,
+  "Indexers":        ExportIndexer,
+  "ImportLists":     ExportImportLists,
+  "Exclusions":      ExportExclusions,
 }
 
-export const importFile:  {[key: string]: (...args: any[]) => Promise<string>;} = {
+export const importFile:  {[key: string]: (...args: any[]) => Promise<any>;} = {
   "DownloadClients": ImportDownloadClients,
-  "Indexers": ImportIndexer,
-  "ImportLists": ImportImportLists,
-  "Exclusions": ImportExclusions,
+  "Indexers":        ImportIndexer,
+  "ImportLists":     ImportImportLists,
+  "Exclusions":      ImportExclusions,
+}
+
+export const importSelected:  {[key: string]: (...args: any[]) => Promise<any>;} = {
+  "DownloadClients": ImportSelectedDownloadClients,
+  "Indexers":        ImportSelectedIndexer,
+  "ImportLists":     ImportSelectedImportLists,
+  "Exclusions":      ImportSelectedExclusions,
 }

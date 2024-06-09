@@ -14,7 +14,7 @@
   import Loading from "/src/Starr/loading.svelte"
   import T, { _ } from "/src/libs/Translate.svelte"
   import { toast, count } from "/src/libs/funcs"
-  import { update, remove, test, exportFile, importFile, fixFieldValues } from "../methods"
+  import { update, remove, test, exportFile, importFile, importSelected, fixFieldValues } from "../methods"
   import type { Instance } from "/src/libs/config"
   import { createEventDispatcher } from "svelte"
   import ConfigModal from "./configModal.svelte"
@@ -25,6 +25,7 @@
   $: selectedCount = count(selected)        // How many items are selected.
   $: unSaved = JSON.stringify(form) !== str // True when something changed.
   let button: HTMLElement
+  let importing: {[key: string]: boolean} = {}
 
   // Used by the importer.
   let importData: any = undefined
@@ -114,7 +115,7 @@
     goodMsg = badMsg = ""
     updating = true
 
-    await exportFile[tab.id][instance.App](instance, selected).then(
+    await exportFile[tab.id](instance, selected).then(
       (msg: string) => {if (msg!="") goodMsg += `<li>${$_("instances.SuccessMsg", {values:{"msg": msg}})}</li>`},
       (err: string) => {badMsg += `<li>${$_("instances.ErrorMsg", {values:{"msg": err}})}</li>`},
     )
@@ -127,10 +128,25 @@
     goodMsg = badMsg = ""
     updating = true
 
-    await importFile[tab.id][instance.App](instance).then(
+    await importFile[tab.id](instance).then(
       (resp: any) => {
         goodMsg += `<li>${$_("instances.SuccessMsg", {values:{"msg": resp.msg}})}</li>`
-        // open a modal with list of stuff and checkboxes to select things to import.
+        //  This opens a modal with list of stuff and checkboxes to select things to import.
+        importData = resp.data
+      },
+      (err: string) => {badMsg += `<li>${$_("instances.ErrorMsg", {values:{"msg": err}})}</li>`},
+    )
+
+    updating = false
+  }
+
+  // This gets called when the import items modal gets closed.
+  async function importItemsSelected() {
+    updating = true
+
+    await importSelected[tab.id](instance, importing).then(
+      (resp: any) => {
+        goodMsg += `<li>${$_("instances.SuccessMsg", {values:{"msg": resp.msg}})}</li>`
         importData = resp.data
       },
       (err: string) => {badMsg += `<li>${$_("instances.ErrorMsg", {values:{"msg": err}})}</li>`},
@@ -140,9 +156,16 @@
   }
 </script>
 
+<!-- This modal is used to import data. Only some actions support importing. -->
 <ConfigModal bind:info={importData} name={$_("instances.ImportSelection")} closeButton={$_("words.Import")}
-  id={$_("instances."+tab.id)} disabled={$_("instances.CloseImportModal")} isOpen={importData != undefined}>
-  {Object.keys(importData[0])}
+  id={$_("instances."+tab.id)} disabled={$_("instances.CloseImportModal")} isOpen={importData != undefined}
+  callback={importItemsSelected}>
+  {#if tab.modal}
+    <svelte:component this={tab.modal} {instance} bind:info={importData} bind:updating bind:selected={importing} />
+  {:else}
+    This tab ({tab.id}) has no modal but has import data. This is a bug, or an incomplete code change,
+    please <a href="https://github.com/Notifiarr/toolbarr/issues/new">report it</a>.
+  {/if}
 </ConfigModal>
 
 <div id="footer">

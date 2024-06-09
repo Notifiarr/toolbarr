@@ -297,3 +297,7 @@ func (s *Starrs) ImportImportLists(config *AppConfig) (map[string]any, error) {
 
 	return nil, ErrInvalidApp
 }
+
+func (s *Starrs) ImportSelectedImportLists(config *AppConfig, selected Selected) (map[string]any, error) {
+	return map[string]any{"msg": fmt.Sprintf("imported %d Import Lists for %s", selected.Count(), config.Name)}, nil
+}
