@@ -27,8 +27,8 @@
   <T id={`instances.${field}Desc`} {starrApp}/>
 </Tooltip>
 <Dropdown size="sm">
-  <DropdownToggle tag="span" class="link">
-    <span bind:this={dropdown}>
+  <DropdownToggle tag="span">
+    <span bind:this={dropdown} class="link">
       {title.match(/\b(\w)/g)?.join('').substring(0,2)} <Fa primaryColor="darkCyan" icon={faCircleInfo}/>
     </span>
   </DropdownToggle>
@@ -42,3 +42,11 @@
     </DropdownItem>
   </DropdownMenu>
 </Dropdown>
+
+<style>
+  .link {
+    cursor: pointer;
+    text-decoration: underline;
+    color: rgb(19, 87, 87)
+  }
+</style>

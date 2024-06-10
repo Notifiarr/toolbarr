@@ -9,7 +9,6 @@ import (
 	"github.com/Notifiarr/toolbarr/pkg/mnd"
 	"github.com/mitchellh/go-homedir"
 	wr "github.com/wailsapp/wails/v2/pkg/runtime"
-	"golift.io/cache"
 	"golift.io/starr/lidarr"
 	"golift.io/starr/prowlarr"
 	"golift.io/starr/radarr"
@@ -127,8 +126,10 @@ func (s *Starrs) exportItems(item string, config *AppConfig, data any, count int
 	}
 	defer fileOpen.Close()
 
-	err = json.NewEncoder(fileOpen).Encode(data)
-	if err != nil {
+	encoder := json.NewEncoder(fileOpen)
+	encoder.SetIndent("", "  ")
+
+	if err = encoder.Encode(data); err != nil {
 		wr.LogError(s.ctx, err.Error())
 		return "", fmt.Errorf(s.log.Translate("Encoding and writing file: %v", err))
 	}
@@ -154,7 +155,7 @@ func getSavePath() string {
 // importItems is the initial call when a user wants to import a json file for indexers, downloaders, etc.
 // This prompts the user for a file, decodes the contents, and returns them to the front-end where
 // the user can pick and choose the things they want to import.
-func importItems[N any](s *Starrs, item string, config *AppConfig, input []N) (map[string]any, error) { //nolint:varnamelen,lll
+func importItems[N any](s *Starrs, item string, config *AppConfig, input []N) (*DataReply, error) { //nolint:varnamelen,lll
 	s.log.Tracef("Call:Import%s%s()", config.App, item)
 
 	filePath, err := wr.OpenFileDialog(s.ctx, wr.OpenDialogOptions{
@@ -167,7 +168,7 @@ func importItems[N any](s *Starrs, item string, config *AppConfig, input []N) (m
 		wr.LogError(s.ctx, err.Error())
 		return nil, fmt.Errorf(s.log.Translate("Opening file browser: %v", err))
 	} else if filePath == "" {
-		return map[string]any{"msg": ""}, nil
+		return &DataReply{Msg: ""}, nil
 	}
 
 	// Update this so next time we pick from the same location.
@@ -185,20 +186,8 @@ func importItems[N any](s *Starrs, item string, config *AppConfig, input []N) (m
 		return nil, fmt.Errorf(s.log.Translate("Decoding input file failed: %v", err))
 	}
 
-	// Save the data we read from the file into a memory cache.
-	// So after the user chooses which items to import, we don't have to re-read the file.
-	s.cache.Save(cacheKey(filePath, item), input, cache.Options{})
-
-	return map[string]any{
-		"item": item,
-		"file": filePath,
-		"data": input,
-		"msg": fmt.Sprintf("Importing is not working yet, but there are %d %s in your backup file: %s",
-			len(input), item, filePath),
+	return &DataReply{
+		Msg:  fmt.Sprintf("Found %d %s in backup file: %s", len(input), item, filePath),
+		Data: input,
 	}, nil
-}
-
-// cacheKey allows us to make a cache key for stored file contents.
-func cacheKey(filePath string, item string) string {
-	return fmt.Sprint(filePath, item)
 }

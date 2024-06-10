@@ -175,6 +175,7 @@
     "instances": {
         "AppMenu": "{starrApp} Menu",
         "UpdatingIndexers": "Updating Indexers!",
+        "UpdatingExclusions": "Updating Exclusions!",
         "UpdatingDownloadClients": "Updating Download Clients!",
         "SuccessMsg": "Success: {msg}",
         "ErrorMsg": "ERROR: {msg}",

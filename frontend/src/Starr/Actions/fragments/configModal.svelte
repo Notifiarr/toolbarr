@@ -1,11 +1,11 @@
 <script lang="ts">
-  export let form: any = undefined
+  export let form: any
   export let isOpen = false
   export let id: number | string
   export let name: string
-  export let idx: number = 0
-  export let info: any = undefined
-  export let str: string = ""
+  export let idx: number|string
+  export let info: any
+  export let str: string
   export let disabled = ""
   export let closeButton = $_("words.Close")
   export let callback: VoidFunction|undefined = undefined
@@ -20,7 +20,6 @@
 
   function toggle() {
     if (callback) callback()
-    if (form == undefined && disabled != "") info = undefined
     isOpen = false
   }
 

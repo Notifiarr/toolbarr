@@ -3,6 +3,7 @@ package starrs
 import (
 	"errors"
 	"fmt"
+	"time"
 
 	"golift.io/starr"
 	"golift.io/starr/lidarr"
@@ -73,6 +74,11 @@ func (s *Starrs) deleteIndexer(config *AppConfig, indexerID int64) error {
 	if err != nil {
 		return err
 	}
+
+	end := time.Now().Add(waitTime)
+	// We use `end` and this `defer` to make every request last at least 1 second.
+	// Svelte just won't update some reactive variables if you return quickly.
+	defer func() { time.Sleep(time.Until(end)) }()
 
 	switch starr.App(config.App) {
 	case starr.Lidarr:
@@ -240,6 +246,11 @@ func (s *Starrs) updateIndexer(config *AppConfig, force bool, indexer any) (any,
 		return nil, err
 	}
 
+	end := time.Now().Add(waitTime)
+	// We use `end` and this `defer` to make every request last at least 1 second.
+	// Svelte just won't update some reactive variables if you return quickly.
+	defer func() { time.Sleep(time.Until(end)) }()
+
 	switch data := indexer.(type) {
 	case *lidarr.IndexerInput:
 		return lidarr.New(instance.Config).UpdateIndexerContext(s.ctx, data, force)
@@ -311,31 +322,79 @@ func (s *Starrs) ExportIndexer(config *AppConfig, selected Selected) (string, er
 	return "", ErrInvalidApp
 }
 
-func (s *Starrs) ImportIndexer(config *AppConfig) (map[string]any, error) {
+func (s *Starrs) ImportIndexer(config *AppConfig) (*DataReply, error) {
 	switch config.App {
 	case starr.Lidarr.String():
-		var input []lidarr.IndexerInput
+		var input []lidarr.IndexerOutput
 		return importItems(s, Indexers, config, input)
 	case starr.Prowlarr.String():
-		var input []prowlarr.IndexerInput
+		var input []prowlarr.IndexerOutput
 		return importItems(s, Indexers, config, input)
 	case starr.Radarr.String():
-		var input []radarr.IndexerInput
+		var input []radarr.IndexerOutput
 		return importItems(s, Indexers, config, input)
 	case starr.Readarr.String():
-		var input []readarr.IndexerInput
+		var input []readarr.IndexerOutput
 		return importItems(s, Indexers, config, input)
 	case starr.Sonarr.String():
-		var input []sonarr.IndexerInput
+		var input []sonarr.IndexerOutput
 		return importItems(s, Indexers, config, input)
 	case starr.Whisparr.String():
-		var input []sonarr.IndexerInput
+		var input []sonarr.IndexerOutput
 		return importItems(s, Indexers, config, input)
 	}
 
 	return nil, ErrInvalidApp
 }
 
-func (s *Starrs) ImportSelectedIndexer(config *AppConfig, selected Selected) (map[string]any, error) {
-	return map[string]any{"msg": fmt.Sprintf("imported %d indexers for %s", selected.Count(), config.Name)}, nil
+func (s *Starrs) AddLidarrIndexer(config *AppConfig, indexer *lidarr.IndexerInput) (*DataReply, error) {
+	data, err := s.addIndexer(config, indexer)
+	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported Indexer '%s' into %s", indexer.Name, config.Name)}, err
+}
+
+func (s *Starrs) AddProwlarrIndexer(config *AppConfig, indexer *prowlarr.IndexerInput) (*DataReply, error) {
+	data, err := s.addIndexer(config, indexer)
+	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported Indexer '%s' into %s", indexer.Name, config.Name)}, err
+}
+
+func (s *Starrs) AddRadarrIndexer(config *AppConfig, indexer *radarr.IndexerInput) (*DataReply, error) {
+	data, err := s.addIndexer(config, indexer)
+	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported Indexer '%s' into %s", indexer.Name, config.Name)}, err
+}
+
+func (s *Starrs) AddReadarrIndexer(config *AppConfig, indexer *readarr.IndexerInput) (*DataReply, error) {
+	data, err := s.addIndexer(config, indexer)
+	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported indexer '%s' into %s", indexer.Name, config.Name)}, err
+}
+
+func (s *Starrs) AddSonarrIndexer(config *AppConfig, indexer *sonarr.IndexerInput) (*DataReply, error) {
+	data, err := s.addIndexer(config, indexer)
+	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported Indexer '%s' into %s", indexer.Name, config.Name)}, err
+}
+
+func (s *Starrs) AddWhisparrIndexer(config *AppConfig, indexer *sonarr.IndexerInput) (*DataReply, error) {
+	data, err := s.addIndexer(config, indexer)
+	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported Indexer '%s' into %s", indexer.Name, config.Name)}, err
+}
+
+func (s *Starrs) addIndexer(config *AppConfig, indexer any) (any, error) {
+	instance, err := s.newAPIinstance(config)
+	if err != nil {
+		return nil, err
+	}
+
+	switch data := indexer.(type) {
+	case *lidarr.IndexerInput:
+		return lidarr.New(instance.Config).AddIndexerContext(s.ctx, data)
+	case *prowlarr.IndexerInput:
+		return prowlarr.New(instance.Config).AddIndexerContext(s.ctx, data)
+	case *radarr.IndexerInput:
+		return radarr.New(instance.Config).AddIndexerContext(s.ctx, data)
+	case *readarr.IndexerInput:
+		return readarr.New(instance.Config).AddIndexerContext(s.ctx, data)
+	case *sonarr.IndexerInput:
+		return sonarr.New(instance.Config).AddIndexerContext(s.ctx, data)
+	default:
+		return nil, fmt.Errorf("%w: missing app", starr.ErrRequestError)
+	}
 }

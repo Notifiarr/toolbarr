@@ -1,8 +1,11 @@
 <script lang="ts">
-  export let tab: Tab
+  export let tab: Tab|undefined
   export let info: any
   export let instance: Instance
   export let updating: boolean
+  export let selected: {[key: string]: boolean} = {} // Rows selected by key: ID.
+  export let str = ""                                // Used for equivalence comparison.
+  export let form: any = undefined                   // Form changes go here.
 
   import type { Tab } from "./fragments/tabs.svelte"
   import { _ } from "/src/libs/Translate.svelte"
@@ -20,9 +23,8 @@
 
   let isOpen: {[key: number]: boolean} = {} // Modal toggle control.
   let all = false                           // Toggle for select-all link.
-  let selected: {[key: string]: boolean} = {} // Rows selected by key: ID.
-  let str = fixFieldValues(info) // Used for equivalence comparison.
-  let form = JSON.parse(str)     // Form changes go here.
+  str = fixFieldValues(info)
+  form = JSON.parse(str)
   let starrApp = instance.App
 </script>
 
@@ -43,10 +45,11 @@
 
   {#each info as indexer, idx}
     {#if indexer} <!-- When deleting an indexer, this protects an error condition. -->
-    <SelectRow {updating} bind:selected id={info[idx].id} item={indexer}>
+    {@const loopid = tab?indexer.id:idx}
+    <SelectRow {updating} bind:selected id={loopid} item={indexer}>
       <td class={JSON.stringify(form[idx]) != JSON.stringify(info[idx])?"border-warning":""}>
         <a href="/" style="padding-left:0" on:click|preventDefault={() => isOpen[idx]=!updating}>{indexer.name}</a>
-        <ConfigModal {info} {form} {idx} {str} id={indexer.id} name={indexer.implementation} bind:isOpen={isOpen[idx]}
+        <ConfigModal {info} {form} {idx} {str} id={loopid} name={indexer.implementation} bind:isOpen={isOpen[idx]}
           disabled={starrApp=="Prowlarr"?$_("instances.ProwlarrNotSupported"):""}>
           <ModalInput {info} bind:form {idx} field="name" name="words.Name" type="text"/>
           <ModalInput {info} bind:form {idx} field="priority" name="words.Priority" type="number"/>
@@ -65,6 +68,6 @@
 
 {#if instance.App == "Prowlarr"}
   {$_("instances.ProwlarrNotSupported")}
-{:else}
+{:else if tab}
   <Footer {instance} {tab} bind:selected bind:updating bind:info bind:form bind:str importable />
 {/if}<!-- /if (instance.App) -->

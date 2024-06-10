@@ -3,6 +3,7 @@ package starrs
 import (
 	"errors"
 	"fmt"
+	"time"
 
 	"golift.io/starr"
 	"golift.io/starr/lidarr"
@@ -67,6 +68,11 @@ func (s *Starrs) deleteImportList(config *AppConfig, listID int64) error {
 	if err != nil {
 		return err
 	}
+
+	end := time.Now().Add(waitTime)
+	// We use `end` and this `defer` to make every request last at least 1 second.
+	// Svelte just won't update some reactive variables if you return quickly.
+	defer func() { time.Sleep(time.Until(end)) }()
 
 	switch starr.App(config.App) {
 	case starr.Lidarr:
@@ -210,6 +216,11 @@ func (s *Starrs) updateImportList(config *AppConfig, force bool, list any) (any,
 		return nil, err
 	}
 
+	end := time.Now().Add(waitTime)
+	// We use `end` and this `defer` to make every request last at least 1 second.
+	// Svelte just won't update some reactive variables if you return quickly.
+	defer func() { time.Sleep(time.Until(end)) }()
+
 	switch data := list.(type) {
 	case *lidarr.ImportListInput:
 		return lidarr.New(instance.Config).UpdateImportListContext(s.ctx, data, force)
@@ -276,7 +287,7 @@ func (s *Starrs) ExportImportLists(config *AppConfig, selected Selected) (string
 	return "", ErrInvalidApp
 }
 
-func (s *Starrs) ImportImportLists(config *AppConfig) (map[string]any, error) {
+func (s *Starrs) ImportImportLists(config *AppConfig) (*DataReply, error) {
 	switch config.App {
 	case starr.Lidarr.String():
 		var input []lidarr.ImportListInput
@@ -298,6 +309,47 @@ func (s *Starrs) ImportImportLists(config *AppConfig) (map[string]any, error) {
 	return nil, ErrInvalidApp
 }
 
-func (s *Starrs) ImportSelectedImportLists(config *AppConfig, selected Selected) (map[string]any, error) {
-	return map[string]any{"msg": fmt.Sprintf("imported %d Import Lists for %s", selected.Count(), config.Name)}, nil
+func (s *Starrs) AddLidarrImportList(config *AppConfig, list *lidarr.ImportListInput) (*DataReply, error) {
+	data, err := s.addImportList(config, list)
+	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported Import List '%s' into %s", list.Name, config.Name)}, err
+}
+
+func (s *Starrs) AddRadarrImportList(config *AppConfig, list *radarr.ImportListInput) (*DataReply, error) {
+	data, err := s.addImportList(config, list)
+	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported Import List '%s' into %s", list.Name, config.Name)}, err
+}
+
+func (s *Starrs) AddReadarrImportList(config *AppConfig, list *readarr.ImportListInput) (*DataReply, error) {
+	data, err := s.addImportList(config, list)
+	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported Import List '%s' into %s", list.Name, config.Name)}, err
+}
+
+func (s *Starrs) AddSonarrImportList(config *AppConfig, list *sonarr.ImportListInput) (*DataReply, error) {
+	data, err := s.addImportList(config, list)
+	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported Import List '%s' into %s", list.Name, config.Name)}, err
+}
+
+func (s *Starrs) AddWhisparrImportList(config *AppConfig, list *sonarr.ImportListInput) (*DataReply, error) {
+	data, err := s.addImportList(config, list)
+	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported Import List '%s' into %s", list.Name, config.Name)}, err
+}
+
+func (s *Starrs) addImportList(config *AppConfig, list any) (any, error) {
+	instance, err := s.newAPIinstance(config)
+	if err != nil {
+		return nil, err
+	}
+
+	switch data := list.(type) {
+	case *lidarr.ImportListInput:
+		return lidarr.New(instance.Config).AddImportListContext(s.ctx, data)
+	case *radarr.ImportListInput:
+		return radarr.New(instance.Config).AddImportListContext(s.ctx, data)
+	case *readarr.ImportListInput:
+		return readarr.New(instance.Config).AddImportListContext(s.ctx, data)
+	case *sonarr.ImportListInput:
+		return sonarr.New(instance.Config).AddImportListContext(s.ctx, data)
+	default:
+		return nil, fmt.Errorf("%w: missing app", starr.ErrRequestError)
+	}
 }

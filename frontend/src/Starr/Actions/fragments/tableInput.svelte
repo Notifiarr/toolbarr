@@ -29,7 +29,7 @@
     <div class="{type} p-0">
       {#if type == "switch"}
         <Input disabled={updating||disabled} type="switch" bind:checked={form[idx][field]} />
-      {:else if type == "text"}
+      {:else if type == "text" || type == "number"}
       <div class="link" role="link" tabindex="-1"
         on:focusout={() => edit(false)}
         on:focusin={() => edit(true)}
@@ -47,7 +47,7 @@
         <Tooltip target={cell}>{form[idx][field]}</Tooltip>
         <Input disabled={updating||disabled} bsSize="sm" {type} {min} {max} bind:value={form[idx][field]}/>
       {:else}
-        <Button disabled>'{type}' not supported; add it in formInput.svelte</Button>
+        <Button disabled>'{type}' not supported; add it in tableInput.svelte</Button>
       {/if}
     </div>
   </td>

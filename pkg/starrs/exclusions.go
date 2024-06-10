@@ -3,6 +3,7 @@ package starrs
 import (
 	"errors"
 	"fmt"
+	"time"
 
 	"golift.io/starr"
 	"golift.io/starr/lidarr"
@@ -67,6 +68,11 @@ func (s *Starrs) deleteExclusion(config *AppConfig, exclusionID int64) error {
 	if err != nil {
 		return err
 	}
+
+	end := time.Now().Add(waitTime)
+	// We use `end` and this `defer` to make every request last at least 1 second.
+	// Svelte just won't update some reactive variables if you return quickly.
+	defer func() { time.Sleep(time.Until(end)) }()
 
 	switch starr.App(config.App) {
 	case starr.Lidarr:
@@ -140,6 +146,11 @@ func (s *Starrs) updateExclusion(config *AppConfig, exclusion any) (any, error) 
 		return nil, err
 	}
 
+	end := time.Now().Add(waitTime)
+	// We use `end` and this `defer` to make every request last at least 1 second.
+	// Svelte just won't update some reactive variables if you return quickly.
+	defer func() { time.Sleep(time.Until(end)) }()
+
 	switch data := exclusion.(type) {
 	case *lidarr.Exclusion:
 		return lidarr.New(instance.Config).UpdateExclusionContext(s.ctx, data)
@@ -206,7 +217,7 @@ func (s *Starrs) ExportExclusions(config *AppConfig, selected Selected) (string,
 	return "", ErrInvalidApp
 }
 
-func (s *Starrs) ImportExclusions(config *AppConfig) (map[string]any, error) {
+func (s *Starrs) ImportExclusions(config *AppConfig) (*DataReply, error) {
 	switch config.App {
 	case starr.Lidarr.String():
 		var input []lidarr.Exclusion
@@ -228,8 +239,59 @@ func (s *Starrs) ImportExclusions(config *AppConfig) (map[string]any, error) {
 	return nil, ErrInvalidApp
 }
 
-func (s *Starrs) ImportSelectedExclusions(config *AppConfig, selected Selected) (map[string]any, error) {
-	return map[string]any{
-		"msg": fmt.Sprintf("imported %d Import List Exclusions for %s", selected.Count(), config.Name),
-	}, nil
+func (s *Starrs) AddLidarrExclusion(config *AppConfig, exclusion *lidarr.Exclusion) (*DataReply, error) {
+	data, err := s.addExclusion(config, exclusion)
+
+	return &DataReply{
+		Data: data,
+		Msg:  fmt.Sprintf("Imported Exclusion '%s' into %s", exclusion.ArtistName, config.Name),
+	}, err
+}
+
+func (s *Starrs) AddRadarrExclusion(config *AppConfig, exclusion *radarr.Exclusion) (*DataReply, error) {
+	data, err := s.addExclusion(config, exclusion)
+	if err != nil {
+		return nil, err
+	}
+
+	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported Exclusion '%s' into %s", exclusion.Title, config.Name)}, err
+}
+
+func (s *Starrs) AddReadarrExclusion(config *AppConfig, exclusion *readarr.Exclusion) (*DataReply, error) {
+	data, err := s.addExclusion(config, exclusion)
+
+	return &DataReply{
+		Data: data,
+		Msg:  fmt.Sprintf("Imported Exclusion '%s' into %s", exclusion.AuthorName, config.Name),
+	}, err
+}
+
+func (s *Starrs) AddSonarrExclusion(config *AppConfig, exclusion *sonarr.Exclusion) (*DataReply, error) {
+	data, err := s.addExclusion(config, exclusion)
+	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported Exclusion '%s' into %s", exclusion.Title, config.Name)}, err
+}
+
+func (s *Starrs) AddWhisparrExclusion(config *AppConfig, exclusion *sonarr.Exclusion) (*DataReply, error) {
+	data, err := s.addExclusion(config, exclusion)
+	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported Exclusion '%s' into %s", exclusion.Title, config.Name)}, err
+}
+
+func (s *Starrs) addExclusion(config *AppConfig, exclusion any) (any, error) {
+	instance, err := s.newAPIinstance(config)
+	if err != nil {
+		return nil, err
+	}
+
+	switch data := exclusion.(type) {
+	case *lidarr.Exclusion:
+		return lidarr.New(instance.Config).AddExclusionContext(s.ctx, data)
+	case *radarr.Exclusion:
+		return radarr.New(instance.Config).AddExclusionContext(s.ctx, data)
+	case *readarr.Exclusion:
+		return readarr.New(instance.Config).AddExclusionContext(s.ctx, data)
+	case *sonarr.Exclusion:
+		return sonarr.New(instance.Config).AddExclusionContext(s.ctx, data)
+	default:
+		return nil, fmt.Errorf("%w: missing app", starr.ErrRequestError)
+	}
 }

@@ -8,9 +8,6 @@
   import customFilters from "../CustomFilters.svelte"
   import blockList from "../BlockLists.svelte"
   import qualityProfiles from "../QualityProfiles.svelte"
-  import importIndexers from "./importIndexers.svelte"
-  import importDownloadClients from "./importDownloadClients.svelte"
-  import importImportLists from "./importImportLists.svelte"
   import {
     AppProfiles,
     Indexers,
@@ -26,21 +23,19 @@
     pageData?: (instance: any, pageSize: number, page: number, sortKey: string, sortDir: string) => Promise<any>
     id: string
     component?: ComponentType
-    // modal is generally used as an import page.
-    modal?: ComponentType
   }
 
   // All apps have these tabs.
   const commonTabs: Tab[] = [
-    { data: Indexers, id: "Indexers", component: indexers, modal: importIndexers },
-    { data: Downloaders, id: "DownloadClients", component: downloadClients, modal: importDownloadClients }
+    { data: Indexers, id: "Indexers", component: indexers },
+    { data: Downloaders, id: "DownloadClients", component: downloadClients }
   ]
 
   // Everything but Prowlarr.
   const starrTabs = commonTabs.concat([
     { pageData: BlockList, id: "BlockLists", component: blockList },
     { data: QualityProfiles, id: "QualityProfiles", component: qualityProfiles },
-    { data: ImportLists, id: "ImportLists", component: importLists, modal: importImportLists },
+    { data: ImportLists, id: "ImportLists", component: importLists },
   ])
 
   const tabs = {
@@ -67,7 +62,6 @@
 
   import T, { _ } from "../../../libs/Translate.svelte"
   import { Fade, Nav, NavItem, NavLink } from "@sveltestrap/sveltestrap"
-  import ImportIndexers from "./importIndexers.svelte";
 
   function changeTab(e: MouseEvent, newTab: Tab) {
     e.preventDefault()

@@ -12,7 +12,7 @@ require (
 	golift.io/cache v0.0.2
 	golift.io/datacounter v1.0.4
 	golift.io/rotatorr v0.0.0-20230911015553-cd2abbd726c7
-	golift.io/starr v1.0.0
+	golift.io/starr v1.0.1-0.20240610220632-a3bf016a28dc
 	golift.io/version v0.0.2
 	modernc.org/sqlite v1.29.10
 )

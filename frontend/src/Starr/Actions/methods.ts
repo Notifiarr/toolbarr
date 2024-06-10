@@ -57,10 +57,28 @@ import {
   ImportIndexer,
   ImportImportLists,
   ImportExclusions,
-  ImportSelectedDownloadClients,
-  ImportSelectedIndexer,
-  ImportSelectedImportLists,
-  ImportSelectedExclusions,
+  AddLidarrDownloadClient,
+  AddProwlarrDownloadClient,
+  AddRadarrDownloadClient,
+  AddReadarrDownloadClient,
+  AddSonarrDownloadClient,
+  AddWhisparrDownloadClient,
+  AddLidarrIndexer,
+  AddProwlarrIndexer,
+  AddRadarrIndexer,
+  AddReadarrIndexer,
+  AddSonarrIndexer,
+  AddWhisparrIndexer,
+  AddLidarrImportList,
+  AddRadarrImportList,
+  AddReadarrImportList,
+  AddSonarrImportList,
+  AddWhisparrImportList,
+  AddLidarrExclusion,
+  AddRadarrExclusion,
+  AddReadarrExclusion,
+  AddSonarrExclusion,
+  AddWhisparrExclusion,
 } from "/wailsjs/go/starrs/Starrs"
 
 export function fixFieldValues(info: {[key: string]: any}): string {
@@ -204,9 +222,35 @@ export const importFile:  {[key: string]: (...args: any[]) => Promise<any>;} = {
   "Exclusions":      ImportExclusions,
 }
 
-export const importSelected:  {[key: string]: (...args: any[]) => Promise<any>;} = {
-  "DownloadClients": ImportSelectedDownloadClients,
-  "Indexers":        ImportSelectedIndexer,
-  "ImportLists":     ImportSelectedImportLists,
-  "Exclusions":      ImportSelectedExclusions,
+export const add:  {[key: string]: {[key: string]: (...args: any[]) => Promise<string>;}} = {
+  "DownloadClients": {
+    "Lidarr":   AddLidarrDownloadClient,
+    "Prowlarr": AddProwlarrDownloadClient,
+    "Radarr":   AddRadarrDownloadClient,
+    "Readarr":  AddReadarrDownloadClient,
+    "Sonarr":   AddSonarrDownloadClient,
+    "Whisparr": AddWhisparrDownloadClient,
+  },
+  "Indexers": {
+    "Lidarr":   AddLidarrIndexer,
+    "Prowlarr": AddProwlarrIndexer,
+    "Radarr":   AddRadarrIndexer,
+    "Readarr":  AddReadarrIndexer,
+    "Sonarr":   AddSonarrIndexer,
+    "Whisparr": AddWhisparrIndexer,
+  },
+  "ImportLists": {
+    "Lidarr":   AddLidarrImportList,
+    "Radarr":   AddRadarrImportList,
+    "Readarr":  AddReadarrImportList,
+    "Sonarr":   AddSonarrImportList,
+    "Whisparr": AddWhisparrImportList,
+  },
+  "Exclusions": {
+    "Lidarr":   AddLidarrExclusion,
+    "Radarr":   AddRadarrExclusion,
+    "Readarr":  AddReadarrExclusion,
+    "Sonarr":   AddSonarrExclusion,
+    "Whisparr": AddWhisparrExclusion,
+  },
 }

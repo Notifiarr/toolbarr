@@ -7,6 +7,50 @@ import {radarr} from '../models';
 import {readarr} from '../models';
 import {sonarr} from '../models';
 
+export function AddLidarrDownloadClient(arg1:starrs.AppConfig,arg2:lidarr.DownloadClientInput):Promise<starrs.DataReply>;
+
+export function AddLidarrExclusion(arg1:starrs.AppConfig,arg2:lidarr.Exclusion):Promise<starrs.DataReply>;
+
+export function AddLidarrImportList(arg1:starrs.AppConfig,arg2:lidarr.ImportListInput):Promise<starrs.DataReply>;
+
+export function AddLidarrIndexer(arg1:starrs.AppConfig,arg2:lidarr.IndexerInput):Promise<starrs.DataReply>;
+
+export function AddProwlarrDownloadClient(arg1:starrs.AppConfig,arg2:prowlarr.DownloadClientInput):Promise<starrs.DataReply>;
+
+export function AddProwlarrIndexer(arg1:starrs.AppConfig,arg2:prowlarr.IndexerInput):Promise<starrs.DataReply>;
+
+export function AddRadarrDownloadClient(arg1:starrs.AppConfig,arg2:radarr.DownloadClientInput):Promise<starrs.DataReply>;
+
+export function AddRadarrExclusion(arg1:starrs.AppConfig,arg2:radarr.Exclusion):Promise<starrs.DataReply>;
+
+export function AddRadarrImportList(arg1:starrs.AppConfig,arg2:radarr.ImportListInput):Promise<starrs.DataReply>;
+
+export function AddRadarrIndexer(arg1:starrs.AppConfig,arg2:radarr.IndexerInput):Promise<starrs.DataReply>;
+
+export function AddReadarrDownloadClient(arg1:starrs.AppConfig,arg2:readarr.DownloadClientInput):Promise<starrs.DataReply>;
+
+export function AddReadarrExclusion(arg1:starrs.AppConfig,arg2:readarr.Exclusion):Promise<starrs.DataReply>;
+
+export function AddReadarrImportList(arg1:starrs.AppConfig,arg2:readarr.ImportListInput):Promise<starrs.DataReply>;
+
+export function AddReadarrIndexer(arg1:starrs.AppConfig,arg2:readarr.IndexerInput):Promise<starrs.DataReply>;
+
+export function AddSonarrDownloadClient(arg1:starrs.AppConfig,arg2:sonarr.DownloadClientInput):Promise<starrs.DataReply>;
+
+export function AddSonarrExclusion(arg1:starrs.AppConfig,arg2:sonarr.Exclusion):Promise<starrs.DataReply>;
+
+export function AddSonarrImportList(arg1:starrs.AppConfig,arg2:sonarr.ImportListInput):Promise<starrs.DataReply>;
+
+export function AddSonarrIndexer(arg1:starrs.AppConfig,arg2:sonarr.IndexerInput):Promise<starrs.DataReply>;
+
+export function AddWhisparrDownloadClient(arg1:starrs.AppConfig,arg2:sonarr.DownloadClientInput):Promise<starrs.DataReply>;
+
+export function AddWhisparrExclusion(arg1:starrs.AppConfig,arg2:sonarr.Exclusion):Promise<starrs.DataReply>;
+
+export function AddWhisparrImportList(arg1:starrs.AppConfig,arg2:sonarr.ImportListInput):Promise<starrs.DataReply>;
+
+export function AddWhisparrIndexer(arg1:starrs.AppConfig,arg2:sonarr.IndexerInput):Promise<starrs.DataReply>;
+
 export function AppProfiles(arg1:starrs.AppConfig):Promise<any>;
 
 export function BlockList(arg1:starrs.AppConfig,arg2:number,arg3:number,arg4:string,arg5:string):Promise<any>;
@@ -39,23 +83,15 @@ export function ExportImportLists(arg1:starrs.AppConfig,arg2:starrs.Selected):Pr
 
 export function ExportIndexer(arg1:starrs.AppConfig,arg2:starrs.Selected):Promise<string>;
 
-export function ImportDownloadClients(arg1:starrs.AppConfig):Promise<{[key: string]: any}>;
+export function ImportDownloadClients(arg1:starrs.AppConfig):Promise<starrs.DataReply>;
 
-export function ImportExclusions(arg1:starrs.AppConfig):Promise<{[key: string]: any}>;
+export function ImportExclusions(arg1:starrs.AppConfig):Promise<starrs.DataReply>;
 
-export function ImportImportLists(arg1:starrs.AppConfig):Promise<{[key: string]: any}>;
+export function ImportImportLists(arg1:starrs.AppConfig):Promise<starrs.DataReply>;
 
-export function ImportIndexer(arg1:starrs.AppConfig):Promise<{[key: string]: any}>;
+export function ImportIndexer(arg1:starrs.AppConfig):Promise<starrs.DataReply>;
 
 export function ImportLists(arg1:starrs.AppConfig):Promise<any>;
-
-export function ImportSelectedDownloadClients(arg1:starrs.AppConfig,arg2:starrs.Selected):Promise<{[key: string]: any}>;
-
-export function ImportSelectedExclusions(arg1:starrs.AppConfig,arg2:starrs.Selected):Promise<{[key: string]: any}>;
-
-export function ImportSelectedImportLists(arg1:starrs.AppConfig,arg2:starrs.Selected):Promise<{[key: string]: any}>;
-
-export function ImportSelectedIndexer(arg1:starrs.AppConfig,arg2:starrs.Selected):Promise<{[key: string]: any}>;
 
 export function Indexers(arg1:starrs.AppConfig):Promise<any>;
 

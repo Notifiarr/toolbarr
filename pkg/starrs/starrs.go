@@ -12,6 +12,8 @@ import (
 	"golift.io/starr"
 )
 
+const waitTime = 666 * time.Millisecond
+
 var ErrInvalidApp = errors.New("an invalid app was provided; this may be a bug")
 
 // Starrs holds the running data and provides the frontend a place
