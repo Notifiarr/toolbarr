@@ -9,7 +9,6 @@ require (
 	github.com/wailsapp/wails/v2 v2.8.2
 	golang.org/x/mod v0.17.0
 	golang.org/x/text v0.15.0
-	golift.io/cache v0.0.2
 	golift.io/datacounter v1.0.4
 	golift.io/rotatorr v0.0.0-20230911015553-cd2abbd726c7
 	golift.io/starr v1.0.1-0.20240611005214-60f07e9b72f8

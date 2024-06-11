@@ -8,7 +8,6 @@ import (
 
 	"github.com/Notifiarr/toolbarr/pkg/logs"
 	"github.com/Notifiarr/toolbarr/pkg/mnd"
-	"golift.io/cache"
 	"golift.io/starr"
 )
 
@@ -19,10 +18,9 @@ var ErrInvalidApp = errors.New("an invalid app was provided; this may be a bug")
 // Starrs holds the running data and provides the frontend a place
 // to interact with starr instances and their databases.
 type Starrs struct {
-	ctx   context.Context
-	app   mnd.App
-	log   *logs.Logger
-	cache *cache.Cache
+	ctx context.Context
+	app mnd.App
+	log *logs.Logger
 }
 
 // instance allows interacting with the instances via HTTP API using a standard interface.
@@ -56,11 +54,6 @@ func Startup(ctx context.Context, starrs *Starrs, log *logs.Logger, app mnd.App)
 	starrs.ctx = ctx
 	starrs.app = app
 	starrs.log = log
-	starrs.cache = cache.New(cache.Config{
-		RequestAccuracy: time.Minute,
-		MaxUnused:       time.Hour,
-		PruneInterval:   pruneInterval,
-	})
 }
 
 // Copy the instances list. Using copies provides thread safety at the risk of inconsistency.
