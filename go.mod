@@ -8,12 +8,12 @@ require (
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/wailsapp/wails/v2 v2.8.2
 	golang.org/x/mod v0.18.0
-	golang.org/x/text v0.15.0
+	golang.org/x/text v0.16.0
 	golift.io/datacounter v1.0.4
 	golift.io/rotatorr v0.0.0-20230911015553-cd2abbd726c7
-	golift.io/starr v1.0.1-0.20240611062224-a6c1765d5e67
+	golift.io/starr v1.0.1-0.20240611062756-abbce481a5c2
 	golift.io/version v0.0.2
-	modernc.org/sqlite v1.29.10
+	modernc.org/sqlite v1.30.1
 )
 
 require (
@@ -48,7 +48,7 @@ require (
 	golang.org/x/net v0.25.0 // indirect
 	golang.org/x/sys v0.20.0 // indirect
 	modernc.org/gc/v3 v3.0.0-20240304020402-f0dba7c97c2b // indirect
-	modernc.org/libc v1.49.3 // indirect
+	modernc.org/libc v1.52.1 // indirect
 	modernc.org/mathutil v1.6.0 // indirect
 	modernc.org/memory v1.8.0 // indirect
 	modernc.org/strutil v1.2.0 // indirect
