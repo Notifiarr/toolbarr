@@ -10,6 +10,10 @@
   export let info: any
   export let instance: Instance
   export let updating: boolean
+  export let footer = true
+  export let selected: {[key: string]: boolean} = {} // Rows selected by key: ID.
+  export let str: string = ""                        // Used for equivalence comparison.
+  export let form: any = undefined                   // Form changes go here.
 
   import type { Instance } from "/src/libs/config"
   import { _ } from "/src/libs/Translate.svelte"
@@ -18,17 +22,21 @@
   import SelectAll from "./fragments/selectAllHeader.svelte"
   import SelectRow from "./fragments/selectAllRow.svelte"
   import { Table } from "@sveltestrap/sveltestrap"
+  import self from "./Exclusions.svelte"
+  import { onMount } from "svelte";
 
   let all: boolean = false      // Toggle for select-all link.
-  let selected: {[key: string]: boolean} = {} // Rows selected by key: ID.
-  let str: string = JSON.stringify(info) // Used for equivalence comparison.
-  let form: any = JSON.parse(str)        // Form changes go here.
+  str = JSON.stringify(info)
+  form = JSON.parse(str)
   let starrApp = instance.App
+
+  // The module can only reference itself after mounting itself.
+  onMount(() => { tab.component = self });
 </script>
 
 <Table bordered>
   <tr>
-    <SelectAll bind:all bind:selected bind:updating />
+    <SelectAll bind:all bind:selected bind:updating icon="check2-all" />
     {#if starrApp == "Sonarr" || starrApp == "Whisparr"}
       <th>TvDb ID</th>
       <th>{$_("words.Title")}</th>
@@ -47,12 +55,13 @@
 
   {#each info as exclusion, idx}
     {#if exclusion} <!-- When deleting an exclusion, this protects an error condition. -->
-      <SelectRow {updating} bind:selected id={info[idx].id} item={exclusion}>
+      {@const loopid = footer?exclusion.id:idx}
+      <SelectRow {updating} bind:selected id={loopid} item={exclusion}>
         {#if starrApp == "Sonarr" || starrApp == "Whisparr"}
-        <TDInput {idx} {info} {updating} bind:form field="tvdbId" type="text" />
+        <TDInput {idx} {info} {updating} bind:form field="tvdbId" type="number" />
         <TDInput {idx} {info} {updating} bind:form field="title" type="text" />
         {:else if starrApp == "Radarr"}
-        <TDInput {idx} {info} {updating} bind:form field="tmdbId" type="text" />
+        <TDInput {idx} {info} {updating} bind:form field="tmdbId" type="number" />
         <TDInput {idx} {info} {updating} bind:form field="movieTitle" type="text" />
         <TDInput {idx} {info} {updating} bind:form field="movieYear" min={1895} {max} type="range" />
         {:else if starrApp == "Lidarr"}
@@ -67,4 +76,6 @@
     {/each}
 </Table>
 
-<Footer noForce {tab} {instance} bind:selected bind:updating bind:info bind:form bind:str />
+{#if footer}
+<Footer noForce {tab} {instance} bind:selected bind:updating bind:info bind:form bind:str importable />
+{/if}

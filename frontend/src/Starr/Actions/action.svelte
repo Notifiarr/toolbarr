@@ -43,7 +43,7 @@
     if (prevURL === instance.URL && prevTab === tab && force !== true) return
 
     prevTab = tab
-    updating = true
+    if (!force) updating = true
     info = undefined
 
     if (tab.pageData) {
@@ -82,10 +82,10 @@
       {:else}<!-- tab is pagable-->
         <svelte:component {instance} {tab}
           bind:info bind:updating bind:sortKey bind:sortDir 
-          this={tab.component} on:update={update}/>
+          this={tab.component} on:update={() => update(true)}/>
         <Paginate {updating} {pages}
           bind:pageSize bind:page records={info.records.length}
-          total={info.totalRecords} on:update={update}/>
+          total={info.totalRecords} on:update={() => update(true)}/>
       {/if}
     </div>
 

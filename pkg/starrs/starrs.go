@@ -2,6 +2,7 @@ package starrs
 
 import (
 	"context"
+	"errors"
 	"strings"
 	"time"
 
@@ -9,6 +10,10 @@ import (
 	"github.com/Notifiarr/toolbarr/pkg/mnd"
 	"golift.io/starr"
 )
+
+const waitTime = 500 * time.Millisecond
+
+var ErrInvalidApp = errors.New("an invalid app was provided; this may be a bug")
 
 // Starrs holds the running data and provides the frontend a place
 // to interact with starr instances and their databases.
@@ -94,4 +99,16 @@ func (s *Starrs) newAPIinstance(config *AppConfig) (*instance, error) {
 	}
 
 	return instance, nil
+}
+
+type Selected map[int64]bool
+
+func (s Selected) Count() (count int) { //nolint:nonamedreturns
+	for _, b := range s {
+		if b {
+			count++
+		}
+	}
+
+	return count
 }

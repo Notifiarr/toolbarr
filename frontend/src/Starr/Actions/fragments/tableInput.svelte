@@ -7,6 +7,7 @@
   export let type: InputType
   export let min = 1
   export let max = 100
+  export let disabled = false
 
   import { _ } from "/src/libs/Translate.svelte"
   import { Button, Input, InputGroup, Tooltip } from "@sveltestrap/sveltestrap"
@@ -27,26 +28,26 @@
   <td bind:this={cell} class={changed?"bg-warning":""}>
     <div class="{type} p-0">
       {#if type == "switch"}
-        <Input disabled={updating} type="switch" bind:checked={form[idx][field]} />
-      {:else if type == "text"}
+        <Input disabled={updating||disabled} type="switch" bind:checked={form[idx][field]} />
+      {:else if type == "text" || type == "number"}
       <div class="link" role="link" tabindex="-1"
         on:focusout={() => edit(false)}
         on:focusin={() => edit(true)}
         on:keyup={() => edit(true)}
         on:click={() => edit(true)} >
-        <Input {style} {plaintext} disabled={updating} invalid={changed} {type} bind:value={form[idx][field]}/>
+        <Input {style} {plaintext} disabled={updating||disabled} invalid={changed} {type} bind:value={form[idx][field]}/>
       </div>
       {:else if type == "select"}
         <InputGroup size="sm">
-          <Input disabled={updating} invalid={changed} {type} bind:value={form[idx][field]}>
+          <Input disabled={updating||disabled} invalid={changed} {type} bind:value={form[idx][field]}>
             <slot/>
           </Input>
         </InputGroup>
       {:else if type == "range"}
         <Tooltip target={cell}>{form[idx][field]}</Tooltip>
-        <Input disabled={updating} bsSize="sm" {type} {min} {max} bind:value={form[idx][field]}/>
+        <Input disabled={updating||disabled} bsSize="sm" {type} {min} {max} bind:value={form[idx][field]}/>
       {:else}
-        <Button disabled>'{type}' not supported; add it in formInput.svelte</Button>
+        <Button disabled>'{type}' not supported; add it in tableInput.svelte</Button>
       {/if}
     </div>
   </td>

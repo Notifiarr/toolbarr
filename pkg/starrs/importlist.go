@@ -3,6 +3,7 @@ package starrs
 import (
 	"errors"
 	"fmt"
+	"time"
 
 	"golift.io/starr"
 	"golift.io/starr/lidarr"
@@ -10,6 +11,8 @@ import (
 	"golift.io/starr/readarr"
 	"golift.io/starr/sonarr"
 )
+
+const ImportLists = "ImportLists"
 
 func (s *Starrs) ImportLists(config *AppConfig) (any, error) {
 	s.log.Tracef("Call:ImportLists(%s, %s)", config.App, config.Name)
@@ -66,6 +69,11 @@ func (s *Starrs) deleteImportList(config *AppConfig, listID int64) error {
 		return err
 	}
 
+	end := time.Now().Add(waitTime)
+	// We use `end` and this `defer` to make every request last at least 1 second.
+	// Svelte just won't update some reactive variables if you return quickly.
+	defer func() { time.Sleep(time.Until(end)) }()
+
 	switch starr.App(config.App) {
 	case starr.Lidarr:
 		return lidarr.New(instance.Config).DeleteImportListContext(s.ctx, listID)
@@ -112,6 +120,11 @@ func (s *Starrs) testImportList(config *AppConfig, list any) error {
 	if err != nil {
 		return err
 	}
+
+	end := time.Now().Add(waitTime)
+	// We use `end` and this `defer` to make every request last at least 1 second.
+	// Svelte just won't update some reactive variables if you return quickly.
+	defer func() { time.Sleep(time.Until(end)) }()
 
 	switch data := list.(type) {
 	case *lidarr.ImportListInput:
@@ -208,6 +221,11 @@ func (s *Starrs) updateImportList(config *AppConfig, force bool, list any) (any,
 		return nil, err
 	}
 
+	end := time.Now().Add(waitTime)
+	// We use `end` and this `defer` to make every request last at least 1 second.
+	// Svelte just won't update some reactive variables if you return quickly.
+	defer func() { time.Sleep(time.Until(end)) }()
+
 	switch data := list.(type) {
 	case *lidarr.ImportListInput:
 		return lidarr.New(instance.Config).UpdateImportListContext(s.ctx, data, force)
@@ -245,4 +263,103 @@ func (s *Starrs) updateImportListReply(
 	s.log.Wails.Error(msg)
 
 	return nil, fmt.Errorf(msg)
+}
+
+func (s *Starrs) ExportImportLists(config *AppConfig, selected Selected) (string, error) {
+	instance, err := s.getExportInstance(config, selected, ImportLists)
+	if err != nil {
+		return "", err
+	}
+
+	switch config.App {
+	case starr.Lidarr.String():
+		items, err := lidarr.New(instance.Config).GetImportListsContext(s.ctx)
+		return s.exportItems(ImportLists, config, filterListItemsByID(items, selected), selected.Count(), err)
+	case starr.Radarr.String():
+		items, err := radarr.New(instance.Config).GetImportListsContext(s.ctx)
+		return s.exportItems(ImportLists, config, filterListItemsByID(items, selected), selected.Count(), err)
+	case starr.Readarr.String():
+		items, err := readarr.New(instance.Config).GetImportListsContext(s.ctx)
+		return s.exportItems(ImportLists, config, filterListItemsByID(items, selected), selected.Count(), err)
+	case starr.Sonarr.String():
+		items, err := sonarr.New(instance.Config).GetImportListsContext(s.ctx)
+		return s.exportItems(ImportLists, config, filterListItemsByID(items, selected), selected.Count(), err)
+	case starr.Whisparr.String():
+		items, err := sonarr.New(instance.Config).GetImportListsContext(s.ctx)
+		return s.exportItems(ImportLists, config, filterListItemsByID(items, selected), selected.Count(), err)
+	}
+
+	return "", ErrInvalidApp
+}
+
+func (s *Starrs) ImportImportLists(config *AppConfig) (*DataReply, error) {
+	switch config.App {
+	case starr.Lidarr.String():
+		var input []lidarr.ImportListInput
+		return importItems(s, ImportLists, config, input)
+	case starr.Radarr.String():
+		var input []radarr.ImportListInput
+		return importItems(s, ImportLists, config, input)
+	case starr.Readarr.String():
+		var input []readarr.ImportListInput
+		return importItems(s, ImportLists, config, input)
+	case starr.Sonarr.String():
+		var input []sonarr.ImportListInput
+		return importItems(s, ImportLists, config, input)
+	case starr.Whisparr.String():
+		var input []sonarr.ImportListInput
+		return importItems(s, ImportLists, config, input)
+	}
+
+	return nil, ErrInvalidApp
+}
+
+func (s *Starrs) AddLidarrImportList(config *AppConfig, list *lidarr.ImportListInput) (*DataReply, error) {
+	data, err := s.addImportList(config, list)
+	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported Import List '%s' into %s", list.Name, config.Name)}, err
+}
+
+func (s *Starrs) AddRadarrImportList(config *AppConfig, list *radarr.ImportListInput) (*DataReply, error) {
+	data, err := s.addImportList(config, list)
+	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported Import List '%s' into %s", list.Name, config.Name)}, err
+}
+
+func (s *Starrs) AddReadarrImportList(config *AppConfig, list *readarr.ImportListInput) (*DataReply, error) {
+	data, err := s.addImportList(config, list)
+	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported Import List '%s' into %s", list.Name, config.Name)}, err
+}
+
+func (s *Starrs) AddSonarrImportList(config *AppConfig, list *sonarr.ImportListInput) (*DataReply, error) {
+	data, err := s.addImportList(config, list)
+	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported Import List '%s' into %s", list.Name, config.Name)}, err
+}
+
+func (s *Starrs) AddWhisparrImportList(config *AppConfig, list *sonarr.ImportListInput) (*DataReply, error) {
+	data, err := s.addImportList(config, list)
+	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported Import List '%s' into %s", list.Name, config.Name)}, err
+}
+
+func (s *Starrs) addImportList(config *AppConfig, list any) (any, error) {
+	instance, err := s.newAPIinstance(config)
+	if err != nil {
+		return nil, err
+	}
+
+	end := time.Now().Add(waitTime)
+	// We use `end` and this `defer` to make every request last at least 1 second.
+	// Svelte just won't update some reactive variables if you return quickly.
+	defer func() { time.Sleep(time.Until(end)) }()
+
+	switch data := list.(type) {
+	case *lidarr.ImportListInput:
+		return lidarr.New(instance.Config).AddImportListContext(s.ctx, data)
+	case *radarr.ImportListInput:
+		return radarr.New(instance.Config).AddImportListContext(s.ctx, data)
+	case *readarr.ImportListInput:
+		return readarr.New(instance.Config).AddImportListContext(s.ctx, data)
+	case *sonarr.ImportListInput:
+		return sonarr.New(instance.Config).AddImportListContext(s.ctx, data)
+	default:
+		return nil, fmt.Errorf("%w: missing app", starr.ErrRequestError)
+	}
 }

@@ -1,8 +1,11 @@
 <script lang="ts">
-  export let tab: Tab
+  export let tab: Tab|undefined
   export let info: any
   export let instance: Instance
   export let updating: boolean
+  export let selected: {[key: string]: boolean} = {} // Rows selected by key: ID.
+  export let str: string = ""                        // Used for equivalence comparison.
+  export let form: any = undefined                   // Form changes go here.
 
   import type { Instance } from "/src/libs/config"
   import type { Tab } from "./fragments/tabs.svelte"
@@ -18,11 +21,10 @@
   import { fixFieldValues } from "./methods"
   import { Table, Tooltip, Icon } from "@sveltestrap/sveltestrap"
 
-  let isOpen: any = {}           // Modal toggle control.
-  let all: boolean = false       // Toggle for select-all link.
-  let selected: {[key: string]: boolean} = {} // Rows selected by key: ID.
-  let str: string = fixFieldValues(info) // Used for equivalence comparison.
-  let form: any = JSON.parse(str)        // Form changes go here.
+  let isOpen: any = {}     // Modal toggle control.
+  let all: boolean = false // Toggle for select-all link.
+  str = fixFieldValues(info)
+  form = JSON.parse(str)
   let starrApp = instance.App
 </script>
 
@@ -47,7 +49,8 @@
 
   {#each info as client, idx}
     {#if client} <!-- When deleting a client, this protects an error condition. -->
-    <ConfigModal {info} {form} {idx} {str} id={client.id} name={client.implementation} bind:isOpen={isOpen[idx]}
+    {@const loopid = tab?client.id:idx}
+    <ConfigModal {info} {form} {idx} {str} id={loopid} name={client.implementation} bind:isOpen={isOpen[idx]}
       disabled={starrApp=="Prowlarr"?$_("instances.ProwlarrNotSupported"):""}>
       <ModalInput {info} bind:form {idx} field="name" name="words.Name" type="text"/>
       <ModalInput {info} bind:form {idx} field="priority" name="words.Priority" type="number"/>
@@ -56,7 +59,7 @@
       {/each}
     </ConfigModal>
 
-    <SelectRow {updating} bind:selected id={info[idx].id} item={client}>
+    <SelectRow {updating} bind:selected id={loopid} item={client}>
       <td class={JSON.stringify(form[idx]) != JSON.stringify(info[idx])?"border-warning":""}>
         <a href="/" style="padding-left:0" on:click|preventDefault={() => isOpen[idx]=!updating}>{client.name}</a>
       </td>
@@ -74,6 +77,6 @@
 
 {#if instance.App == "Prowlarr"}
   {$_("instances.ProwlarrNotSupported")}
-{:else}
-  <Footer {instance} bind:selected {tab} bind:updating bind:info bind:form bind:str/>
+{:else if tab}
+  <Footer {instance} bind:selected {tab} bind:updating bind:info bind:form bind:str importable />
 {/if}

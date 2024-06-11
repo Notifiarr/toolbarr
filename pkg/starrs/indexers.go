@@ -3,6 +3,7 @@ package starrs
 import (
 	"errors"
 	"fmt"
+	"time"
 
 	"golift.io/starr"
 	"golift.io/starr/lidarr"
@@ -11,6 +12,8 @@ import (
 	"golift.io/starr/readarr"
 	"golift.io/starr/sonarr"
 )
+
+const Indexers = "Indexers"
 
 func (s *Starrs) Indexers(config *AppConfig) (any, error) {
 	s.log.Tracef("Call:Indexers(%s, %s)", config.App, config.Name)
@@ -72,6 +75,11 @@ func (s *Starrs) deleteIndexer(config *AppConfig, indexerID int64) error {
 		return err
 	}
 
+	end := time.Now().Add(waitTime)
+	// We use `end` and this `defer` to make every request last at least 1 second.
+	// Svelte just won't update some reactive variables if you return quickly.
+	defer func() { time.Sleep(time.Until(end)) }()
+
 	switch starr.App(config.App) {
 	case starr.Lidarr:
 		return lidarr.New(instance.Config).DeleteIndexerContext(s.ctx, indexerID)
@@ -125,6 +133,11 @@ func (s *Starrs) testIndexer(config *AppConfig, indexer any) error {
 	if err != nil {
 		return err
 	}
+
+	end := time.Now().Add(waitTime)
+	// We use `end` and this `defer` to make every request last at least 1 second.
+	// Svelte just won't update some reactive variables if you return quickly.
+	defer func() { time.Sleep(time.Until(end)) }()
 
 	switch data := indexer.(type) {
 	case *lidarr.IndexerInput:
@@ -238,6 +251,11 @@ func (s *Starrs) updateIndexer(config *AppConfig, force bool, indexer any) (any,
 		return nil, err
 	}
 
+	end := time.Now().Add(waitTime)
+	// We use `end` and this `defer` to make every request last at least 1 second.
+	// Svelte just won't update some reactive variables if you return quickly.
+	defer func() { time.Sleep(time.Until(end)) }()
+
 	switch data := indexer.(type) {
 	case *lidarr.IndexerInput:
 		return lidarr.New(instance.Config).UpdateIndexerContext(s.ctx, data, force)
@@ -277,4 +295,116 @@ func (s *Starrs) updateIndexerReply(
 	s.log.Wails.Error(msg)
 
 	return nil, fmt.Errorf(msg)
+}
+
+func (s *Starrs) ExportIndexer(config *AppConfig, selected Selected) (string, error) {
+	instance, err := s.getExportInstance(config, selected, Indexers)
+	if err != nil {
+		return "", err
+	}
+
+	switch config.App {
+	case starr.Lidarr.String():
+		items, err := lidarr.New(instance.Config).GetIndexersContext(s.ctx)
+		return s.exportItems(Indexers, config, filterListItemsByID(items, selected), selected.Count(), err)
+	case starr.Prowlarr.String():
+		items, err := prowlarr.New(instance.Config).GetIndexersContext(s.ctx)
+		return s.exportItems(Indexers, config, filterListItemsByID(items, selected), selected.Count(), err)
+	case starr.Radarr.String():
+		items, err := radarr.New(instance.Config).GetIndexersContext(s.ctx)
+		return s.exportItems(Indexers, config, filterListItemsByID(items, selected), selected.Count(), err)
+	case starr.Readarr.String():
+		items, err := readarr.New(instance.Config).GetIndexersContext(s.ctx)
+		return s.exportItems(Indexers, config, filterListItemsByID(items, selected), selected.Count(), err)
+	case starr.Sonarr.String():
+		items, err := sonarr.New(instance.Config).GetIndexersContext(s.ctx)
+		return s.exportItems(Indexers, config, filterListItemsByID(items, selected), selected.Count(), err)
+	case starr.Whisparr.String():
+		items, err := sonarr.New(instance.Config).GetIndexersContext(s.ctx)
+		return s.exportItems(Indexers, config, filterListItemsByID(items, selected), selected.Count(), err)
+	}
+
+	return "", ErrInvalidApp
+}
+
+func (s *Starrs) ImportIndexer(config *AppConfig) (*DataReply, error) {
+	switch config.App {
+	case starr.Lidarr.String():
+		var input []lidarr.IndexerOutput
+		return importItems(s, Indexers, config, input)
+	case starr.Prowlarr.String():
+		var input []prowlarr.IndexerOutput
+		return importItems(s, Indexers, config, input)
+	case starr.Radarr.String():
+		var input []radarr.IndexerOutput
+		return importItems(s, Indexers, config, input)
+	case starr.Readarr.String():
+		var input []readarr.IndexerOutput
+		return importItems(s, Indexers, config, input)
+	case starr.Sonarr.String():
+		var input []sonarr.IndexerOutput
+		return importItems(s, Indexers, config, input)
+	case starr.Whisparr.String():
+		var input []sonarr.IndexerOutput
+		return importItems(s, Indexers, config, input)
+	}
+
+	return nil, ErrInvalidApp
+}
+
+func (s *Starrs) AddLidarrIndexer(config *AppConfig, indexer *lidarr.IndexerInput) (*DataReply, error) {
+	data, err := s.addIndexer(config, indexer)
+	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported Indexer '%s' into %s", indexer.Name, config.Name)}, err
+}
+
+func (s *Starrs) AddProwlarrIndexer(config *AppConfig, indexer *prowlarr.IndexerInput) (*DataReply, error) {
+	data, err := s.addIndexer(config, indexer)
+	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported Indexer '%s' into %s", indexer.Name, config.Name)}, err
+}
+
+func (s *Starrs) AddRadarrIndexer(config *AppConfig, indexer *radarr.IndexerInput) (*DataReply, error) {
+	data, err := s.addIndexer(config, indexer)
+	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported Indexer '%s' into %s", indexer.Name, config.Name)}, err
+}
+
+func (s *Starrs) AddReadarrIndexer(config *AppConfig, indexer *readarr.IndexerInput) (*DataReply, error) {
+	data, err := s.addIndexer(config, indexer)
+	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported indexer '%s' into %s", indexer.Name, config.Name)}, err
+}
+
+func (s *Starrs) AddSonarrIndexer(config *AppConfig, indexer *sonarr.IndexerInput) (*DataReply, error) {
+	data, err := s.addIndexer(config, indexer)
+	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported Indexer '%s' into %s", indexer.Name, config.Name)}, err
+}
+
+func (s *Starrs) AddWhisparrIndexer(config *AppConfig, indexer *sonarr.IndexerInput) (*DataReply, error) {
+	data, err := s.addIndexer(config, indexer)
+	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported Indexer '%s' into %s", indexer.Name, config.Name)}, err
+}
+
+func (s *Starrs) addIndexer(config *AppConfig, indexer any) (any, error) {
+	instance, err := s.newAPIinstance(config)
+	if err != nil {
+		return nil, err
+	}
+
+	end := time.Now().Add(waitTime)
+	// We use `end` and this `defer` to make every request last at least 1 second.
+	// Svelte just won't update some reactive variables if you return quickly.
+	defer func() { time.Sleep(time.Until(end)) }()
+
+	switch data := indexer.(type) {
+	case *lidarr.IndexerInput:
+		return lidarr.New(instance.Config).AddIndexerContext(s.ctx, data)
+	case *prowlarr.IndexerInput:
+		return prowlarr.New(instance.Config).AddIndexerContext(s.ctx, data)
+	case *radarr.IndexerInput:
+		return radarr.New(instance.Config).AddIndexerContext(s.ctx, data)
+	case *readarr.IndexerInput:
+		return readarr.New(instance.Config).AddIndexerContext(s.ctx, data)
+	case *sonarr.IndexerInput:
+		return sonarr.New(instance.Config).AddIndexerContext(s.ctx, data)
+	default:
+		return nil, fmt.Errorf("%w: missing app", starr.ErrRequestError)
+	}
 }

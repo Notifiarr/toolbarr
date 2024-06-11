@@ -1069,6 +1069,163 @@
             "fuzzy": true
         },
         {
+            "id": "Getting {Item} from {Name}: {Err}",
+            "message": "Getting {Item} from {Name}: {Err}",
+            "translation": "Getting {Item} from {Name}: {Err}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Item",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "item"
+                },
+                {
+                    "id": "Name",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "Err",
+                    "string": "%[3]v",
+                    "type": "error",
+                    "underlyingType": "interface{Error() string}",
+                    "argNum": 3,
+                    "expr": "err"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Save {Count} {App} {Item}",
+            "message": "Save {Count} {App} {Item}",
+            "translation": "Save {Count} {App} {Item}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Count",
+                    "string": "%[1]d",
+                    "type": "int",
+                    "underlyingType": "int",
+                    "argNum": 1,
+                    "expr": "count"
+                },
+                {
+                    "id": "App",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "config.App"
+                },
+                {
+                    "id": "Item",
+                    "string": "%[3]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 3,
+                    "expr": "item"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Opening file: {Err}",
+            "message": "Opening file: {Err}",
+            "translation": "Opening file: {Err}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Err",
+                    "string": "%[1]v",
+                    "type": "error",
+                    "underlyingType": "interface{Error() string}",
+                    "argNum": 1,
+                    "expr": "err"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Encoding and writing file: {Err}",
+            "message": "Encoding and writing file: {Err}",
+            "translation": "Encoding and writing file: {Err}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Err",
+                    "string": "%[1]v",
+                    "type": "error",
+                    "underlyingType": "interface{Error() string}",
+                    "argNum": 1,
+                    "expr": "err"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Saved {Count} {Item} to {FilePath}",
+            "message": "Saved {Count} {Item} to {FilePath}",
+            "translation": "Saved {Count} {Item} to {FilePath}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Count",
+                    "string": "%[1]d",
+                    "type": "int",
+                    "underlyingType": "int",
+                    "argNum": 1,
+                    "expr": "count"
+                },
+                {
+                    "id": "Item",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "item"
+                },
+                {
+                    "id": "FilePath",
+                    "string": "%[3]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 3,
+                    "expr": "filePath"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Select Export File",
+            "message": "Select Export File",
+            "translation": "Select Export File",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Decoding input file failed: {Err}",
+            "message": "Decoding input file failed: {Err}",
+            "translation": "Decoding input file failed: {Err}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Err",
+                    "string": "%[1]v",
+                    "type": "error",
+                    "underlyingType": "interface{Error() string}",
+                    "argNum": 1,
+                    "expr": "err"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
             "id": "Getting import list: {Error}",
             "message": "Getting import list: {Error}",
             "translation": "Getting import list: {Error}",

@@ -1,8 +1,12 @@
 <script lang="ts">
   export let info: any
   export let instance: Instance
-  export let tab: Tab
+  export let tab: Tab|undefined
   export let updating: boolean
+  export let selected: {[key: string]: boolean} = {} // Rows selected by key: ID.
+  export let applyAll: string = $_("instances.applyAllimportList", {values:{starrApp: instance.Name}})
+  export let str: string = ""       // Used for equivalence comparison.
+  export let form: any = undefined  // Form changes go here.
 
   import type { Instance } from "/src/libs/config"
   import type { Tab } from "./fragments/tabs.svelte"
@@ -28,11 +32,9 @@
 
   let isOpen: any = {}       // Modal toggle control.
   let all: boolean = false       // Toggle for select-all link.
-  let selected: {[key: string]: boolean} = {} // Rows selected by key: ID.
-  let str: string = fixFieldValues(info) // Used for equivalence comparison.
-  let form: any = JSON.parse(str)     // Form changes go here.
+  str = fixFieldValues(info)
+  form = JSON.parse(str)
   let starrApp = instance.App
-  let applyAll: string = $_("instances.applyAllimportList", {values:{starrApp: instance.Name}})
   let qualityProfiles: any
   let metadataProfiles: any
   let rootFolders: any
@@ -85,7 +87,8 @@
 
   {#each info as list, idx}
     {#if list} <!-- When deleting a client, this protects an error condition. -->
-    <ConfigModal {info} {form} {idx} {str} id={list.id} name={list.implementation} bind:isOpen={isOpen[idx]}>
+    {@const loopid = tab?list.id:idx}
+    <ConfigModal {info} {form} {idx} {str} id={loopid} name={list.implementation} bind:isOpen={isOpen[idx]}>
       {#if list.message && list.message.message}
         <p><Card class="p-1" color="warning">{list.message.message}</Card></p>
       {/if}
@@ -186,7 +189,7 @@
       {/each}
     </ConfigModal>
 
-    <SelectRow {updating} bind:selected id={info[idx].id} item={list}>
+    <SelectRow {updating} bind:selected id={loopid} item={list}>
       <td class={JSON.stringify(form[idx]) != JSON.stringify(list)?"border-warning":""}>
         <a href="/" style="padding-left:0" on:click|preventDefault={() => isOpen[idx]=!updating}>{list.name}</a>
       </td>
@@ -203,7 +206,8 @@
   {/each}<!-- /each info as client, idx -->
 </Table>
 
-<Footer {instance} bind:selected {tab} bind:updating bind:info bind:form bind:str/>
+{#if tab}
+<Footer {instance} bind:selected {tab} bind:updating bind:info bind:form bind:str importable/>
 
 <Card class="p-1" color="secondary">
   <!-- <Tooltip target="exclusions">Close this card to reset the Exclusions form.</Tooltip> -->
@@ -217,3 +221,4 @@
     <Exclusions bind:updating info={exclusions} {instance}/>
   </Collapse>
 </Card>
+{/if}

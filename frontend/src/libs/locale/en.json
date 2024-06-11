@@ -32,6 +32,7 @@
         "ERROR": "ERROR",
         "Standard": "Standard",
         "Indexer": "Indexer",
+        "Import": "Import",
         "CONFIG": "CONFIG",
         "Config": "Config",
         "Activity": "Activity",
@@ -174,6 +175,7 @@
     "instances": {
         "AppMenu": "{starrApp} Menu",
         "UpdatingIndexers": "Updating Indexers!",
+        "UpdatingExclusions": "Updating Exclusions!",
         "UpdatingDownloadClients": "Updating Download Clients!",
         "SuccessMsg": "Success: {msg}",
         "ErrorMsg": "ERROR: {msg}",
@@ -275,12 +277,24 @@
         "monitorNewItemsDesc": "Monitor items added from this list.",
         "applyAllimportList": "Apply this setting to all import lists in {starrApp}.",
         "ImportListExclusions": "Import List Exclusions",
+        "Exclusions": "Exclusions",
         "DeletingExclusions": "Deleting Exclusions",
         "DeletingBlockLists": "Deleting Block Lists",
         "TestSelected": "Test {count} Selected",
+        "ExportSelected": "Export {count} Selected",
         "TestingIndexers": "Testing Indexers",
         "TestingDownloadClients": "Testing Download Clients",
-        "TestingImportLists": "Testing Import Lists"
+        "TestingImportLists": "Testing Import Lists",
+        "ImportFile": "Import File",
+        "ExportingIndexers": "Exporting Indexers",
+        "ExportingDownloadClients": "Exporting Download Clients",
+        "ExportingImportLists": "Exporting Import Lists",
+        "ImportingIndexers": "Importing Indexers",
+        "ImportingImportLists": "Importing Import Lists",
+        "ImportingDownloadClients": "Importing Download Clients",
+        "ImportSelection": "Import Selection",
+        "CloseImportModal": "Closing the dialog modal begins importing the selected items."
+
     },
     "paginate": {
         "FirstPage": "First Page",

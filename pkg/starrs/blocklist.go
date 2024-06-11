@@ -2,6 +2,7 @@ package starrs
 
 import (
 	"fmt"
+	"time"
 
 	"golift.io/starr"
 	"golift.io/starr/lidarr"
@@ -77,6 +78,11 @@ func (s *Starrs) deleteBlockList(config *AppConfig, listID int64) error {
 	if err != nil {
 		return err
 	}
+
+	end := time.Now().Add(waitTime)
+	// We use `end` and this `defer` to make every request last at least 1 second.
+	// Svelte just won't update some reactive variables if you return quickly.
+	defer func() { time.Sleep(time.Until(end)) }()
 
 	switch starr.App(config.App) {
 	case starr.Lidarr:

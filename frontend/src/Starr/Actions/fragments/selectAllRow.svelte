@@ -2,7 +2,7 @@
   import { Badge, Input, Tooltip } from "@sveltestrap/sveltestrap"
 
   export let updating: boolean
-  export let id: string
+  export let id: string|number
   export let selected: {[key: string]: boolean}
   export let item: any = undefined
 
@@ -17,14 +17,18 @@
   </td>
   <td class="d-none d-md-table-cell">{id}</td>
 
-  {#if item && item.infoLink}
+  {#if item && (item.listType || (item.protocol && item.implementation))}
     <td class="d-none d-sm-table-cell">
       <Tooltip target={link}>
-        {item.listType?item.listType:item.protocol} {item.infoLink}
+        {item.listType?item.listType:item.protocol} {item.infoLink?item.infoLink:''}
       </Tooltip>
       <span bind:this={link}>
         <Badge color="info">
-          <open-browser href={item.infoLink}>{item.implementation}</open-browser>
+          {#if item.infoLink}
+            <open-browser href={item.infoLink}>{item.implementation}</open-browser>
+          {:else}
+            {item.implementation}
+          {/if}
         </Badge>
       </span>
     </td>

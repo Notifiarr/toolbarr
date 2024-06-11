@@ -31,3 +31,11 @@
   </span>
 </th>
 <th class="d-none d-md-table-cell">ID</th>
+
+<style>
+  .link {
+    cursor: pointer;
+    text-decoration: underline;
+    color: rgb(19, 87, 87)
+  }
+</style>

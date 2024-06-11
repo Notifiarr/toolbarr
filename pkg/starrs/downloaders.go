@@ -4,6 +4,7 @@ package starrs
 import (
 	"errors"
 	"fmt"
+	"time"
 
 	"golift.io/starr"
 	"golift.io/starr/lidarr"
@@ -12,6 +13,8 @@ import (
 	"golift.io/starr/readarr"
 	"golift.io/starr/sonarr"
 )
+
+const DownloadClients = "DownloadClients"
 
 func (s *Starrs) Downloaders(config *AppConfig) (any, error) {
 	s.log.Tracef("Call:Downloaders(%s, %s)", config.App, config.Name)
@@ -70,6 +73,11 @@ func (s *Starrs) deleteDownloader(config *AppConfig, clientID int64) error {
 		return err
 	}
 
+	end := time.Now().Add(waitTime)
+	// We use `end` and this `defer` to make every request last at least 1 second.
+	// Svelte just won't update some reactive variables if you return quickly.
+	defer func() { time.Sleep(time.Until(end)) }()
+
 	switch starr.App(config.App) {
 	case starr.Lidarr:
 		return lidarr.New(instance.Config).DeleteDownloadClientContext(s.ctx, clientID)
@@ -123,6 +131,11 @@ func (s *Starrs) testDownloadClient(config *AppConfig, client any) error {
 	if err != nil {
 		return err
 	}
+
+	end := time.Now().Add(waitTime)
+	// We use `end` and this `defer` to make every request last at least 1 second.
+	// Svelte just won't update some reactive variables if you return quickly.
+	defer func() { time.Sleep(time.Until(end)) }()
 
 	switch data := client.(type) {
 	case *lidarr.DownloadClientInput:
@@ -236,6 +249,11 @@ func (s *Starrs) updateDownloadClient(config *AppConfig, force bool, downloader 
 		return nil, err
 	}
 
+	end := time.Now().Add(waitTime)
+	// We use `end` and this `defer` to make every request last at least 1 second.
+	// Svelte just won't update some reactive variables if you return quickly.
+	defer func() { time.Sleep(time.Until(end)) }()
+
 	switch data := downloader.(type) {
 	case *lidarr.DownloadClientInput:
 		return lidarr.New(instance.Config).UpdateDownloadClientContext(s.ctx, data, force)
@@ -275,4 +293,143 @@ func (s *Starrs) updateDownloadClientReply(
 	s.log.Wails.Error(msg)
 
 	return nil, fmt.Errorf(msg)
+}
+
+func (s *Starrs) ExportDownloadClients(config *AppConfig, selected Selected) (string, error) {
+	instance, err := s.getExportInstance(config, selected, DownloadClients)
+	if err != nil {
+		return "", err
+	}
+
+	switch config.App {
+	case starr.Lidarr.String():
+		items, err := lidarr.New(instance.Config).GetDownloadClientsContext(s.ctx)
+		return s.exportItems(DownloadClients, config, filterListItemsByID(items, selected), selected.Count(), err)
+	case starr.Prowlarr.String():
+		items, err := prowlarr.New(instance.Config).GetDownloadClientsContext(s.ctx)
+		return s.exportItems(DownloadClients, config, filterListItemsByID(items, selected), selected.Count(), err)
+	case starr.Radarr.String():
+		items, err := radarr.New(instance.Config).GetDownloadClientsContext(s.ctx)
+		return s.exportItems(DownloadClients, config, filterListItemsByID(items, selected), selected.Count(), err)
+	case starr.Readarr.String():
+		items, err := readarr.New(instance.Config).GetDownloadClientsContext(s.ctx)
+		return s.exportItems(DownloadClients, config, filterListItemsByID(items, selected), selected.Count(), err)
+	case starr.Sonarr.String():
+		items, err := sonarr.New(instance.Config).GetDownloadClientsContext(s.ctx)
+		return s.exportItems(DownloadClients, config, filterListItemsByID(items, selected), selected.Count(), err)
+	case starr.Whisparr.String():
+		items, err := sonarr.New(instance.Config).GetDownloadClientsContext(s.ctx)
+		return s.exportItems(DownloadClients, config, filterListItemsByID(items, selected), selected.Count(), err)
+	}
+
+	return "", ErrInvalidApp
+}
+
+func (s *Starrs) ImportDownloadClients(config *AppConfig) (*DataReply, error) {
+	switch config.App {
+	case starr.Lidarr.String():
+		var input []lidarr.DownloadClientOutput
+		return importItems(s, DownloadClients, config, input)
+	case starr.Prowlarr.String():
+		var input []prowlarr.DownloadClientOutput
+		return importItems(s, DownloadClients, config, input)
+	case starr.Radarr.String():
+		var input []radarr.DownloadClientOutput
+		return importItems(s, DownloadClients, config, input)
+	case starr.Readarr.String():
+		var input []readarr.DownloadClientOutput
+		return importItems(s, DownloadClients, config, input)
+	case starr.Sonarr.String():
+		var input []sonarr.DownloadClientOutput
+		return importItems(s, DownloadClients, config, input)
+	case starr.Whisparr.String():
+		var input []sonarr.DownloadClientOutput
+		return importItems(s, DownloadClients, config, input)
+	}
+
+	return nil, ErrInvalidApp
+}
+
+func (s *Starrs) AddLidarrDownloadClient(config *AppConfig, client *lidarr.DownloadClientInput) (*DataReply, error) {
+	data, err := s.addDownloadClient(config, client)
+
+	return &DataReply{
+		Data: data,
+		Msg:  fmt.Sprintf("Imported Download Client '%s (%s)' into %s", client.Name, client.Protocol, config.Name),
+	}, err
+}
+
+func (s *Starrs) AddProwlarrDownloadClient(
+	config *AppConfig,
+	client *prowlarr.DownloadClientInput,
+) (*DataReply, error) {
+	data, err := s.addDownloadClient(config, client)
+
+	return &DataReply{
+		Data: data,
+		Msg:  fmt.Sprintf("Imported Download Client '%s (%s)' into %s", client.Name, client.Protocol, config.Name),
+	}, err
+}
+
+func (s *Starrs) AddRadarrDownloadClient(config *AppConfig, client *radarr.DownloadClientInput) (*DataReply, error) {
+	data, err := s.addDownloadClient(config, client)
+
+	return &DataReply{
+		Data: data,
+		Msg:  fmt.Sprintf("Imported Download Client '%s (%s)' into %s", client.Name, client.Protocol, config.Name),
+	}, err
+}
+
+func (s *Starrs) AddReadarrDownloadClient(config *AppConfig, client *readarr.DownloadClientInput) (*DataReply, error) {
+	data, err := s.addDownloadClient(config, client)
+
+	return &DataReply{
+		Data: data,
+		Msg:  fmt.Sprintf("Imported Download Client '%s (%s)' into %s", client.Name, client.Protocol, config.Name),
+	}, err
+}
+
+func (s *Starrs) AddSonarrDownloadClient(config *AppConfig, client *sonarr.DownloadClientInput) (*DataReply, error) {
+	data, err := s.addDownloadClient(config, client)
+
+	return &DataReply{
+		Data: data,
+		Msg:  fmt.Sprintf("Imported Download Client '%s (%s)' into %s", client.Name, client.Protocol, config.Name),
+	}, err
+}
+
+func (s *Starrs) AddWhisparrDownloadClient(config *AppConfig, client *sonarr.DownloadClientInput) (*DataReply, error) {
+	data, err := s.addDownloadClient(config, client)
+
+	return &DataReply{
+		Data: data,
+		Msg:  fmt.Sprintf("Imported Download Client '%s (%s)' into %s", client.Name, client.Protocol, config.Name),
+	}, err
+}
+
+func (s *Starrs) addDownloadClient(config *AppConfig, downloader any) (any, error) {
+	instance, err := s.newAPIinstance(config)
+	if err != nil {
+		return nil, err
+	}
+
+	end := time.Now().Add(waitTime)
+	// We use `end` and this `defer` to make every request last at least 1 second.
+	// Svelte just won't update some reactive variables if you return quickly.
+	defer func() { time.Sleep(time.Until(end)) }()
+
+	switch data := downloader.(type) {
+	case *lidarr.DownloadClientInput:
+		return lidarr.New(instance.Config).AddDownloadClientContext(s.ctx, data)
+	case *prowlarr.DownloadClientInput:
+		return prowlarr.New(instance.Config).AddDownloadClientContext(s.ctx, data)
+	case *radarr.DownloadClientInput:
+		return radarr.New(instance.Config).AddDownloadClientContext(s.ctx, data)
+	case *readarr.DownloadClientInput:
+		return readarr.New(instance.Config).AddDownloadClientContext(s.ctx, data)
+	case *sonarr.DownloadClientInput:
+		return sonarr.New(instance.Config).AddDownloadClientContext(s.ctx, data)
+	default:
+		return nil, fmt.Errorf("%w: missing app", starr.ErrRequestError)
+	}
 }

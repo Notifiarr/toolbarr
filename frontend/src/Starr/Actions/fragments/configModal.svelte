@@ -3,10 +3,12 @@
   export let isOpen = false
   export let id: number | string
   export let name: string
-  export let idx: number
+  export let idx: number|string
   export let info: any
   export let str: string
   export let disabled = ""
+  export let closeButton = $_("words.Close")
+  export let callback: VoidFunction|undefined = undefined
 
   import { _ } from "/src/libs/Translate.svelte"
   import { Badge, Button, Modal, ModalBody, ModalFooter, ModalHeader } from "@sveltestrap/sveltestrap"
@@ -17,6 +19,7 @@
   }
 
   function toggle() {
+    if (callback) callback()
     isOpen = false
   }
 
@@ -49,7 +52,7 @@
       </Button>
     {/if}
     <Button size="sm" color="info" on:click={toggle}>
-      {$_("words.Close")}
+      {closeButton}
     </Button>
   </ModalFooter>
 </Modal>

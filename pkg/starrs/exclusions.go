@@ -3,6 +3,7 @@ package starrs
 import (
 	"errors"
 	"fmt"
+	"time"
 
 	"golift.io/starr"
 	"golift.io/starr/lidarr"
@@ -10,6 +11,8 @@ import (
 	"golift.io/starr/readarr"
 	"golift.io/starr/sonarr"
 )
+
+const Exclusions = "Exclusions"
 
 func (s *Starrs) Exclusions(config *AppConfig) (any, error) {
 	s.log.Tracef("Call:Exclusions(%s, %s)", config.App, config.Name)
@@ -65,6 +68,11 @@ func (s *Starrs) deleteExclusion(config *AppConfig, exclusionID int64) error {
 	if err != nil {
 		return err
 	}
+
+	end := time.Now().Add(waitTime)
+	// We use `end` and this `defer` to make every request last at least 1 second.
+	// Svelte just won't update some reactive variables if you return quickly.
+	defer func() { time.Sleep(time.Until(end)) }()
 
 	switch starr.App(config.App) {
 	case starr.Lidarr:
@@ -138,6 +146,11 @@ func (s *Starrs) updateExclusion(config *AppConfig, exclusion any) (any, error) 
 		return nil, err
 	}
 
+	end := time.Now().Add(waitTime)
+	// We use `end` and this `defer` to make every request last at least 1 second.
+	// Svelte just won't update some reactive variables if you return quickly.
+	defer func() { time.Sleep(time.Until(end)) }()
+
 	switch data := exclusion.(type) {
 	case *lidarr.Exclusion:
 		return lidarr.New(instance.Config).UpdateExclusionContext(s.ctx, data)
@@ -175,4 +188,115 @@ func (s *Starrs) updateExclusionReply(
 	s.log.Wails.Error(msg)
 
 	return nil, fmt.Errorf(msg)
+}
+
+func (s *Starrs) ExportExclusions(config *AppConfig, selected Selected) (string, error) {
+	instance, err := s.getExportInstance(config, selected, Exclusions)
+	if err != nil {
+		return "", err
+	}
+
+	switch config.App {
+	case starr.Lidarr.String():
+		items, err := lidarr.New(instance.Config).GetExclusionsContext(s.ctx)
+		return s.exportItems(Exclusions, config, filterListItemsByID(items, selected), selected.Count(), err)
+	case starr.Radarr.String():
+		items, err := radarr.New(instance.Config).GetExclusionsContext(s.ctx)
+		return s.exportItems(Exclusions, config, filterListItemsByID(items, selected), selected.Count(), err)
+	case starr.Readarr.String():
+		items, err := readarr.New(instance.Config).GetExclusionsContext(s.ctx)
+		return s.exportItems(Exclusions, config, filterListItemsByID(items, selected), selected.Count(), err)
+	case starr.Sonarr.String():
+		items, err := sonarr.New(instance.Config).GetExclusionsContext(s.ctx)
+		return s.exportItems(Exclusions, config, filterListItemsByID(items, selected), selected.Count(), err)
+	case starr.Whisparr.String():
+		items, err := sonarr.New(instance.Config).GetExclusionsContext(s.ctx)
+		return s.exportItems(Exclusions, config, filterListItemsByID(items, selected), selected.Count(), err)
+	}
+
+	return "", ErrInvalidApp
+}
+
+func (s *Starrs) ImportExclusions(config *AppConfig) (*DataReply, error) {
+	switch config.App {
+	case starr.Lidarr.String():
+		var input []lidarr.Exclusion
+		return importItems(s, Exclusions, config, input)
+	case starr.Radarr.String():
+		var input []radarr.Exclusion
+		return importItems(s, Exclusions, config, input)
+	case starr.Readarr.String():
+		var input []readarr.Exclusion
+		return importItems(s, Exclusions, config, input)
+	case starr.Sonarr.String():
+		var input []sonarr.Exclusion
+		return importItems(s, Exclusions, config, input)
+	case starr.Whisparr.String():
+		var input []sonarr.Exclusion
+		return importItems(s, Exclusions, config, input)
+	}
+
+	return nil, ErrInvalidApp
+}
+
+func (s *Starrs) AddLidarrExclusion(config *AppConfig, exclusion *lidarr.Exclusion) (*DataReply, error) {
+	data, err := s.addExclusion(config, exclusion)
+
+	return &DataReply{
+		Data: data,
+		Msg:  fmt.Sprintf("Imported Exclusion '%s' into %s", exclusion.ArtistName, config.Name),
+	}, err
+}
+
+func (s *Starrs) AddRadarrExclusion(config *AppConfig, exclusion *radarr.Exclusion) (*DataReply, error) {
+	data, err := s.addExclusion(config, exclusion)
+	if err != nil {
+		return nil, err
+	}
+
+	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported Exclusion '%s' into %s", exclusion.Title, config.Name)}, err
+}
+
+func (s *Starrs) AddReadarrExclusion(config *AppConfig, exclusion *readarr.Exclusion) (*DataReply, error) {
+	data, err := s.addExclusion(config, exclusion)
+
+	return &DataReply{
+		Data: data,
+		Msg:  fmt.Sprintf("Imported Exclusion '%s' into %s", exclusion.AuthorName, config.Name),
+	}, err
+}
+
+func (s *Starrs) AddSonarrExclusion(config *AppConfig, exclusion *sonarr.Exclusion) (*DataReply, error) {
+	data, err := s.addExclusion(config, exclusion)
+	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported Exclusion '%s' into %s", exclusion.Title, config.Name)}, err
+}
+
+func (s *Starrs) AddWhisparrExclusion(config *AppConfig, exclusion *sonarr.Exclusion) (*DataReply, error) {
+	data, err := s.addExclusion(config, exclusion)
+	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported Exclusion '%s' into %s", exclusion.Title, config.Name)}, err
+}
+
+func (s *Starrs) addExclusion(config *AppConfig, exclusion any) (any, error) {
+	instance, err := s.newAPIinstance(config)
+	if err != nil {
+		return nil, err
+	}
+
+	end := time.Now().Add(waitTime)
+	// We use `end` and this `defer` to make every request last at least 1 second.
+	// Svelte just won't update some reactive variables if you return quickly.
+	defer func() { time.Sleep(time.Until(end)) }()
+
+	switch data := exclusion.(type) {
+	case *lidarr.Exclusion:
+		return lidarr.New(instance.Config).AddExclusionContext(s.ctx, data)
+	case *radarr.Exclusion:
+		return radarr.New(instance.Config).AddExclusionContext(s.ctx, data)
+	case *readarr.Exclusion:
+		return readarr.New(instance.Config).AddExclusionContext(s.ctx, data)
+	case *sonarr.Exclusion:
+		return sonarr.New(instance.Config).AddExclusionContext(s.ctx, data)
+	default:
+		return nil, fmt.Errorf("%w: missing app", starr.ErrRequestError)
+	}
 }
