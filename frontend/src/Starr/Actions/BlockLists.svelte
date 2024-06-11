@@ -42,7 +42,7 @@
     id = "artists.sortName"
     cv = $_("configvalues.ArtistName")
   } else if (starrApp == "Radarr") {
-    id = "movies.sortTitle"
+    id = "movieMetadata.sortTitle"
     cv = $_("configvalues.MovieTitle")
   } else if (starrApp == "Readarr") {
     id = "authorMetadata.sortName"
@@ -85,7 +85,7 @@
 
   <tbody>
   {#each info.records as list, idx}
-    {#if list} <!-- When deleting an exclusion, this protects an error condition. -->
+    {#if list}
     <SelectRow {updating} bind:selected id={info.records[idx].id} item={list}>
       <!-- This sub page contains the content specific to each app. -->
       <BlockList {idx} {list} {starrApp} {qualityProfiles} {metadataProfiles}/>

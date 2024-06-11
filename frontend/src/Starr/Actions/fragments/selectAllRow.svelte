@@ -17,7 +17,7 @@
   </td>
   <td class="d-none d-md-table-cell">{id}</td>
 
-  {#if item && (item.listType || item.protocol)}
+  {#if item && (item.listType || (item.protocol && item.implementation))}
     <td class="d-none d-sm-table-cell">
       <Tooltip target={link}>
         {item.listType?item.listType:item.protocol} {item.infoLink?item.infoLink:''}
