@@ -74,8 +74,16 @@ func filterListItemsByID[N any](items []*N, selected Selected) []*N { //nolint:f
 			return item.ID
 		case *sonarr.Exclusion:
 			return item.ID
+		case *lidarr.QualityProfile:
+			return item.ID
+		case *radarr.QualityProfile:
+			return item.ID
+		case *readarr.QualityProfile:
+			return item.ID
+		case *sonarr.QualityProfile:
+			return item.ID
 		default:
-			return 0
+			panic(fmt.Sprintf("invalid type provided to filterListItemsByID: %T", item))
 		}
 	}
 

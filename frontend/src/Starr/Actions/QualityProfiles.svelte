@@ -3,6 +3,9 @@
   export let info: any
   export let instance: Instance
   export let updating: boolean
+  export let str: string = ""      // Used for equivalence comparison.
+  export let form: any = undefined // Form changes go here.
+  export let selected: {[key: string]: boolean} = {} // Rows selected by key: ID.
 
   import type { Instance } from "/src/libs/config"
   import type { Tab } from "./fragments/tabs.svelte"
@@ -17,16 +20,15 @@
   import SelectAll from "./fragments/selectAllHeader.svelte"
   import SelectRow from "./fragments/selectAllRow.svelte"
 
-  let isOpen: any = {}           // Modal toggle control.
-  let all: boolean = false       // Toggle for select-all link.
-  let selected: {[key: string]: boolean} = {} // Rows selected by key: ID.
-  let str: string = JSON.stringify(info) // Used for equivalence comparison.
-  let form: any = JSON.parse(str)        // Form changes go here.
+  let isOpen: {[key: number]: boolean} = {} // Modal toggle control.
+  let all: boolean = false                  // Toggle for select-all link.
+  str = JSON.stringify(info)
+  form = JSON.parse(str)
 </script>
 
 <Table bordered>
   <tr>
-    <SelectAll bind:all bind:selected bind:updating/>
+    <SelectAll bind:all bind:selected bind:updating icon="check2-all"/>
     <th>{$_("words.Name")}</th>
     <th><Dropdown bind:form {updating} starrApp={instance.App} field="upgradeAllowed"/></th>
     <th>{$_("instances.UpgradeUntil")}</th>
@@ -78,4 +80,6 @@
   {/each}<!-- /each info as profile, idx -->
 </Table>
 
-<Footer {instance} noForce {tab} bind:selected bind:updating bind:info bind:form bind:str/>
+{#if tab}
+  <Footer {instance} noForce {tab} bind:selected bind:updating bind:info bind:form bind:str importable />
+{/if}

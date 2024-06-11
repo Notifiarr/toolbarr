@@ -12,6 +12,10 @@ import (
 	"golift.io/starr/sonarr"
 )
 
+const (
+	QualityProfiles = "QualityProfiles"
+)
+
 func (s *Starrs) MetadataProfiles(config *AppConfig) (any, error) {
 	s.log.Tracef("Call:MetadataProfiles(%s, %s)", config.App, config.Name)
 
@@ -216,4 +220,115 @@ func (s *Starrs) updateQualityProfileReply(
 	s.log.Wails.Error(msg)
 
 	return nil, fmt.Errorf(msg)
+}
+
+func (s *Starrs) ExportQualityProfiles(config *AppConfig, selected Selected) (string, error) {
+	instance, err := s.getExportInstance(config, selected, QualityProfiles)
+	if err != nil {
+		return "", err
+	}
+
+	switch config.App {
+	case starr.Lidarr.String():
+		items, err := lidarr.New(instance.Config).GetQualityProfilesContext(s.ctx)
+		return s.exportItems(QualityProfiles, config, filterListItemsByID(items, selected), selected.Count(), err)
+	case starr.Radarr.String():
+		items, err := radarr.New(instance.Config).GetQualityProfilesContext(s.ctx)
+		return s.exportItems(QualityProfiles, config, filterListItemsByID(items, selected), selected.Count(), err)
+	case starr.Readarr.String():
+		items, err := readarr.New(instance.Config).GetQualityProfilesContext(s.ctx)
+		return s.exportItems(QualityProfiles, config, filterListItemsByID(items, selected), selected.Count(), err)
+	case starr.Sonarr.String():
+		items, err := sonarr.New(instance.Config).GetQualityProfilesContext(s.ctx)
+		return s.exportItems(QualityProfiles, config, filterListItemsByID(items, selected), selected.Count(), err)
+	case starr.Whisparr.String():
+		items, err := sonarr.New(instance.Config).GetQualityProfilesContext(s.ctx)
+		return s.exportItems(QualityProfiles, config, filterListItemsByID(items, selected), selected.Count(), err)
+	}
+
+	return "", ErrInvalidApp
+}
+
+func (s *Starrs) ImportQualityProfiles(config *AppConfig) (*DataReply, error) {
+	switch config.App {
+	case starr.Lidarr.String():
+		var input []lidarr.QualityProfile
+		return importItems(s, QualityProfiles, config, input)
+	case starr.Radarr.String():
+		var input []radarr.QualityProfile
+		return importItems(s, QualityProfiles, config, input)
+	case starr.Readarr.String():
+		var input []readarr.QualityProfile
+		return importItems(s, QualityProfiles, config, input)
+	case starr.Sonarr.String():
+		var input []sonarr.QualityProfile
+		return importItems(s, QualityProfiles, config, input)
+	case starr.Whisparr.String():
+		var input []sonarr.QualityProfile
+		return importItems(s, QualityProfiles, config, input)
+	}
+
+	return nil, ErrInvalidApp
+}
+
+func (s *Starrs) AddLidarrQualityProfile(config *AppConfig, profile *lidarr.QualityProfile) (*DataReply, error) {
+	data, err := s.addQualityProfile(config, profile)
+
+	return &DataReply{
+		Data: data,
+		Msg:  fmt.Sprintf("Imported QualityProfile '%s' into %s", profile.Name, config.Name),
+	}, err
+}
+
+func (s *Starrs) AddRadarrQualityProfile(config *AppConfig, profile *radarr.QualityProfile) (*DataReply, error) {
+	data, err := s.addQualityProfile(config, profile)
+	if err != nil {
+		return nil, err
+	}
+
+	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported QualityProfile '%s' into %s", profile.Name, config.Name)}, err
+}
+
+func (s *Starrs) AddReadarrQualityProfile(config *AppConfig, profile *readarr.QualityProfile) (*DataReply, error) {
+	data, err := s.addQualityProfile(config, profile)
+
+	return &DataReply{
+		Data: data,
+		Msg:  fmt.Sprintf("Imported QualityProfile '%s' into %s", profile.Name, config.Name),
+	}, err
+}
+
+func (s *Starrs) AddSonarrQualityProfile(config *AppConfig, profile *sonarr.QualityProfile) (*DataReply, error) {
+	data, err := s.addQualityProfile(config, profile)
+	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported QualityProfile '%s' into %s", profile.Name, config.Name)}, err
+}
+
+func (s *Starrs) AddWhisparrQualityProfile(config *AppConfig, profile *sonarr.QualityProfile) (*DataReply, error) {
+	data, err := s.addQualityProfile(config, profile)
+	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported QualityProfile '%s' into %s", profile.Name, config.Name)}, err
+}
+
+func (s *Starrs) addQualityProfile(config *AppConfig, profile any) (any, error) {
+	instance, err := s.newAPIinstance(config)
+	if err != nil {
+		return nil, err
+	}
+
+	end := time.Now().Add(waitTime)
+	// We use `end` and this `defer` to make every request last at least 1 second.
+	// Svelte just won't update some reactive variables if you return quickly.
+	defer func() { time.Sleep(time.Until(end)) }()
+
+	switch data := profile.(type) {
+	case *lidarr.QualityProfile:
+		return lidarr.New(instance.Config).AddQualityProfileContext(s.ctx, data)
+	case *radarr.QualityProfile:
+		return radarr.New(instance.Config).AddQualityProfileContext(s.ctx, data)
+	case *readarr.QualityProfile:
+		return readarr.New(instance.Config).AddQualityProfileContext(s.ctx, data)
+	case *sonarr.QualityProfile:
+		return sonarr.New(instance.Config).AddQualityProfileContext(s.ctx, data)
+	default:
+		return nil, fmt.Errorf("%w: missing app", starr.ErrRequestError)
+	}
 }

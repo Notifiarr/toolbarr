@@ -79,6 +79,13 @@ import {
   AddReadarrExclusion,
   AddSonarrExclusion,
   AddWhisparrExclusion,
+  AddLidarrQualityProfile,
+  AddRadarrQualityProfile,
+  AddReadarrQualityProfile,
+  AddSonarrQualityProfile,
+  AddWhisparrQualityProfile,
+  ImportQualityProfiles,
+  ExportQualityProfiles,
 } from "/wailsjs/go/starrs/Starrs"
 
 export function fixFieldValues(info: {[key: string]: any}): string {
@@ -213,6 +220,7 @@ export const exportFile:  {[key: string]: (...args: any[]) => Promise<any>;} = {
   "Indexers":        ExportIndexer,
   "ImportLists":     ExportImportLists,
   "Exclusions":      ExportExclusions,
+  "QualityProfiles": ExportQualityProfiles,
 }
 
 export const importFile:  {[key: string]: (...args: any[]) => Promise<any>;} = {
@@ -220,6 +228,7 @@ export const importFile:  {[key: string]: (...args: any[]) => Promise<any>;} = {
   "Indexers":        ImportIndexer,
   "ImportLists":     ImportImportLists,
   "Exclusions":      ImportExclusions,
+  "QualityProfiles": ImportQualityProfiles,
 }
 
 export const add:  {[key: string]: {[key: string]: (...args: any[]) => Promise<string>;}} = {
@@ -252,5 +261,12 @@ export const add:  {[key: string]: {[key: string]: (...args: any[]) => Promise<s
     "Readarr":  AddReadarrExclusion,
     "Sonarr":   AddSonarrExclusion,
     "Whisparr": AddWhisparrExclusion,
+  },
+  "QualityProfiles": {
+    "Lidarr": AddLidarrQualityProfile,
+    "Radarr": AddRadarrQualityProfile,
+    "Readarr": AddReadarrQualityProfile,
+    "Sonarr": AddSonarrQualityProfile,
+    "Whisparr": AddWhisparrQualityProfile,
   },
 }
