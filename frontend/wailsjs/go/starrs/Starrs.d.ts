@@ -15,6 +15,8 @@ export function AddLidarrImportList(arg1:starrs.AppConfig,arg2:lidarr.ImportList
 
 export function AddLidarrIndexer(arg1:starrs.AppConfig,arg2:lidarr.IndexerInput):Promise<starrs.DataReply>;
 
+export function AddLidarrQualityProfile(arg1:starrs.AppConfig,arg2:lidarr.QualityProfile):Promise<starrs.DataReply>;
+
 export function AddProwlarrDownloadClient(arg1:starrs.AppConfig,arg2:prowlarr.DownloadClientInput):Promise<starrs.DataReply>;
 
 export function AddProwlarrIndexer(arg1:starrs.AppConfig,arg2:prowlarr.IndexerInput):Promise<starrs.DataReply>;
@@ -27,6 +29,8 @@ export function AddRadarrImportList(arg1:starrs.AppConfig,arg2:radarr.ImportList
 
 export function AddRadarrIndexer(arg1:starrs.AppConfig,arg2:radarr.IndexerInput):Promise<starrs.DataReply>;
 
+export function AddRadarrQualityProfile(arg1:starrs.AppConfig,arg2:radarr.QualityProfile):Promise<starrs.DataReply>;
+
 export function AddReadarrDownloadClient(arg1:starrs.AppConfig,arg2:readarr.DownloadClientInput):Promise<starrs.DataReply>;
 
 export function AddReadarrExclusion(arg1:starrs.AppConfig,arg2:readarr.Exclusion):Promise<starrs.DataReply>;
@@ -34,6 +38,8 @@ export function AddReadarrExclusion(arg1:starrs.AppConfig,arg2:readarr.Exclusion
 export function AddReadarrImportList(arg1:starrs.AppConfig,arg2:readarr.ImportListInput):Promise<starrs.DataReply>;
 
 export function AddReadarrIndexer(arg1:starrs.AppConfig,arg2:readarr.IndexerInput):Promise<starrs.DataReply>;
+
+export function AddReadarrQualityProfile(arg1:starrs.AppConfig,arg2:readarr.QualityProfile):Promise<starrs.DataReply>;
 
 export function AddSonarrDownloadClient(arg1:starrs.AppConfig,arg2:sonarr.DownloadClientInput):Promise<starrs.DataReply>;
 
@@ -43,6 +49,8 @@ export function AddSonarrImportList(arg1:starrs.AppConfig,arg2:sonarr.ImportList
 
 export function AddSonarrIndexer(arg1:starrs.AppConfig,arg2:sonarr.IndexerInput):Promise<starrs.DataReply>;
 
+export function AddSonarrQualityProfile(arg1:starrs.AppConfig,arg2:sonarr.QualityProfile):Promise<starrs.DataReply>;
+
 export function AddWhisparrDownloadClient(arg1:starrs.AppConfig,arg2:sonarr.DownloadClientInput):Promise<starrs.DataReply>;
 
 export function AddWhisparrExclusion(arg1:starrs.AppConfig,arg2:sonarr.Exclusion):Promise<starrs.DataReply>;
@@ -50,6 +58,8 @@ export function AddWhisparrExclusion(arg1:starrs.AppConfig,arg2:sonarr.Exclusion
 export function AddWhisparrImportList(arg1:starrs.AppConfig,arg2:sonarr.ImportListInput):Promise<starrs.DataReply>;
 
 export function AddWhisparrIndexer(arg1:starrs.AppConfig,arg2:sonarr.IndexerInput):Promise<starrs.DataReply>;
+
+export function AddWhisparrQualityProfile(arg1:starrs.AppConfig,arg2:sonarr.QualityProfile):Promise<starrs.DataReply>;
 
 export function AppProfiles(arg1:starrs.AppConfig):Promise<any>;
 
@@ -83,6 +93,8 @@ export function ExportImportLists(arg1:starrs.AppConfig,arg2:starrs.Selected):Pr
 
 export function ExportIndexer(arg1:starrs.AppConfig,arg2:starrs.Selected):Promise<string>;
 
+export function ExportQualityProfiles(arg1:starrs.AppConfig,arg2:starrs.Selected):Promise<string>;
+
 export function ImportDownloadClients(arg1:starrs.AppConfig):Promise<starrs.DataReply>;
 
 export function ImportExclusions(arg1:starrs.AppConfig):Promise<starrs.DataReply>;
@@ -92,6 +104,8 @@ export function ImportImportLists(arg1:starrs.AppConfig):Promise<starrs.DataRepl
 export function ImportIndexer(arg1:starrs.AppConfig):Promise<starrs.DataReply>;
 
 export function ImportLists(arg1:starrs.AppConfig):Promise<any>;
+
+export function ImportQualityProfiles(arg1:starrs.AppConfig):Promise<starrs.DataReply>;
 
 export function Indexers(arg1:starrs.AppConfig):Promise<any>;
 

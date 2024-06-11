@@ -6,6 +6,7 @@
   export let selected: {[key: string]: boolean} = {} // Rows selected by key: ID.
   export let str: string = ""                        // Used for equivalence comparison.
   export let form: any = undefined                   // Form changes go here.
+
   import type { Instance } from "/src/libs/config"
   import type { Tab } from "./fragments/tabs.svelte"
   import { _ } from "/src/libs/Translate.svelte"
@@ -20,8 +21,8 @@
   import { fixFieldValues } from "./methods"
   import { Table, Tooltip, Icon } from "@sveltestrap/sveltestrap"
 
-  let isOpen: any = {}           // Modal toggle control.
-  let all: boolean = false       // Toggle for select-all link.
+  let isOpen: any = {}     // Modal toggle control.
+  let all: boolean = false // Toggle for select-all link.
   str = fixFieldValues(info)
   form = JSON.parse(str)
   let starrApp = instance.App

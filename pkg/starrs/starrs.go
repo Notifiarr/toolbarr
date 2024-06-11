@@ -11,7 +11,7 @@ import (
 	"golift.io/starr"
 )
 
-const waitTime = 666 * time.Millisecond
+const waitTime = 500 * time.Millisecond
 
 var ErrInvalidApp = errors.New("an invalid app was provided; this may be a bug")
 
@@ -49,8 +49,6 @@ type AppConfig struct {
 
 // Startup runs after wails initializes so we can save the context.
 func Startup(ctx context.Context, starrs *Starrs, log *logs.Logger, app mnd.App) {
-	const pruneInterval = 10 * time.Minute
-
 	starrs.ctx = ctx
 	starrs.app = app
 	starrs.log = log

@@ -18,6 +18,10 @@ export function AddLidarrIndexer(arg1, arg2) {
   return window['go']['starrs']['Starrs']['AddLidarrIndexer'](arg1, arg2);
 }
 
+export function AddLidarrQualityProfile(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['AddLidarrQualityProfile'](arg1, arg2);
+}
+
 export function AddProwlarrDownloadClient(arg1, arg2) {
   return window['go']['starrs']['Starrs']['AddProwlarrDownloadClient'](arg1, arg2);
 }
@@ -42,6 +46,10 @@ export function AddRadarrIndexer(arg1, arg2) {
   return window['go']['starrs']['Starrs']['AddRadarrIndexer'](arg1, arg2);
 }
 
+export function AddRadarrQualityProfile(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['AddRadarrQualityProfile'](arg1, arg2);
+}
+
 export function AddReadarrDownloadClient(arg1, arg2) {
   return window['go']['starrs']['Starrs']['AddReadarrDownloadClient'](arg1, arg2);
 }
@@ -56,6 +64,10 @@ export function AddReadarrImportList(arg1, arg2) {
 
 export function AddReadarrIndexer(arg1, arg2) {
   return window['go']['starrs']['Starrs']['AddReadarrIndexer'](arg1, arg2);
+}
+
+export function AddReadarrQualityProfile(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['AddReadarrQualityProfile'](arg1, arg2);
 }
 
 export function AddSonarrDownloadClient(arg1, arg2) {
@@ -74,6 +86,10 @@ export function AddSonarrIndexer(arg1, arg2) {
   return window['go']['starrs']['Starrs']['AddSonarrIndexer'](arg1, arg2);
 }
 
+export function AddSonarrQualityProfile(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['AddSonarrQualityProfile'](arg1, arg2);
+}
+
 export function AddWhisparrDownloadClient(arg1, arg2) {
   return window['go']['starrs']['Starrs']['AddWhisparrDownloadClient'](arg1, arg2);
 }
@@ -88,6 +104,10 @@ export function AddWhisparrImportList(arg1, arg2) {
 
 export function AddWhisparrIndexer(arg1, arg2) {
   return window['go']['starrs']['Starrs']['AddWhisparrIndexer'](arg1, arg2);
+}
+
+export function AddWhisparrQualityProfile(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['AddWhisparrQualityProfile'](arg1, arg2);
 }
 
 export function AppProfiles(arg1) {
@@ -154,6 +174,10 @@ export function ExportIndexer(arg1, arg2) {
   return window['go']['starrs']['Starrs']['ExportIndexer'](arg1, arg2);
 }
 
+export function ExportQualityProfiles(arg1, arg2) {
+  return window['go']['starrs']['Starrs']['ExportQualityProfiles'](arg1, arg2);
+}
+
 export function ImportDownloadClients(arg1) {
   return window['go']['starrs']['Starrs']['ImportDownloadClients'](arg1);
 }
@@ -172,6 +196,10 @@ export function ImportIndexer(arg1) {
 
 export function ImportLists(arg1) {
   return window['go']['starrs']['Starrs']['ImportLists'](arg1);
+}
+
+export function ImportQualityProfiles(arg1) {
+  return window['go']['starrs']['Starrs']['ImportQualityProfiles'](arg1);
 }
 
 export function Indexers(arg1) {
