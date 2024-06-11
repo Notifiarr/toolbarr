@@ -282,6 +282,11 @@ func (s *Starrs) addExclusion(config *AppConfig, exclusion any) (any, error) {
 		return nil, err
 	}
 
+	end := time.Now().Add(waitTime)
+	// We use `end` and this `defer` to make every request last at least 1 second.
+	// Svelte just won't update some reactive variables if you return quickly.
+	defer func() { time.Sleep(time.Until(end)) }()
+
 	switch data := exclusion.(type) {
 	case *lidarr.Exclusion:
 		return lidarr.New(instance.Config).AddExclusionContext(s.ctx, data)

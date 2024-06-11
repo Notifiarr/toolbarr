@@ -134,6 +134,11 @@ func (s *Starrs) testIndexer(config *AppConfig, indexer any) error {
 		return err
 	}
 
+	end := time.Now().Add(waitTime)
+	// We use `end` and this `defer` to make every request last at least 1 second.
+	// Svelte just won't update some reactive variables if you return quickly.
+	defer func() { time.Sleep(time.Until(end)) }()
+
 	switch data := indexer.(type) {
 	case *lidarr.IndexerInput:
 		return lidarr.New(instance.Config).TestIndexerContext(s.ctx, data)
@@ -382,6 +387,11 @@ func (s *Starrs) addIndexer(config *AppConfig, indexer any) (any, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	end := time.Now().Add(waitTime)
+	// We use `end` and this `defer` to make every request last at least 1 second.
+	// Svelte just won't update some reactive variables if you return quickly.
+	defer func() { time.Sleep(time.Until(end)) }()
 
 	switch data := indexer.(type) {
 	case *lidarr.IndexerInput:

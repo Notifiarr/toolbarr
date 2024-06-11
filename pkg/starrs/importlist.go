@@ -121,6 +121,11 @@ func (s *Starrs) testImportList(config *AppConfig, list any) error {
 		return err
 	}
 
+	end := time.Now().Add(waitTime)
+	// We use `end` and this `defer` to make every request last at least 1 second.
+	// Svelte just won't update some reactive variables if you return quickly.
+	defer func() { time.Sleep(time.Until(end)) }()
+
 	switch data := list.(type) {
 	case *lidarr.ImportListInput:
 		return lidarr.New(instance.Config).TestImportListContextt(s.ctx, data)
@@ -339,6 +344,11 @@ func (s *Starrs) addImportList(config *AppConfig, list any) (any, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	end := time.Now().Add(waitTime)
+	// We use `end` and this `defer` to make every request last at least 1 second.
+	// Svelte just won't update some reactive variables if you return quickly.
+	defer func() { time.Sleep(time.Until(end)) }()
 
 	switch data := list.(type) {
 	case *lidarr.ImportListInput:

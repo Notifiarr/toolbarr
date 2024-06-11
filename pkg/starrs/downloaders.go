@@ -132,6 +132,11 @@ func (s *Starrs) testDownloadClient(config *AppConfig, client any) error {
 		return err
 	}
 
+	end := time.Now().Add(waitTime)
+	// We use `end` and this `defer` to make every request last at least 1 second.
+	// Svelte just won't update some reactive variables if you return quickly.
+	defer func() { time.Sleep(time.Until(end)) }()
+
 	switch data := client.(type) {
 	case *lidarr.DownloadClientInput:
 		return lidarr.New(instance.Config).TestDownloadClientContext(s.ctx, data)
@@ -407,6 +412,11 @@ func (s *Starrs) addDownloadClient(config *AppConfig, downloader any) (any, erro
 	if err != nil {
 		return nil, err
 	}
+
+	end := time.Now().Add(waitTime)
+	// We use `end` and this `defer` to make every request last at least 1 second.
+	// Svelte just won't update some reactive variables if you return quickly.
+	defer func() { time.Sleep(time.Until(end)) }()
 
 	switch data := downloader.(type) {
 	case *lidarr.DownloadClientInput:
