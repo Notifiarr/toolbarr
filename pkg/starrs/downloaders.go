@@ -179,71 +179,71 @@ func (s *Starrs) testDownloadClientReply(
 
 func (s *Starrs) UpdateLidarrDownloadClient(
 	config *AppConfig,
-	force bool,
 	downloader *lidarr.DownloadClientInput,
+	force bool,
 ) (*DataReply, error) {
 	s.log.Tracef("Call:UpdateLidarrDownloadClient(%s, %s, %d)", config.App, config.Name, downloader.ID)
-	data, err := s.updateDownloadClient(config, force, downloader)
+	data, err := s.updateDownloadClient(config, downloader, force)
 
 	return s.updateDownloadClientReply(config.Name, downloader.Name, downloader.ID, data, err)
 }
 
 func (s *Starrs) UpdateProwlarrDownloadClient(
 	config *AppConfig,
-	force bool,
 	downloader *prowlarr.DownloadClientInput,
+	force bool,
 ) (*DataReply, error) {
 	s.log.Tracef("Call:UpdateProwlarrDownloadClient(%s, %s, %d)", config.App, config.Name, downloader.ID)
-	data, err := s.updateDownloadClient(config, force, downloader)
+	data, err := s.updateDownloadClient(config, downloader, force)
 
 	return s.updateDownloadClientReply(config.Name, downloader.Name, downloader.ID, data, err)
 }
 
 func (s *Starrs) UpdateRadarrDownloadClient(
 	config *AppConfig,
-	force bool,
 	downloader *radarr.DownloadClientInput,
+	force bool,
 ) (*DataReply, error) {
 	s.log.Tracef("Call:UpdateRadarrDownloadClient(%s, %s, %d)", config.App, config.Name, downloader.ID)
-	data, err := s.updateDownloadClient(config, force, downloader)
+	data, err := s.updateDownloadClient(config, downloader, force)
 
 	return s.updateDownloadClientReply(config.Name, downloader.Name, downloader.ID, data, err)
 }
 
 func (s *Starrs) UpdateReadarrDownloadClient(
 	config *AppConfig,
-	force bool,
 	downloader *readarr.DownloadClientInput,
+	force bool,
 ) (*DataReply, error) {
 	s.log.Tracef("Call:UpdateReadarrDownloadClient(%s, %s, %d)", config.App, config.Name, downloader.ID)
-	data, err := s.updateDownloadClient(config, force, downloader)
+	data, err := s.updateDownloadClient(config, downloader, force)
 
 	return s.updateDownloadClientReply(config.Name, downloader.Name, downloader.ID, data, err)
 }
 
 func (s *Starrs) UpdateSonarrDownloadClient(
 	config *AppConfig,
-	force bool,
 	downloader *sonarr.DownloadClientInput,
+	force bool,
 ) (*DataReply, error) {
 	s.log.Tracef("Call:UpdateSonarrDownloadClient(%s, %s, %d)", config.App, config.Name, downloader.ID)
-	data, err := s.updateDownloadClient(config, force, downloader)
+	data, err := s.updateDownloadClient(config, downloader, force)
 
 	return s.updateDownloadClientReply(config.Name, downloader.Name, downloader.ID, data, err)
 }
 
 func (s *Starrs) UpdateWhisparrDownloadClient(
 	config *AppConfig,
-	force bool,
 	downloader *sonarr.DownloadClientInput,
+	force bool,
 ) (*DataReply, error) {
 	s.log.Tracef("Call:UpdateWhisparrDownloadClient(%s, %s, %d)", config.App, config.Name, downloader.ID)
-	data, err := s.updateDownloadClient(config, force, downloader)
+	data, err := s.updateDownloadClient(config, downloader, force)
 
 	return s.updateDownloadClientReply(config.Name, downloader.Name, downloader.ID, data, err)
 }
 
-func (s *Starrs) updateDownloadClient(config *AppConfig, force bool, downloader any) (any, error) {
+func (s *Starrs) updateDownloadClient(config *AppConfig, downloader any, force bool) (any, error) {
 	instance, err := s.newAPIinstance(config)
 	if err != nil {
 		return nil, err

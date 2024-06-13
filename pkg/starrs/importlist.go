@@ -166,56 +166,56 @@ func (s *Starrs) UpdateLidarrImportList(
 	list *lidarr.ImportListInput,
 ) (*DataReply, error) {
 	s.log.Tracef("Call:UpdateLidarrImportList(%s, %s, %d)", config.App, config.Name, list.ID)
-	data, err := s.updateImportList(config, force, list)
+	data, err := s.updateImportList(config, list, force)
 
 	return s.updateImportListReply(config.Name, list.Name, list.ID, data, err)
 }
 
 func (s *Starrs) UpdateRadarrImportList(
 	config *AppConfig,
-	force bool,
 	list *radarr.ImportListInput,
+	force bool,
 ) (*DataReply, error) {
 	s.log.Tracef("Call:UpdateRadarrImportList(%s, %s, %d)", config.App, config.Name, list.ID)
-	data, err := s.updateImportList(config, force, list)
+	data, err := s.updateImportList(config, list, force)
 
 	return s.updateImportListReply(config.Name, list.Name, list.ID, data, err)
 }
 
 func (s *Starrs) UpdateReadarrImportList(
 	config *AppConfig,
-	force bool,
 	list *readarr.ImportListInput,
+	force bool,
 ) (*DataReply, error) {
 	s.log.Tracef("Call:UpdateReadarrImportList(%s, %s, %d)", config.App, config.Name, list.ID)
-	data, err := s.updateImportList(config, force, list)
+	data, err := s.updateImportList(config, list, force)
 
 	return s.updateImportListReply(config.Name, list.Name, list.ID, data, err)
 }
 
 func (s *Starrs) UpdateSonarrImportList(
 	config *AppConfig,
-	force bool,
 	list *sonarr.ImportListInput,
+	force bool,
 ) (*DataReply, error) {
 	s.log.Tracef("Call:UpdateSonarrImportList(%s, %s, %d)", config.App, config.Name, list.ID)
-	data, err := s.updateImportList(config, force, list)
+	data, err := s.updateImportList(config, list, force)
 
 	return s.updateImportListReply(config.Name, list.Name, list.ID, data, err)
 }
 
 func (s *Starrs) UpdateWhisparrImportList(
 	config *AppConfig,
-	force bool,
 	list *sonarr.ImportListInput,
+	force bool,
 ) (*DataReply, error) {
 	s.log.Tracef("Call:UpdateWhisparrImportList(%s, %s, %d)", config.App, config.Name, list.ID)
-	data, err := s.updateImportList(config, force, list)
+	data, err := s.updateImportList(config, list, force)
 
 	return s.updateImportListReply(config.Name, list.Name, list.ID, data, err)
 }
 
-func (s *Starrs) updateImportList(config *AppConfig, force bool, list any) (any, error) {
+func (s *Starrs) updateImportList(config *AppConfig, list any, force bool) (any, error) {
 	instance, err := s.newAPIinstance(config)
 	if err != nil {
 		return nil, err
