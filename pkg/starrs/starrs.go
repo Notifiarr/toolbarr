@@ -8,6 +8,7 @@ import (
 
 	"github.com/Notifiarr/toolbarr/pkg/logs"
 	"github.com/Notifiarr/toolbarr/pkg/mnd"
+	wr "github.com/wailsapp/wails/v2/pkg/runtime"
 	"golift.io/starr"
 )
 
@@ -92,6 +93,7 @@ func (s *Starrs) newAPIinstance(config *AppConfig) (*instance, error) {
 	if instance.APIKey == "" {
 		data, err := instance.testWithoutKey()
 		if err != nil {
+			wr.LogError(s.ctx, err.Error())
 			return nil, err
 		}
 

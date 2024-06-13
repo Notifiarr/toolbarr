@@ -54,7 +54,7 @@
           async (err: string) => await showError(idx, err)
         )
       } else {
-        await update[tab.id][instance.App](instance, force, form[idx]).then(
+        await update[tab.id][instance.App](instance, form[idx], force).then(
           async (resp: any) => {
             goodMsg += `<li>${$_("instances.SuccessMsg", {values:{"msg": resp.Msg}})}</li>`
             form[idx] = JSON.parse(JSON.stringify(resp.Data))

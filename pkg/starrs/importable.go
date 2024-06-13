@@ -27,7 +27,6 @@ func (s *Starrs) getExportInstance(config *AppConfig, selected Selected, item st
 
 	instance, err := s.newAPIinstance(config)
 	if err != nil {
-		wr.LogError(s.ctx, err.Error())
 		return nil, err
 	}
 

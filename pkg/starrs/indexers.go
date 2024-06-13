@@ -181,71 +181,71 @@ func (s *Starrs) testIndexerReply(
 
 func (s *Starrs) UpdateLidarrIndexer(
 	config *AppConfig,
-	force bool,
 	indexer *lidarr.IndexerInput,
+	force bool,
 ) (*DataReply, error) {
 	s.log.Tracef("Call:UpdateLidarrIndexer(%s, %s, %d)", config.App, config.Name, indexer.ID)
-	data, err := s.updateIndexer(config, force, indexer)
+	data, err := s.updateIndexer(config, indexer, force)
 
 	return s.updateIndexerReply(config.Name, indexer.Name, indexer.ID, data, err)
 }
 
 func (s *Starrs) UpdateProwlarrIndexer(
 	config *AppConfig,
-	force bool,
 	indexer *prowlarr.IndexerInput,
+	force bool,
 ) (*DataReply, error) {
 	s.log.Tracef("Call:UpdateProwlarrIndexer(%s, %s, %d)", config.App, config.Name, indexer.ID)
-	data, err := s.updateIndexer(config, force, indexer)
+	data, err := s.updateIndexer(config, indexer, force)
 
 	return s.updateIndexerReply(config.Name, indexer.Name, indexer.ID, data, err)
 }
 
 func (s *Starrs) UpdateRadarrIndexer(
 	config *AppConfig,
-	force bool,
 	indexer *radarr.IndexerInput,
+	force bool,
 ) (*DataReply, error) {
 	s.log.Tracef("Call:UpdateRadarrIndexer(%s, %s, %d)", config.App, config.Name, indexer.ID)
-	data, err := s.updateIndexer(config, force, indexer)
+	data, err := s.updateIndexer(config, indexer, force)
 
 	return s.updateIndexerReply(config.Name, indexer.Name, indexer.ID, data, err)
 }
 
 func (s *Starrs) UpdateReadarrIndexer(
 	config *AppConfig,
-	force bool,
 	indexer *readarr.IndexerInput,
+	force bool,
 ) (*DataReply, error) {
 	s.log.Tracef("Call:UpdateReadarrIndexer(%s, %s, %d)", config.App, config.Name, indexer.ID)
-	data, err := s.updateIndexer(config, force, indexer)
+	data, err := s.updateIndexer(config, indexer, force)
 
 	return s.updateIndexerReply(config.Name, indexer.Name, indexer.ID, data, err)
 }
 
 func (s *Starrs) UpdateSonarrIndexer(
 	config *AppConfig,
-	force bool,
 	indexer *sonarr.IndexerInput,
+	force bool,
 ) (*DataReply, error) {
 	s.log.Tracef("Call:UpdateSonarrIndexer(%s, %s, %d)", config.App, config.Name, indexer.ID)
-	data, err := s.updateIndexer(config, force, indexer)
+	data, err := s.updateIndexer(config, indexer, force)
 
 	return s.updateIndexerReply(config.Name, indexer.Name, indexer.ID, data, err)
 }
 
 func (s *Starrs) UpdateWhisparrIndexer(
 	config *AppConfig,
-	force bool,
 	indexer *sonarr.IndexerInput,
+	force bool,
 ) (*DataReply, error) {
 	s.log.Tracef("Call:UpdateWhisparrIndexer(%s, %s, %d)", config.App, config.Name, indexer.ID)
-	data, err := s.updateIndexer(config, force, indexer)
+	data, err := s.updateIndexer(config, indexer, force)
 
 	return s.updateIndexerReply(config.Name, indexer.Name, indexer.ID, data, err)
 }
 
-func (s *Starrs) updateIndexer(config *AppConfig, force bool, indexer any) (any, error) {
+func (s *Starrs) updateIndexer(config *AppConfig, indexer any, force bool) (any, error) {
 	instance, err := s.newAPIinstance(config)
 	if err != nil {
 		return nil, err
@@ -353,36 +353,38 @@ func (s *Starrs) ImportIndexer(config *AppConfig) (*DataReply, error) {
 }
 
 func (s *Starrs) AddLidarrIndexer(config *AppConfig, indexer *lidarr.IndexerInput) (*DataReply, error) {
-	data, err := s.addIndexer(config, indexer)
+	data, err := s.addIndexer(config, indexer, indexer.Name)
 	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported Indexer '%s' into %s", indexer.Name, config.Name)}, err
 }
 
 func (s *Starrs) AddProwlarrIndexer(config *AppConfig, indexer *prowlarr.IndexerInput) (*DataReply, error) {
-	data, err := s.addIndexer(config, indexer)
+	data, err := s.addIndexer(config, indexer, indexer.Name)
 	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported Indexer '%s' into %s", indexer.Name, config.Name)}, err
 }
 
 func (s *Starrs) AddRadarrIndexer(config *AppConfig, indexer *radarr.IndexerInput) (*DataReply, error) {
-	data, err := s.addIndexer(config, indexer)
+	data, err := s.addIndexer(config, indexer, indexer.Name)
 	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported Indexer '%s' into %s", indexer.Name, config.Name)}, err
 }
 
 func (s *Starrs) AddReadarrIndexer(config *AppConfig, indexer *readarr.IndexerInput) (*DataReply, error) {
-	data, err := s.addIndexer(config, indexer)
+	data, err := s.addIndexer(config, indexer, indexer.Name)
 	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported indexer '%s' into %s", indexer.Name, config.Name)}, err
 }
 
 func (s *Starrs) AddSonarrIndexer(config *AppConfig, indexer *sonarr.IndexerInput) (*DataReply, error) {
-	data, err := s.addIndexer(config, indexer)
+	data, err := s.addIndexer(config, indexer, indexer.Name)
 	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported Indexer '%s' into %s", indexer.Name, config.Name)}, err
 }
 
 func (s *Starrs) AddWhisparrIndexer(config *AppConfig, indexer *sonarr.IndexerInput) (*DataReply, error) {
-	data, err := s.addIndexer(config, indexer)
+	data, err := s.addIndexer(config, indexer, indexer.Name)
 	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported Indexer '%s' into %s", indexer.Name, config.Name)}, err
 }
 
-func (s *Starrs) addIndexer(config *AppConfig, indexer any) (any, error) {
+func (s *Starrs) addIndexer(config *AppConfig, indexer any, indexerName string) (any, error) {
+	s.log.Tracef("Call:Add%sIndexer(%s, %s)", config.App, config.Name, indexerName)
+
 	instance, err := s.newAPIinstance(config)
 	if err != nil {
 		return nil, err

@@ -272,7 +272,7 @@ func (s *Starrs) ImportQualityProfiles(config *AppConfig) (*DataReply, error) {
 }
 
 func (s *Starrs) AddLidarrQualityProfile(config *AppConfig, profile *lidarr.QualityProfile) (*DataReply, error) {
-	data, err := s.addQualityProfile(config, profile)
+	data, err := s.addQualityProfile(config, profile, profile.Name)
 
 	return &DataReply{
 		Data: data,
@@ -281,7 +281,7 @@ func (s *Starrs) AddLidarrQualityProfile(config *AppConfig, profile *lidarr.Qual
 }
 
 func (s *Starrs) AddRadarrQualityProfile(config *AppConfig, profile *radarr.QualityProfile) (*DataReply, error) {
-	data, err := s.addQualityProfile(config, profile)
+	data, err := s.addQualityProfile(config, profile, profile.Name)
 	if err != nil {
 		return nil, err
 	}
@@ -290,7 +290,7 @@ func (s *Starrs) AddRadarrQualityProfile(config *AppConfig, profile *radarr.Qual
 }
 
 func (s *Starrs) AddReadarrQualityProfile(config *AppConfig, profile *readarr.QualityProfile) (*DataReply, error) {
-	data, err := s.addQualityProfile(config, profile)
+	data, err := s.addQualityProfile(config, profile, profile.Name)
 
 	return &DataReply{
 		Data: data,
@@ -299,16 +299,18 @@ func (s *Starrs) AddReadarrQualityProfile(config *AppConfig, profile *readarr.Qu
 }
 
 func (s *Starrs) AddSonarrQualityProfile(config *AppConfig, profile *sonarr.QualityProfile) (*DataReply, error) {
-	data, err := s.addQualityProfile(config, profile)
+	data, err := s.addQualityProfile(config, profile, profile.Name)
 	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported QualityProfile '%s' into %s", profile.Name, config.Name)}, err
 }
 
 func (s *Starrs) AddWhisparrQualityProfile(config *AppConfig, profile *sonarr.QualityProfile) (*DataReply, error) {
-	data, err := s.addQualityProfile(config, profile)
+	data, err := s.addQualityProfile(config, profile, profile.Name)
 	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported QualityProfile '%s' into %s", profile.Name, config.Name)}, err
 }
 
-func (s *Starrs) addQualityProfile(config *AppConfig, profile any) (any, error) {
+func (s *Starrs) addQualityProfile(config *AppConfig, profile any, profileName string) (any, error) {
+	s.log.Tracef("Call:Add%sQualityProfile(%s, %s)", config.App, config.Name, profileName)
+
 	instance, err := s.newAPIinstance(config)
 	if err != nil {
 		return nil, err

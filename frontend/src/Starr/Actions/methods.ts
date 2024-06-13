@@ -86,7 +86,8 @@ import {
   AddWhisparrQualityProfile,
   ImportQualityProfiles,
   ExportQualityProfiles,
-} from "/wailsjs/go/starrs/Starrs"
+} from "../../../wailsjs/go/starrs/Starrs"
+import type { Instance } from "../../libs/config"
 
 export function fixFieldValues(info: {[key: string]: any}): string {
   info.forEach((item, idx) => {
@@ -99,7 +100,7 @@ export function fixFieldValues(info: {[key: string]: any}): string {
   return JSON.stringify(info)
 }
 
-export const remove: {[key: string]: {[key: string]: (...args: any[]) => Promise<any>;}} = {
+export const remove: {[key: string]: {[key: string]: (Instance, number) => Promise<any>;}} = {
   "BlockLists": {
     "Lidarr":   DeleteBlockList,
     "Prowlarr": DeleteBlockList,
@@ -149,7 +150,7 @@ export const remove: {[key: string]: {[key: string]: (...args: any[]) => Promise
   }
 }
 
-export const update: {[key: string]: {[key: string]: (...args: any[]) => Promise<any>;}} = {
+export const update: {[key: string]: {[key: string]: (Instance, any, boolean?) => Promise<any>;}} = {
   "DownloadClients": {
     "Lidarr":   UpdateLidarrDownloadClient,
     "Prowlarr": UpdateProwlarrDownloadClient,
@@ -189,7 +190,7 @@ export const update: {[key: string]: {[key: string]: (...args: any[]) => Promise
   },
 }
 
-export const test:  {[key: string]: {[key: string]: (...args: any[]) => Promise<string>;}} = {
+export const test:  {[key: string]: {[key: string]: (Instance, any) => Promise<string>;}} = {
   "DownloadClients": {
     "Lidarr":   TestLidarrDownloadClient,
     "Prowlarr": TestProwlarrDownloadClient,
@@ -215,7 +216,7 @@ export const test:  {[key: string]: {[key: string]: (...args: any[]) => Promise<
   },
 }
 
-export const exportFile:  {[key: string]: (...args: any[]) => Promise<any>;} = {
+export const exportFile:  {[key: string]: (Instance, any) => Promise<any>;} = {
   "DownloadClients": ExportDownloadClients,
   "Indexers":        ExportIndexer,
   "ImportLists":     ExportImportLists,
@@ -223,7 +224,7 @@ export const exportFile:  {[key: string]: (...args: any[]) => Promise<any>;} = {
   "QualityProfiles": ExportQualityProfiles,
 }
 
-export const importFile:  {[key: string]: (...args: any[]) => Promise<any>;} = {
+export const importFile:  {[key: string]: (Instance) => Promise<any>;} = {
   "DownloadClients": ImportDownloadClients,
   "Indexers":        ImportIndexer,
   "ImportLists":     ImportImportLists,
@@ -231,7 +232,7 @@ export const importFile:  {[key: string]: (...args: any[]) => Promise<any>;} = {
   "QualityProfiles": ImportQualityProfiles,
 }
 
-export const add:  {[key: string]: {[key: string]: (...args: any[]) => Promise<string>;}} = {
+export const add:  {[key: string]: {[key: string]: (Instance, any) => Promise<string>;}} = {
   "DownloadClients": {
     "Lidarr":   AddLidarrDownloadClient,
     "Prowlarr": AddProwlarrDownloadClient,

@@ -157,37 +157,37 @@ export function TestWhisparrIndexer(arg1:starrs.AppConfig,arg2:sonarr.IndexerInp
 
 export function UpdateInvalidItems(arg1:starrs.AppConfig,arg2:string,arg3:string,arg4:{[key: number]: boolean}):Promise<starrs.RootFolders>;
 
-export function UpdateLidarrDownloadClient(arg1:starrs.AppConfig,arg2:boolean,arg3:lidarr.DownloadClientInput):Promise<starrs.DataReply>;
+export function UpdateLidarrDownloadClient(arg1:starrs.AppConfig,arg2:lidarr.DownloadClientInput,arg3:boolean):Promise<starrs.DataReply>;
 
 export function UpdateLidarrExclusion(arg1:starrs.AppConfig,arg2:lidarr.Exclusion):Promise<starrs.DataReply>;
 
 export function UpdateLidarrImportList(arg1:starrs.AppConfig,arg2:boolean,arg3:lidarr.ImportListInput):Promise<starrs.DataReply>;
 
-export function UpdateLidarrIndexer(arg1:starrs.AppConfig,arg2:boolean,arg3:lidarr.IndexerInput):Promise<starrs.DataReply>;
+export function UpdateLidarrIndexer(arg1:starrs.AppConfig,arg2:lidarr.IndexerInput,arg3:boolean):Promise<starrs.DataReply>;
 
 export function UpdateLidarrQualityProfile(arg1:starrs.AppConfig,arg2:lidarr.QualityProfile):Promise<starrs.DataReply>;
 
-export function UpdateProwlarrDownloadClient(arg1:starrs.AppConfig,arg2:boolean,arg3:prowlarr.DownloadClientInput):Promise<starrs.DataReply>;
+export function UpdateProwlarrDownloadClient(arg1:starrs.AppConfig,arg2:prowlarr.DownloadClientInput,arg3:boolean):Promise<starrs.DataReply>;
 
-export function UpdateProwlarrIndexer(arg1:starrs.AppConfig,arg2:boolean,arg3:prowlarr.IndexerInput):Promise<starrs.DataReply>;
+export function UpdateProwlarrIndexer(arg1:starrs.AppConfig,arg2:prowlarr.IndexerInput,arg3:boolean):Promise<starrs.DataReply>;
 
-export function UpdateRadarrDownloadClient(arg1:starrs.AppConfig,arg2:boolean,arg3:radarr.DownloadClientInput):Promise<starrs.DataReply>;
+export function UpdateRadarrDownloadClient(arg1:starrs.AppConfig,arg2:radarr.DownloadClientInput,arg3:boolean):Promise<starrs.DataReply>;
 
 export function UpdateRadarrExclusion(arg1:starrs.AppConfig,arg2:radarr.Exclusion):Promise<starrs.DataReply>;
 
-export function UpdateRadarrImportList(arg1:starrs.AppConfig,arg2:boolean,arg3:radarr.ImportListInput):Promise<starrs.DataReply>;
+export function UpdateRadarrImportList(arg1:starrs.AppConfig,arg2:radarr.ImportListInput,arg3:boolean):Promise<starrs.DataReply>;
 
-export function UpdateRadarrIndexer(arg1:starrs.AppConfig,arg2:boolean,arg3:radarr.IndexerInput):Promise<starrs.DataReply>;
+export function UpdateRadarrIndexer(arg1:starrs.AppConfig,arg2:radarr.IndexerInput,arg3:boolean):Promise<starrs.DataReply>;
 
 export function UpdateRadarrQualityProfile(arg1:starrs.AppConfig,arg2:radarr.QualityProfile):Promise<starrs.DataReply>;
 
-export function UpdateReadarrDownloadClient(arg1:starrs.AppConfig,arg2:boolean,arg3:readarr.DownloadClientInput):Promise<starrs.DataReply>;
+export function UpdateReadarrDownloadClient(arg1:starrs.AppConfig,arg2:readarr.DownloadClientInput,arg3:boolean):Promise<starrs.DataReply>;
 
 export function UpdateReadarrExclusion(arg1:starrs.AppConfig,arg2:readarr.Exclusion):Promise<starrs.DataReply>;
 
-export function UpdateReadarrImportList(arg1:starrs.AppConfig,arg2:boolean,arg3:readarr.ImportListInput):Promise<starrs.DataReply>;
+export function UpdateReadarrImportList(arg1:starrs.AppConfig,arg2:readarr.ImportListInput,arg3:boolean):Promise<starrs.DataReply>;
 
-export function UpdateReadarrIndexer(arg1:starrs.AppConfig,arg2:boolean,arg3:readarr.IndexerInput):Promise<starrs.DataReply>;
+export function UpdateReadarrIndexer(arg1:starrs.AppConfig,arg2:readarr.IndexerInput,arg3:boolean):Promise<starrs.DataReply>;
 
 export function UpdateReadarrQualityProfile(arg1:starrs.AppConfig,arg2:readarr.QualityProfile):Promise<starrs.DataReply>;
 
@@ -195,22 +195,22 @@ export function UpdateRecycleBin(arg1:starrs.AppConfig,arg2:string):Promise<star
 
 export function UpdateRootFolder(arg1:starrs.AppConfig,arg2:string,arg3:string):Promise<starrs.RootFolders>;
 
-export function UpdateSonarrDownloadClient(arg1:starrs.AppConfig,arg2:boolean,arg3:sonarr.DownloadClientInput):Promise<starrs.DataReply>;
+export function UpdateSonarrDownloadClient(arg1:starrs.AppConfig,arg2:sonarr.DownloadClientInput,arg3:boolean):Promise<starrs.DataReply>;
 
 export function UpdateSonarrExclusion(arg1:starrs.AppConfig,arg2:sonarr.Exclusion):Promise<starrs.DataReply>;
 
-export function UpdateSonarrImportList(arg1:starrs.AppConfig,arg2:boolean,arg3:sonarr.ImportListInput):Promise<starrs.DataReply>;
+export function UpdateSonarrImportList(arg1:starrs.AppConfig,arg2:sonarr.ImportListInput,arg3:boolean):Promise<starrs.DataReply>;
 
-export function UpdateSonarrIndexer(arg1:starrs.AppConfig,arg2:boolean,arg3:sonarr.IndexerInput):Promise<starrs.DataReply>;
+export function UpdateSonarrIndexer(arg1:starrs.AppConfig,arg2:sonarr.IndexerInput,arg3:boolean):Promise<starrs.DataReply>;
 
 export function UpdateSonarrQualityProfile(arg1:starrs.AppConfig,arg2:sonarr.QualityProfile):Promise<starrs.DataReply>;
 
-export function UpdateWhisparrDownloadClient(arg1:starrs.AppConfig,arg2:boolean,arg3:sonarr.DownloadClientInput):Promise<starrs.DataReply>;
+export function UpdateWhisparrDownloadClient(arg1:starrs.AppConfig,arg2:sonarr.DownloadClientInput,arg3:boolean):Promise<starrs.DataReply>;
 
 export function UpdateWhisparrExclusion(arg1:starrs.AppConfig,arg2:sonarr.Exclusion):Promise<starrs.DataReply>;
 
-export function UpdateWhisparrImportList(arg1:starrs.AppConfig,arg2:boolean,arg3:sonarr.ImportListInput):Promise<starrs.DataReply>;
+export function UpdateWhisparrImportList(arg1:starrs.AppConfig,arg2:sonarr.ImportListInput,arg3:boolean):Promise<starrs.DataReply>;
 
-export function UpdateWhisparrIndexer(arg1:starrs.AppConfig,arg2:boolean,arg3:sonarr.IndexerInput):Promise<starrs.DataReply>;
+export function UpdateWhisparrIndexer(arg1:starrs.AppConfig,arg2:sonarr.IndexerInput,arg3:boolean):Promise<starrs.DataReply>;
 
 export function UpdateWhisparrQualityProfile(arg1:starrs.AppConfig,arg2:sonarr.QualityProfile):Promise<starrs.DataReply>;
