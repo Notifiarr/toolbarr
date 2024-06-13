@@ -240,7 +240,7 @@ func (s *Starrs) ImportExclusions(config *AppConfig) (*DataReply, error) {
 }
 
 func (s *Starrs) AddLidarrExclusion(config *AppConfig, exclusion *lidarr.Exclusion) (*DataReply, error) {
-	data, err := s.addExclusion(config, exclusion)
+	data, err := s.addExclusion(config, exclusion, exclusion.ArtistName)
 
 	return &DataReply{
 		Data: data,
@@ -249,7 +249,7 @@ func (s *Starrs) AddLidarrExclusion(config *AppConfig, exclusion *lidarr.Exclusi
 }
 
 func (s *Starrs) AddRadarrExclusion(config *AppConfig, exclusion *radarr.Exclusion) (*DataReply, error) {
-	data, err := s.addExclusion(config, exclusion)
+	data, err := s.addExclusion(config, exclusion, exclusion.Title)
 	if err != nil {
 		return nil, err
 	}
@@ -258,7 +258,7 @@ func (s *Starrs) AddRadarrExclusion(config *AppConfig, exclusion *radarr.Exclusi
 }
 
 func (s *Starrs) AddReadarrExclusion(config *AppConfig, exclusion *readarr.Exclusion) (*DataReply, error) {
-	data, err := s.addExclusion(config, exclusion)
+	data, err := s.addExclusion(config, exclusion, exclusion.AuthorName)
 
 	return &DataReply{
 		Data: data,
@@ -267,16 +267,18 @@ func (s *Starrs) AddReadarrExclusion(config *AppConfig, exclusion *readarr.Exclu
 }
 
 func (s *Starrs) AddSonarrExclusion(config *AppConfig, exclusion *sonarr.Exclusion) (*DataReply, error) {
-	data, err := s.addExclusion(config, exclusion)
+	data, err := s.addExclusion(config, exclusion, exclusion.Title)
 	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported Exclusion '%s' into %s", exclusion.Title, config.Name)}, err
 }
 
 func (s *Starrs) AddWhisparrExclusion(config *AppConfig, exclusion *sonarr.Exclusion) (*DataReply, error) {
-	data, err := s.addExclusion(config, exclusion)
+	data, err := s.addExclusion(config, exclusion, exclusion.Title)
 	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported Exclusion '%s' into %s", exclusion.Title, config.Name)}, err
 }
 
-func (s *Starrs) addExclusion(config *AppConfig, exclusion any) (any, error) {
+func (s *Starrs) addExclusion(config *AppConfig, exclusion any, exclusionName string) (any, error) {
+	s.log.Tracef("Call:Add%sExclusion(%s, %s)", config.App, config.Name, exclusionName)
+
 	instance, err := s.newAPIinstance(config)
 	if err != nil {
 		return nil, err

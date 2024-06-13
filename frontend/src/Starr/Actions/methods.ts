@@ -86,8 +86,8 @@ import {
   AddWhisparrQualityProfile,
   ImportQualityProfiles,
   ExportQualityProfiles,
-} from "/wailsjs/go/starrs/Starrs"
-import type { Instance } from "/src/libs/config"
+} from "../../../wailsjs/go/starrs/Starrs"
+import type { Instance } from "../../libs/config"
 
 export function fixFieldValues(info: {[key: string]: any}): string {
   info.forEach((item, idx) => {

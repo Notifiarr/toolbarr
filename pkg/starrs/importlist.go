@@ -315,31 +315,33 @@ func (s *Starrs) ImportImportLists(config *AppConfig) (*DataReply, error) {
 }
 
 func (s *Starrs) AddLidarrImportList(config *AppConfig, list *lidarr.ImportListInput) (*DataReply, error) {
-	data, err := s.addImportList(config, list)
+	data, err := s.addImportList(config, list, list.Name)
 	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported Import List '%s' into %s", list.Name, config.Name)}, err
 }
 
 func (s *Starrs) AddRadarrImportList(config *AppConfig, list *radarr.ImportListInput) (*DataReply, error) {
-	data, err := s.addImportList(config, list)
+	data, err := s.addImportList(config, list, list.Name)
 	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported Import List '%s' into %s", list.Name, config.Name)}, err
 }
 
 func (s *Starrs) AddReadarrImportList(config *AppConfig, list *readarr.ImportListInput) (*DataReply, error) {
-	data, err := s.addImportList(config, list)
+	data, err := s.addImportList(config, list, list.Name)
 	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported Import List '%s' into %s", list.Name, config.Name)}, err
 }
 
 func (s *Starrs) AddSonarrImportList(config *AppConfig, list *sonarr.ImportListInput) (*DataReply, error) {
-	data, err := s.addImportList(config, list)
+	data, err := s.addImportList(config, list, list.Name)
 	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported Import List '%s' into %s", list.Name, config.Name)}, err
 }
 
 func (s *Starrs) AddWhisparrImportList(config *AppConfig, list *sonarr.ImportListInput) (*DataReply, error) {
-	data, err := s.addImportList(config, list)
+	data, err := s.addImportList(config, list, list.Name)
 	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported Import List '%s' into %s", list.Name, config.Name)}, err
 }
 
-func (s *Starrs) addImportList(config *AppConfig, list any) (any, error) {
+func (s *Starrs) addImportList(config *AppConfig, list any, listName string) (any, error) {
+	s.log.Tracef("Call:Add%sImportList(%s, %s)", config.App, config.Name, listName)
+
 	instance, err := s.newAPIinstance(config)
 	if err != nil {
 		return nil, err

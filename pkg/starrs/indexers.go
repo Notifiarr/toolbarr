@@ -353,36 +353,38 @@ func (s *Starrs) ImportIndexer(config *AppConfig) (*DataReply, error) {
 }
 
 func (s *Starrs) AddLidarrIndexer(config *AppConfig, indexer *lidarr.IndexerInput) (*DataReply, error) {
-	data, err := s.addIndexer(config, indexer)
+	data, err := s.addIndexer(config, indexer, indexer.Name)
 	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported Indexer '%s' into %s", indexer.Name, config.Name)}, err
 }
 
 func (s *Starrs) AddProwlarrIndexer(config *AppConfig, indexer *prowlarr.IndexerInput) (*DataReply, error) {
-	data, err := s.addIndexer(config, indexer)
+	data, err := s.addIndexer(config, indexer, indexer.Name)
 	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported Indexer '%s' into %s", indexer.Name, config.Name)}, err
 }
 
 func (s *Starrs) AddRadarrIndexer(config *AppConfig, indexer *radarr.IndexerInput) (*DataReply, error) {
-	data, err := s.addIndexer(config, indexer)
+	data, err := s.addIndexer(config, indexer, indexer.Name)
 	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported Indexer '%s' into %s", indexer.Name, config.Name)}, err
 }
 
 func (s *Starrs) AddReadarrIndexer(config *AppConfig, indexer *readarr.IndexerInput) (*DataReply, error) {
-	data, err := s.addIndexer(config, indexer)
+	data, err := s.addIndexer(config, indexer, indexer.Name)
 	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported indexer '%s' into %s", indexer.Name, config.Name)}, err
 }
 
 func (s *Starrs) AddSonarrIndexer(config *AppConfig, indexer *sonarr.IndexerInput) (*DataReply, error) {
-	data, err := s.addIndexer(config, indexer)
+	data, err := s.addIndexer(config, indexer, indexer.Name)
 	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported Indexer '%s' into %s", indexer.Name, config.Name)}, err
 }
 
 func (s *Starrs) AddWhisparrIndexer(config *AppConfig, indexer *sonarr.IndexerInput) (*DataReply, error) {
-	data, err := s.addIndexer(config, indexer)
+	data, err := s.addIndexer(config, indexer, indexer.Name)
 	return &DataReply{Data: data, Msg: fmt.Sprintf("Imported Indexer '%s' into %s", indexer.Name, config.Name)}, err
 }
 
-func (s *Starrs) addIndexer(config *AppConfig, indexer any) (any, error) {
+func (s *Starrs) addIndexer(config *AppConfig, indexer any, indexerName string) (any, error) {
+	s.log.Tracef("Call:Add%sIndexer(%s, %s)", config.App, config.Name, indexerName)
+
 	instance, err := s.newAPIinstance(config)
 	if err != nil {
 		return nil, err

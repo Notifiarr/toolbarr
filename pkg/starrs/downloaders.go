@@ -351,7 +351,7 @@ func (s *Starrs) ImportDownloadClients(config *AppConfig) (*DataReply, error) {
 }
 
 func (s *Starrs) AddLidarrDownloadClient(config *AppConfig, client *lidarr.DownloadClientInput) (*DataReply, error) {
-	data, err := s.addDownloadClient(config, client)
+	data, err := s.addDownloadClient(config, client, client.Name)
 
 	return &DataReply{
 		Data: data,
@@ -363,7 +363,7 @@ func (s *Starrs) AddProwlarrDownloadClient(
 	config *AppConfig,
 	client *prowlarr.DownloadClientInput,
 ) (*DataReply, error) {
-	data, err := s.addDownloadClient(config, client)
+	data, err := s.addDownloadClient(config, client, client.Name)
 
 	return &DataReply{
 		Data: data,
@@ -372,7 +372,7 @@ func (s *Starrs) AddProwlarrDownloadClient(
 }
 
 func (s *Starrs) AddRadarrDownloadClient(config *AppConfig, client *radarr.DownloadClientInput) (*DataReply, error) {
-	data, err := s.addDownloadClient(config, client)
+	data, err := s.addDownloadClient(config, client, client.Name)
 
 	return &DataReply{
 		Data: data,
@@ -381,7 +381,7 @@ func (s *Starrs) AddRadarrDownloadClient(config *AppConfig, client *radarr.Downl
 }
 
 func (s *Starrs) AddReadarrDownloadClient(config *AppConfig, client *readarr.DownloadClientInput) (*DataReply, error) {
-	data, err := s.addDownloadClient(config, client)
+	data, err := s.addDownloadClient(config, client, client.Name)
 
 	return &DataReply{
 		Data: data,
@@ -390,7 +390,7 @@ func (s *Starrs) AddReadarrDownloadClient(config *AppConfig, client *readarr.Dow
 }
 
 func (s *Starrs) AddSonarrDownloadClient(config *AppConfig, client *sonarr.DownloadClientInput) (*DataReply, error) {
-	data, err := s.addDownloadClient(config, client)
+	data, err := s.addDownloadClient(config, client, client.Name)
 
 	return &DataReply{
 		Data: data,
@@ -399,7 +399,7 @@ func (s *Starrs) AddSonarrDownloadClient(config *AppConfig, client *sonarr.Downl
 }
 
 func (s *Starrs) AddWhisparrDownloadClient(config *AppConfig, client *sonarr.DownloadClientInput) (*DataReply, error) {
-	data, err := s.addDownloadClient(config, client)
+	data, err := s.addDownloadClient(config, client, client.Name)
 
 	return &DataReply{
 		Data: data,
@@ -407,7 +407,9 @@ func (s *Starrs) AddWhisparrDownloadClient(config *AppConfig, client *sonarr.Dow
 	}, err
 }
 
-func (s *Starrs) addDownloadClient(config *AppConfig, downloader any) (any, error) {
+func (s *Starrs) addDownloadClient(config *AppConfig, downloadClient any, clientName string) (any, error) {
+	s.log.Tracef("Call:Add%sDownloadClient(%s, %s)", config.App, config.Name, clientName)
+
 	instance, err := s.newAPIinstance(config)
 	if err != nil {
 		return nil, err
@@ -418,7 +420,7 @@ func (s *Starrs) addDownloadClient(config *AppConfig, downloader any) (any, erro
 	// Svelte just won't update some reactive variables if you return quickly.
 	defer func() { time.Sleep(time.Until(end)) }()
 
-	switch data := downloader.(type) {
+	switch data := downloadClient.(type) {
 	case *lidarr.DownloadClientInput:
 		return lidarr.New(instance.Config).AddDownloadClientContext(s.ctx, data)
 	case *prowlarr.DownloadClientInput:
