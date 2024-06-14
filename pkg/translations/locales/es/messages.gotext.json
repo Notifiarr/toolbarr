@@ -659,6 +659,1536 @@
                     "expr": "err.Error()"
                 }
             ]
+        },
+        {
+            "id": "Would you like to merge these paths?\n{NewPath}\n{OldPath}",
+            "message": "Would you like to merge these paths?\n{NewPath}\n{OldPath}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "NewPath",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "newPath"
+                },
+                {
+                    "id": "OldPath",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "oldPath"
+                }
+            ]
+        },
+        {
+            "id": "Root Folder Already Exists",
+            "message": "Root Folder Already Exists",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": ""
+        },
+        {
+            "id": "Skipping path (wrong prefix): {Path}",
+            "message": "Skipping path (wrong prefix): {Path}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Path",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "entry.Path"
+                }
+            ]
+        },
+        {
+            "id": "Deleting {Name} quality profile: {ProfileID}: {Error}",
+            "message": "Deleting {Name} quality profile: {ProfileID}: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "ProfileID",
+                    "string": "%[2]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 2,
+                    "expr": "profileID"
+                },
+                {
+                    "id": "Error",
+                    "string": "%[3]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 3,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Deleted {Name} quality profile with ID {ProfileID}.",
+            "message": "Deleted {Name} quality profile with ID {ProfileID}.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "ProfileID",
+                    "string": "%[2]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 2,
+                    "expr": "profileID"
+                }
+            ]
+        },
+        {
+            "id": "Unable to open or read DB file: {Error}",
+            "message": "Unable to open or read DB file: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "You picked a folder, but you need to pick a sqlite3 database FILE.",
+            "message": "You picked a folder, but you need to pick a sqlite3 database FILE.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": ""
+        },
+        {
+            "id": "Getting tags: {Error}",
+            "message": "Getting tags: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Connection test failed! Wrong app found. Expected {App} but found {App_1}. App Version: {Version}",
+            "message": "Connection test failed! Wrong app found. Expected {App} but found {App_1}. App Version: {Version}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "App",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.App"
+                },
+                {
+                    "id": "App_1",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "test.App"
+                },
+                {
+                    "id": "Version",
+                    "string": "%[3]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 3,
+                    "expr": "test.Version"
+                }
+            ]
+        },
+        {
+            "id": "<li>Database file test successful! SQLite3 version: {Version}, tables: {Count}</li>",
+            "message": "<li>Database file test successful! SQLite3 version: {Version}, tables: {Count}</li>",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Version",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "test.Version"
+                },
+                {
+                    "id": "Count",
+                    "string": "%[2]d",
+                    "type": "int",
+                    "underlyingType": "int",
+                    "argNum": 2,
+                    "expr": "test.Count"
+                }
+            ]
+        },
+        {
+            "id": "Connection test failed! {Error}",
+            "message": "Connection test failed! {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Connection test failed! Querying Sqlite3 DB: {Error}",
+            "message": "Connection test failed! Querying Sqlite3 DB: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Login (username/password) failed: {Error}",
+            "message": "Login (username/password) failed: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Updated {Name} quality profile {Profile} ({ProfileID}).",
+            "message": "Updated {Name} quality profile {Profile} ({ProfileID}).",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "Profile",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "profile"
+                },
+                {
+                    "id": "ProfileID",
+                    "string": "%[3]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 3,
+                    "expr": "profileID"
+                }
+            ]
+        },
+        {
+            "id": "Getting root folders: {Error}",
+            "message": "Getting root folders: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Tested {Name} download client {ClientName} ({ClientID}).",
+            "message": "Tested {Name} download client {ClientName} ({ClientID}).",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "ClientName",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "clientName"
+                },
+                {
+                    "id": "ClientID",
+                    "string": "%[3]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 3,
+                    "expr": "clientID"
+                }
+            ]
+        },
+        {
+            "id": "Testing {Name} download client: {ClientName} ({ClientID}): {Error}",
+            "message": "Testing {Name} download client: {ClientName} ({ClientID}): {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "ClientName",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "clientName"
+                },
+                {
+                    "id": "ClientID",
+                    "string": "%[3]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 3,
+                    "expr": "clientID"
+                },
+                {
+                    "id": "Error",
+                    "string": "%[4]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 4,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Updated {Name} download client {ClientName} ({ClientID}).",
+            "message": "Updated {Name} download client {ClientName} ({ClientID}).",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "ClientName",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "clientName"
+                },
+                {
+                    "id": "ClientID",
+                    "string": "%[3]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 3,
+                    "expr": "clientID"
+                }
+            ]
+        },
+        {
+            "id": "Updating {Name} download client: {ClientName} ({ClientID}): {Error}",
+            "message": "Updating {Name} download client: {ClientName} ({ClientID}): {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "ClientName",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "clientName"
+                },
+                {
+                    "id": "ClientID",
+                    "string": "%[3]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 3,
+                    "expr": "clientID"
+                },
+                {
+                    "id": "Error",
+                    "string": "%[4]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 4,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Getting import list exclusions: {Error}",
+            "message": "Getting import list exclusions: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Deleting {Name} import list exclusion: {ExclusionID}: {Error}",
+            "message": "Deleting {Name} import list exclusion: {ExclusionID}: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "ExclusionID",
+                    "string": "%[2]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 2,
+                    "expr": "exclusionID"
+                },
+                {
+                    "id": "Error",
+                    "string": "%[3]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 3,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Deleted {Name} import list exclusion with ID {ExclusionID}.",
+            "message": "Deleted {Name} import list exclusion with ID {ExclusionID}.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "ExclusionID",
+                    "string": "%[2]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 2,
+                    "expr": "exclusionID"
+                }
+            ]
+        },
+        {
+            "id": "Updated {Name} import list exclusion {ExclusionName} ({ExclusionID}).",
+            "message": "Updated {Name} import list exclusion {ExclusionName} ({ExclusionID}).",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "ExclusionName",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "exclusionName"
+                },
+                {
+                    "id": "ExclusionID",
+                    "string": "%[3]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 3,
+                    "expr": "exclusionID"
+                }
+            ]
+        },
+        {
+            "id": "Updating {Name} import list exclusion: {ExclusionName} ({ExclusionID}): {Error}",
+            "message": "Updating {Name} import list exclusion: {ExclusionName} ({ExclusionID}): {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "ExclusionName",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "exclusionName"
+                },
+                {
+                    "id": "ExclusionID",
+                    "string": "%[3]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 3,
+                    "expr": "exclusionID"
+                },
+                {
+                    "id": "Error",
+                    "string": "%[4]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 4,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Deleted {Name} import list with ID {ListID}.",
+            "message": "Deleted {Name} import list with ID {ListID}.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "ListID",
+                    "string": "%[2]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 2,
+                    "expr": "listID"
+                }
+            ]
+        },
+        {
+            "id": "Tested {Name} import list {ListName} ({ListID}).",
+            "message": "Tested {Name} import list {ListName} ({ListID}).",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "ListName",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "listName"
+                },
+                {
+                    "id": "ListID",
+                    "string": "%[3]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 3,
+                    "expr": "listID"
+                }
+            ]
+        },
+        {
+            "id": "Testing {Name} import list: {ListName} ({ListID}): {Error}",
+            "message": "Testing {Name} import list: {ListName} ({ListID}): {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "ListName",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "listName"
+                },
+                {
+                    "id": "ListID",
+                    "string": "%[3]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 3,
+                    "expr": "listID"
+                },
+                {
+                    "id": "Error",
+                    "string": "%[4]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 4,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Updated {Name} import list {ListName} ({ListID}).",
+            "message": "Updated {Name} import list {ListName} ({ListID}).",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "ListName",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "listName"
+                },
+                {
+                    "id": "ListID",
+                    "string": "%[3]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 3,
+                    "expr": "listID"
+                }
+            ]
+        },
+        {
+            "id": "Updating {Name} import list: {ListName} ({ListID}): {Error}",
+            "message": "Updating {Name} import list: {ListName} ({ListID}): {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "ListName",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "listName"
+                },
+                {
+                    "id": "ListID",
+                    "string": "%[3]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 3,
+                    "expr": "listID"
+                },
+                {
+                    "id": "Error",
+                    "string": "%[4]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 4,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Tested {Name} indexer {IndexerName} ({IndexerID}).",
+            "message": "Tested {Name} indexer {IndexerName} ({IndexerID}).",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "IndexerName",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "indexerName"
+                },
+                {
+                    "id": "IndexerID",
+                    "string": "%[3]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 3,
+                    "expr": "indexerID"
+                }
+            ]
+        },
+        {
+            "id": "Testing {Name} indexer: {IndexerName} ({IndexerID}): {Error}",
+            "message": "Testing {Name} indexer: {IndexerName} ({IndexerID}): {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "IndexerName",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "indexerName"
+                },
+                {
+                    "id": "IndexerID",
+                    "string": "%[3]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 3,
+                    "expr": "indexerID"
+                },
+                {
+                    "id": "Error",
+                    "string": "%[4]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 4,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Getting metadata profiles: {Error}",
+            "message": "Getting metadata profiles: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Updating {Name} quality profile: {Profile} ({ProfileID}): {Error}",
+            "message": "Updating {Name} quality profile: {Profile} ({ProfileID}): {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "Profile",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "profile"
+                },
+                {
+                    "id": "ProfileID",
+                    "string": "%[3]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 3,
+                    "expr": "profileID"
+                },
+                {
+                    "id": "Error",
+                    "string": "%[4]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 4,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Running Query: {Query}",
+            "message": "Running Query: {Query}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Query",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "query"
+                }
+            ]
+        },
+        {
+            "id": "No path provided.",
+            "message": "No path provided.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": ""
+        },
+        {
+            "id": "Really unset {Name} recycle bin?",
+            "message": "Really unset {Name} recycle bin?",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                }
+            ]
+        },
+        {
+            "id": "Updated {Rows} rows in table {Table}.",
+            "message": "Updated {Rows} rows in table {Table}.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Rows",
+                    "string": "%[1]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 1,
+                    "expr": "rows"
+                },
+                {
+                    "id": "Table",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "column.Table"
+                }
+            ]
+        },
+        {
+            "id": "Getting import list: {Error}",
+            "message": "Getting import list: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Deleting {Name} import list: {ListID}: {Error}",
+            "message": "Deleting {Name} import list: {ListID}: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "ListID",
+                    "string": "%[2]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 2,
+                    "expr": "listID"
+                },
+                {
+                    "id": "Error",
+                    "string": "%[3]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 3,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Getting block lists: {Error}",
+            "message": "Getting block lists: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Deleting {Name} block list: {ListID}: {Error}",
+            "message": "Deleting {Name} block list: {ListID}: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "ListID",
+                    "string": "%[2]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 2,
+                    "expr": "listID"
+                },
+                {
+                    "id": "Error",
+                    "string": "%[3]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 3,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Deleted {Name} block list with ID {ListID}.",
+            "message": "Deleted {Name} block list with ID {ListID}.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "ListID",
+                    "string": "%[2]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 2,
+                    "expr": "listID"
+                }
+            ]
+        },
+        {
+            "id": "Getting download clients: {Error}",
+            "message": "Getting download clients: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Deleting {Name} download client: {ClientID}: {Error}",
+            "message": "Deleting {Name} download client: {ClientID}: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "ClientID",
+                    "string": "%[2]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 2,
+                    "expr": "clientID"
+                },
+                {
+                    "id": "Error",
+                    "string": "%[3]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 3,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Deleted {Name} download client with ID {ClientID}.",
+            "message": "Deleted {Name} download client with ID {ClientID}.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "ClientID",
+                    "string": "%[2]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 2,
+                    "expr": "clientID"
+                }
+            ]
+        },
+        {
+            "id": "Getting indexers: {Error}",
+            "message": "Getting indexers: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Deleting {Name} indexer: {IndexerID}: {Error}",
+            "message": "Deleting {Name} indexer: {IndexerID}: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "IndexerID",
+                    "string": "%[2]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 2,
+                    "expr": "indexerID"
+                },
+                {
+                    "id": "Error",
+                    "string": "%[3]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 3,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Deleted {Name} indexer with ID {IndexerID}.",
+            "message": "Deleted {Name} indexer with ID {IndexerID}.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "IndexerID",
+                    "string": "%[2]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 2,
+                    "expr": "indexerID"
+                }
+            ]
+        },
+        {
+            "id": "Updated {Name} indexer {IndexerName} ({IndexerID}).",
+            "message": "Updated {Name} indexer {IndexerName} ({IndexerID}).",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "IndexerName",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "indexerName"
+                },
+                {
+                    "id": "IndexerID",
+                    "string": "%[3]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 3,
+                    "expr": "indexerID"
+                }
+            ]
+        },
+        {
+            "id": "Updating {Name} indexer: {IndexerName} ({IndexerID}): {Error}",
+            "message": "Updating {Name} indexer: {IndexerName} ({IndexerID}): {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "name"
+                },
+                {
+                    "id": "IndexerName",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "indexerName"
+                },
+                {
+                    "id": "IndexerID",
+                    "string": "%[3]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 3,
+                    "expr": "indexerID"
+                },
+                {
+                    "id": "Error",
+                    "string": "%[4]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 4,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Getting quality profiles: {Error}",
+            "message": "Getting quality profiles: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "<li>Connection test successful! Found {App} ({Name}) with version {Version}.</li>",
+            "message": "<li>Connection test successful! Found {App} ({Name}) with version {Version}.</li>",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "App",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "test.App"
+                },
+                {
+                    "id": "Name",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "test.Name"
+                },
+                {
+                    "id": "Version",
+                    "string": "%[3]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 3,
+                    "expr": "test.Version"
+                }
+            ]
+        },
+        {
+            "id": "Querying Sqlite3 DB: {Error}",
+            "message": "Querying Sqlite3 DB: {Error}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Error",
+                    "string": "%[1]v",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "err.Error()"
+                }
+            ]
+        },
+        {
+            "id": "Really delete {Name} root folder?\nPath: {Folder}\nThis Action cannot be undone, and this application does not make backups.",
+            "message": "Really delete {Name} root folder?\nPath: {Folder}\nThis Action cannot be undone, and this application does not make backups.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Name",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "Folder",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "folder"
+                }
+            ]
+        },
+        {
+            "id": "Delete Root Folder",
+            "message": "Delete Root Folder",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": ""
+        },
+        {
+            "id": "Choose File",
+            "message": "Choose File",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": ""
+        },
+        {
+            "id": "Opening file browser: {Err}",
+            "message": "Opening file browser: {Err}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Err",
+                    "string": "%[1]v",
+                    "type": "error",
+                    "underlyingType": "interface{Error() string}",
+                    "argNum": 1,
+                    "expr": "err"
+                }
+            ]
+        },
+        {
+            "id": "Unset recycle bin path! Rows Updated: {Count}",
+            "message": "Unset recycle bin path! Rows Updated: {Count}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Count",
+                    "string": "%[1]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 1,
+                    "expr": "count"
+                }
+            ]
+        },
+        {
+            "id": "Success! Deleted root folder: {Folder}",
+            "message": "Success! Deleted root folder: {Folder}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Folder",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "folder"
+                }
+            ]
+        },
+        {
+            "id": "Unset Recycle Bin",
+            "message": "Unset Recycle Bin",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": ""
+        },
+        {
+            "id": "Changed recycle bin path! Rows Updated: {Count}",
+            "message": "Changed recycle bin path! Rows Updated: {Count}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Count",
+                    "string": "%[1]d",
+                    "type": "int64",
+                    "underlyingType": "int64",
+                    "argNum": 1,
+                    "expr": "count"
+                }
+            ]
+        },
+        {
+            "id": "Success! Changed Root Folder from '{OldPath}' to '{NewPath}'.",
+            "message": "Success! Changed Root Folder from '{OldPath}' to '{NewPath}'.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "OldPath",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "oldPath"
+                },
+                {
+                    "id": "NewPath",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "newPath"
+                }
+            ]
         }
     ]
 }

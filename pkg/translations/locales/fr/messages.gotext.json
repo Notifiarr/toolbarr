@@ -2224,6 +2224,55 @@
                     "expr": "err.Error()"
                 }
             ]
+        },
+        {
+            "id": "Would you like to merge these paths?\n{NewPath}\n{OldPath}",
+            "message": "Would you like to merge these paths?\n{NewPath}\n{OldPath}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "NewPath",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "newPath"
+                },
+                {
+                    "id": "OldPath",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "oldPath"
+                }
+            ]
+        },
+        {
+            "id": "Root Folder Already Exists",
+            "message": "Root Folder Already Exists",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": ""
+        },
+        {
+            "id": "Skipping path (wrong prefix): {Path}",
+            "message": "Skipping path (wrong prefix): {Path}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "",
+            "placeholders": [
+                {
+                    "id": "Path",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "entry.Path"
+                }
+            ]
         }
     ]
 }
