@@ -6,7 +6,7 @@ require (
 	github.com/gorilla/schema v1.4.0
 	github.com/jmoiron/sqlx v1.4.0
 	github.com/mitchellh/go-homedir v1.1.0
-	github.com/wailsapp/wails/v2 v2.8.2
+	github.com/wailsapp/wails/v2 v2.9.1
 	golang.org/x/mod v0.18.0
 	golang.org/x/text v0.16.0
 	golift.io/datacounter v1.0.4
