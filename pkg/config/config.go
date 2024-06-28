@@ -201,13 +201,14 @@ func (i *Input) setDefaults(s *Settings) *Settings { //nolint:varnamelen
 	}
 
 	if s.Instances == nil {
-		s.Instances = starrs.Instances{
-			starr.Lidarr.String():   []starrs.AppConfig{},
-			starr.Prowlarr.String(): []starrs.AppConfig{},
-			starr.Radarr.String():   []starrs.AppConfig{},
-			starr.Readarr.String():  []starrs.AppConfig{},
-			starr.Sonarr.String():   []starrs.AppConfig{},
-			starr.Whisparr.String(): []starrs.AppConfig{},
+		s.Instances = starrs.Instances{}
+	}
+
+	for _, app := range []starr.App{
+		starr.Lidarr, starr.Prowlarr, starr.Radarr, starr.Readarr, starr.Sonarr, starr.Whisparr,
+	} {
+		if s.Instances[app.String()] == nil {
+			s.Instances[app.String()] = []starrs.AppConfig{}
 		}
 	}
 
