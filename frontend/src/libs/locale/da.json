@@ -147,7 +147,19 @@
         "UpdatingDownloadClients": "Opdatering af downloadklienter!",
         "UpdatingImportLists": "Opdatering af importlister",
         "UpdatingIndexers": "Opdatering af indeksere!",
-        "UpdatingQualityProfiles": "Opdatering af kvalitetsprofiler"
+        "UpdatingQualityProfiles": "Opdatering af kvalitetsprofiler",
+        "UpdatingExclusions": "Opdatering af ekskluderinger!",
+        "Exclusions": "Udelukkelser",
+        "ExportSelected": "Eksportér {count} valgt",
+        "ExportingDownloadClients": "Eksport af downloadklienter",
+        "ExportingIndexers": "Eksport af indeksere",
+        "ImportFile": "Importer fil",
+        "ImportingDownloadClients": "Import af downloadklienter",
+        "ImportingImportLists": "Import af importlister",
+        "ImportingIndexers": "Import af indeksere",
+        "ImportSelection": "Importer udvalg",
+        "CloseImportModal": "Lukning af dialogmodal begynder at importere de valgte elementer.",
+        "ExportingImportLists": "Eksport af importlister"
     },
     "words": {
         "Config": "Config",
@@ -224,7 +236,8 @@
         "None": "Ingen",
         "Protocol": "Protokol",
         "Standard": "Standard",
-        "Year": "År"
+        "Year": "År",
+        "Import": "Importere"
     },
     "configinput": {
         "Updates": "Opdateringer",
