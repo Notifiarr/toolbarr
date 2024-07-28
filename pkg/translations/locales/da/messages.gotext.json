@@ -2189,6 +2189,163 @@
                     "expr": "entry.Path"
                 }
             ]
+        },
+        {
+            "id": "Save {Count} {App} {Item}",
+            "message": "Save {Count} {App} {Item}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Gem {Count} {App} {Item}",
+            "placeholders": [
+                {
+                    "id": "Count",
+                    "string": "%[1]d",
+                    "type": "int",
+                    "underlyingType": "int",
+                    "argNum": 1,
+                    "expr": "count"
+                },
+                {
+                    "id": "App",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "config.App"
+                },
+                {
+                    "id": "Item",
+                    "string": "%[3]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 3,
+                    "expr": "item"
+                }
+            ]
+        },
+        {
+            "id": "Opening file: {Err}",
+            "message": "Opening file: {Err}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Åbner fil: {Err}",
+            "placeholders": [
+                {
+                    "id": "Err",
+                    "string": "%[1]v",
+                    "type": "error",
+                    "underlyingType": "interface{Error() string}",
+                    "argNum": 1,
+                    "expr": "err"
+                }
+            ]
+        },
+        {
+            "id": "Saved {Count} {Item} to {FilePath}",
+            "message": "Saved {Count} {Item} to {FilePath}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Gemte {Count} {Item} til {FilePath}",
+            "placeholders": [
+                {
+                    "id": "Count",
+                    "string": "%[1]d",
+                    "type": "int",
+                    "underlyingType": "int",
+                    "argNum": 1,
+                    "expr": "count"
+                },
+                {
+                    "id": "Item",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "item"
+                },
+                {
+                    "id": "FilePath",
+                    "string": "%[3]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 3,
+                    "expr": "filePath"
+                }
+            ]
+        },
+        {
+            "id": "Select Export File",
+            "message": "Select Export File",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Vælg Eksporter fil"
+        },
+        {
+            "id": "Decoding input file failed: {Err}",
+            "message": "Decoding input file failed: {Err}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Afkodning af inputfil mislykkedes: {Err}",
+            "placeholders": [
+                {
+                    "id": "Err",
+                    "string": "%[1]v",
+                    "type": "error",
+                    "underlyingType": "interface{Error() string}",
+                    "argNum": 1,
+                    "expr": "err"
+                }
+            ]
+        },
+        {
+            "id": "Encoding and writing file: {Err}",
+            "message": "Encoding and writing file: {Err}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Kodning og skrivning af fil: {Err}",
+            "placeholders": [
+                {
+                    "id": "Err",
+                    "string": "%[1]v",
+                    "type": "error",
+                    "underlyingType": "interface{Error() string}",
+                    "argNum": 1,
+                    "expr": "err"
+                }
+            ]
+        },
+        {
+            "id": "Getting {Item} from {Name}: {Err}",
+            "message": "Getting {Item} from {Name}: {Err}",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true,
+            "translation": "Henter {Item} fra {Name}: {Err}",
+            "placeholders": [
+                {
+                    "id": "Item",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "item"
+                },
+                {
+                    "id": "Name",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "config.Name"
+                },
+                {
+                    "id": "Err",
+                    "string": "%[3]v",
+                    "type": "error",
+                    "underlyingType": "interface{Error() string}",
+                    "argNum": 3,
+                    "expr": "err"
+                }
+            ]
         }
     ]
 }
