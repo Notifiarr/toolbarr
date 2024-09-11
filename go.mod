@@ -1,13 +1,15 @@
 module github.com/Notifiarr/toolbarr
 
-go 1.22
+go 1.22.0
+
+toolchain go1.23.1
 
 require (
 	github.com/gorilla/schema v1.4.0
 	github.com/jmoiron/sqlx v1.4.0
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/wailsapp/wails/v2 v2.9.1
-	golang.org/x/mod v0.18.0
+	golang.org/x/mod v0.21.0
 	golang.org/x/text v0.16.0
 	golift.io/datacounter v1.0.4
 	golift.io/rotatorr v0.0.0-20230911015553-cd2abbd726c7
