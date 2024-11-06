@@ -74,7 +74,8 @@
         "Date": "Date",
         "Default": "Défaut",
         "Form": "Formulaire",
-        "Timeout": "Timeout"
+        "Timeout": "Timeout",
+        "Import": "Import"
     },
     "configtooltip": {
         "Updates": "La production reçoit les mises à jour de GitHub, instable les reçoit de unstable.golift.io",
@@ -282,7 +283,19 @@
         "MovieandCollection": "Film et Collection",
         "AllArtistAlbums": "Tous les albums de l'artiste",
         "SpecificAlbum": "Album spécifique",
-        "minimumAvailabilityTitle": "Disponibilité minimale"
+        "minimumAvailabilityTitle": "Disponibilité minimale",
+        "UpdatingExclusions": "Mise à jour des exclusions !",
+        "Exclusions": "Exclusions",
+        "ExportSelected": "Exporter {count} Sélectionné",
+        "ImportFile": "Importer fichier",
+        "ExportingDownloadClients": "Exportation des clients de téléchargement",
+        "ExportingIndexers": "Exportation des indexeurs",
+        "ExportingImportLists": "Exportation des listes d'importation",
+        "ImportingIndexers": "Importation d'indexeurs",
+        "CloseImportModal": "La fermeture de la boîte de dialogue modale lance l'importation des éléments sélectionnés.",
+        "ImportingDownloadClients": "Importation de clients de téléchargement",
+        "ImportingImportLists": "Importation de listes d'importation",
+        "ImportSelection": "Importer Sélection"
     },
     "incompletePage": "Cet outil ou page est incomplet.",
     "32characterhash": "hash de 32 caractères",
