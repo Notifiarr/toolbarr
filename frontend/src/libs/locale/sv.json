@@ -74,7 +74,8 @@
         "Standard": "Standard",
         "Form": "Form",
         "Timeout": "Timeout",
-        "Unsaved": "Ej sparad"
+        "Unsaved": "Ej sparad",
+        "Import": "Importera"
     },
     "configtooltip": {
         "File": "Kan endast ändras vid applikationsstart",
@@ -250,7 +251,19 @@
         "TestingImportLists": "Testar importlistor",
         "TestingIndexers": "Testar indexerare",
         "unsupportedColumn": "Denna kolumn kan inte åtgärdas av det här verktyget för närvarande.",
-        "shouldMonitorDesc": "Vilka nya föremål som bör övervakas."
+        "shouldMonitorDesc": "Vilka nya föremål som bör övervakas.",
+        "UpdatingExclusions": "Uppdaterar undantag!",
+        "Exclusions": "Uteslutningar",
+        "ExportSelected": "Exportera {count} valda",
+        "ExportingImportLists": "Exportera importlistor",
+        "ExportingIndexers": "Exportera indexerare",
+        "ImportFile": "Importera fil",
+        "ImportingDownloadClients": "Importera nedladdningsklienter",
+        "ImportingImportLists": "Importera importlistor",
+        "ImportingIndexers": "Importera indexerare",
+        "CloseImportModal": "När dialogrutan stängs börjar importen av de valda objekten.",
+        "ImportSelection": "Importera urval",
+        "ExportingDownloadClients": "Exportera nedladdningsklienter"
     },
     "customconfig": {
         "CreateShortcut": "Skapa genväg",
