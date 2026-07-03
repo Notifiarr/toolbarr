@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Notifiarr Discord
+    url: https://notifiarr.com/discord
+    about: For support, questions, and general help, please join our Discord server.
+  - name: Toolbarr Wiki
+    url: https://github.com/Notifiarr/toolbarr/wiki
+    about: Documentation and guides for using Toolbarr.
