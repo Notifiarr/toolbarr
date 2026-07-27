@@ -1,6 +1,6 @@
 module github.com/Notifiarr/toolbarr
 
-go 1.22
+go 1.24.9
 
 require (
 	github.com/gorilla/schema v1.4.0
@@ -10,7 +10,7 @@ require (
 	golang.org/x/mod v0.18.0
 	golang.org/x/text v0.16.0
 	golift.io/datacounter v1.0.4
-	golift.io/rotatorr v0.0.0-20230911015553-cd2abbd726c7
+	golift.io/rotatorr v0.0.0-20260217050959-f6ac6fc7b38e
 	golift.io/starr v1.0.1-0.20240613071024-686fe687196a
 	golift.io/version v0.0.2
 	modernc.org/sqlite v1.30.1
