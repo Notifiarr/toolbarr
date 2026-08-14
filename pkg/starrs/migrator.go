@@ -63,12 +63,18 @@ func AppTables(app string) AppTable {
 			"ImportLists": {Table: "ImportLists", Column: "RootFolderPath", Name: "Name"},
 		},
 		"Sonarr": {
-			"Series":      {Table: "Series", Column: "Path", Name: `""`},
-			"ImportLists": {Table: "ImportLists", Column: "RootFolderPath", Name: "Name"},
+			"Series":        {Table: "Series", Column: "Path", Name: `""`},
+			"EpisodeFiles":  {Table: "EpisodeFiles", Column: "RelativePath", Name: `""`},
+			"MetadataFiles": {Table: "MetadataFiles", Column: "RelativePath", Name: `""`},
+			"SubtitleFiles": {Table: "SubtitleFiles", Column: "RelativePath", Name: `""`},
+			"ImportLists":   {Table: "ImportLists", Column: "RootFolderPath", Name: "Name"},
 		},
 		"Whisparr": {
-			"Series":      {Table: "Series", Column: "Path", Name: `""`},
-			"ImportLists": {Table: "ImportLists", Column: "RootFolderPath", Name: "Name"},
+			"Series":        {Table: "Series", Column: "Path", Name: `""`},
+			"EpisodeFiles":  {Table: "EpisodeFiles", Column: "RelativePath", Name: `""`},
+			"MetadataFiles": {Table: "MetadataFiles", Column: "RelativePath", Name: `""`},
+			"SubtitleFiles": {Table: "SubtitleFiles", Column: "RelativePath", Name: `""`},
+			"ImportLists":   {Table: "ImportLists", Column: "RootFolderPath", Name: "Name"},
 		},
 	}[app]
 }
@@ -369,12 +375,11 @@ func (s *Starrs) updateFilesRootFolder(
 		counter++
 		wr.EventsEmit(s.ctx, "DBfileCount", map[string]int64{table.Table: counter})
 
-		if !strings.HasPrefix(entry.Path, oldPath) {
-			s.log.Debugf("Skipping path (wrong prefix): %s", entry.Path)
+		update, ok := rewritePathForTable(entry.Path, table, oldPath, newPath)
+		if !ok {
+			s.log.Debugf("Skipping path (no rewrite needed): %s", entry.Path)
 			continue
 		}
-
-		update := strings.Replace(entry.Path, oldPath, newPath, 1)
 
 		rep, err := sql.Update(table.Table, table.Column, update, "Id="+fmt.Sprint(entry.ID))
 		if err != nil {
@@ -386,6 +391,24 @@ func (s *Starrs) updateFilesRootFolder(
 	}
 
 	return rowsAffected, nil
+}
+
+func rewritePathForTable(path string, table TableColumn, oldPath, newPath string) (string, bool) {
+	if table.Column != "RelativePath" {
+		if !strings.HasPrefix(path, oldPath) {
+			return "", false
+		}
+
+		return strings.Replace(path, oldPath, newPath, 1), true
+	}
+
+	oldSlash := pickSlash(oldPath)
+	newSlash := pickSlash(newPath)
+	if oldSlash == newSlash || !strings.Contains(path, oldSlash) {
+		return "", false
+	}
+
+	return strings.ReplaceAll(path, oldSlash, newSlash), true
 }
 
 func (s *Starrs) migratorInfo(sql *sqlConn, config *AppConfig) (*MigratorInfo, error) {
